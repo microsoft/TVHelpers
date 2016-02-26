@@ -1,0 +1,1148 @@
+﻿/* Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
+@font-face {
+  font-family: "Segoe UI Command";
+  src: local("Segoe MDL2 Assets");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Symbols";
+  src: url(fonts/SegXbox2Sym.1.17.woff);
+}
+body,
+input,
+textarea,
+button,
+select,
+option {
+  font-family: "Segoe UI", sans-serif, "Segoe MDL2 Assets", "Symbols";
+}
+button,
+input[type=button] {
+  border-style: solid;
+  margin: 0px;
+  min-height: 32px;
+  min-width: 120px;
+  padding: 4px 8px;
+  border-width: 2px;
+  background-clip: border-box;
+  border-radius: 0;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.333;
+}
+progress {
+  width: 180px;
+  height: 4px;
+  -webkit-appearance: none;
+}
+progress:not(:indeterminate) {
+  border-style: none;
+}
+progress::-ms-fill {
+  border-style: none;
+}
+progress.tv-medium {
+  width: 296px;
+}
+progress.tv-large {
+  width: 100%;
+}
+progress:indeterminate::-webkit-progress-value {
+  position: relative;
+  -webkit-animation: tv-progress-indeterminate 3s linear infinite;
+}
+progress.tv-paused:not(:indeterminate) {
+  animation-name: tv-progress-fade-out;
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(0.03, 0.76, 0.31, 1);
+  opacity: 0.5;
+}
+progress.tv-error::-ms-fill {
+  opacity: 0;
+}
+progress.tv-ring {
+  width: 20px;
+  height: 20px;
+}
+progress.tv-ring:indeterminate::-ms-fill {
+  animation-name: -ms-ring;
+}
+progress.tv-ring.tv-medium {
+  width: 40px;
+  height: 40px;
+}
+progress.tv-ring.tv-large {
+  width: 60px;
+  height: 60px;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 280px;
+  height: 22px;
+  padding-top: 17px;
+  padding-bottom: 32px;
+}
+input[type=range]::-ms-track {
+  height: 2px;
+  border-style: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 2px;
+  border-style: none;
+}
+input[type=range]::-moz-range-track {
+  height: 2px;
+  border-style: none;
+}
+input[type=range]::-ms-thumb {
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+  border-style: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -4px;
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+  border-style: none;
+}
+input[type=range]::-moz-range-thumb {
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+  border-style: none;
+}
+input[type=range].tv-vertical {
+  writing-mode: bt-lr;
+  width: 22px;
+  height: 280px;
+}
+input[type=range].tv-vertical::-ms-track {
+  width: 2px;
+  height: auto;
+}
+input[type=range].tv-vertical::-ms-thumb {
+  width: 8px;
+  height: 24px;
+}
+input[type=range].tv-vertical:lang(ar),
+input[type=range].tv-vertical:lang(dv),
+input[type=range].tv-vertical:lang(fa),
+input[type=range].tv-vertical:lang(he),
+input[type=range].tv-vertical:lang(ku-Arab),
+input[type=range].tv-vertical:lang(pa-Arab),
+input[type=range].tv-vertical:lang(prs),
+input[type=range].tv-vertical:lang(ps),
+input[type=range].tv-vertical:lang(sd-Arab),
+input[type=range].tv-vertical:lang(syr),
+input[type=range].tv-vertical:lang(ug),
+input[type=range].tv-vertical:lang(ur),
+input[type=range].tv-vertical:lang(qps-plocm) {
+  writing-mode: bt-rl;
+}
+progress:not(:indeterminate) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+progress.tv-ring {
+  background-color: transparent;
+}
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+button[type=submit] {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: transparent;
+}
+button:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=submit]:hover,
+button[type=submit]:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+button:active,
+input[type=button]:active,
+input[type=reset]:active,
+input[type=submit]:active,
+button[type=submit]:active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+button:disabled,
+input[type=button]:disabled,
+input[type=reset]:disabled,
+input[type=submit]:disabled,
+button[type=submit]:disabled {
+  color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: transparent;
+}
+input[type=submit],
+button[type=submit] {
+  color: #fff;
+}
+input[type=range] {
+  background-color: transparent;
+}
+input[type=range]:hover::-ms-thumb {
+  background: #f9f9f9;
+}
+input[type=range]:hover::-webkit-slider-thumb {
+  background: #f9f9f9;
+}
+input[type=range]:hover::-moz-range-thumb {
+  background: #f9f9f9;
+}
+input[type=range]:active::-ms-thumb {
+  background: #767676;
+}
+input[type=range]:active::-webkit-slider-thumb {
+  background: #767676;
+}
+input[type=range]:active::-moz-range-thumb {
+  background: #767676;
+}
+input[type=range]:disabled::-ms-thumb {
+  background: #333333;
+}
+input[type=range]:disabled::-webkit-slider-thumb {
+  background: #333333;
+}
+input[type=range]:disabled::-moz-range-thumb {
+  background: #333333;
+}
+input[type=range]:disabled::-ms-fill-lower {
+  background: rgba(255, 255, 255, 0.2);
+}
+input[type=range]::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]::-moz-range-track {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]:hover::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.6);
+}
+input[type=range]:hover::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.6);
+}
+input[type=range]:hover::-moz-range-track {
+  background: rgba(255, 255, 255, 0.6);
+}
+input[type=range]:active::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]:active::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]:active::-moz-range-track {
+  background: rgba(255, 255, 255, 0.4);
+}
+input[type=range]:disabled::-ms-fill-upper {
+  background: rgba(255, 255, 255, 0.2);
+}
+input[type=range]:disabled::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+input[type=range]:disabled::-moz-range-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+input[type=range]::-ms-track {
+  color: transparent;
+  background-color: transparent;
+}
+input[type=range]::-ms-ticks-before,
+input[type=range]::-ms-ticks-after {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes WinJS-opacity-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes WinJS-opacity-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes WinJS-scale-up {
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes WinJS-scale-down {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.85);
+  }
+}
+@keyframes WinJS-showPopup {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: none;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-opacity-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-opacity-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-scale-up {
+  from {
+    -webkit-transform: scale(0.85);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+@-webkit-keyframes -webkit-WinJS-scale-down {
+  from {
+    -webkit-transform: scale(1);
+  }
+  to {
+    -webkit-transform: scale(0.85);
+  }
+}
+/*
+Flyout control.
+*/
+.tv-flyout {
+  position: fixed;
+  position: -ms-device-fixed;
+  padding: 12px;
+  border-style: solid;
+  border-width: 1px;
+  margin: 4px;
+  min-width: 70px;
+  /* 96px - 2px border - 24px padding */
+  max-width: 430px;
+  /* 456px - 2px border - 24px padding */
+  min-height: 16px;
+  /* 44px - 2px border - 24px padding */
+  max-height: 730px;
+  /* 758px - 2px border - 24px padding */
+  width: auto;
+  height: auto;
+  word-wrap: break-word;
+  overflow: auto;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.333;
+}
+.tv-flyout.tv-leftalign {
+  margin-left: 0;
+}
+.tv-flyout.tv-rightalign {
+  margin-right: 0;
+}
+.tv-flyout.tv-scrolls {
+  overflow: auto;
+}
+@media (max-width: 464px) {
+  .tv-flyout {
+    max-width: calc(100% - 34px);
+    /* 100% - 8px margin - 2px border - 24px padding */
+  }
+}
+/*
+Grippers in touch selection do not dissapear when focus moves to an element outside of the selection range and they are always drawn on a layer above all HTML elemements.
+When an _Overlay derived control such as AppBar/Flyout/Menu/SettingsFlyout is invoked and steals focus, if that _Overlay is laid out on top of the elements in the touch selection,
+the grippers can still be seen over the _Overlay and its contents. However, all grippers any where in the document will be hidden whenever the current active element has or inherits
+the style "-ms-touch-select: none;"
+*/
+.tv-overlay {
+  -ms-touch-select: none;
+}
+/* For input elements we filter type using the :not selector to capture any unrecognized user specified types which would just default to the form and function of a textbox*/
+.tv-overlay input:not([type="file"]),
+.tv-overlay input:not([type="radio"]),
+.tv-overlay input:not([type="checkbox"]),
+.tv-overlay input:not([type="button"]),
+.tv-overlay input:not([type="range"]),
+.tv-overlay input:not([type="image"]),
+.tv-overlay input:not([type="reset"]),
+.tv-overlay input:not([type="hidden"]),
+.tv-overlay input:not([type="submit"]),
+.tv-overlay textarea,
+.tv-overlay [contenteditable=true] {
+  -ms-touch-select: grippers;
+}
+/* Singleton element maintained by _Overlay, used for getting accurate floating point measurements of the total size of the visual viewport.
+    Floating point is necesary in high DPI resolutions. */
+.tv-visualviewport-space {
+  position: fixed;
+  position: -ms-device-fixed;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+}
+
+/*Flyout control animations*/
+@keyframes WinJS-showFlyoutTop {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes WinJS-showFlyoutBottom {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes WinJS-showFlyoutLeft {
+  from {
+    transform: translateX(50px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes WinJS-showFlyoutRight {
+  from {
+    transform: translateX(-50px);
+  }
+  to {
+    transform: none;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-showFlyoutTop {
+  from {
+    -webkit-transform: translateY(50px);
+  }
+  to {
+    -webkit-transform: none;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-showFlyoutBottom {
+  from {
+    -webkit-transform: translateY(-50px);
+  }
+  to {
+    -webkit-transform: none;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-showFlyoutLeft {
+  from {
+    -webkit-transform: translateX(50px);
+  }
+  to {
+    -webkit-transform: none;
+  }
+}
+@-webkit-keyframes -webkit-WinJS-showFlyoutRight {
+  from {
+    -webkit-transform: translateX(-50px);
+  }
+  to {
+    -webkit-transform: none;
+  }
+}
+.tv-tooltip {
+  display: block;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  max-width: 320px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px 7px 6px 7px;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 9999;
+  word-wrap: break-word;
+  animation-fill-mode: both;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.167;
+}
+.tv-tooltip-phantom {
+  display: block;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  background-color: transparent;
+  border-width: 0;
+  margin: 0;
+  padding: 0;
+}
+@media (-ms-high-contrast) {
+  .tv-tooltip {
+    background-color: Window;
+    border-color: WindowText;
+    color: WindowText;
+  }
+}
+.tv-clickeater {
+  background-color: transparent;
+  width: 110%;
+  height: 110%;
+  left: -5%;
+  top: -5%;
+  position: fixed;
+  touch-action: none;
+  outline: 1px solid Purple;
+  /*Necessary to block passthrough over webviews*/
+  -ms-high-contrast-adjust: none;
+}
+
+.tv-mediaplayer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  /*z-index: 1000;*/
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.tv-mediaplayer.tv-mediaplayer-fullscreen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+.tv-mediaplayer .tv-mediaplayer-hidden {
+  display: none;
+}
+.tv-mediaplayer-hidden {
+  display: none;
+}
+
+.tv-mediaplayer-container {
+  height: 100%;
+  width: 100%;
+}
+.tv-mediaplayer-video {
+  height: 100%;
+  width: 100%;
+}
+.tv-mediaplayer-fullscreen .tv-mediaplayer-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* In both the single and double row layouts we adjust the margin-bottom so that the bottom of the flyout 
+ will appear just above the timeline. */
+.tv-mediaplayer-singlerow .tv-flyout,
+.tv-mediaplayer-singlerow.tv-flyout {
+  margin-bottom: 0;
+}
+.tv-mediaplayer-singlerow .tv-mediaplayer-timeline {
+  width: auto;
+}
+.tv-mediaplayer-singlerow .tv-mediaplayer-transportcontrols {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.tv-mediaplayer-singlerow .tv-mediaplayer-thumbnail {
+  margin-top: -50px;
+}
+.tv-mediaplayer-doublerow .tv-flyout,
+.tv-mediaplayer-doublerow.tv-flyout {
+  margin-bottom: 48px;
+}
+.tv-mediaplayer-doublerow .tv-mediaplayer-transportcontrols {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: auto;
+  padding: 0 12px 24px 12px;
+  width: calc(100% - 24px);
+}
+.tv-mediaplayer-doublerow .tv-mediaplayer-timeline,
+.tv-mediaplayer-doublerow .tv-mediaplayer-commands {
+  height: 48px;
+}
+.tv-mediaplayer-doublerow .tv-mediaplayer-currenttimeindicator,
+.tv-mediaplayer-doublerow .tv-mediaplayer-timeremainingindicator {
+  display: inline-block;
+  margin-top: 12px;
+}
+.tv-mediaplayer-doublerow .tv-mediaplayer-timeremainingindicator {
+  float: right;
+}
+/* The indefinite progress indicator displayed while media is loading */
+progress.tv-mediaplayer-busy {
+  position: absolute;
+  top: calc(50% - 30px);
+  /*30px = height of the progress ring / 2*/
+  left: calc(50% - 30px);
+  /*30px = width of the progress ring / 2*/
+}
+.tv-mediaplayer-fullscreen progress.tv-mediaplayer-busy {
+  position: absolute;
+  top: calc(50% - 80px);
+  /*80px = height of the progress ring / 2*/
+  left: calc(50% - 80px);
+  /*80px = width of the progress ring / 2*/
+  height: 160px;
+  width: 160px;
+}
+.tv-mediaplayer-controls {
+  height: 100%;
+  width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  /* These styles are needed for the controls to show up in the correct
+       place for non-fullscreen mode. */
+  position: absolute;
+  bottom: 0;
+}
+/* Title and description */
+.tv-mediaplayer-mediatitle,
+.tv-mediaplayer-mediadescription {
+  height: auto;
+  padding-left: 12px;
+}
+.tv-mediaplayer-mediadescription {
+  padding-bottom: 48px;
+  width: 100%;
+}
+.tv-mediaplayer-transportcontrols {
+  width: 100%;
+  height: 48px;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  min-width: 296px;
+}
+.tv-mediaplayer-primary,
+.tv-mediaplayer-secondary {
+  height: 100%;
+  width: auto;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.tv-mediaplayer-timeline {
+  height: 100%;
+  width: 100%;
+  margin: 0 12px 3px 12px;
+}
+.tv-mediaplayer-currenttimeindicator,
+.tv-mediaplayer-timeremainingindicator {
+  display: none;
+  font-family: 'Segoe UI';
+}
+.tv-mediaplayer-progresscontainer {
+  width: 100%;
+  height: 2px;
+  padding: 22px 0;
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+.tv-mediaplayer-seekbar {
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 22px;
+}
+.tv-mediaplayer-seekprogress,
+.tv-mediaplayer-buffer {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  -moz-transform-origin: left;
+  -ms-transform-origin: left;
+  -o-transform-origin: left;
+  -webkit-transform-origin: left;
+  transform-origin: left;
+}
+.tv-mediaplayer-seekbar-disabled .tv-mediaplayer-buffer {
+  display: none;
+}
+.tv-mediaplayer-seek-mark {
+  -moz-background-clip: border-box;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  margin-top: -11px;
+  margin-left: 8px;
+}
+.tv-mediaplayer-scrubbing .tv-mediaplayer-seek-mark,
+.tv-mediaplayer-fastforward .tv-mediaplayer-seek-mark,
+.tv-mediaplayer-rewind .tv-mediaplayer-seek-mark {
+  margin-top: 17px;
+}
+.tv-mediaplayer-scrubbing .tv-mediaplayer-thumbnailmode .tv-mediaplayer-seek-mark,
+.tv-mediaplayer-fastforward .tv-mediaplayer-thumbnailmode .tv-mediaplayer-seek-mark,
+.tv-mediaplayer-rewind .tv-mediaplayer-thumbnailmode .tv-mediaplayer-seek-mark {
+  margin-top: 15px;
+}
+.tv-mediaplayer-thumb.tv-mediaplayer-hidden .tv-mediaplayer-thumbvisual {
+  opacity: 0;
+  -moz-transform: scale(1, 0.3);
+  -ms-transform: scale(1, 0.3);
+  -o-transform: scale(1, 0.3);
+  -webkit-transform: scale(1, 0.3);
+  transform: scale(1, 0.3);
+  -moz-transition-property: opacity transform;
+  -o-transition-property: opacity transform;
+  -webkit-transition-property: opacity transform;
+  transition-property: opacity transform;
+  -moz-transition-duration: 100ms;
+  -o-transition-duration: 100ms;
+  -webkit-transition-duration: 100ms;
+  transition-duration: 100ms;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+.tv-mediaplayer-thumb:not(.tv-mediaplayer-hidden) .tv-mediaplayer-thumbvisual {
+  opacity: 1;
+  -moz-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+  -moz-transition-property: opacity transform;
+  -o-transition-property: opacity transform;
+  -webkit-transition-property: opacity transform;
+  transition-property: opacity transform;
+  -moz-transition-duration: 100ms;
+  -o-transition-duration: 100ms;
+  -webkit-transition-duration: 100ms;
+  transition-duration: 100ms;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+/* Thumb visuals */
+.tv-mediaplayer-seekbarvisualelements-container {
+  margin-left: -11px;
+}
+.tv-mediaplayer-thumbnail {
+  height: auto;
+  width: 42px;
+  margin-top: -54px;
+  margin-left: -2px;
+}
+.tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnail {
+  height: 64px;
+  width: 112px;
+  margin-top: -92px;
+  margin-left: -37px;
+}
+.tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnailmode .tv-mediaplayer-seektimeindicator {
+  margin-left: 0;
+  margin-right: 0;
+}
+.tv-mediaplayer-thumbnailmode .tv-mediaplayer-playbackspeedindicator {
+  display: block;
+}
+.tv-mediaplayer-thumb,
+.tv-mediaplayer-thumbnailvisual {
+  height: 100%;
+  width: 100%;
+}
+.tv-mediaplayer-thumbnailvisual {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.tv-mediaplayer-playbackspeedindicator {
+  height: 100%;
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+  padding-top: 4px;
+  padding-right: 8px;
+  display: none;
+}
+/* Markers */
+.tv-mediaplayer-chaptermarker,
+.tv-mediaplayer-advertisementmarker {
+  height: 6px;
+  width: 6px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-background-clip: border-box;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: -5.8px;
+}
+/* Shared overlay styles */
+.tv-mediaplayer-overlay {
+  color: rgb(255, 255, 255);
+}
+.tv-mediaplayer-overlay.tv-flyout {
+  padding: 0;
+}
+.tv-mediaplayer-overlay > button {
+  display: block;
+  padding: 11px 12px 13px 12px;
+  min-height: 44px;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.333;
+  outline: none;
+  border: none;
+}
+/* Error overlay */
+.tv-mediaplayer-errortext {
+  margin: 8px 12px;
+}
+/* Volume overlay */
+.tv-mediaplayer-volume.tv-mediaplayer-overlay {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 86px;
+  max-width: 360px;
+  padding: 12px 16px;
+  font-family: 'Segoe UI';
+}
+.tv-mediaplayer-volume .tv-mediaplayer-volume-slider {
+  height: 48px;
+  padding: 0 16px;
+}
+.tv-mediaplayer-volume input[type=range]::-ms-tooltip {
+  display: none;
+}
+.tv-mediaplayer-volume-heading {
+  padding: 10px 0 6px 0;
+}
+.tv-mediaplayer-volume-controls {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.tv-mediaplayer-volume-icon::after {
+  font-family: 'Segoe MDL2 Assets';
+  font-size: 15pt;
+  content: '\E767';
+}
+.tv-mediaplayer-mute-icon::after {
+  font-family: 'Segoe MDL2 Assets';
+  font-size: 15pt;
+  content: '\E74F';
+}
+button.tv-mediaplayer-mutebutton {
+  height: 48px;
+  width: 48px;
+  border: none;
+}
+/* We need to set a width explicitly on the value of the volume control
+   otherwise the layout will move when the value is a single digit number 
+   (eg. 0) vs. a multi-digit number (eg. 100). */
+.tv-mediaplayer-volume-value {
+  width: 32px;
+  line-height: 48px;
+}
+/* Unless we have an explicit rule, the focus accessibility outline won't show up. */
+button.tv-mediaplayer-mutebutton:focus {
+  outline: 1px dotted;
+}
+.tv-mediaplayer-seektimeindicator {
+  padding: 2px 6px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.tv-mediaplayer-inputfeedback {
+  display: none;
+}
+
+/* Icons */
+.tv-mediaplayer-icon {
+    font-family: "Symbols";
+}
+.tv-mediaplayer-audiotracksicon::after {
+    content: "\E386";
+}
+.tv-mediaplayer-backtowindowicon::after {
+	content: "\E5BE";
+}
+.tv-mediaplayer-chapterskipbackicon::after {
+    content: "\E40B";
+}
+.tv-mediaplayer-chapterskipforwardicon::after {
+    content: "\E40A";
+}
+.tv-mediaplayer-closedcaptionsicon::after {
+    content: "\E437";
+}
+.tv-mediaplayer-fastforwardicon::after {
+	content: '\E44B';
+}
+.tv-mediaplayer-fullscreenicon::after {
+    content: "\E45A";
+}
+.tv-mediaplayer-liveicon::after {
+    content: "\E44A";
+}
+.tv-mediaplayer-nexttrackicon::after {
+    content: "\E402";
+}
+.tv-mediaplayer-pauseicon::after {
+    content: "\E40C";
+}
+.tv-mediaplayer-playicon::after {
+    content: "\E40D";
+}
+.tv-mediaplayer-playbackrateicon::after {
+    content: "\E33C";
+}
+.tv-mediaplayer-playonremotedeviceicon::after {
+    content: "\E506";
+}
+.tv-mediaplayer-previoustrackicon::after {
+    content: "\E403";
+}
+.tv-mediaplayer-replayicon::after {
+    content: "\E463";
+}
+.tv-mediaplayer-rewindicon::after {
+    content: "\E44C";
+}
+.tv-mediaplayer-stopicon::after {
+    content: "\E407";
+}
+.tv-mediaplayer-timeskipbackicon::after {
+    content: "\E44F";
+}
+.tv-mediaplayer-timeskipforwardicon::after {
+    content: "\E44E";
+}
+.tv-mediaplayer-volumeicon::after {
+    content: "\E393";
+}
+.tv-mediaplayer-zoomicon::after {
+    content: "\E507";
+}
+
+/* Button styles */
+.tv-mediaplayer-transportcontrols-commands button {
+    background: transparent;
+}
+
+@media (-ms-high-contrast) {
+  .tv-mediaplayer-seekbar {
+    background-color: Highlight;
+  }
+  .tv-mediaplayer-seekprogress {
+    background-color: Highlight;
+  }
+  .tv-mediaplayer-buffer {
+    background-color: ButtonText;
+  }
+  .tv-mediaplayer-volume-slider {
+    background-color: ButtonText;
+  }
+}
+.tv-overlay {
+  outline: none;
+}
+
+.tv-flyout,
+.tv-flyout {
+  background-color: #000000;
+}
+.tv-tooltip {
+  color: #ffffff;
+  border-color: #767676;
+  background-color: #2b2b2b;
+}
+.tv-mediaplayer.tv-mediaplayer-fullscreen {
+  background-color: #393939;
+}
+.tv-mediaplayer-transportcontrols {
+  background-color: #393939;
+}
+.tv-mediaplayer-seekbar {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+.tv-mediaplayer-buffer {
+  background-color: #ffffff;
+}
+.tv-mediaplayer-seek-mark {
+  background-color: #393939;
+}
+.tv-mediaplayer-thumbnail {
+  background-color: #1f1f1f;
+  border: 1px solid #565656;
+}
+.tv-mediaplayer-thumbnailmode .tv-mediaplayer-seektimeindicator {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.tv-mediaplayer-chaptermarker,
+.tv-mediaplayer-advertisementmarker {
+  background-color: #ffffff;
+}
+.tv-mediaplayer-seektimeindicator {
+  background-color: transparent;
+}
+.tv-mediaplayer-toolbar .tv-toolbar-actionarea {
+  background-color: transparent;
+}
+.tv-mediaplayer-volume.tv-mediaplayer-overlay {
+  background-color: #393939;
+}
+button.tv-mediaplayer-mutebutton {
+  background-color: transparent;
+  color: #ffffff;
+}
+@media (-ms-high-contrast) {
+  .tv-overlay {
+    outline: none;
+  }
+  .tv-flyout,
+  .tv-flyout {
+    background-color: ButtonFace;
+  }
+}
+
+<!--Xbox styles-->
+/* For some bizarre reason, this style rule will only take effect if it's listed twice */
+.tv-mediaplayer {
+	font-size: 24px;
+	font-weight: 300;
+}
+.tv-mediaplayer {
+	font-weight: 300;
+}
+.tv-mediaplayer-transportcontrols {
+	background-color: transparent;
+}
+.tv-mediaplayer-doublerow .tv-mediaplayer-transportcontrols {
+	padding: 0;
+	margin: 0 64px;
+	width: calc(100% - 128px);
+	background-color: transparent;
+}
+.tv-mediaplayer-transportcontrols button {
+	outline: none;
+	min-width: auto;
+	height: 96px;
+	width: 96px;
+}
+.tv-mediaplayer-transportcontrols button .tv-mediaplayer-icon {
+	height: 32px;
+	width: 32px;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
+}
+.tv-mediaplayer-transportcontrols button:focus .tv-mediaplayer-icon {
+	color: rgb(0, 120, 215);
+	transform: scale(2);
+}
+.tv-mediaplayer-transportcontrols button:active .tv-mediaplayer-icon {
+	transform: scale(1);
+}
+
+.tv-mediaplayer-seek-mark {
+	background: rgb(0, 120, 215);
+	height: 8px;
+	width: 8px;
+	margin-left: 3px;
+	margin-top: -3px;
+}
+.tv-mediaplayer-controls {
+	background-image: -ms-linear-gradient(bottom, rgba(16,16,16, .6) 15%, rgba(16,16,16, 0) 50%, rgba(16,16,16, .7) 85%);
+}
+
+.tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnail {
+  margin-top: -84px;
+  margin-left: -48px;
+}
+
+/* TODO: Have 1 "brand color" style that you can use to override everything */

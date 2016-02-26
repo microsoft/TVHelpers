@@ -1,0 +1,119 @@
+/* SearchBox Control */
+.tv-searchbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Segoe UI";
+    font-size: 24px;
+    width: 100vw;
+}
+
+.tv-searchbox-letterscontainer {
+    display: flex;
+    justify-content: center;
+    min-width: 100%;
+}
+
+input[type=text].tv-searchbox-input {
+    display: block;
+    height: 64px;
+    width: 40vw;
+    background-color: rgb(235, 235, 235);
+    color: rgb(16, 16, 16);
+    text-indent: 8px;
+    user-select: element;
+	min-width: 250px;
+	margin-top: 4px;
+    margin-bottom: 32px;
+	margin-left: auto;
+	margin-right: auto;
+    padding: 0;
+	border: none;
+	font-size: 18pt;
+	font-weight: 300;
+	line-height: normal;
+    width: 40%;
+}
+
+.tv-searchbox-toggleletters {
+    display: inline-block;
+    margin-right: 16px;
+    width: 70px;
+}
+
+/* The .tv-searchbox-secondaryalphabet class is used for languages such as Russian that
+   have more than one alphabet. Specifically, Russian has the Cyrillic characters and Latin
+   characters. */
+.tv-searchbox-alphabetical,
+.tv-searchbox-secondaryalphabet,
+.tv-searchbox-numericandsymbols
+ {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.tv-searchbox-secondaryletters {
+    display: inline-flex;
+    margin-left: 16px;
+}
+
+.tv-searchbox-character {
+    min-width: 30px;
+    text-align: center;
+}
+    .tv-searchbox-character:focus {
+        outline: none;
+        transform: scale(2.5);
+        transform-origin: 50% 55%;
+        transition: transform 100ms ease-in;
+    }
+    .tv-searchbox-character:focus.tv-spaceicon {
+        transform-origin: 50% 72%;
+    }
+
+    .tv-searchbox-character.tv-pressed {
+        transform: scale(0.75, 0.75);
+        transition: transform 100ms ease-in;
+    }
+
+    .tv-searchbox-character.tv-pressed:focus {
+        /* 1.9 = 75% of the normal focused size which is a scale transform of 2.5 */
+        transform: scale(1.9, 1.9);
+    }
+
+.tv-backspaceicon {
+    min-width: 60px;
+}
+
+.tv-spaceicon {
+    min-width: 60px;
+}
+
+.tv-backspaceicon::before {
+    font-family: 'Segoe UI Symbol';
+    content: '\232B';
+}
+
+.tv-spaceicon::before {
+    font-family: 'Segoe UI Symbol';
+    content: '\2334';
+}
+
+.tv-searchbox-character.tv-search-toggleletters {
+    min-width: 80px;
+}
+
+.tv-searchbox-toggleletters-alphabeticon::before {
+    font-family: 'Segoe UI Symbol';
+    font-size: 18pt;
+    content: 'a-z';
+}
+
+.tv-searchbox-toggleletters-numbersandsymbolsicon::before {
+    font-family: 'Segoe UI Symbol';
+    content: '&12';
+}
+
+.tv-searchbox-lettershidden {
+    display: none;
+}
