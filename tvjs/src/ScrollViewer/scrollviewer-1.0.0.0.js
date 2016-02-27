@@ -361,16 +361,13 @@
             if (!this._canScrollUp && !this._canScrollDown) {
                 _this._scrollingIndicatorElement.classList.remove("tv-scrollable-down");
                 _this._scrollingIndicatorElement.classList.remove("tv-scrollable-up");
-            }
-            else if (!this._canScrollUp && this._canScrollDown) {
+            } else if (!this._canScrollUp && this._canScrollDown) {
                 this._scrollingIndicatorElement.classList.remove("tv-scrollable-up");
                 this._scrollingIndicatorElement.classList.add("tv-scrollable-down");
-            }
-            else if (this._canScrollUp && !this._canScrollDown) {
-                _this._scrollingIndicatorElement.classList.add("tv-scrollable-up");
+            } else if (this._canScrollUp && !this._canScrollDown) {
+                this._scrollingIndicatorElement.classList.add("tv-scrollable-up");
                 this._scrollingIndicatorElement.classList.remove("tv-scrollable-down");
-            }
-            else {
+            } else {
                 this._scrollingIndicatorElement.classList.add("tv-scrollable-up");
                 this._scrollingIndicatorElement.classList.add("tv-scrollable-down");
             }
