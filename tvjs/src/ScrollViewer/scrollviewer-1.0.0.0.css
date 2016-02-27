@@ -35,7 +35,7 @@
   transition-timing-function: linear;
   transition-property: border-color padding;
 }
-body:not(.tv-visiblebutnotfocused) .tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
   transition-duration: 100ms;
   padding-right: 12px;
   padding-left: 12px;
@@ -115,8 +115,8 @@ body:not(.tv-visiblebutnotfocused) .tv-scrollviewer-scrollmode-text .tv-scrollvi
 .tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement {
   border-color: rgba(16, 16, 16, 0);
 }
-body:not(.tv-visiblebutnotfocused) .tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
-  border-color: #101010;
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
+  border-color: rgb(235, 235, 235);
 }
 .tv-scrollviewer-scrollmode-text.tv-scrollable .tv-scrollviewer-contentelement:hover:not(:focus) {
   border-color: #6b6b6b;
@@ -132,7 +132,7 @@ body:not(.tv-visiblebutnotfocused) .tv-scrollviewer-scrollmode-text .tv-scrollvi
 .tv-scrollviewer-contentelement {
   -ms-scrollbar-face-color: #101010;
 }
-body:not(.tv-visiblebutnotfocused) .tv-xyfocus-togglemode-active.tv-scrollviewer-contentelement {
+.tv-scrollviewer-contentelement:focus {
   background-color: rgba(235, 235, 235, 0.1);
 }
 .tv-scrollviewer .tv-scrollable-down .tv-overlay-scrolldownindicator {

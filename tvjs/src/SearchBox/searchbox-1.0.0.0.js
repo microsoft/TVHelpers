@@ -39,6 +39,29 @@
         Separator: 2
     };
 
+    function _setOptions(control, options) {
+        if (typeof options === "object") {
+            var keys = Object.keys(options);
+            for (var i = 0, len = keys.length; i < len; i++) {
+                var key = keys[i];
+                var value = options[key];
+                if (key.length > 2) {
+                    var ch1 = key[0];
+                    var ch2 = key[1];
+                    if ((ch1 === 'o' || ch1 === 'O') && (ch2 === 'n' || ch2 === 'N')) {
+                        if (typeof value === "function") {
+                            if (control.addEventListener) {
+                                control.addEventListener(key.substr(2), value);
+                                continue;
+                            }
+                        }
+                    }
+                }
+                control[key] = value;
+            }
+        }
+    };
+
     // TODO: Figure out localization, hardcoded strings for now.
     var strings = {
         //get duplicateConstruction() { return WinJS.Resources._getWinJSString("ui/duplicateConstruction").value; },
@@ -85,7 +108,8 @@
             // Variables
             this._disposed = false;
 
-            options = options || {};
+            // Set options
+            _setOptions(this, options);
 
             // We perform the following check to see if we are running in a language that requires
             // three character sets. Most languages require only two: (1) alphabet and (2) numbers

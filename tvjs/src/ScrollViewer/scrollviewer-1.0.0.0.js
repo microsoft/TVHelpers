@@ -27,6 +27,29 @@
         _KEY_GAMEPAD_LEFT_SHOULDER = 200,
         _KEY_THUMB_STICK_THRESHOLD = 0.75;
 
+    function _setOptions(control, options) {
+        if (typeof options === "object") {
+            var keys = Object.keys(options);
+            for (var i = 0, len = keys.length; i < len; i++) {
+                var key = keys[i];
+                var value = options[key];
+                if (key.length > 2) {
+                    var ch1 = key[0];
+                    var ch2 = key[1];
+                    if ((ch1 === 'o' || ch1 === 'O') && (ch2 === 'n' || ch2 === 'N')) {
+                        if (typeof value === "function") {
+                            if (control.addEventListener) {
+                                control.addEventListener(key.substr(2), value);
+                                continue;
+                            }
+                        }
+                    }
+                }
+                control[key] = value;
+            }
+        }
+    };
+
     var ScrollMode = {
             /// <field type="String" locid="WinJS.UI.ScrollMode.text" helpKeyword="WinJS.UI.ScrollMode.text">  
             /// Indicates the ScrollViewer contains text and must be invoked with the A button, then the contents can be scrolled  
@@ -49,12 +72,10 @@
     var _ScrollViewer = (function () {
         function _ScrollViewer(element, options) {
             var _this = this;
-            if (options === void 0) { options = {}; }
             this._canScrollDown = false;
             this._canScrollUp = false;
             this._disposed = false;
             this._element = element || document.createElement("div");
-            options = options || {};
             this._element["winControl"] = this;
             this._element.classList.add("tv-scrollviewer");
             this._handleFocus = this._handleFocus.bind(this);
@@ -88,6 +109,10 @@
             this._element.addEventListener("focusout", this._handleFocusOut, false);
             // Set the default scroll mode  
             this.scrollMode = ScrollMode.text;
+
+            // Set options
+            _setOptions(this, options);
+
             this._refreshVisuals();
             // The scroll viewer has two interaction modes:
             //   1. Normal - In this state there is focusable content within the scrollable  

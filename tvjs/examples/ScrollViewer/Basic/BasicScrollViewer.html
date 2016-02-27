@@ -80,7 +80,9 @@
     <script>
 
         var scrollViewerText = new TVJS.ScrollViewer(document.getElementById("scrollViewerText"));
-        var scrollViewerList = new TVJS.ScrollViewer(document.getElementById("scrollViewerList"));
+        var scrollViewerList = new TVJS.ScrollViewer(document.getElementById("scrollViewerList"), {
+            scrollMode: TVJS.ScrollMode.list
+        });
 
         document.querySelector("button").focus();
 
