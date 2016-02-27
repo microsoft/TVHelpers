@@ -531,7 +531,6 @@ the style "-ms-touch-select: none;"
   height: 100%;
   width: 100%;
   position: relative;
-  /*z-index: 1000;*/
   background: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
 }
@@ -1133,7 +1132,7 @@ button.tv-mediaplayer-mutebutton {
 }
 
 .tv-mediaplayer-seek-mark {
-	background: rgb(0, 120, 215);
+	background-color: rgb(0, 120, 215);
 	height: 8px;
 	width: 8px;
 	margin-left: 3px;

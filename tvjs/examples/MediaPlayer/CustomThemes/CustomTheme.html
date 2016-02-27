@@ -13,29 +13,29 @@
             background-color: rgb(16, 16, 16);
         }
 
+        /* Red theme */
+        .tv-mediaplayer-transportcontrols button:focus .tv-mediaplayer-icon {
+            color: rgb(224, 16, 16);
+        }
+        .tv-mediaplayer-transportcontrols .tv-mediaplayer-seek-mark {
+            border-color: rgb(224, 16, 16);
+        }
+        .tv-mediaplayer-seek-mark,
+        .tv-mediaplayer-transportcontrols .tv-mediaplayer-seekprogress {
+            background-color: rgb(224, 16, 16);
+        }
+
     </style>
 
 </head>
 <body>
     <div id="mediaPlayer">
         <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
-        <button id="customButton">Custom 1</button>
     </div>
 
     <script>
 
         var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
-        document.getElementById("customButton").addEventListener("click", function () {
-            // Add custom logic for the button here.
-        }, false);
-
-        // You can also add custom buttons programatically
-        var button = document.createElement("button");
-        button.textContent = "Custom 2";
-        mediaPlayer.commands.push(button);
-        button.addEventListener("click", function () {
-            // Add custom logic for the button here.
-        }, false);
 
     </script>
 </body>
