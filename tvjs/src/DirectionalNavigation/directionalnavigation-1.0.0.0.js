@@ -469,14 +469,15 @@
     }
     function _isFocusable(element) {
         var elementTagName = element.tagName;
-        if (!element.tabIndex && element.tabIndex !== 0 && FocusableTagNames.indexOf(elementTagName) === -1) {
+        var tabIndex = element.getAttribute("tabIndex");
+        if (FocusableTagNames.indexOf(elementTagName) === -1 && !tabIndex && tabIndex !== 0) {
             // Loop through the selectors
             var matchesSelector = false;
             for (var i = 0, len = FocusableSelectors.length; i < len; i++) {
                 if (_matchesSelector(element, FocusableSelectors[i])) {
-                    if (!element.tabIndex &&
-                        element.tabIndex !== 0) {
-                        element.tabIndex = 0;
+                    if (!tabIndex &&
+                        tabIndex !== 0) {
+                        element.setAttribute("tabIndex", 0);
                     }
                     matchesSelector = true;
                     break;
@@ -497,7 +498,7 @@
         }
         
         var style = window.getComputedStyle(element);
-        if (style && element.getAttribute("tabIndex") === "-1" || style.display === "none" || style.visibility === "hidden" || element.disabled) {
+        if (style && tabIndex === -1 || style.display === "none" || style.visibility === "hidden" || element.disabled) {
             // Skip elements that are hidden
             // Note: We don't check for opacity === 0, because the browser cannot tell us this value accurately.
             return false;
