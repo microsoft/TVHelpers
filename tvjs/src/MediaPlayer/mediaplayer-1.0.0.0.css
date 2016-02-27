@@ -1125,6 +1125,9 @@ button.tv-mediaplayer-mutebutton {
 	color: rgb(0, 120, 215);
 	transform: scale(2);
 }
+.tv-mediaplayer-transportcontrols button:focus {
+	color: rgb(0, 120, 215);
+}
 .tv-mediaplayer-transportcontrols button:active .tv-mediaplayer-icon {
 	transform: scale(1);
 }
