@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Directional Navigation</title>
+    <link href="../../../src/MediaPlayer/mediaplayer-1.0.0.0.css" rel="stylesheet" />
+    <script src="../../../src/DirectionalNavigation/directionalnavigation-1.0.0.0.js"></script>
+    <script src="../../../src/MediaPlayer/mediaplayer-1.0.0.0.js"></script>
+
+    <style>
+
+        body {
+            overflow: hidden;
+            background-color: rgb(16, 16, 16);
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="mediaPlayer">
+        <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
+    </div>
+
+    <script>
+
+        var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
+
+    </script>
+</body>
+</html>

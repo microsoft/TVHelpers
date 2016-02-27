@@ -15570,7 +15570,7 @@ define('WinJS/Controls/MediaPlayer', [
     var mediaCommandEnum = _MediaUI.MediaCommand;
     var markerType = _MediaUI.MarkerType;
 
-    _Base.Namespace.define("WinJS.UI", {
+    _Base.Namespace.define("TVJS", {
 
         // MediaPlayer is capitalized to follow WinJS conventions for class names.
         MediaPlayer: _Base.Namespace._lazy(function () {
