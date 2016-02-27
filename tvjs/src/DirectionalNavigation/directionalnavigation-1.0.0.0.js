@@ -469,14 +469,13 @@
     }
     function _isFocusable(element) {
         var elementTagName = element.tagName;
-        var tabIndex = element.getAttribute("tabIndex");
-        if (FocusableTagNames.indexOf(elementTagName) === -1 && !tabIndex && tabIndex !== 0) {
+        var tabIndex = parseInt(element.getAttribute("tabIndex"));
+        if (FocusableTagNames.indexOf(elementTagName) === -1 && isNaN(tabIndex)) {
             // Loop through the selectors
             var matchesSelector = false;
             for (var i = 0, len = FocusableSelectors.length; i < len; i++) {
                 if (_matchesSelector(element, FocusableSelectors[i])) {
-                    if (!tabIndex &&
-                        tabIndex !== 0) {
+                    if (isNaN(tabIndex)) {
                         element.setAttribute("tabIndex", 0);
                     }
                     matchesSelector = true;
