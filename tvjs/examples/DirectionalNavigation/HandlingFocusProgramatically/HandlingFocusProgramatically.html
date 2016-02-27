@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Handling focus programatically</title>
+    <script src="../../../src/DirectionalNavigation/directionalnavigation-1.0.0.0.js"></script>
+
+    <style>
+        body {
+            background-color: rgb(16, 16, 16);
+            color: rgb(235, 235, 235);
+            font-family: "Segoe UI";
+            font-size: 18pt;
+        }
+        button {
+            background-color: rgba(235, 235, 235, 0.1);
+            border: 4px solid rgb(16, 16, 16);
+            color: rgb(235, 235, 235);
+            outline: none;
+            padding: 16px;
+        }
+        button:focus {
+            background-color: rgb(16, 124, 16);
+            border-color: rgba(235, 235, 235, 1);
+        }
+        section {
+            display: flex;
+            flex-direction: row;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+        #A, #B, #D, #E {
+            height: 100px;
+            width: 100px;
+        }
+        #C {
+            height: 200px;
+            width: 100px;
+        }
+        .green {
+            background-color: rgba(16, 124, 16, 0.1);
+        }
+        .red {
+            background-color: rgba(124, 16, 16, 0.1);
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>Handling focus programatically</h1>
+    <p>Use the controller or arrow keys to move focus between the buttons. 
+    This example uses checks to see if the next focus element is red and doesn't
+    move focus if it is.</p>
+    <section>
+        <div>
+            <button id="A" class="green">A</button>
+            <button id="B" class="green">B</button>
+        </div>
+        <div>
+            <button id="C" class="red">C</button>
+        </div>
+        <div>
+            <button id="D" class="green">D</button>
+            <button id="E" class="green">E</button>
+        </div>
+    </section>
+
+    <script>
+
+        document.querySelector("button").focus();
+        // Turn off automatic focus handling so we can do it ourselves
+        TVJS.DirectionalNavigation.enabled = false;
+        document.addEventListener("keydown", function (ev) {
+            var direction = "";
+            switch (ev.keyCode) {
+                case 37: // LeftArrow
+                case 214: // GamepadLeftThumbstickLeft
+                case 205: // GamepadDPadLeft
+                case 140: // NavigationLeft
+                    direction = "left";
+                    break;
+                case 39: // RightArrow
+                case 213: // GamepadLeftThumbstickRight
+                case 206: // GamepadDPadRight
+                case 141: // NavigationRight
+                    direction = "right";
+                    break;
+                case 38: // UpArrow
+                case 211: // GamepadLeftThumbstickUp
+                case 203: // GamepadDPadUp
+                case 138: // NavigationUp
+                    direction = "up";
+                    break;
+                case 40: // UpArrow
+                case 212: // GamepadLeftThumbstickDown
+                case 204: // GamepadDPadDown
+                case 139: // NavigationDown
+                    direction = "down";
+                    break;
+                default:
+                    // No-op
+                    break;
+            };
+            if (direction) {
+                var nextFocus = TVJS.DirectionalNavigation.findNextFocusElement(direction);
+                if (nextFocus){
+                    if (nextFocus.classList.contains("red")) {
+                        // If the next focus target contains the class "red", then we try to find
+                        // another target. We pass the red focus target as the reference element
+                        // so the algorithm will start from that element and pick something else.
+                        nextFocus = TVJS.DirectionalNavigation.findNextFocusElement(direction, {
+                            referenceElement: nextFocus
+                        });
+                    }
+                }
+                if (nextFocus) {
+                    nextFocus.focus();
+                }
+            }
+        }, false);
+
+    </script>
+</body>
+</html>
