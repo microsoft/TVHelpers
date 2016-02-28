@@ -15386,7 +15386,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         }
     });
 
-    _Base.Namespace.define("WinJS.UI", {
+    _Base.Namespace.define("TVJS", {
         MediaElementAdapter: MediaElementAdapter
     });
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom overlay</title>
+    <link href="../../../src/MediaPlayer/mediaplayer-1.0.0.0.css" rel="stylesheet" />
+    <script src="../../../src/DirectionalNavigation/directionalnavigation-1.0.0.0.js"></script>
+    <script src="../../../src/MediaPlayer/mediaplayer-1.0.0.0.js"></script>
+
+    <style>
+
+        body {
+            overflow: hidden;
+            background-color: rgb(16, 16, 16);
+            color: rgb(235, 235, 235);
+        }
+
+        /* Red theme */
+        .overlay {
+            background-color: rgb(58, 58, 58);
+            padding: 16px 24px;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="mediaPlayer">
+        <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
+        <button id="launchOverlay">Launch overlay</button>
+    </div>
+
+    <div id="overlay" class="overlay" style="display:none;">
+        <p>This is an overlay.</p>
+        <button id="close">Close</button>
+    </div>
+
+    <script>
+
+        var previousFocusRoot = null;
+        var overlay = document.getElementById("overlay");
+        var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
+        document.getElementById("launchOverlay").addEventListener("click", function () {
+            overlay.style.display = "block";
+            previousFocusRoot = TVJS.DirectionalNavigation.focusRoot;
+            TVJS.DirectionalNavigation.focusRoot = overlay;
+        }, false);
+        document.getElementById("close").addEventListener("click", function () {
+            overlay.style.display = "none";
+            TVJS.DirectionalNavigation.focusRoot = previousFocusRoot;
+        }, false);
+
+        // An easy way to have a custom overlay show every time the transport controls
+        // are opened it so attach your overlay to the Transport Controls DOM.
+        var overlay2 = document.createElement("div");
+        overlay2.className = "overlay";
+        overlay2.textContent = "Here's an overlay that opens when the transport controls open";
+        mediaPlayer.element.querySelector(".tv-mediaplayer-controls").appendChild(overlay2);
+
+    </script>
+</body>
+</html>
