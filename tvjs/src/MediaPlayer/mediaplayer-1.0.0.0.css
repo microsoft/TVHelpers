@@ -848,7 +848,7 @@ progress.tv-mediaplayer-busy {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  margin-top: -5.8px;
+  margin-top: -2px;
 }
 /* Shared overlay styles */
 .tv-mediaplayer-overlay {

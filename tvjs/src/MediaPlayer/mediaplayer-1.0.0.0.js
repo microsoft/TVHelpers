@@ -15401,7 +15401,7 @@ define('WinJS/Controls/MediaPlayer/_MediaUI', [
 ], function mediaUIInit(exports, _BaseCoreUtils, _Base) {
     "use strict";
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS", {
         /// <field locid="WinJS.UI.MediaCommand" helpKeyword="WinJS.UI.MediaCommand">
         /// An enumeration of Media commands that the transport bar buttons support.
         /// </field>
