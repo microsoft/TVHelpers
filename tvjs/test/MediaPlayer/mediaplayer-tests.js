@@ -12,7 +12,7 @@ function safeDispose(mediaPlayer, assert) {
 };
 
 function runSetMediaPlayerPropertyCase(propertyName, propertyValue, isExceptionExpected, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var wasExceptionThrown = false;
 
     try {
@@ -31,7 +31,7 @@ function runSetMediaPlayerPropertyCase(propertyName, propertyValue, isExceptionE
 };
 
 function runEnsureLegacyPropertyStillExistsTestCase(legacyPropertyName, newPropertyName, propertyValue, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer[legacyPropertyName] = propertyValue;
     assert.equal(propertyValue, mediaPlayer[legacyPropertyName], "mediaPlayer." + legacyPropertyName + " was not equal to the expected value: " + propertyValue + ", instead value was: " + mediaPlayer[legacyPropertyName]);
     assert.equal(propertyValue, mediaPlayer[newPropertyName], "mediaPlayer." + newPropertyName + " was not equal to the expected value: " + propertyValue + ", instead value was: " + mediaPlayer[newPropertyName]);
@@ -40,7 +40,7 @@ function runEnsureLegacyPropertyStillExistsTestCase(legacyPropertyName, newPrope
 
 function runVerifyMediaCommandExecutedEventTest(mediaCommandEnum, methodName, assert, playbackRate) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaPlayer.castButtonEnabled = true;
     mediaPlayer.castButtonVisible = true;
@@ -59,7 +59,7 @@ function runVerifyMediaCommandExecutedEventTest(mediaCommandEnum, methodName, as
 
 function runIsPlayAllowedTestCase(isPlayAllowedValue, isEventExpectedToFire, assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mediaElement;
     mediaPlayer.mediaElementAdapter.playAllowed = isPlayAllowedValue;
@@ -84,7 +84,7 @@ function runIsPlayAllowedTestCase(isPlayAllowedValue, isEventExpectedToFire, ass
 
 function runIsPauseAllowedTestCase(isPauseAllowedValue, isEventExpectedToFire, assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mediaElement;
     mediaPlayer.mediaElementAdapter.pauseAllowed = isPauseAllowedValue;
@@ -108,7 +108,7 @@ function runIsPauseAllowedTestCase(isPauseAllowedValue, isEventExpectedToFire, a
 
 function runIsSeekAllowedTestCase(isSeekAllowedValue, isEventExpectedToFire, assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaElement.autoplay = true;
     mediaElement.src = "notnull";
@@ -146,7 +146,7 @@ function compareArrays(array1, array2) {
 
 function runNullMediaElementTestCase(mediaCommand, assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = null;
 
@@ -161,7 +161,7 @@ function runNullMediaElementTestCase(mediaCommand, assert) {
 };
 
 function runNewMediaElementTestCase(mediaCommand, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -179,7 +179,7 @@ function runNewMediaElementTestCase(mediaCommand, assert) {
 function runNullMediaElementSrcTestCase(mediaCommand, wasExceptionExpected, assert) {
     var done = assert.async();
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = null;
 
@@ -195,7 +195,7 @@ function runNullMediaElementSrcTestCase(mediaCommand, wasExceptionExpected, asse
 };
 
 function runFastForwardTestCase(initialPlaybackRate, expectedPlaybackRateAfterFastForward, startPaused, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     if (!startPaused) {
         mockMediaElement.autoplay = true;
@@ -210,7 +210,7 @@ function runFastForwardTestCase(initialPlaybackRate, expectedPlaybackRateAfterFa
 };
 
 function runRewindTestCase(initialPlaybackRate, expectedPlaybackRateAfterRewind, startPaused, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     if (!startPaused) {
         mockMediaElement.autoplay = true;
@@ -225,7 +225,7 @@ function runRewindTestCase(initialPlaybackRate, expectedPlaybackRateAfterRewind,
 };
 
 function runExitFastForwardOrRewindTest(mediaCommand, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -238,7 +238,7 @@ function runExitFastForwardOrRewindTest(mediaCommand, assert) {
 };
 
 function runPlayPauseToggleIconTest(mediaCommand, icon, isPausedInitially, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     if (!isPausedInitially) {
         mockMediaElement.autoplay = true;
@@ -257,14 +257,14 @@ function runPlayPauseToggleIconTest(mediaCommand, icon, isPausedInitially, asser
 };
 
 function runGetButtonBySelectorTestCase(buttonSelector, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var button = mediaPlayer.element.querySelector(buttonSelector);
     assert.ok(button, "UI element could not be retrieved: " + buttonSelector);
     safeDispose(mediaPlayer);
 };
 
 function runNoTransportBarButtonsTestCase(mediaCommand, parameter, assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
 
     // remove all the buttons
     var buttons = mediaPlayer.element.querySelectorAll(".tv-mediaplayer-transportcontrols button");
@@ -284,7 +284,7 @@ function runNoTransportBarButtonsTestCase(mediaCommand, parameter, assert) {
 QUnit.module("Properties");
 QUnit.test("When showControls then controls visible is true", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer._skipAnimations = true;
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement.src = "notnullstring";
@@ -299,7 +299,7 @@ QUnit.test("When showControls then controls visible is true", function (assert) 
 });
 QUnit.test("When hideControls then controls visible is false", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer._skipAnimations = true;
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement.src = "notnullstring";
@@ -325,7 +325,7 @@ QUnit.test("When set thumbnailEnabled to false then thumbnailEnabled is false", 
 });
 
 QUnit.test("When endTime not set then endTime is duration", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mediaElement;
     mediaElement.src = "notnullstring";
@@ -339,7 +339,7 @@ QUnit.test("When set endTime to 10 then endTime is 10", function (assert) {
     runSetMediaPlayerPropertyCase("endTime", 10, false, assert);
 });
 QUnit.test("When set endTime then cached totalTime gets updated", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mediaElement;
     mediaElement.src = "notnullstring";
@@ -355,7 +355,7 @@ QUnit.test("When add custom buttons declaratively then new buttons are added", f
     var testPassed = false;
     var mediaPlayerDiv = document.createElement("div");
     mediaPlayerDiv.innerHTML = '<button id="custom1"></button>';
-    var mediaPlayer = new WinJS.UI.MediaPlayer(mediaPlayerDiv);
+    var mediaPlayer = new TVJS.MediaPlayer(mediaPlayerDiv);
     for (var i = 0, len = mediaPlayer.commands.length; i < len; i++) {
         if (mediaPlayer.commands.getAt(i).id === "custom1") {
             testPassed = true;
@@ -366,7 +366,7 @@ QUnit.test("When add custom buttons declaratively then new buttons are added", f
 });
 QUnit.test("When add custom buttons programatically then new buttons are added", function (assert) {
     var testPassed = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var customButton = document.createElement("button");
     customButton.id = "custom1";
     mediaPlayer.commands.push(customButton);
@@ -387,7 +387,7 @@ QUnit.test("When set compact to false then compact updates", function (assert) {
     runSetMediaPlayerPropertyCase("compact", false, false, assert);
 });
 QUnit.test("When set compact to true then mediaPlayer has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.compact = true;
     assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
     assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
@@ -397,7 +397,7 @@ QUnit.test("When set compact to true then mediaPlayer has correct classes", func
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set compact to false then mediaPlayer has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.compact = false;
     assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
     assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
@@ -415,7 +415,7 @@ QUnit.test("When set fullscreen to false then fullscreen updates", function (ass
     runSetMediaPlayerPropertyCase("fullscreen", false, false, assert);
 });
 QUnit.test("When set is fullscreenLegacy property name then current property name updates value", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.isFullScreen = true;
     assert.ok(mediaPlayer.fullScreen);
     mediaPlayer.isFullScreen = false;
@@ -423,26 +423,26 @@ QUnit.test("When set is fullscreenLegacy property name then current property nam
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to true then has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = true;
     assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer does not have the 'tv-mediaplayer-fullscreen' class.");
     assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-focusable"), "MediaPlayer does not have the 'tv-focusable' class.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to false then has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = false;
     assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer has the 'tv-mediaplayer-fullscreen' class.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to true then toggle fullscreen Icon updates", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = true;
     assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to false then toggle fullscreen Icon updates", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = false;
     assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
     safeDispose(mediaPlayer);
@@ -456,13 +456,13 @@ QUnit.test("When set thumbnailEnabled to false then property updates", function 
     runSetMediaPlayerPropertyCase("thumbnailEnabled", false, false, assert);
 });
 QUnit.test("When set thumbnailEnabled to true then has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.thumbnailEnabled = true;
     assert.ok(WinJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set thumbnailEnabled to false then has correct classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.thumbnailEnabled = false;
     assert.notOk(WinJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
     safeDispose(mediaPlayer);
@@ -474,10 +474,10 @@ QUnit.test("When set is thumbnailEnabledLegacy protperty name then current prope
 
 QUnit.module("Markers");
 QUnit.test("When addMarker then markers contains new marker and new marker properties are correct", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var newMarkerTime = 15;
-    mediaPlayer.addMarker(newMarkerTime, WinJS.UI.MarkerType.chapter, "Hello World!", "tv-displaynone");
+    mediaPlayer.addMarker(newMarkerTime, TVJS.MarkerType.chapter, "Hello World!", "tv-displaynone");
 
     // Search for the marker we just added
     var markers = mediaPlayer._markers;
@@ -486,7 +486,7 @@ QUnit.test("When addMarker then markers contains new marker and new marker prope
         if (markers[i].time === newMarkerTime) {
             foundMarker = true;
             assert.equal(newMarkerTime, markers[i].time, "The marker time did not match.");
-            assert.equal(WinJS.UI.MarkerType.chapter, markers[i].markerType, "The marker type did not match.");
+            assert.equal(TVJS.MarkerType.chapter, markers[i].markerType, "The marker type did not match.");
             assert.equal("Hello World!", markers[i].data, "The marker data field did not match.");
             assert.equal("tv-displaynone", markers[i].extraClass, "The marker extraClass field did not match.");
         }
@@ -499,10 +499,10 @@ QUnit.test("When addMarker then markers contains new marker and new marker prope
 });
 
 QUnit.test("When add marker and type is chapter and extraClass is not specified then markers contains new marker and extraClass is default chapter marker extraClass", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var newMarkerTime = 15;
-    mediaPlayer.addMarker(newMarkerTime, WinJS.UI.MarkerType.chapter, "Hello World!");
+    mediaPlayer.addMarker(newMarkerTime, TVJS.MarkerType.chapter, "Hello World!");
     var markers = mediaPlayer._markers;
     var foundMarker = false;
 
@@ -520,21 +520,21 @@ QUnit.test("When add marker and type is chapter and extraClass is not specified 
 });
 
 QUnit.test("Given existing marker at 1 second when add new marker at 1 second then markers contain the new marker and the old one is overriden", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
-    mediaPlayer.addMarker(1, WinJS.UI.MarkerType.chapter, "Marker 1");
-    mediaPlayer.addMarker(1, WinJS.UI.MarkerType.chapter, "Marker 2");
+    mediaPlayer.addMarker(1, TVJS.MarkerType.chapter, "Marker 1");
+    mediaPlayer.addMarker(1, TVJS.MarkerType.chapter, "Marker 2");
     assert.notEqual(2, mediaPlayer._markers.length, "The old marker did not get removed.");
     assert.equal("Marker 2", mediaPlayer._markers[0].data, "The old marker was not overriden.");
 });
 
 QUnit.test("Given valid marker at point 5 seconds when currentTime reaches point 5 seconds then marker reached contains correct properties", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 0.5;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -558,11 +558,11 @@ QUnit.test("Given valid marker at point 5 seconds when currentTime reaches point
 
 QUnit.test("Given marker at 1 second when currentTime reaches 1 second then marker reached event fires", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 1;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -586,11 +586,11 @@ QUnit.test("Given marker at 1 second when currentTime reaches 1 second then mark
 
 QUnit.test("Given marker at 0 seconds when currentTime reaches 0 seconds then marker reached event fires", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 0;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -614,13 +614,13 @@ QUnit.test("Given marker at 0 seconds when currentTime reaches 0 seconds then ma
 
 QUnit.test("Given marker at end of video when currentTime reaches end of video then marker reached event fires", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
 
     var expectedTime = mockMediaElement.duration;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -642,11 +642,11 @@ QUnit.test("Given marker at end of video when currentTime reaches end of video t
 });
 
 QUnit.test("Given marker at point 7 seconds when marker is removed and currentTime reaches point 7 seconds then markerreached event does not fire", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 0.7;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -666,9 +666,9 @@ QUnit.test("Given marker at point 7 seconds when marker is removed and currentTi
 });
 
 QUnit.test("Given existing marker when remove marker then markers does not contain removed marker", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
-    mediaPlayer.addMarker(11, WinJS.UI.MarkerType.chapter, {});
+    mediaPlayer.addMarker(11, TVJS.MarkerType.chapter, {});
     var markers = mediaPlayer._markers;
     mediaPlayer.removeMarker(11);
     var markers = mediaPlayer._markers;
@@ -687,11 +687,11 @@ QUnit.test("Given existing marker when remove marker then markers does not conta
 });
 
 QUnit.test("Given no src set when add marker then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
-        mediaPlayer.addMarker(12, WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker(12, TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -704,12 +704,12 @@ QUnit.test("Given no src set when add marker then does not throw exception", fun
 });
 
 QUnit.test("When add marker and time is not a number then throws an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
 
     var threwException = false;
     try {
-        mediaPlayer.addMarker("foo", WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker("foo", TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -722,11 +722,11 @@ QUnit.test("When add marker and time is not a number then throws an exception", 
 });
 
 QUnit.test("When add marker with negative time field then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
-        mediaPlayer.addMarker(-1, WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker(-1, TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -738,11 +738,11 @@ QUnit.test("When add marker with negative time field then does not throw an exce
 });
 
 QUnit.test("When add marker and time is greater than endTime then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
-        mediaPlayer.addMarker(mediaPlayer.endTime + 10, WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker(mediaPlayer.endTime + 10, TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -755,11 +755,11 @@ QUnit.test("When add marker and time is greater than endTime then does not throw
 });
 
 QUnit.test("When add marker and time is less than startTime then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
-        mediaPlayer.addMarker(mediaPlayer.startTime - 10, WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker(mediaPlayer.startTime - 10, TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -773,11 +773,11 @@ QUnit.test("When add marker and time is less than startTime then does not throw 
 
 // add two markers at the same time & it's fine
 QUnit.test("When add marker and time is null then throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
-        mediaPlayer.addMarker(null, WinJS.UI.MarkerType.chapter, {});
+        mediaPlayer.addMarker(null, TVJS.MarkerType.chapter, {});
     } catch (exception) {
         threwException = true;
     }
@@ -790,7 +790,7 @@ QUnit.test("When add marker and time is null then throw exception", function (as
 });
 
 QUnit.test("When add marker and type is not valid Enum then throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
@@ -807,7 +807,7 @@ QUnit.test("When add marker and type is not valid Enum then throw exception", fu
 });
 
 QUnit.test("When add marker and type is null then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
@@ -824,15 +824,15 @@ QUnit.test("When add marker and type is null then does not throw exception", fun
 });
 
 QUnit.test("When add marker and type is not specified then defaults to chapter", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     mediaPlayer.addMarker(12);
-    assert.equal(WinJS.UI.MarkerType.chapter, mediaPlayer.markers[0].markerType);
+    assert.equal(TVJS.MarkerType.chapter, mediaPlayer.markers[0].markerType);
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("When removeMarker called on non existant marker then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     var threwException = false;
     try {
@@ -849,11 +849,11 @@ QUnit.test("When removeMarker called on non existant marker then does not throw 
 });
 
 QUnit.test("When add marker and extraClass is null then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = document.createElement("video");
     var threwException = false;
     try {
-        mediaPlayer.addMarker(12, WinJS.UI.MarkerType.chapter, {}, null);
+        mediaPlayer.addMarker(12, TVJS.MarkerType.chapter, {}, null);
     } catch (exception) {
         threwException = true;
     }
@@ -875,13 +875,13 @@ QUnit.test("Given 3 consecutive markers each sepearted by one second when play t
     var marker2Reached = false;
     var marker3Reached = false;
 
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
 
     var expectedTime = mockMediaElement.duration;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -925,11 +925,11 @@ QUnit.test("Given 3 consecutive markers each sepearted by one second when play t
 });
 
 QUnit.test("Given existing marker when seek past marker then markerreached event does not fire", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 1;
-    var expectedType = WinJS.UI.MarkerType.chapter;
+    var expectedType = TVJS.MarkerType.chapter;
     var expectedData = "Some data";
     var expectedExtraClass = "tv-displaynone";
 
@@ -950,7 +950,7 @@ QUnit.test("Given existing marker when seek past marker then markerreached event
 
 QUnit.test("Given existing marker when seek to very close before the marker then markerreached event fires", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     var expectedTime = 1;
@@ -972,7 +972,7 @@ QUnit.test("Given existing marker when seek to very close before the marker then
 
 QUnit.test("Given existing marker when seek very close before marker then markerreached event fires", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     var expectedTime = 1;
@@ -991,7 +991,7 @@ QUnit.test("Given existing marker when seek very close before marker then marker
 });
 
 QUnit.test("Given existing markers when video emptied event then old markers are removed", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
 
     mediaPlayer.addMarker(1);
@@ -1006,20 +1006,20 @@ QUnit.test("Given existing markers when video emptied event then old markers are
 });
 
 QUnit.test("Given existing markers but media not loaded when mediaElementAdapter changes then old markers not removed", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
 
-    mediaPlayer.addMarker(0, WinJS.UI.MarkerType.chapter, {});
-    mediaPlayer.addMarker(1, WinJS.UI.MarkerType.chapter, {});
-    mediaPlayer.addMarker(2, WinJS.UI.MarkerType.chapter, {});
+    mediaPlayer.addMarker(0, TVJS.MarkerType.chapter, {});
+    mediaPlayer.addMarker(1, TVJS.MarkerType.chapter, {});
+    mediaPlayer.addMarker(2, TVJS.MarkerType.chapter, {});
     mediaPlayer.mediaElementAdapter = {};
     assert.ok(mediaPlayer.markers.length > 0);
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given default chapter markers when currentTime passes defaultMarker then markerreached event does not fire", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1038,19 +1038,19 @@ QUnit.test("Given default chapter markers when currentTime passes defaultMarker 
 });
 
 QUnit.test("Given default chapter markers when chapter marker added then default chapter markers are cleared", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
     mediaPlayer.endTime = mediaPlayer._MINIMUM_MEDIA_LENGTH_FOR_DEFAULT_MARKERS + 1;
     mockMediaElement.src = "notnullstring";
-    mediaPlayer.addMarker(10, WinJS.UI.MarkerType.chapter);
+    mediaPlayer.addMarker(10, TVJS.MarkerType.chapter);
     assert.notOk(mediaPlayer._defaultChapterMarkers.length);
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given media under 1 minute when video is loaded then default chapter markers are not added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -1061,11 +1061,11 @@ QUnit.test("Given media under 1 minute when video is loaded then default chapter
 });
 
 QUnit.test("When add marker called and markers are inserted out of order then markers array is sorted", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
-    mediaPlayer.addMarker(20, WinJS.UI.MarkerType.chapter, {});
-    mediaPlayer.addMarker(10, WinJS.UI.MarkerType.chapter, {});
+    mediaPlayer.addMarker(20, TVJS.MarkerType.chapter, {});
+    mediaPlayer.addMarker(10, TVJS.MarkerType.chapter, {});
     var markers = mediaPlayer._markers;
     assert.equal(markers[0].time, 10, "The markers array was not sorted properly.");
     assert.equal(markers[1].time, 20, "The markers array was not sorted properly.");
@@ -1074,7 +1074,7 @@ QUnit.test("When add marker called and markers are inserted out of order then ma
 
 QUnit.test("Given 3 markers within 200 miliseconds when currentTime is close to markers the all markerreached events fire", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
 
@@ -1117,7 +1117,7 @@ QUnit.test("Given 3 markers within 200 miliseconds when currentTime is close to 
 });
 
 QUnit.test("Given existing markers when media loaded then markers are gone", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -1136,7 +1136,7 @@ QUnit.test("Given existing markers when media loaded then markers are gone", fun
 });
 
 QUnit.test("Given no marker at the specified time when remove marker and no marker is removed then no exception is thrown", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     var wasExceptionThrown = false;
     try {
@@ -1149,11 +1149,11 @@ QUnit.test("Given no marker at the specified time when remove marker and no mark
 });
 
 QUnit.test("When set markers with valid markers collection then markers are added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var myMarkers = [
-        { time: 1, type: WinJS.UI.MarkerType.chapter, data: {} },
-        { time: 2, type: WinJS.UI.MarkerType.custom, data: {} },
-        { time: 3, type: WinJS.UI.MarkerType.advertsing, data: {} }
+        { time: 1, type: TVJS.MarkerType.chapter, data: {} },
+        { time: 2, type: TVJS.MarkerType.custom, data: {} },
+        { time: 3, type: TVJS.MarkerType.advertsing, data: {} }
     ];
     mediaPlayer.markers = myMarkers;
     assert.ok(compareArrays(myMarkers, mediaPlayer.markers), "MediaPlayer.markers does not contain the same values we added to it.");
@@ -1161,13 +1161,13 @@ QUnit.test("When set markers with valid markers collection then markers are adde
 });
 
 QUnit.test("When set markers with invalid first marker then exception is not thrown", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var wasExceptionThrown = false;
 
     var myMarkers = [
         { invalidFieldName: "invalid" },
-        { bar: 1, foo: WinJS.UI.MarkerType.chapter, data: {} },
-        { time: 2, type: WinJS.UI.MarkerType.custom }
+        { bar: 1, foo: TVJS.MarkerType.chapter, data: {} },
+        { time: 2, type: TVJS.MarkerType.custom }
     ];
 
     try {
@@ -1181,7 +1181,7 @@ QUnit.test("When set markers with invalid first marker then exception is not thr
 });
 
 QUnit.test("When set markers with empty array then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var wasExceptionThrown = false;
     var myMarkers = [];
     try {
@@ -1194,11 +1194,11 @@ QUnit.test("When set markers with empty array then does not throw an exception",
 });
 
 QUnit.test("Given existing markers when set markers with empty array then previous markers are cleared", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.markers = [
-        { time: 1, type: WinJS.UI.MarkerType.chapter, data: {} },
-        { time: 2, type: WinJS.UI.MarkerType.custom, data: {} },
-        { time: 3, type: WinJS.UI.MarkerType.advertsing, data: {} }
+        { time: 1, type: TVJS.MarkerType.chapter, data: {} },
+        { time: 2, type: TVJS.MarkerType.custom, data: {} },
+        { time: 3, type: TVJS.MarkerType.advertsing, data: {} }
     ];
     var myMarkers = [];
     mediaPlayer.markers = myMarkers;
@@ -1207,7 +1207,7 @@ QUnit.test("Given existing markers when set markers with empty array then previo
 });
 
 QUnit.test("When set markers set to null then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var wasExceptionThrown = false;
     try {
         mediaPlayer.markers = null;
@@ -1219,11 +1219,11 @@ QUnit.test("When set markers set to null then does not throw an exception", func
 });
 
 QUnit.test("When set markers an unsorted marker collection then markers are sorted", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var myUnsortedMarkers = [
-        { time: 3, type: WinJS.UI.MarkerType.chapter, data: {} },
-        { time: 2, type: WinJS.UI.MarkerType.custom, data: {} },
-        { time: 1, type: WinJS.UI.MarkerType.advertisement, data: {} }
+        { time: 3, type: TVJS.MarkerType.chapter, data: {} },
+        { time: 2, type: TVJS.MarkerType.custom, data: {} },
+        { time: 1, type: TVJS.MarkerType.advertisement, data: {} }
     ];
     var mySortedMarkers = myUnsortedMarkers.sort(function (first, next) {
         return first.time - next.time;
@@ -1234,21 +1234,21 @@ QUnit.test("When set markers an unsorted marker collection then markers are sort
 });
 
 QUnit.test("Given existing markers when set markers then old markers are removed", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
-    mediaPlayer.addMarker(1, WinJS.UI.MarkerType.chapter, {});
+    var mediaPlayer = new TVJS.MediaPlayer();
+    mediaPlayer.addMarker(1, TVJS.MarkerType.chapter, {});
     mediaPlayer.markers = [];
     assert.equal(0, mediaPlayer.markers.length, "The old markers were not removed.");
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given markers array is set when video loaded then markers array is persisted", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     var markers = [
-        { time: 3, type: WinJS.UI.MarkerType.chapter, data: {} },
-        { time: 2, type: WinJS.UI.MarkerType.custom, data: {} },
-        { time: 1, type: WinJS.UI.MarkerType.advertisement, data: {} }
+        { time: 3, type: TVJS.MarkerType.chapter, data: {} },
+        { time: 2, type: TVJS.MarkerType.custom, data: {} },
+        { time: 1, type: TVJS.MarkerType.advertisement, data: {} }
     ];
     mediaPlayer.markers = markers;
     mockMediaElement.autoplay = true;
@@ -1261,7 +1261,7 @@ QUnit.module("Audio / video tag");
 QUnit.test("Given audio tag with controls enabled when mediaPlayer is instantiated then audio tag has no controls", function (assert) {
     var audio = document.createElement("audio");
     audio.controls = true;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = audio;
     assert.notOk(mediaPlayer.mediaElementAdapter.mediaElement.controls, "Audio tag has controls enabled, but it should not have.");
     safeDispose(mediaPlayer);
@@ -1270,7 +1270,7 @@ QUnit.test("Given audio tag with controls enabled when mediaPlayer is instantiat
 QUnit.test("Given video tag with controls enabled when mediaPlayer is instantiated then video tag has no controls", function (assert) {
     var video = document.createElement("video");
     video.controls = true;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = video;
     assert.notOk(mediaPlayer.mediaElementAdapter.mediaElement.controls, "Video tag visible controls when it should not have.");
     safeDispose(mediaPlayer);
@@ -1278,7 +1278,7 @@ QUnit.test("Given video tag with controls enabled when mediaPlayer is instantiat
 
 QUnit.test("Given video tag with loop and end time set when currentTime reaches end time then video starts playing from the beginning", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.loop = true;
@@ -1295,7 +1295,7 @@ QUnit.test("Given video tag with loop and end time set when currentTime reaches 
 
 QUnit.test("Given video tag with autoplay and start time set when video is loaded then video starts playing", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -1312,7 +1312,7 @@ QUnit.test("Given video tag with autoplay and start time set when video is loade
 });
 
 QUnit.test("Given mediaElement is set to video 1 when mediaElement is set to null then video 1 does not have Css classes added by the mediaPlayer", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var videoTag = document.createElement("video");
     mediaPlayer.mediaElementAdapter.mediaElement = videoTag;
     mediaPlayer.mediaElementAdapter.mediaElement = null;
@@ -1321,7 +1321,7 @@ QUnit.test("Given mediaElement is set to video 1 when mediaElement is set to nul
 });
 
 QUnit.test("Given mediaElement is set to video 1 when mediaElement is set to null then video 1 does not have the event listeners added by the mediaPlayer", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var oldMediaElement = mediaPlayer.mediaElementAdapter.mediaElement;
     mediaPlayer.mediaElementAdapter.mediaElement = null;
     assert.ok(mediaPlayer._mediaEventSubscriptions.length === 0, "The events listeners added by the mediaPlayer as still attached to the old mediaElement, but should have been cleaned up.");
@@ -1329,7 +1329,7 @@ QUnit.test("Given mediaElement is set to video 1 when mediaElement is set to nul
 });
 
 QUnit.test("When mediaElement is set to new mediaElement then new mediaElement has appropriate classes", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var video = document.createElement("video");
     mediaPlayer.mediaElementAdapter.mediaElement = video;
     assert.ok(WinJS.Utilities.hasClass(video, "tv-mediaplayer-video"), "CSS class that was added by the mediaPlayer is not present.");
@@ -1338,21 +1338,21 @@ QUnit.test("When mediaElement is set to new mediaElement then new mediaElement h
 
 QUnit.module("Chapter skip");
 QUnit.test("Given in the middle of the media when chapterSkipForward then currentTime is at the next chapter", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
     mockMediaElement.duration = 60;
     mockMediaElement.currentTime = mockMediaElement.duration / 2;
     var nextMarkerTime = mediaPlayer.mediaElementAdapter.mediaElement.duration * 0.6;
-    mediaPlayer.addMarker(nextMarkerTime, WinJS.UI.MarkerType.chapter, "Next chapter");
+    mediaPlayer.addMarker(nextMarkerTime, TVJS.MarkerType.chapter, "Next chapter");
     mediaPlayer.chapterSkipForward();
     assert.equal(nextMarkerTime, mockMediaElement.currentTime);
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given less than one chapter from the end when chapterSkipForward then position is at the end of the video", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
@@ -1364,7 +1364,7 @@ QUnit.test("Given less than one chapter from the end when chapterSkipForward the
 });
 
 QUnit.test("Given at the end when chapterSkipForward then position is at the end", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
@@ -1376,7 +1376,7 @@ QUnit.test("Given at the end when chapterSkipForward then position is at the end
 });
 
 QUnit.test("Given only slightly past an existing marker when chapterSkipBack then position jumps back two markers instead of one", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
@@ -1390,7 +1390,7 @@ QUnit.test("Given only slightly past an existing marker when chapterSkipBack the
 });
 
 QUnit.test("Given in the middle when chapterSkipBack then position is at the previous chapter", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1407,7 +1407,7 @@ QUnit.test("Given in the middle when chapterSkipBack then position is at the pre
 });
 
 QUnit.test("Given less than one chapter from the beginning when chapterSkipBack then is at the beginning of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
@@ -1421,7 +1421,7 @@ QUnit.test("Given less than one chapter from the beginning when chapterSkipBack 
 });
 
 QUnit.test("Given at the beginning when chapterSkipBack then position is at the beginning", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 3;
@@ -1434,7 +1434,7 @@ QUnit.test("Given at the beginning when chapterSkipBack then position is at the 
 });
 
 QUnit.test("Given only slightly before an existing marker when chapterSkipForward then position jumps forward two markers instead of one", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1451,7 +1451,7 @@ QUnit.test("Given only slightly before an existing marker when chapterSkipForwar
 });
 
 QUnit.test("Given media with no chapterMarkers when mediaPlayer is initialized then correct number of default markers are added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1464,7 +1464,7 @@ QUnit.test("Given media with no chapterMarkers when mediaPlayer is initialized t
 });
 
 QUnit.test("Given textTrack where kind is chapters when initialized then default chapter markers are not added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.textTracks = [{
         id: "control1",
@@ -1482,7 +1482,7 @@ QUnit.test("Given textTrack where kind is chapters when initialized then default
 });
 
 QUnit.test("Given textTrack where kind is not chapters when initialized then chapterMarkers are not added For that textTrack", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.textTracks = [{
         id: "control1",
@@ -1500,7 +1500,7 @@ QUnit.test("Given textTrack where kind is not chapters when initialized then cha
 });
 
 QUnit.test("Given a marker past the end time when mediaPlayer is initialized then the marker is added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.endTime = 10;
@@ -1510,7 +1510,7 @@ QUnit.test("Given a marker past the end time when mediaPlayer is initialized the
 });
 
 QUnit.test("Given a startTime is set when mediaPlayer markerAdded before startTime then the marker is added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.startTime = 10;
@@ -1520,7 +1520,7 @@ QUnit.test("Given a startTime is set when mediaPlayer markerAdded before startTi
 });
 
 QUnit.test("Given on the first chapterMarker when chapterSkipBack then currentTime does not change", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1536,7 +1536,7 @@ QUnit.test("Given on the first chapterMarker when chapterSkipBack then currentTi
 });
 
 QUnit.test("Given on the first chapterMarker when chapterSkipBack then currentTime does not change", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1552,7 +1552,7 @@ QUnit.test("Given on the first chapterMarker when chapterSkipBack then currentTi
 });
 
 QUnit.test("Given on the last chapterMarker when chapterSkipForward then currentTime does not change", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1568,7 +1568,7 @@ QUnit.test("Given on the last chapterMarker when chapterSkipForward then current
 });
 
 QUnit.test("Given startTime and endTime set Such that totalTime is less than minimum time For chaptermarkers when mediaPlayer is initialized then no default markers are added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -1583,7 +1583,7 @@ QUnit.test("Given startTime and endTime set Such that totalTime is less than min
 });
 
 QUnit.test("Given no chapter markers when mediaPlayer chapterSkipForward then currentTime is the end of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -1594,7 +1594,7 @@ QUnit.test("Given no chapter markers when mediaPlayer chapterSkipForward then cu
 });
 
 QUnit.test("Given no chaptermarkers when mediaPlayer chapterSkipBack then currentTime is the beginning of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -1608,7 +1608,7 @@ QUnit.test("Given no chaptermarkers when mediaPlayer chapterSkipBack then curren
 QUnit.module("hideControls");
 QUnit.test("Given controls visible when videControls then the afterHideControls event fires and controls are hidden", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1625,7 +1625,7 @@ QUnit.test("Given controls visible when videControls then the afterHideControls 
 
 QUnit.test("Given controls visible when beforeHideControls event fires and preventDefault then controls are visible", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1644,7 +1644,7 @@ QUnit.test("Given controls visible when beforeHideControls event fires and preve
 QUnit.module("showControls");
 QUnit.test("Given controls hidden when before showControls event fires and preventDefault then controls are hidden", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1661,7 +1661,7 @@ QUnit.test("Given controls hidden when before showControls event fires and preve
 
 QUnit.test("Given controls hidden when showControls then after showControls event fires then controls are visible", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1676,7 +1676,7 @@ QUnit.test("Given controls hidden when showControls then after showControls even
 });
 
 QUnit.test("Given controls hidden when hide controls then beforehidecontrols event does not fire", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1691,7 +1691,7 @@ QUnit.test("Given controls hidden when hide controls then beforehidecontrols eve
 });
 
 QUnit.test("Given controls visible when showControls then beforeshowcontrols event does not fire", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1707,7 +1707,7 @@ QUnit.test("Given controls visible when showControls then beforeshowcontrols eve
 });
 
 QUnit.test("Given controls hidden when show controls then the after showControls event fires and controls are visible", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1723,40 +1723,40 @@ QUnit.test("Given controls hidden when show controls then the after showControls
 });
 
 QUnit.test("When chapterSkipBack then mediaCommandExecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.chapterSkipBack, "chapterSkipBack", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.chapterSkipBack, "chapterSkipBack", assert);
 });
 
 QUnit.test("When chapterSkipForward then mediaCommandExecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.chapterSkipForward, "chapterSkipForward", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.chapterSkipForward, "chapterSkipForward", assert);
 });
 
 QUnit.test("When FastForward then mediaCommandExecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.fastForward, "fastForward", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.fastForward, "fastForward", assert);
 });
 
 QUnit.test("When nextTrack then mediaCommandExecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.nextTrack, "nextTrack", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.nextTrack, "nextTrack", assert);
 });
 
 QUnit.test("When previousTrack then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.previousTrack, "previousTrack", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.previousTrack, "previousTrack", assert);
 });
 
 QUnit.test("When play then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.play, "play", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.play, "play", assert);
 });
 
 QUnit.test("When pause then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.pause, "pause", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.pause, "pause", assert);
 });
 
 QUnit.test("When rewind then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.rewind, "rewind", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.rewind, "rewind", assert);
 });
 
 QUnit.test("When seek then mediacommandexecuted event fires with correct event arguments", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -1770,20 +1770,20 @@ QUnit.test("When seek then mediacommandexecuted event fires with correct event a
 });
 
 QUnit.test("When timeSkipBack then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.timeSkipBack, "timeSkipBack", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.timeSkipBack, "timeSkipBack", assert);
 });
 
 QUnit.test("When timeSkipForward then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.timeSkipForward, "timeSkipForward", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.timeSkipForward, "timeSkipForward", assert);
 });
 
 QUnit.test("When audioTracks then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.audioTracks, "_onAudioTracksCommandInvoked", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.audioTracks, "_onAudioTracksCommandInvoked", assert);
 });
 
 QUnit.test("When Cast then mediacommandexecuted event fires with correct event arguments", function (assert) {
     if (WinJS.Utilities.hasWinRT) {
-        runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.cast, "_onCastCommandInvoked", assert);
+        runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.cast, "_onCastCommandInvoked", assert);
     } else {
         var done = assert.async();
         assert.ok(true);
@@ -1792,19 +1792,19 @@ QUnit.test("When Cast then mediacommandexecuted event fires with correct event a
 });
 
 QUnit.test("When closedCaptions then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.closedCaptions, "_onClosedCaptionsCommandInvoked", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.closedCaptions, "_onClosedCaptionsCommandInvoked", assert);
 });
 
 QUnit.test("When playbackRate then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.playbackRate, "_onPlaybackRateCommandInvoked", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.playbackRate, "_onPlaybackRateCommandInvoked", assert);
 });
 
 QUnit.test("When Volume then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.volume, "_onVolumeCommandInvoked", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.volume, "_onVolumeCommandInvoked", assert);
 });
 
 QUnit.test("When Zoom then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    runVerifyMediaCommandExecutedEventTest(WinJS.UI.MediaCommand.zoom, "_onZoomCommandInvoked", assert);
+    runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.zoom, "_onZoomCommandInvoked", assert);
 });
 
 QUnit.test("Given paused and isPlayAllowed is true when play then media is playing", function (assert) {
@@ -1884,7 +1884,7 @@ QUnit.test("Given null mediaElement when rewind then does not throw an exception
 });
 
 QUnit.test("Given null mediaElement when seek then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mediaPlayer.mediaElementAdapter.mediaElement = null;
@@ -1935,7 +1935,7 @@ QUnit.test("Given new mediaElement when rewind then does not throw an exception"
 });
 
 QUnit.test("Given new mediaElement when seek then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     try {
@@ -1984,7 +1984,7 @@ QUnit.test("Given  mediaElement src is null when rewind then throws an exception
 });
 
 QUnit.test("Given  mediaElement src is null when seek then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = null;
@@ -2007,7 +2007,7 @@ QUnit.test("Given  mediaElement src is null when timeSkipForward then throws an 
 
 QUnit.test("Given invalid media element when play then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.mediaElementAdapter.mediaElement = "foobar";
         mediaPlayer.play();
@@ -2021,13 +2021,13 @@ QUnit.test("Given invalid media element when play then throws an exception", fun
 QUnit.test("Given new mediaPlayer with innerHTML elements when constructed then innerHTML elements are preserved", function (assert) {
     var mediaElementDiv = document.createElement("div");
     mediaElementDiv.innerHTML = "<div id='customDiv'></div>";
-    var mediaPlayer = new WinJS.UI.MediaPlayer(mediaElementDiv);
+    var mediaPlayer = new TVJS.MediaPlayer(mediaElementDiv);
     assert.ok(mediaPlayer.element.querySelector("#customDiv"), "InnerHTML was not preserved.");
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given mediaElement when src set to new src then endTime is updated", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.duration = 10;
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2037,7 +2037,7 @@ QUnit.test("Given mediaElement when src set to new src then endTime is updated",
 });
 
 QUnit.test("Given mediaElement with metadata already loaded when set mediaPlayer mediaElement then startTime and endTime are correctly updated", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement1 = new Test.MockMediaElement();
     mockMediaElement1.initialTime = 1;
     mockMediaElement1.duration = 2;
@@ -2054,7 +2054,7 @@ QUnit.test("Given mediaElement with metadata already loaded when set mediaPlayer
 
 QUnit.module("playbackRate");
 QUnit.test("Given mediaPlayer playing when pause then playbackRate is paused", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.autoplay = true;
     mockMediaElement.src = "notnull";
@@ -2065,7 +2065,7 @@ QUnit.test("Given mediaPlayer playing when pause then playbackRate is paused", f
 });
 
 QUnit.test("Given mediaPlayer paused when play then playbackRate is playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2207,7 +2207,7 @@ QUnit.test("Given RR2X when fastForward then playbackRate is playing", function 
 });
 
 QUnit.test("Given Fast forward when pause then pause", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2218,7 +2218,7 @@ QUnit.test("Given Fast forward when pause then pause", function (assert) {
 });
 
 QUnit.test("Given rewind when pause then pause", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2277,7 +2277,7 @@ QUnit.test("Given playbackRate is fractional value less thanRewindSlowMotionRate
 });
 
 QUnit.test("Given fastforward when fastForwarding then controls Remain visible", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2288,7 +2288,7 @@ QUnit.test("Given fastforward when fastForwarding then controls Remain visible",
 });
 
 QUnit.test("Given rewind when rewinding then controls remain visible", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -2383,7 +2383,7 @@ QUnit.test("Given paused when play is called on the video tag then playpause tog
 });
 
 QUnit.test("Given paused when playbackRate is increased to greater than the default playbackRate on the video tag then playpause toggle is play icon", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -2394,7 +2394,7 @@ QUnit.test("Given paused when playbackRate is increased to greater than the defa
 });
 
 QUnit.test("When seek to beginning then currentTime is Zero", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2404,7 +2404,7 @@ QUnit.test("When seek to beginning then currentTime is Zero", function (assert) 
 });
 
 QUnit.test("When seek to end then currentTime is  equal to duration", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2415,7 +2415,7 @@ QUnit.test("When seek to end then currentTime is  equal to duration", function (
 });
 
 QUnit.test("When seek to middle then currentTime is Equal Half of duration", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2426,7 +2426,7 @@ QUnit.test("When seek to middle then currentTime is Equal Half of duration", fun
 });
 
 QUnit.test("When seek to fractional value then seek is successful", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2437,7 +2437,7 @@ QUnit.test("When seek to fractional value then seek is successful", function (as
 });
 
 QUnit.test("When seek to negative time then currentTime is  equal to Zero", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2447,7 +2447,7 @@ QUnit.test("When seek to negative time then currentTime is  equal to Zero", func
 });
 
 QUnit.test("When seek to past the end of the media then currentTime is equal to the media duration", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2458,7 +2458,7 @@ QUnit.test("When seek to past the end of the media then currentTime is equal to 
 });
 
 QUnit.test("When invalid parameter passed to seek then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
 
@@ -2472,7 +2472,7 @@ QUnit.test("When invalid parameter passed to seek then does not throw an excepti
 });
 
 QUnit.test("When null passed to seek then does not throw an exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
 
@@ -2486,7 +2486,7 @@ QUnit.test("When null passed to seek then does not throw an exception", function
 });
 
 QUnit.test("Given paused when seek then paused", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2496,7 +2496,7 @@ QUnit.test("Given paused when seek then paused", function (assert) {
 });
 
 QUnit.test("Given playing when seek then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2507,7 +2507,7 @@ QUnit.test("Given playing when seek then playing", function (assert) {
     safeDispose(mediaPlayer);
 });
 QUnit.test("Given fastf orwarding when seek then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2520,7 +2520,7 @@ QUnit.test("Given fastf orwarding when seek then playing", function (assert) {
 });
 
 QUnit.test("Given rewinding when seek then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2533,7 +2533,7 @@ QUnit.test("Given rewinding when seek then playing", function (assert) {
 });
 
 QUnit.test("When seek to before startTime then currentTime is startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2546,7 +2546,7 @@ QUnit.test("When seek to before startTime then currentTime is startTime", functi
 });
 
 QUnit.test("When seek to after endTime then currentTime is endTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2560,7 +2560,7 @@ QUnit.test("When seek to after endTime then currentTime is endTime", function (a
 
 QUnit.test("When startTime is set to null then does not throw an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = null;
     } catch (exception) {
@@ -2572,7 +2572,7 @@ QUnit.test("When startTime is set to null then does not throw an exception", fun
 
 QUnit.test("When startTime set to invalid value then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = "invalid value";
     } catch (exception) {
@@ -2584,7 +2584,7 @@ QUnit.test("When startTime set to invalid value then throws an exception", funct
 
 QUnit.test("When startTime set to negative value then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = -10;
     } catch (exception) {
@@ -2596,7 +2596,7 @@ QUnit.test("When startTime set to negative value then throws an exception", func
 
 QUnit.test("When endTime is set to null then does not throw an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = null;
     } catch (exception) {
@@ -2608,7 +2608,7 @@ QUnit.test("When endTime is set to null then does not throw an exception", funct
 
 QUnit.test("When endTime set to invalidValue then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = "invalid value";
     } catch (exception) {
@@ -2620,7 +2620,7 @@ QUnit.test("When endTime set to invalidValue then throws an exception", function
 
 QUnit.test("When endTime set to negative value then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.startTime = -10;
     } catch (exception) {
@@ -2631,7 +2631,7 @@ QUnit.test("When endTime set to negative value then throws an exception", functi
 });
 
 QUnit.test("Given startTime is set when timeSkipBack then currentTime at the startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2645,7 +2645,7 @@ QUnit.test("Given startTime is set when timeSkipBack then currentTime at the sta
 });
 
 QUnit.test("Given at the end of the media when timeSkip forward then currentTime is the end of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2659,14 +2659,14 @@ QUnit.test("Given at the end of the media when timeSkip forward then currentTime
 });
 
 QUnit.test("Given startTime is set and first chaptermarker is before the startTime when chapterSkipBack then does not skip to the marker before the startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
     mockMediaElement.autoplay = true;
     mockMediaElement.src = "notnull";
     mediaPlayer.startTime = 5;
-    mediaPlayer.addMarker(mediaPlayer.startTime - 1, WinJS.UI.MarkerType.chapter, {});
+    mediaPlayer.addMarker(mediaPlayer.startTime - 1, TVJS.MarkerType.chapter, {});
     mediaPlayer.currentTime = mediaPlayer.startTime;
     mediaPlayer.chapterSkipBack();
     assert.equal(mediaPlayer.startTime, mockMediaElement.currentTime);
@@ -2674,14 +2674,14 @@ QUnit.test("Given startTime is set and first chaptermarker is before the startTi
 });
 
 QUnit.test("Given endTime is set and last chapterMarker is after the end time when chapterSkipForward then does not skip to the marker past the endTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
     mockMediaElement.autoplay = true;
     mockMediaElement.src = "notnull";
     mediaPlayer.endTime = 5;
-    mediaPlayer.addMarker(mediaPlayer.endTime + 1, WinJS.UI.MarkerType.chapter, {});
+    mediaPlayer.addMarker(mediaPlayer.endTime + 1, TVJS.MarkerType.chapter, {});
     mediaPlayer.currentTime = mediaPlayer.endTime;
     mediaPlayer.chapterSkipForward();
     assert.equal(mediaPlayer.endTime, mockMediaElement.currentTime);
@@ -2689,7 +2689,7 @@ QUnit.test("Given endTime is set and last chapterMarker is after the end time wh
 });
 
 QUnit.test("Given endTime is set when attmept to fastForward past the endTime then does not fast forward past end time", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2706,7 +2706,7 @@ QUnit.test("Given endTime is set when attmept to fastForward past the endTime th
 });
 
 QUnit.test("Given startTime is set when attmept to rewind before the startTime then does not rewind before startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2723,7 +2723,7 @@ QUnit.test("Given startTime is set when attmept to rewind before the startTime t
 });
 
 QUnit.test("Given default chapter markers when startTime is set then first default chapterMarker is now at the startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -2737,7 +2737,7 @@ QUnit.test("Given default chapter markers when startTime is set then first defau
 });
 
 QUnit.test("Given defaultChapter markers when endTime is set then last default chapterMarker is now at the endTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -2751,7 +2751,7 @@ QUnit.test("Given defaultChapter markers when endTime is set then last default c
 });
 
 QUnit.test("Given total video duration long enough For default chapter markers when endTime set so duration is too short then node fault chapterMarkers", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.chapterSkipBackButtonVisible = true;
     mediaPlayer.chapterSkipForwardButtonVisible = true;
     var mockMediaElement = new Test.MockMediaElement();
@@ -2765,7 +2765,7 @@ QUnit.test("Given total video duration long enough For default chapter markers w
 });
 
 QUnit.test("Given startTime is set when media currentTime is set to before startTime then currentTime is startTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2778,7 +2778,7 @@ QUnit.test("Given startTime is set when media currentTime is set to before start
 });
 
 QUnit.test("Given endTime is set when media currentTime is set to after endTime then currentTime is endTime", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2791,7 +2791,7 @@ QUnit.test("Given endTime is set when media currentTime is set to after endTime 
 });
 
 QUnit.test("Given startTime is set when hideControls then still subscribed to timeupdates", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2816,7 +2816,7 @@ QUnit.test("Given startTime is set when hideControls then still subscribed to ti
 });
 
 QUnit.test("Given startTime is set when video loaded then startTime is persisted", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2828,7 +2828,7 @@ QUnit.test("Given startTime is set when video loaded then startTime is persisted
 });
 
 QUnit.test("Given endTime is set when videoLoaded then endTime is persisted", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2840,7 +2840,7 @@ QUnit.test("Given endTime is set when videoLoaded then endTime is persisted", fu
 });
 
 QUnit.test("Given startTime is set when mediaElement Source changes then old startTime is cleared", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2853,7 +2853,7 @@ QUnit.test("Given startTime is set when mediaElement Source changes then old sta
 });
 
 QUnit.test("Given endTime is set when mediaElement source changes then old endTime is cleared", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2866,7 +2866,7 @@ QUnit.test("Given endTime is set when mediaElement source changes then old endTi
 });
 
 QUnit.test("Given fast forwarding when time passes then targetCurrentTime updates", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2883,7 +2883,7 @@ QUnit.test("Given fast forwarding when time passes then targetCurrentTime update
 });
 
 QUnit.test("Given rewinding when time passes then targetCurrentTime updates", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2900,7 +2900,7 @@ QUnit.test("Given rewinding when time passes then targetCurrentTime updates", fu
 });
 
 QUnit.test("Given null timeFormatter function when showControls then timeFormatter function is not null", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mediaPlayer.timeFormatter = null;
@@ -2913,7 +2913,7 @@ QUnit.test("Given null timeFormatter function when showControls then timeFormatt
 });
 
 QUnit.test("Given valid timeFormatter function when showControls then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mediaPlayer.timeFormatter = function (time) { return "Custom Text." };
@@ -2927,7 +2927,7 @@ QUnit.test("Given valid timeFormatter function when showControls then does not t
 
 QUnit.test("Given timeFormatter that is not a function when showControls then throws an exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mediaPlayer.timeFormatter = 1;
@@ -2945,14 +2945,14 @@ QUnit.test("Given timeFormatter that is not a function when showControls then th
 
 QUnit.test("Given default timeFormatter when timeFormatter is passed a value that is not a number then returns an empty String", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var returnValue = mediaPlayer.timeFormatter("notANumber");
     assert.equal("", returnValue);
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("When timeSkipForward then currentTime is incremented", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -2964,7 +2964,7 @@ QUnit.test("When timeSkipForward then currentTime is incremented", function (ass
 });
 
 QUnit.test("When timeSkipBack then currentTime is decremented", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2977,7 +2977,7 @@ QUnit.test("When timeSkipBack then currentTime is decremented", function (assert
 });
 
 QUnit.test("Given currentTime is less than 30 seconds from the end when timeSkipForward then currentTime is at the end of theMedia", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -2989,7 +2989,7 @@ QUnit.test("Given currentTime is less than 30 seconds from the end when timeSkip
 });
 
 QUnit.test("Given currentTime is less than the skipBackAmount from the beginning when timeSkipBack then currentTime is at beginning of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -3000,7 +3000,7 @@ QUnit.test("Given currentTime is less than the skipBackAmount from the beginning
 });
 
 QUnit.test("Given playing when timeSkipBack then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3011,7 +3011,7 @@ QUnit.test("Given playing when timeSkipBack then playing", function (assert) {
 });
 
 QUnit.test("Given paused when timeSkipBackthen paused", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -3021,7 +3021,7 @@ QUnit.test("Given paused when timeSkipBackthen paused", function (assert) {
 });
 
 QUnit.test("Given fast forwarding when timeSkipBack then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3033,7 +3033,7 @@ QUnit.test("Given fast forwarding when timeSkipBack then playing", function (ass
 });
 
 QUnit.test("Given rewinding when timeSkipBack then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3045,7 +3045,7 @@ QUnit.test("Given rewinding when timeSkipBack then playing", function (assert) {
 });
 
 QUnit.test("Given playing when timeSkipForward then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3056,7 +3056,7 @@ QUnit.test("Given playing when timeSkipForward then playing", function (assert) 
 });
 
 QUnit.test("Given paused when timeSkipForwardthen paused", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.src = "notnull";
@@ -3066,7 +3066,7 @@ QUnit.test("Given paused when timeSkipForwardthen paused", function (assert) {
 });
 
 QUnit.test("Given fast forwarding when timeSkipForward then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3078,7 +3078,7 @@ QUnit.test("Given fast forwarding when timeSkipForward then playing", function (
 });
 
 QUnit.test("Given rewinding when timeSkipForward then playing", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.autoplay = true;
@@ -3090,7 +3090,7 @@ QUnit.test("Given rewinding when timeSkipForward then playing", function (assert
 });
 
 QUnit.test("Given at the beginning of the media when timeSkipBack then currentTime is the beginning of the media", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.readyState = 4;
@@ -3229,7 +3229,7 @@ QUnit.test("Given no transport bar buttons when timeSkipForward then does not th
 
 QUnit.test("When window resize then does not throw exception", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.mediaElementAdapter.mediaElement = new Test.MockMediaElement();
     try {
         mediaPlayer._windowResizeCallback();
@@ -3241,13 +3241,13 @@ QUnit.test("When window resize then does not throw exception", function (assert)
 });
 
 QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with no video then default values For mediaPlayer properties are correct", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     assert.ok(mediaPlayer.mediaElementAdapter, "MediaPlayer.mediaElementAdapter was null.");
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with video with valid source then default values For mediaPlayer properties are correct", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var video = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = video;
     video.src = "http://lizard.dns.microsoft.com/WMV/Halo4TrailerSmall.wmv";
@@ -3261,24 +3261,8 @@ QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with vi
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given Winjs when mediaPlayer is instantiated declaratively then a valid mediaPlayer is created", function (assert) {
-    var containerDiv = document.createElement("div");
-    containerDiv.innerHTML = '<div data-tv-control="WinJS.UI.MediaPlayer">' +
-                                '   <video></video>' +
-                                '</div>';
-    WinJS.UI.processAll(containerDiv);
-    var mediaPlayer = containerDiv.querySelector(".tv-mediaplayer").winControl;
-    if (mediaPlayer._tv) {
-        assert.ok(mediaPlayer.fullScreen, "mediaPlayer.fullScreen did not default to 'false'.");
-    } else {
-        assert.notOk(mediaPlayer.fullScreen, "mediaPlayer.fullScreen did not default to 'false'.");
-    }
-    assert.ok(mediaPlayer.mediaElementAdapter, "MediaPlayer.mediaElementAdapter was null.");
-    safeDispose(mediaPlayer);
-});
-
 QUnit.test("Given WinJS when mediaPlayer constructor is called with a null element then a mediaPlayer control is created", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer(null);
+    var mediaPlayer = new TVJS.MediaPlayer(null);
     assert.ok(mediaPlayer.mediaElementAdapter, "MediaPlayer.mediaElementAdapter was null.");
     assert.equal(true, mediaPlayer.thumbnailEnabled, "mediaPlayer.thumbnailEnabled was not 'true'.");
     assert.equal(0, mediaPlayer.startTime, "mediaPlayer.startTime was not 0.");
@@ -3288,7 +3272,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with a null eleme
 
 QUnit.test("Given WinJS when mediaPlayer constructor is called with an element that is not in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("div");
-    var mediaPlayer = new WinJS.UI.MediaPlayer(element);
+    var mediaPlayer = new TVJS.MediaPlayer(element);
     assert.equal(element, mediaPlayer.element, "MediaPlayer.element was not the element we used to instantiate it with.");
     safeDispose(mediaPlayer);
 });
@@ -3296,7 +3280,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with an element t
 QUnit.test("Given WinJS when mediaPlayer constructor is called with an element that is in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("div");
     document.body.appendChild(element);
-    var mediaPlayer = new WinJS.UI.MediaPlayer(element);
+    var mediaPlayer = new TVJS.MediaPlayer(element);
     assert.equal(element, mediaPlayer.element, "MediaPlayer.element was not the element we used to instantiate it with.");
     // Clean up the element
     element.parentNode.removeChild(element);
@@ -3306,7 +3290,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with an element t
 QUnit.test("Given WinJS when mediaPlayer constructor is called with a non Div element that is in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("img");
     document.body.appendChild(element);
-    var mediaPlayer = new WinJS.UI.MediaPlayer(element);
+    var mediaPlayer = new TVJS.MediaPlayer(element);
     assert.equal(element, mediaPlayer.element, "MediaPlayer.element was not the element we used to instantiate it with.");
     // Clean up the element
     element.parentNode.removeChild(element);
@@ -3314,13 +3298,13 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with a non Div el
 });
 
 QUnit.test("Given WinJS when media player constructor is called with options then options are set", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer(null, { foo: "bar" });
+    var mediaPlayer = new TVJS.MediaPlayer(null, { foo: "bar" });
     assert.equal("bar", mediaPlayer.foo, "We were able to set the options on the element.");
     safeDispose(mediaPlayer);
 });
 
 QUnit.test("Given WinJS when mediaPlayer constructor is called then expected DOM methods are added", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     assert.ok(mediaPlayer.addEventListener, "The mediaPlayer control does not have all the expected DOM methods.");
     assert.ok(mediaPlayer.dispatchEvent, "The mediaPlayer control does not have all the expected DOM methods.");
     assert.ok(mediaPlayer.removeEventListener, "The mediaPlayer control does not have all the expected DOM methods.");
@@ -3329,7 +3313,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called then expected DOM
 
 QUnit.test("Given WinJS when mediaPlayer dispose is called twice then no exception is thrown", function (assert) {
     var wasExceptionThrown = false;
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.dispose();
     try {
         mediaPlayer.dispose();
@@ -3343,7 +3327,7 @@ QUnit.test("Given WinJS when mediaPlayer dispose is called twice then no excepti
 QUnit.module("Thumbnail events");
 QUnit.test("Given WinJS when fast fowarding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3362,7 +3346,7 @@ QUnit.test("Given WinJS when fast fowarding and thumbnail enabled then raise thu
 
 QUnit.test("Given WinJS when rewinding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3379,7 +3363,7 @@ QUnit.test("Given WinJS when rewinding and thumbnail enabled then raise thumbnai
 });
 
 QUnit.test("Given WinJS when fast fowarding and not thumbnailEnabled then not thumbnailRequest event", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3397,7 +3381,7 @@ QUnit.test("Given WinJS when fast fowarding and not thumbnailEnabled then not th
 });
 
 QUnit.test("Given WinJS when rewinding and not thumbnailEnabled then no thumbnailRequest event", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3416,7 +3400,7 @@ QUnit.test("Given WinJS when rewinding and not thumbnailEnabled then no thumbnai
 
 QUnit.test("Given WinJS when fast forward then targetRatechanged event", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3434,7 +3418,7 @@ QUnit.test("Given WinJS when fast forward then targetRatechanged event", functio
 
 QUnit.test("Given WinJS when fastForward then targetTimeupdate event", function (assert) {
     var done = assert.async();
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mockMediaElement.duration = 10;
@@ -3452,7 +3436,7 @@ QUnit.test("Given WinJS when fastForward then targetTimeupdate event", function 
 
 // Regression test cases - all the following test cases are based on real bugs found in production
 QUnit.test("When src set to null then startTime and endTime update", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.autoplay = true;
     mockMediaElement.duration = 10;
@@ -3467,7 +3451,7 @@ QUnit.test("When src set to null then startTime and endTime update", function (a
 });
 
 QUnit.test("When set buttons to Disabled and srcSet then disabled button state preserved", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mockMediaElement.autoplay = true;
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -3478,7 +3462,7 @@ QUnit.test("When set buttons to Disabled and srcSet then disabled button state p
 });
 
 QUnit.test("When focus in overlay and space or GamepadA then controls don't showControls", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     var overlay = document.createElement("button");
     mockMediaElement.autoplay = true;
@@ -3495,7 +3479,7 @@ QUnit.test("When focus in overlay and space or GamepadA then controls don't show
 });
 
 QUnit.test("When addMarker with time zero then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     try {
@@ -3508,7 +3492,7 @@ QUnit.test("When addMarker with time zero then does not throw exception", functi
 });
 
 QUnit.test("When call setContent metadata with empty objects then does not throw exception", function (assert) {
-    var mediaPlayer = new WinJS.UI.MediaPlayer();
+    var mediaPlayer = new TVJS.MediaPlayer();
     try {
         mediaPlayer.setContentMetadata({}, {});
     } catch (ex) {

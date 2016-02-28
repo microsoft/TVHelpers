@@ -22,7 +22,7 @@
     });
     QUnit.test("When instantiated it is focusable", function (assert) {
         var scrollViewer = new TVJS.ScrollViewer();
-        assert.ok(scrollViewer.element.tabIndex >= 0);
+        assert.ok(scrollViewer._scrollingContainer.tabIndex >= 0);
     });
     QUnit.test("Can be instantiated with no child elements", function (assert) {
         var element = document.createElement("div");

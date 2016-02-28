@@ -64,13 +64,6 @@
 
     // TODO: Figure out localization, hardcoded strings for now.
     var strings = {
-        //get duplicateConstruction() { return WinJS.Resources._getWinJSString("ui/duplicateConstruction").value; },
-        //get letters() { return WinJS.Resources._getWinJSString("tv/searchBoxLetters").value; },
-        //get secondaryLetters() { return WinJS.Resources._getWinJSString("tv/searchBoxSecondaryLetters").value; },
-        //get numbers() { return WinJS.Resources._getWinJSString("tv/searchBoxNumbers").value; },
-        //get toggleNumbersAndLettersLabelNumbers() { return WinJS.Resources._getWinJSString("tv/searchBoxToggleLettersAndNumbersLabelNumbers").value; },
-        //get toggleNumbersAndLettersLabelLetters() { return WinJS.Resources._getWinJSString("tv/searchBoxToggleLettersAndNumbersLabelLetters").value; },
-        //get toggleNumbersAndLettersLabelSecondaryLetters() { return WinJS.Resources._getWinJSString("tv/toggleNumbersAndLettersLabelSecondaryLetters").value; }
         letters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         secondaryLetters: "String_Empty",
         numbers: "1234567890$.,:;?!#@%-&",
@@ -111,24 +104,15 @@
             // Set options
             _setOptions(this, options);
 
+            if (!this.strings) {
+                this.strings = strings;
+            }
+
             // We perform the following check to see if we are running in a language that requires
             // three character sets. Most languages require only two: (1) alphabet and (2) numbers
             // and symbols. But languages like Russian require 3: (1) Cyrillic alphabet, (2) Latin
             // alphabet and (3) numbers and symbols.
-            this._usesThreeCharacterSets = false;
-            // TODO: Handle the multialphabet case
-            // Note: We check if the app display language is Russian *and* that the app supports
-            // Russian. The most correct way to do this is check what language / locale strings WinJS
-            // is using for the rest of the SearchBox strings. Otherwise, we could have an English-only 
-            // localized app in Russia that doesn't support Russian and it would display 3 characters 
-            // sets: English, English and numbers & symbols, which would be incorrect. It should just 
-            // have English and numbers & symbols.
-            //var winJSResourceString = WinJS.Resources._getWinJSString("tv/searchBoxLetters");
-            //if (winJSResourceString &&
-            //    winJSResourceString.lang &&
-            //    winJSResourceString.lang.toLowerCase() === "ru-ru") {
-            //    this._usesThreeCharacterSets = true;
-            //}
+            this.usesThreeCharacterSets = false;
 
             this._setElementBind = this._setElement.bind(this);
             this._setElementBind(element);
@@ -204,7 +188,7 @@
             this._characterSetDisplayed = null;
             this._spaceElement = null;
             this._toggleLettersOrSymbolsElement = null;
-            this._usesThreeCharacterSets = null;
+            this.usesThreeCharacterSets = null;
 
             this._firstCharacter = null;
             this._lastCharacter = null;
@@ -220,14 +204,14 @@
             this._element = element;
             this._element.classList.add(ClassName.searchBox);
 
-            var characterArray = strings.letters;
+            var characterArray = this.strings.letters;
             var characterArrayLength = characterArray.length;
             this._firstCharacter = characterArray[0];
             this._lastCharacter = characterArray[characterArrayLength - 1];
 
-            var initialToggleLettersAndNumbersString = strings.toggleNumbersAndLettersLabelNumbers;
-            if (this._usesThreeCharacterSets) {
-                var initialToggleLettersAndNumbersString = strings.toggleNumbersAndLettersLabelSecondaryLetters;
+            var initialToggleLettersAndNumbersString = this.strings.toggleNumbersAndLettersLabelNumbers;
+            if (this.usesThreeCharacterSets) {
+                var initialToggleLettersAndNumbersString = this.strings.toggleNumbersAndLettersLabelSecondaryLetters;
             }
             var html = '<input class="' + ClassName.searchBoxInput + '" type="text" placeHolder="' + "search..." + '" />' +
                        '<div class="tv-searchbox-letterscontainer">' +
@@ -251,8 +235,8 @@
             }
 
             // Create an additional set of letters if we are in a language that requires three character sets.
-            if (this._usesThreeCharacterSets) {
-                var secondaryAlphabetArray = strings.secondaryLetters;
+            if (this.usesThreeCharacterSets) {
+                var secondaryAlphabetArray = this.strings.secondaryLetters;
                 var secondaryAlphabetArrayLength = secondaryAlphabetArray.length;
                 this._secondaryAlphabetFirstCharacter = secondaryAlphabetArray[0];
                 this._secondaryAlphabetLastCharacter = secondaryAlphabetArray[secondaryAlphabetArrayLength - 1];
@@ -274,7 +258,7 @@
                 }
             }
 
-            var numbersAndSymbolsArray = strings.numbers;
+            var numbersAndSymbolsArray = this.strings.numbers;
             var numbersAndSymbolsArrayLength = numbersAndSymbolsArray.length;
             this._firstNumberIndex = 0;
             this._lastNumberIndex = numbersAndSymbolsArrayLength - 1;
@@ -336,7 +320,7 @@
                     adjustedKey = key[key.length - 1];
                 } else {
                     var adjustedKeyIndex = key.split("__ms_searchboxsymbol_")[1];
-                    adjustedKey = strings.numbers[adjustedKeyIndex];
+                    adjustedKey = this.strings.numbers[adjustedKeyIndex];
                 }
                 if (key === 'space') {
                     this._inputElement.value += ' ';
@@ -350,25 +334,25 @@
                     var firstCharacter = "";
                     var lastCharacter = "";
                     if (this._characterSetDisplayed === "primaryCharacterSet" &&
-                        this._usesThreeCharacterSets) {
+                        this.usesThreeCharacterSets) {
                         this._aphabetCharactersElement.style.display = "none";
                         if (this._secondaryAphabetCharactersElement) {
                             this._secondaryAphabetCharactersElement.style.display = "inline-flex";
                         }
                         this._numbersAndSymbolsElement.style.display = "none";
-                        this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelNumbers;
+                        this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelNumbers;
                         this._characterSetDisplayed = "secondaryCharacterSet";
                         firstCharacter = "#__ms_searchboxletter_" + this._secondaryAlphabetFirstCharacter;
                         lastCharacter = "#__ms_searchboxletter_" + this._secondaryAlphabetLastCharacter;
                         this._isShowingLettersNotSymbols = true;
-                    } else if ((!this._usesThreeCharacterSets && this._characterSetDisplayed === "primaryCharacterSet") ||
-                        (this._usesThreeCharacterSets && this._characterSetDisplayed === "secondaryCharacterSet")) {
+                    } else if ((!this.usesThreeCharacterSets && this._characterSetDisplayed === "primaryCharacterSet") ||
+                        (this.usesThreeCharacterSets && this._characterSetDisplayed === "secondaryCharacterSet")) {
                         this._aphabetCharactersElement.style.display = "none";
                         if (this._secondaryAphabetCharactersElement) {
                             this._secondaryAphabetCharactersElement.style.display = "none";
                         }
                         this._numbersAndSymbolsElement.style.display = "inline-flex";
-                        this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelLetters;
+                        this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelLetters;
                         this._characterSetDisplayed = "thirdCharacterSet";
                         firstCharacter = "#__ms_searchboxsymbol_" + this._firstNumberIndex;
                         lastCharacter = "#__ms_searchboxsymbol_" + this._lastNumberIndex;
@@ -379,10 +363,10 @@
                             this._secondaryAphabetCharactersElement.style.display = "none";
                         }
                         this._numbersAndSymbolsElement.style.display = "none";
-                        if (this._usesThreeCharacterSets) {
-                            this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelSecondaryLetters;
+                        if (this.usesThreeCharacterSets) {
+                            this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelSecondaryLetters;
                         } else {
-                            this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelNumbers;
+                            this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelNumbers;
                         }
                         this._characterSetDisplayed = "primaryCharacterSet";
                         firstCharacter = "#__ms_searchboxletter_" + this._firstCharacter;
@@ -414,25 +398,25 @@
                 var firstCharacter = "";
                 var lastCharacter = "";
                 if (this._characterSetDisplayed === "primaryCharacterSet" &&
-                    this._usesThreeCharacterSets) {
+                    this.usesThreeCharacterSets) {
                     this._aphabetCharactersElement.style.display = "none";
                     if (this._secondaryAphabetCharactersElement) {
                         this._secondaryAphabetCharactersElement.style.display = "inline-flex";
                     }
                     this._numbersAndSymbolsElement.style.display = "none";
-                    this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelNumbers;
+                    this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelNumbers;
                     this._characterSetDisplayed = "secondaryCharacterSet";
                     firstCharacter = "#__ms_searchboxletter_" + this._secondaryAlphabetFirstCharacter;
                     lastCharacter = "#__ms_searchboxletter_" + this._secondaryAlphabetLastCharacter;
                     this._isShowingLettersNotSymbols = true;
-                } else if ((!this._usesThreeCharacterSets && this._characterSetDisplayed === "primaryCharacterSet") ||
-                    (this._usesThreeCharacterSets && this._characterSetDisplayed === "secondaryCharacterSet")) {
+                } else if ((!this.usesThreeCharacterSets && this._characterSetDisplayed === "primaryCharacterSet") ||
+                    (this.usesThreeCharacterSets && this._characterSetDisplayed === "secondaryCharacterSet")) {
                     this._aphabetCharactersElement.style.display = "none";
                     if (this._secondaryAphabetCharactersElement) {
                         this._secondaryAphabetCharactersElement.style.display = "none";
                     }
                     this._numbersAndSymbolsElement.style.display = "inline-flex";
-                    this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelLetters;
+                    this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelLetters;
                     this._characterSetDisplayed = "thirdCharacterSet";
                     firstCharacter = "#__ms_searchboxsymbol_" + this._firstNumberIndex;
                     lastCharacter = "#__ms_searchboxsymbol_" + this._lastNumberIndex;
@@ -443,10 +427,10 @@
                         this._secondaryAphabetCharactersElement.style.display = "none";
                     }
                     this._numbersAndSymbolsElement.style.display = "none";
-                    if (this._usesThreeCharacterSets) {
-                        this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelSecondaryLetters;
+                    if (this.usesThreeCharacterSets) {
+                        this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelSecondaryLetters;
                     } else {
-                        this._toggleLettersOrSymbolsElement.textContent = strings.toggleNumbersAndLettersLabelNumbers;
+                        this._toggleLettersOrSymbolsElement.textContent = this.strings.toggleNumbersAndLettersLabelNumbers;
                     }
                     this._characterSetDisplayed = "primaryCharacterSet";
                     firstCharacter = "#__ms_searchboxletter_" + this._firstCharacter;

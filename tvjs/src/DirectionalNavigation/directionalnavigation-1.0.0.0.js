@@ -139,6 +139,48 @@
         }
         return null;
     }
+    function _mergeAll(list) {
+        // Merge a list of objects together
+        var o = {};
+        list.forEach(function (part) {
+            Object.keys(part).forEach(function (k) {
+                o[k] = part[k];
+            });
+        });
+        return o;
+    };
+    var _deviceFamily = "unknown";
+    function _getDeviceFamily() {
+        if (!_deviceFamily) {
+            _deviceFamily = Windows.ApplicationModel.Resources.Core.ResourceContext.getForCurrentView().qualifierValues.DeviceFamily;
+        }
+        return _deviceFamily;
+    };
+    function _createEventProperty(name) {
+        var eventPropStateName = "_on" + name + "state";
+
+        return {
+            get: function () {
+                var state = this[eventPropStateName];
+                return state && state.userHandler;
+            },
+            set: function (handler) {
+                var state = this[eventPropStateName];
+                if (handler) {
+                    if (!state) {
+                        state = { wrapper: function (evt) { return state.userHandler(evt); }, userHandler: handler };
+                        Object.defineProperty(this, eventPropStateName, { value: state, enumerable: false, writable: true, configurable: true });
+                        this.addEventListener(name, state.wrapper, false);
+                    }
+                    state.userHandler = handler;
+                } else if (state) {
+                    this.removeEventListener(name, state.wrapper, false);
+                    this[eventPropStateName] = null;
+                }
+            },
+            enumerable: true
+        };
+    };
     // Privates
     var _lastTarget;
     var _cachedLastTargetRect;
@@ -701,23 +743,6 @@
                     break;
             }
         });
-        function _mergeAll(list) {
-            // Merge a list of objects together
-            var o = {};
-            list.forEach(function (part) {
-                Object.keys(part).forEach(function (k) {
-                    o[k] = part[k];
-                });
-            });
-            return o;
-        };
-        var _deviceFamily = "unknown";
-        function _getDeviceFamily() {
-            if (!_deviceFamily) {
-                _deviceFamily = Windows.ApplicationModel.Resources.Core.ResourceContext.getForCurrentView().qualifierValues.DeviceFamily;
-            }
-            return _deviceFamily;
-        };
         document.addEventListener("DOMContentLoaded", function () {
             // TODO - This should be split out into another JS file
             if (_getDeviceFamily() === "xbox") {
@@ -858,33 +883,6 @@
                 }
             }
         };
-
-        function _createEventProperty(name) {
-            var eventPropStateName = "_on" + name + "state";
-
-            return {
-                get: function () {
-                    var state = this[eventPropStateName];
-                    return state && state.userHandler;
-                },
-                set: function (handler) {
-                    var state = this[eventPropStateName];
-                    if (handler) {
-                        if (!state) {
-                            state = { wrapper: function (evt) { return state.userHandler(evt); }, userHandler: handler };
-                            Object.defineProperty(this, eventPropStateName, { value: state, enumerable: false, writable: true, configurable: true });
-                            this.addEventListener(name, state.wrapper, false);
-                        }
-                        state.userHandler = handler;
-                    } else if (state) {
-                        this.removeEventListener(name, state.wrapper, false);
-                        this[eventPropStateName] = null;
-                    }
-                },
-                enumerable: true
-            };
-        };
-
         // Publish to WinJS namespace
         var toPublish = {
             findNextFocusElement: _findNextFocusElement,

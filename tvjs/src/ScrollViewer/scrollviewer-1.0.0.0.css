@@ -97,7 +97,7 @@
 .tv-scrollable .tv-scrollviewer-contentelement {
   -ms-overflow-style: -ms-autohiding-scrollbar;
   -ms-touch-action: pan-y;
-  overflow-y: auto;
+  overflow: auto;
 }
 /* Ensures the VUI for ScrollViewers will be above the focus of the item containers. */
 .tv-scrollindicator {

@@ -23,7 +23,13 @@ var Keys = {
 
 var highlightStyle = document.createElement("style");
 highlightStyle.innerHTML = "button:focus { background-color: red; }";
-
+function setImmediateCrossBrowser(callBack) {
+    if (window.setImmediate) {
+        setImmediate(callBack);
+    } else {
+        setTimeout(callBack, 0);
+    }
+};
 function helperKeydown(element, keyCode, locale) {
     /// <summary>
     ///  Throw keydown event from element.
@@ -837,8 +843,8 @@ QUnit.test("A non-accept keyup does not fire a click event", function (assert) {
         srcElement: div
     });
     // Wait for a little while to be sure the click didn't happen
-    setImmediate(function () {
-        setImmediate(function () {
+    setImmediateCrossBrowser(function () {
+        setImmediateCrossBrowser(function () {
             assert.ok(clickDidNotFired);
             div.parentNode.removeChild(div);
             done();
