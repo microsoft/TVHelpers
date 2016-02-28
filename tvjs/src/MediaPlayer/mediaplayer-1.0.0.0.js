@@ -6643,7 +6643,7 @@ define('WinJS/ControlProcessor',[
             return selected || _Global.document.querySelector(selector);
         };
         return markSupportedForProcessing(result);
-    }
+    };
 
     function activate(element, Handler) {
         return new Promise(function activate2(complete, error) {
@@ -6682,7 +6682,7 @@ define('WinJS/ControlProcessor',[
                 error(err);
             }
         });
-    }
+    };
 
     function processAllImpl(rootElement, skipRootElement) {
         return new Promise(function processAllImpl2(complete, error) {
@@ -6750,7 +6750,7 @@ define('WinJS/ControlProcessor',[
 
             checkAllComplete();
         });
-    }
+    };
 
     function getControlHandler(element) {
         if (element.getAttribute) {
@@ -6759,7 +6759,7 @@ define('WinJS/ControlProcessor',[
                 return _BaseUtils._getMemberFiltered(evaluator.trim(), _Global, requireSupportedForProcessing);
             }
         }
-    }
+    };
 
     function scopedSelect(selector, element) {
         /// <signature helpKeyword="WinJS.UI.scopedSelect">
@@ -6772,7 +6772,7 @@ define('WinJS/ControlProcessor',[
         /// <returns type="HTMLElement" domElement="true" locid="WinJS.UI.scopedSelect_returnValue">The target element, if found.</returns>
         /// </signature>
         return createSelect(element)(selector);
-    }
+    };
 
     function processAll(rootElement, skipRoot) {
         /// <signature helpKeyword="WinJS.UI.processAll">
@@ -6797,7 +6797,7 @@ define('WinJS/ControlProcessor',[
         } else {
             return processAllImpl(rootElement, skipRoot);
         }
-    }
+    };
 
     function process(element) {
         /// <signature helpKeyword="WinJS.UI.process">
@@ -6822,7 +6822,7 @@ define('WinJS/ControlProcessor',[
         } else {
             return activate(element, handler);
         }
-    }
+    };
 
     _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
         scopedSelect: scopedSelect,
@@ -12767,6 +12767,8 @@ define('WinJS/Controls/Flyout/_Overlay',[
                         return false;
                     }
 
+                    var result = false;
+
                     if (this._element.style.visibility !== "visible") {
                         // Let us know we're showing.
                         this._element.winAnimating = "showing";
@@ -12801,9 +12803,27 @@ define('WinJS/Controls/Flyout/_Overlay',[
                         }, function () {
                             that._baseEndShow();
                         });
-                        return true;
+                        result = true;
                     }
-                    return false;
+
+                    // Remember the previous focus root
+                    if (TVJS._tv && TVJS.DirectionalNavigation) {
+                        if (TVJS.DirectionalNavigation.focusRoot &&
+                            TVJS.DirectionalNavigation.focusRoot !== this._element) {
+                            // If there are other visible overlays, then we need to pass our focusRoot to the
+                            // new overlay so that if the user opens multiple overlays in a row, then dismisses
+                            // each one, once all the overlays are gone, the user will end back up with their origional
+                            // focusRoot restored.
+                            if (WinJS.Utilities.hasClass(TVJS.DirectionalNavigation.focusRoot, "win-overlay")) {
+                                this._previousFocusRoot = TVJS.DirectionalNavigation.focusRoot.winControl._previousFocusRoot;
+                            } else {
+                                this._previousFocusRoot = TVJS.DirectionalNavigation.focusRoot;
+                            }
+                            TVJS.DirectionalNavigation.focusRoot = this._element;
+                        }
+                    }
+
+                    return result;
                 },
 
                 _beforeShow: function _Overlay_beforeShow() {
@@ -12835,6 +12855,21 @@ define('WinJS/Controls/Flyout/_Overlay',[
 
                     // If we had something queued, do that
                     setImmediate(this._checkDoNext);
+
+                    if (TVJS._tv && TVJS.DirectionalNavigation) {
+                        // Find the first focusable element and set focus to it
+                        TVJS.DirectionalNavigation.moveFocus("right", {
+                            focusRoot: this._element,
+                            referenceRect: {
+                                top: -1,
+                                left: -1,
+                                right: 0,
+                                bottom: 0,
+                                width: 1,
+                                height: 1
+                            }
+                        });
+                    }
                 },
 
                 _baseHide: function _Overlay_baseHide() {
@@ -12843,6 +12878,8 @@ define('WinJS/Controls/Flyout/_Overlay',[
                         this._doNext = "hide";
                         return false;
                     }
+
+                    var result = false;
 
                     // In the unlikely event we're between the hiding keyboard and the resize events, just snap it away:
                     if (this._needToHandleHidingKeyboard) {
@@ -12873,10 +12910,33 @@ define('WinJS/Controls/Flyout/_Overlay',[
                                 that._baseEndHide();
                             });
                         }
-                        return true;
+                        result = true;
                     }
 
-                    return false;
+                    // We need to make sure there are no other visible overlays. If there is a visible
+                    // overlay and we set the focusRoot back to the previous focusRoot, then the
+                    // other overlay will not have focus scoped to itself.
+                    var areThereOtherVisibleOverlays = false;
+                    var overlays = document.querySelectorAll(".win-overlay, .win-appbar");
+                    for (var i = 0, len = overlays.length; i < len; i++) {
+                        if (overlays[i].winControl &&
+                            !overlays[i].winControl.hidden) {
+                            areThereOtherVisibleOverlays = true;
+                            break;
+                        }
+                    }
+                    // Reset the old focusRoot. Note: we need to check if the previous focusRoot
+                    // is still in the DOM. If it is not (in the case of a page navigation), then 
+                    // we do not restore the focusRoot.
+                    if (TVJS._tv && TVJS.DirectionalNavigation &&
+                        this._previousFocusRoot &&
+                        this._previousFocusRoot.parentNode &&
+                        !areThereOtherVisibleOverlays) {
+                        TVJS.DirectionalNavigation.focusRoot = this._previousFocusRoot;
+                        this._previousFocusRoot = null;
+                    }
+
+                    return result;
                 },
 
                 _baseEndHide: function _Overlay_baseEndHide() {
@@ -14361,6 +14421,11 @@ define('WinJS/Controls/Flyout',[
                 // Handle "esc" & "tab" key presses
                 this._element.addEventListener("keydown", this._handleKeyDown, true);
 
+                // TV devices handle actions on keyup
+                if (TVJS) {
+                    this._element.addEventListener("keyup", this._handleKeyUp, true);
+                }
+
                 return this;
             }, {
                 _lastMaxHeight: null,
@@ -14903,6 +14968,21 @@ define('WinJS/Controls/Flyout',[
                         event.preventDefault();
                         event.stopPropagation();
                         this.winControl._focusOnLastFocusableElementOrThis();
+                    }
+                },
+
+                _handleKeyUp: function (event) {
+                    if (event.keyCode === 196) { // GamepadB
+                        // Show a focus rect on what we move focus to
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.winControl._keyboardInvoked = true;
+                        this.winControl._hide();
+                    } else if ((event.keyCode === 195) // GamepadA
+                         && (this === document.activeElement)) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.winControl.hide();
                     }
                 },
 
@@ -15820,7 +15900,10 @@ define('WinJS/Controls/MediaPlayer', [
                 this._totalSeekBarWidth = 0;
                 this._totalTimeInternal = 0;
                 this._transportControls = null;
-                this._tv = false; //hackhack _WinRT.Windows.System.Profile.AnalyticsInfo && _WinRT.Windows.System.Profile.AnalyticsInfo.versionInfo.deviceFamily === "Windows.Xbox";
+                TVJS._tv = _WinRT.Windows.System.Profile.AnalyticsInfo && _WinRT.Windows.System.Profile.AnalyticsInfo.versionInfo.deviceFamily === "Windows.Xbox";
+                if (!TVJS._tv) {
+                    document.body.classList.add("tv-mediaplayer-mobile");
+                }
                 this._updateAudioTracksButtonStateBind = this._updateAudioTracksButtonState.bind(this);
                 this._updateClosedCaptionsButtonStateBind = this._updateClosedCaptionsButtonState.bind(this);
                 this._volumeButton = null;
@@ -16096,7 +16179,7 @@ define('WinJS/Controls/MediaPlayer', [
                 this._initializeDomElements();
 
                 // Set fullscreen
-                this.fullScreen = this._tv ? true: false;
+                this.fullScreen = TVJS._tv ? true : false;
 
                 // Set options
                 if (options) {
@@ -16218,7 +16301,7 @@ define('WinJS/Controls/MediaPlayer', [
 
                 _isXboxSnapMode: {
                     get: function () {
-                        if (this._tv &&
+                        if (TVJS._tv &&
                             _Global.window.screenWidth <= 480) {
                             return true;
                         } else {
@@ -17573,7 +17656,7 @@ define('WinJS/Controls/MediaPlayer', [
                         return;
                     }
 
-                    if (!this._tv) {
+                    if (!TVJS._tv) {
                         this._showControls(true);
                     }
                     this._onPlayPauseCommandInvoked();
@@ -17799,7 +17882,7 @@ define('WinJS/Controls/MediaPlayer', [
                 // Toggles the play / pause state of the media
                 _onPlayPauseCommandInvoked: function () {
 
-                    if ((!this._tv || this._controlsVisible) &&
+                    if ((!TVJS._tv || this._controlsVisible) &&
                         this._mediaElementAdapter &&
                         this._mediaElementAdapter.mediaElement &&
                         this.playPauseButtonEnabled &&
@@ -17982,7 +18065,7 @@ define('WinJS/Controls/MediaPlayer', [
                         return;
                     }
 
-                    if ((!this._tv || this._isXboxSnapMode) &&
+                    if ((!TVJS._tv || this._isXboxSnapMode) &&
                         !this._controlsVisible &&
                         !this._isFocusOnAVisibleFlyout()) {
                         this._showControls(true, true);
@@ -19174,7 +19257,7 @@ define('WinJS/Controls/MediaPlayer', [
                         this._mediaElementAdapter.mediaElement.audioTracks.length > 1) {
                         hasAtLeastTwoAudioTracksTrack = true;
                     }
-                    this._audioTracksButton.hidden = !hasAtLeastTwoAudioTracksTrack;
+                    this._audioTracksButton.style.display = hasAtLeastTwoAudioTracksTrack ? "inline-block" : "none";
                 },
 
                 // This method actually updates all marker visuals, not just chapter marker visuals
@@ -19254,7 +19337,7 @@ define('WinJS/Controls/MediaPlayer', [
                                 break;
                             }
                         }
-                        this._closedCaptionsButton.hidden = !hasAtLeastOneCaptionsTrack;
+                        this._closedCaptionsButton.style.display = hasAtLeastOneCaptionsTrack ? "inline-block" : "none";
                     }
                 },
 
@@ -19463,7 +19546,7 @@ define('WinJS/Controls/MediaPlayer', [
                     // Set the enabled and visible states for all buttons
 
                     // Is*Visible properties
-                    if (this._tv) {
+                    if (TVJS._tv) {
                         this.chapterSkipBackButtonVisible = false;
                         this.chapterSkipForwardButtonVisible = false;
                         this.fastForwardButtonVisible = true;
@@ -19946,7 +20029,7 @@ define('WinJS/Controls/MediaPlayer', [
                             }
 
                             // Go into full screen
-                            if (!this._tv) {
+                            if (!TVJS._tv) {
                                 if (_WinRT.Windows.UI.ViewManagement.ApplicationView) {
                                     var applicationView = _WinRT.Windows.UI.ViewManagement.ApplicationView.getForCurrentView();
                                     applicationView.tryEnterFullScreenMode();
@@ -19995,7 +20078,7 @@ define('WinJS/Controls/MediaPlayer', [
                             }
 
                             // Exit full screen
-                            if (!this._tv) {
+                            if (!TVJS._tv) {
                                 if (_WinRT.Windows.UI.ViewManagement.ApplicationView) {
                                     var applicationView = _WinRT.Windows.UI.ViewManagement.ApplicationView.getForCurrentView();
                                     applicationView.exitFullScreenMode();
@@ -20276,7 +20359,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._castButtonVisible = value ? true : false;
-                        this._castButton.hidden = !this._castButtonVisible;
                         if (value) {
                             removeClass(this._castButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20313,7 +20395,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._chapterSkipBackButtonVisible = value ? true : false;
-                        this._chapterSkipBackButton.hidden = !this._chapterSkipBackButtonVisible;
                         if (value) {
                             removeClass(this._chapterSkipBackButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20350,7 +20431,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._chapterSkipForwardButtonVisible = value ? true : false;
-                        this._chapterSkipForwardButton.hidden = !this._chapterSkipForwardButtonVisible;
                         if (value) {
                             removeClass(this._chapterSkipForwardButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20387,7 +20467,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._fastForwardButtonVisible = value ? true : false;
-                        this._fastForwardButton.hidden = !this._fastForwardButtonVisible;
                         if (value) {
                             removeClass(this._fastForwardButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20424,7 +20503,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._fullscreenButtonVisible = value ? true : false;
-                        this._toggleFullScreenButton.hidden = !this._fullscreenButtonVisible;
                         if (value) {
                             removeClass(this._toggleFullScreenButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20461,7 +20539,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._goToLiveButtonVisible = value ? true : false;
-                        this._goToLiveButton.hidden = !this._goToLiveButtonVisible;
                         if (value) {
                             removeClass(this._goToLiveButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20498,7 +20575,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._nextTrackButtonVisible = value ? true : false;
-                        this._nextTrackButton.hidden = !this._nextTrackButtonVisible;
                         if (value) {
                             removeClass(this._nextTrackButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20536,7 +20612,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._playFromBeginningButtonVisible = value ? true : false;
-                        this._playFromBeginningButton.hidden = !this._playFromBeginningButtonVisible;
                         if (value) {
                             removeClass(this._playFromBeginningButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20573,7 +20648,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._playPauseButtonVisible = value ? true : false;
-                        this._playPauseButton.hidden = !this._playPauseButtonVisible;
                         if (value) {
                             removeClass(this._playPauseButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20610,7 +20684,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._playbackRateButtonVisible = value ? true : false;
-                        this._playbackRateButton.hidden = !this._playbackRateButtonVisible;
                         if (value) {
                             removeClass(this._playbackRateButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20647,7 +20720,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._previousTrackButtonVisible = value ? true : false;
-                        this._previousTrackButton.hidden = !this._previousTrackButtonVisible;
                         if (value) {
                             removeClass(this._previousTrackButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20684,7 +20756,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._rewindButtonVisible = value ? true : false;
-                        this._rewindButton.hidden = !this._rewindButtonVisible;
                         if (value) {
                             removeClass(this._rewindButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20761,7 +20832,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._stopButtonVisible = value ? true : false;
-                        this._stopButton.hidden = !this._stopButtonVisible;
                         if (value) {
                             removeClass(this._stopButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20798,7 +20868,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._timeSkipBackButtonVisible = value ? true : false;
-                        this._timeSkipBackButton.hidden = !this._timeSkipBackButtonVisible;
                         if (value) {
                             removeClass(this._timeSkipBackButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20835,7 +20904,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._timeSkipForwardButtonVisible = value ? true : false;
-                        this._timeSkipForwardButton.hidden = !this._timeSkipForwardButtonVisible;
                         if (value) {
                             removeClass(this._timeSkipForwardButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20872,7 +20940,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._volumeButtonVisible = value ? true : false;
-                        this._volumeButton.hidden = !this._volumeButtonVisible;
                         if (value) {
                             removeClass(this._volumeButton, "tv-mediaplayer-hidden");
                         } else {
@@ -20909,7 +20976,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         this._zoomButtonVisible = value ? true : false;
-                        this._zoomButton.hidden = !this._zoomButtonVisible;
                         if (value) {
                             removeClass(this._zoomButton, "tv-mediaplayer-hidden");
                         } else {

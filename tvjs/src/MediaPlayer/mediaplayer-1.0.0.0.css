@@ -1090,13 +1090,9 @@ button.tv-mediaplayer-mutebutton {
   }
 }
 
-<!--Xbox styles-->
 /* For some bizarre reason, this style rule will only take effect if it's listed twice */
 .tv-mediaplayer {
 	font-size: 24px;
-	font-weight: 300;
-}
-.tv-mediaplayer {
 	font-weight: 300;
 }
 .tv-mediaplayer-transportcontrols {
@@ -1141,10 +1137,69 @@ button.tv-mediaplayer-mutebutton {
 .tv-mediaplayer-controls {
 	background-image: -ms-linear-gradient(bottom, rgba(16,16,16, .6) 15%, rgba(16,16,16, 0) 50%, rgba(16,16,16, .7) 85%);
 }
-
 .tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnail {
   margin-top: -84px;
   margin-left: -48px;
 }
-
-/* TODO: Have 1 "brand color" style that you can use to override everything */
+.tv-flyout {
+    border: none;
+}
+.tv-mediaplayer-closedcaptions button {
+    border: 2px solid transparent;
+}
+.tv-mediaplayer-closedcaptions button:focus {
+    border-color: rgb(235, 235, 235);
+    background-color: rgb(34, 34, 34);
+}
+/* Mobile styles */
+.tv-mediaplayer-mobile .tv-mediaplayer-currenttimeindicator,
+.tv-mediaplayer-mobile .tv-mediaplayer-timeremainingindicator,
+.tv-mediaplayer-mobile .tv-mediaplayer-seektimeindicator {
+	font-size: 15px;
+	font-weight: 300;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-controls {
+	background-image: none;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-transportcontrols {
+    background-color: rgb(0, 0, 0);
+    width: calc(100% - 24px);
+    margin: 0;
+    padding: 0 12px 24px 12px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-transportcontrols button {
+	height: 48px;
+	width: 48px;
+    padding: 0;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-transportcontrols button:hover {
+    background-color: rgb(34, 34, 34);
+    border-color: transparent;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-transportcontrols button:focus .tv-mediaplayer-icon {
+	color: rgb(255, 255, 255);
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-transportcontrols button:focus {
+	color: rgb(255, 255, 255);
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-icon {
+    font-size: 20px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-seek-mark {
+    background-color: rgb(0, 0, 0);
+    border-color: rgb(0, 120, 215);
+    height: 24px;
+    width: 24px;
+    margin-top: -11px;
+    margin-left: 8px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnail {
+  margin-top: -92px;
+  margin-left: -37px;
+}
+.tv-mediaplayer-mobile .tv-flyout {
+    border: 1px solid rgb(0, 120, 215);
+}
+.tv-mediaplayer-mobile .tv-flyout button {
+    border: none;
+}
