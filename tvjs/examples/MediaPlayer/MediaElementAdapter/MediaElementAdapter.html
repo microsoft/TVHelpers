@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Custom overlay</title>
+    <title>Custom MediaElementAdapter</title>
     <link href="../../../src/MediaPlayer/mediaplayer-1.0.0.0.css" rel="stylesheet" />
     <script src="../../../src/DirectionalNavigation/directionalnavigation-1.0.0.0.js"></script>
     <script src="../../../src/MediaPlayer/mediaplayer-1.0.0.0.js"></script>
@@ -14,6 +14,14 @@
             color: rgb(235, 235, 235);
         }
 
+        .microsoft-media-activeVideo {
+            visibility: hidden;
+        }
+
+        .microsoft-media-hiddenVideo {
+            visibility: hidden;
+        }
+
     </style>
 
 </head>
@@ -24,7 +32,12 @@
 
     <script>
 
-        var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
+        var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer")).tvControl;
+
+        // Create a new playlist and assign its tracks property to the sample playlist data.
+        playlist = new Microsoft.Media.Playlist(mediaPlayer);
+        playlist.tracks = new WinJS.Binding.List(SampleData.PlaylistItems);
+
         var customMediaElementAdapter = new TVJS.MediaElementAdapter(mediaPlayer, document.getElementById("video"));
         customMediaElementAdapter.seek = function (time) {
             console.log("Custom seek method");

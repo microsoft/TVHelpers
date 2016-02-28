@@ -19,17 +19,16 @@
 </head>
 <body>
     <div id="mediaPlayer">
-        <video id="video" src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
+        <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
     </div>
 
     <script>
 
         var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
-        var customMediaElementAdapter = new TVJS.MediaElementAdapter(mediaPlayer, document.getElementById("video"));
-        customMediaElementAdapter.seek = function (time) {
-            console.log("Custom seek method");
-        };
-        mediaPlayer.mediaElementAdapter = customMediaElementAdapter;
+        mediaPlayer.addEventListener("thumbnailrequest", function (ev) {
+            var time = ev.detail.currentTime;
+            mediaPlayer.thumbnailImage = Math.floor(time) + ".png";
+        }, false);
 
     </script>
 </body>
