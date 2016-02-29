@@ -16179,7 +16179,7 @@ define('WinJS/Controls/MediaPlayer', [
                 this._initializeDomElements();
 
                 // Set fullscreen
-                this.fullScreen = TVJS._tv ? true : false;
+                this._fullScreen = TVJS._tv ? true : false;
 
                 // Set options
                 if (options) {
@@ -19525,14 +19525,6 @@ define('WinJS/Controls/MediaPlayer', [
                     this._handleVolumeFlyoutShowCallback = this._handleVolumeFlyoutShow.bind(this);
                     this._handleVolumeSliderChangeCallback = this._handleVolumeSliderChange.bind(this);
 
-                    // Register for gesture events
-                    //if (this._gestureRecognizer) {
-                    //    this._addGestureEventHandler(this._gestureRecognizer, 'manipulationstarted', this._handleManipulationStarted);
-                    //    this._addGestureEventHandler(this._gestureRecognizer, 'manipulationupdated', this._handleManipulationUpdated);
-                    //    this._addGestureEventHandler(this._gestureRecognizer, 'manipulationcompleted', this._handleManipulationCompleted);
-                    //    this._addGestureEventHandler(this._gestureRecognizer, 'manipulationend', this._handleManipulationEnd);
-                    //}
-
                     // The following events feed pointer input to the gesture recognizer
                     this._addGestureEventHandler(this._mediaPlayerContainer, "click", this._inputHandlerClickCallback);
                     this._addGestureEventHandler(this._progressContainer, "pointerdown", this._inputHandlerPointerDownCallback);
@@ -19540,8 +19532,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._addGestureEventHandler(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
                     this._addGestureEventHandler(this._progressContainer, "pointerup", this._inputHandlerPointerUpCallback);
 
-                    //this._addGestureEventHandler(this._progressContainer, "pointerdown", this._inputHandlerMouseDownCallback);
-                    document.addEventListener(this.element, "pointerout", this._inputHandlerMouseOutCallback);
+                    document.addEventListener("pointerout", this._inputHandlerMouseOutCallback, false);
 
                     // Set the enabled and visible states for all buttons
 
@@ -20020,8 +20011,8 @@ define('WinJS/Controls/MediaPlayer', [
 
                             this._element.removeEventListener("keydown", this._keydownInputHandler);
                             this._element.removeEventListener("keyup", this._keyupInputHandler);
-                            document.addEventListener(this._element, "keydown", this._keydownInputHandler);
-                            document.addEventListener(this._element, "keyup", this._keyupInputHandler);
+                            document.addEventListener("keydown", this._keydownInputHandler, false);
+                            document.addEventListener("keyup", this._keyupInputHandler, false);
                             // TODO: The icon for fullscreen that toggles back and forth is broken
                             if (this._fullscreenButtonIcon) {
                                 addClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
@@ -20036,20 +20027,20 @@ define('WinJS/Controls/MediaPlayer', [
                                 } else {
                                     if (elementToMakeFullscreen.requestFullscreen) {
                                         elementToMakeFullscreen.requestFullscreen();
-                                        document.addEventListener(this._element, "fullscreenchange", this._fullScreenChangeHandler);
-                                        document.addEventListener(this._element, "fullscreenerror", this._fullScreenErrorHandler);
+                                        document.addEventListener("fullscreenchange", this._fullScreenChangeHandler, false);
+                                        document.addEventListener("fullscreenerror", this._fullScreenErrorHandler, false);
                                     } else if (elementToMakeFullscreen.msRequestFullscreen) {
                                         elementToMakeFullscreen.msRequestFullscreen();
-                                        document.addEventListener(this._element, "MSFullscreenChange", this._fullScreenChangeHandler);
-                                        document.addEventListener(this._element, "MSFullscreenError", this._fullScreenErrorHandler);
+                                        document.addEventListener("MSFullscreenChange", this._fullScreenChangeHandler, false);
+                                        document.addEventListener("MSFullscreenError", this._fullScreenErrorHandler, false);
                                     } else if (elementToMakeFullscreen.mozRequestFullScreen) {
                                         elementToMakeFullscreen.mozRequestFullScreen();
-                                        document.addEventListener(this._element, "mozfullscreenchange", this._fullScreenChangeHandler);
-                                        document.addEventListener(this._element, "mozfullscreenerror", this._fullScreenErrorHandler);
+                                        document.addEventListener("mozfullscreenchange", this._fullScreenChangeHandler, false);
+                                        document.addEventListener("mozfullscreenerror", this._fullScreenErrorHandler, false);
                                     } else if (elementToMakeFullscreen.webkitRequestFullscreen) {
                                         elementToMakeFullscreen.webkitRequestFullscreen();
-                                        document.addEventListener(this._element, "webkitfullscreenchange", this._fullScreenChangeHandler);
-                                        document.addEventListener(this._element, "webkitfullscreenerror", this._fullScreenErrorHandler);
+                                        document.addEventListener("webkitfullscreenchange", this._fullScreenChangeHandler, false);
+                                        document.addEventListener("webkitfullscreenerror", this._fullScreenErrorHandler, false);
                                     }
                                 }
 
@@ -20066,8 +20057,8 @@ define('WinJS/Controls/MediaPlayer', [
                             removeClass(this._element, "tv-mediaplayer-fullscreen");
                             this.element.tabIndex = 0;
 
-                            document.removeEventListener(this._element, "keydown", this._keydownInputHandler);
-                            document.removeEventListener(this._element, "keyup", this._keyupInputHandler);
+                            document.removeEventListener("keydown", this._keydownInputHandler);
+                            document.removeEventListener("keyup", this._keyupInputHandler);
 
                             this._element.addEventListener("keydown", this._keydownInputHandler, false);
                             this._element.addEventListener("keyup", this._keyupInputHandler, false);
