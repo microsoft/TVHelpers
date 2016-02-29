@@ -5666,122 +5666,122 @@ define('WinJS/Utilities/_ElementUtilities',[
             /// <field locid="WinJS.Utilities.Key.GamepadA" helpKeyword="WinJS.Utilities.Key.GamepadA">
             /// XBox One GamepadA key.
             /// </field>
-            GamepadA: 195,
+            gamepadA: 195,
 
             /// <field locid="WinJS.Utilities.Key.GamepadB" helpKeyword="WinJS.Utilities.Key.GamepadB">
             /// XBox One GamepadB key.
             /// </field>
-            GamepadB: 196,
+            gamepadB: 196,
 
             /// <field locid="WinJS.Utilities.Key.GamepadX" helpKeyword="WinJS.Utilities.Key.GamepadX">
             /// XBox One GamepadX key.
             /// </field>
-            GamepadX: 197,
+            gamepadX: 197,
 
             /// <field locid="WinJS.Utilities.Key.GamepadY" helpKeyword="WinJS.Utilities.Key.GamepadY">
             /// XBox One GamepadY key.
             /// </field>
-            GamepadY: 198,
+            gamepadY: 198,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightShoulder" helpKeyword="WinJS.Utilities.Key.GamepadRightShoulder">
             /// XBox One GamepadRightShoulder key.
             /// </field>
-            GamepadRightShoulder: 199,
+            gamepadRightShoulder: 199,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftShoulder" helpKeyword="WinJS.Utilities.Key.GamepadLeftShoulder">
             /// XBox One GamepadLeftShoulder key.
             /// </field>
-            GamepadLeftShoulder: 200,
+            gamepadLeftShoulder: 200,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftTrigger" helpKeyword="WinJS.Utilities.Key.GamepadLeftTrigger">
             /// XBox One GamepadLeftTrigger key.
             /// </field>
-            GamepadLeftTrigger: 201,
+            gamepadLeftTrigger: 201,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightTrigger" helpKeyword="WinJS.Utilities.Key.GamepadRightTrigger">
             /// XBox One GamepadRightTrigger key.
             /// </field>
-            GamepadRightTrigger: 202,
+            gamepadRightTrigger: 202,
 
             /// <field locid="WinJS.Utilities.Key.GamepadDPadUp" helpKeyword="WinJS.Utilities.Key.GamepadDPadUp">
             /// XBox One GamepadDPadUp key.
             /// </field>
-            GamepadDPadUp: 203,
+            gamepadDPadUp: 203,
 
             /// <field locid="WinJS.Utilities.Key.GamepadDPadDown" helpKeyword="WinJS.Utilities.Key.GamepadDPadDown">
             /// XBox One GamepadDPadDown key.
             /// </field>
-            GamepadDPadDown: 204,
+            gamepadDPadDown: 204,
 
             /// <field locid="WinJS.Utilities.Key.GamepadDPadLeft" helpKeyword="WinJS.Utilities.Key.GamepadDPadLeft">
             /// XBox One GamepadDPadLeft key.
             /// </field>
-            GamepadDPadLeft: 205,
+            gamepadDPadLeft: 205,
 
             /// <field locid="WinJS.Utilities.Key.GamepadDPadRight" helpKeyword="WinJS.Utilities.Key.GamepadDPadRight">
             /// XBox One GamepadDPadRight key.
             /// </field>
-            GamepadDPadRight: 206,
+            gamepadDPadRight: 206,
 
             /// <field locid="WinJS.Utilities.Key.GamepadMenu" helpKeyword="WinJS.Utilities.Key.GamepadMenu">
             /// XBox One GamepadMenu key.
             /// </field>
-            GamepadMenu: 207,
+            gamepadMenu: 207,
 
             /// <field locid="WinJS.Utilities.Key.GamepadView" helpKeyword="WinJS.Utilities.Key.GamepadView">
             /// XBox One GamepadView key.
             /// </field>
-            GamepadView: 208,
+            gamepadView: 208,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstick">
             /// XBox One GamepadLeftThumbstick key.
             /// </field>
-            GamepadLeftThumbstick: 209,
+            gamepadLeftThumbstick: 209,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstick">
             /// XBox One GamepadRightThumbstick key.
             /// </field>
-            GamepadRightThumbstick: 210,
+            gamepadRightThumbstick: 210,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickUp">
             /// XBox One GamepadLeftThumbstickUp key.
             /// </field>
-            GamepadLeftThumbstickUp: 211,
+            gamepadLeftThumbstickUp: 211,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickDown">
             /// XBox One GamepadLeftThumbstickDown key.
             /// </field>
-            GamepadLeftThumbstickDown: 212,
+            gamepadLeftThumbstickDown: 212,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickRight">
             /// XBox One GamepadLeftThumbstickRight key.
             /// </field>
-            GamepadLeftThumbstickRight: 213,
+            gamepadLeftThumbstickRight: 213,
 
             /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickLeft">
             /// XBox One GamepadLeftThumbstickLeft key.
             /// </field>
-            GamepadLeftThumbstickLeft: 214,
+            gamepadLeftThumbstickLeft: 214,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickUp">
             /// XBox One GamepadRightThumbstickUp key.
             /// </field>
-            GamepadRightThumbstickUp: 215,
+            gamepadRightThumbstickUp: 215,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickDown">
             /// XBox One GamepadRightThumbstickDown key.
             /// </field>
-            GamepadRightThumbstickDown: 216,
+            gamepadRightThumbstickDown: 216,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickRight">
             /// XBox One GamepadRightThumbstickRight key.
             /// </field>
-            GamepadRightThumbstickRight: 217,
+            gamepadRightThumbstickRight: 217,
 
             /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickLeft">
             /// XBox One GamepadRightThumbstickLeft key.
             /// </field>
-            GamepadRightThumbstickLeft: 218,
+            gamepadRightThumbstickLeft: 218,
 
             /// <field locid="WinJS.Utilities.Key.openBracket" helpKeyword="WinJS.Utilities.Key.openBracket">
             /// OPEN BRACKET key.
@@ -16131,20 +16131,15 @@ define('WinJS/Controls/MediaPlayer', [
 
                     if (_WinRT.Windows.System.Profile.AnalyticsInfo &&
                         _WinRT.Windows.System.Profile.AnalyticsInfo.versionInfo.deviceFamily === "Windows.Xbox") {
-                        if (this._isXboxSnapMode) {
-                            removeClass(mediaPlayerContainer, "tv-mediaplayer-hidden");
-                            that.showControls();
-                        } else {
-                            addClass(mediaPlayerContainer, "tv-mediaplayer-hidden");
+                        addClass(mediaPlayerContainer, "tv-mediaplayer-hidden");
 
-                            // Note: We need to reset this field so the MediaPlayer can maintain the correct
-                            // UI state. If _controlsVisible = true, which would be the case if the controls
-                            // were up right before the MediaPlayer was snapped then when the MediaPlayer returns
-                            // from being snapped _controlsVisible will still be true even though the
-                            // controls may or may not be visible.
-                            that._controlsVisible = false;
-                            that.hideControls();
-                        }
+                        // Note: We need to reset this field so the MediaPlayer can maintain the correct
+                        // UI state. If _controlsVisible = true, which would be the case if the controls
+                        // were up right before the MediaPlayer was snapped then when the MediaPlayer returns
+                        // from being snapped _controlsVisible will still be true even though the
+                        // controls may or may not be visible.
+                        that._controlsVisible = false;
+                        that.hideControls();
                     }
 
                     if (_WinRT.Windows.UI.ViewManagement.ApplicationView) {
@@ -16206,11 +16201,6 @@ define('WinJS/Controls/MediaPlayer', [
                 // Create a default mediaElementAdapter if none was specified
                 if (!this._mediaElementAdapter) {
                     this.mediaElementAdapter = new MediaElementAdapter(this, null);
-                }
-
-                // If we are starting in snapped mode then we need to show controls
-                if (this._isXboxSnapMode) {
-                    this._showControls(true);
                 }
 
                 // Set a timer to report state to SmartGlass periodically
@@ -16296,17 +16286,6 @@ define('WinJS/Controls/MediaPlayer', [
                         }
 
                         this._updateMediaState(false);
-                    }
-                },
-
-                _isXboxSnapMode: {
-                    get: function () {
-                        if (TVJS._tv &&
-                            _Global.window.screenWidth <= 480) {
-                            return true;
-                        } else {
-                            return false;
-                        }
                     }
                 },
 
@@ -16881,46 +16860,6 @@ define('WinJS/Controls/MediaPlayer', [
                         case smtControlsButton.stop:
                             Navigation.back();
                             break;
-                        case smtControlsButton.fastForward:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._fastForwardButton.focus();
-                                this._fastForwardButton.click();
-                            }
-                            break;
-                        case smtControlsButton.rewind:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._rewindButton.focus();
-                                this._rewindButton.click();
-                            }
-                            break;
-                        case smtControlsButton.next:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._nextTrackButton.focus();
-                                this._nextTrackButton.click();
-                                this._chapterSkipForwardButton.focus();
-                                this._chapterSkipForwardButton.click();
-                            }
-                            break;
-                        case smtControlsButton.previous:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._previousTrackButton.focus();
-                                this._previousTrackButton.click();
-                                this._chapterSkipBackButton.focus();
-                                this._chapterSkipBackButton.click();
-                            }
-                            break;
                         case smtControlsButton.channelUp:
                             // No-op - Windows only
                             break;
@@ -17006,7 +16945,6 @@ define('WinJS/Controls/MediaPlayer', [
                 // Hide the controls bar, this will initiate an slide out + fadeout animation immediately.
                 _hideControls: function () {
                     if (!this._controlsVisible ||
-                        this._isXboxSnapMode ||
                         this._isThumbGrabbed ||
                         this._disposed) {
                         return;
@@ -17293,8 +17231,7 @@ define('WinJS/Controls/MediaPlayer', [
 
                         // If the controls are visible then we eat the B event so it
                         // won't bubble up to the page and cause a navigation.
-                        if (this._isXboxSnapMode &&
-                            this._controlsVisible) {
+                        if (this._controlsVisible) {
                             this._exitFastForwardOrRewind(true);
                             this._hideControls();
                             ev.stopPropagation();
@@ -17557,47 +17494,6 @@ define('WinJS/Controls/MediaPlayer', [
 
                             break;
 
-                        case utilities.Key.gamepadLeftShoulder:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._chapterSkipBackButton.click();
-                                this._playPauseButton.focus();
-                            }
-
-                            break;
-                        case utilities.Key.gamepadRightShoulder:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._chapterSkipForwardButton.click();
-                                this._playPauseButton.focus();
-                            }
-
-                            break;
-                        case utilities.Key.gamepadLeftTrigger:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._rewindButton.click();
-                                this._playPauseButton.focus();
-                            }
-
-                            break;
-                        case utilities.Key.gamepadRightTrigger:
-                            if (this._isXboxSnapMode) {
-                                if (!this._controlsVisible) {
-                                    this._showControls();
-                                }
-                                this._fastForwardButton.click();
-                                this._playPauseButton.focus();
-                            }
-
-                            break;
-
                         default:
                             break;
                     }
@@ -17610,8 +17506,7 @@ define('WinJS/Controls/MediaPlayer', [
 
                     switch (ev.keyCode) {
                         case utilities.Key.gamepadA:
-                            if (this._isXboxSnapMode &&
-                                !this._controlsVisible &&
+                            if (!this._controlsVisible &&
                                 !this._isFocusOnAVisibleFlyout()) {
                                 this._showControls();
                                 this._playPauseButton.focus();
@@ -18065,7 +17960,7 @@ define('WinJS/Controls/MediaPlayer', [
                         return;
                     }
 
-                    if ((!TVJS._tv || this._isXboxSnapMode) &&
+                    if (!TVJS._tv &&
                         !this._controlsVisible &&
                         !this._isFocusOnAVisibleFlyout()) {
                         this._showControls(true, true);
@@ -18484,8 +18379,10 @@ define('WinJS/Controls/MediaPlayer', [
                             var audioTrackOption = _Global.document.createElement("button");
                             audioTrackOption.textContent = currentTrack.label || currentTrack.language;
                             if (_WinRT.Windows.Globalization.Language && !currentTrack.label) {
-                                var language = new _WinRT.Windows.Globalization.Language(currentTrack.language);
-                                audioTrackOption.textContent = language.displayName;
+                                if (currentTrack.language) {
+                                    var language = new _WinRT.Windows.Globalization.Language(currentTrack.language);
+                                    audioTrackOption.textContent = language.displayName;
+                                }
                             }
                             if (currentTrack.enabled) {
                                 addClass(audioTrackOption, "tv-active");
@@ -18875,8 +18772,7 @@ define('WinJS/Controls/MediaPlayer', [
                 // Show the controls bar, controls bar will slide/fade in, but will auto hide automatically.
                 // force tried to alway show controls irrespective playback happening or not.
                 _showControls: function (force, doNotAutoHide) {
-                    if ((this._controlsVisible ||
-                        this._isXboxSnapMode &&
+                    if ((this._controlsVisible &&
                         !force) ||
                         this._disposed) {
                         return;
