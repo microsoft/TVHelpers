@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Functional Test 1</title>
+<link href="./css/ui-dark.css" rel="stylesheet">
+<script src="../../../src/XYFocus/xyfocus-1.0.0.0.js"></script>
+<style>
+#content {
+    /* Enables scrolling and disables margin collapsing between #content and its descendants. */
+    overflow: auto;
+    height: calc(100% - 43px); /* 43px affected by nav button's total height */
+    margin-top: 43px; /* 43px = nav button's total height */
+}
+.fullscreenOutput #content {
+    height: 100%;
+    margin-top: 0;
+}
+#code-viewer {
+    height: calc(100% - 43px); /* 43px = nav button's total height */
+    padding: 43px 10px 0 10px;
+    overflow: auto;
+    margin: 0;
+    background-color: #1E1E1E;
+    -webkit-overflow-scrolling: touch;
+}
+#content,
+#code-viewer,
+#hud {
+    display: none;
+}
+body.showing-output #content,
+body.showing-code #code-viewer,
+body.initialized #hud {
+    display: inherit;
+}
+#hud button.nav-button {
+    touch-action: manipulation; /* Disable IE's 300ms touch delay. */
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 800; /* High up but below WinJS's light dismissables. */
+    top: 0;
+    right: 0;
+    height: 33px;
+    width: 33px;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    border: 1px dotted transparent;
+    margin: 5px 20px 5px 0; /* affects #content height & margin-top, #code-viewer height. */
+    outline: none;
+    background-color: transparent;
+    color: black;
+    overflow: hidden;
+}
+#hud .win-hoverable button.nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+#hud button.nav-button.nav-button:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#hud button.nav-button.win-keyboard:focus {
+    border-color: rgb(255, 255, 255);
+}
+#hud .nav-button:after {
+    position: relative;
+    color: white;
+    font-size: 25px;
+    font-family: "Segoe UI Symbol", "Symbols";
+    content: "\E115";
+}
+</style>
+<style>
+body {
+    color: #CCCCCC;
+}
+.container {
+    height: calc(100% - 32px);
+}
+.container .win-hub-surface {
+    padding: 4px;
+}
+.section {
+    margin-left: 18px;
+}
+.win-hub-section {
+    padding: 0;
+}
+.container .win-hub-section-header {
+    margin-top: 0;
+}
+.win-hub-section-header-content {
+    color: #CCCCCC;
+    font-family: Segoe UI;
+    font-size: 9pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.win-hub-section-header-wrapper {
+    margin-left: 1px;
+}
+.table {
+    display: table;
+}
+.row {
+    display: table-row;
+}
+.cell {
+    display: table-cell;
+}
+.cell:focus {
+    background-color: #36AEF0;
+    outline: 2px white solid;
+    z-index: 2;
+    box-shadow: 0 0 20px 1px #000000;
+}
+.tall, .large, .square, .wide {
+    background-color: #383838;
+    border: 2px solid #000000;
+    position: relative;
+    z-index: 1;
+}
+.tall {
+    height: 320px;
+    width: 104px;
+}
+.large {
+    height: 212px;
+    width: 428px;
+}
+.square {
+    height: 104px;
+    width: 104px;
+}
+.wide {
+    height: 104px;
+    width: 185px;
+}
+</style>
+</head>
+<body class="win-type-body initialized showing-output">
+<div id="content">
+    <button class="win-button" onclick="document.querySelector('.start').focus()">Initialize Focus</button>
+    <div class="container win-hub win-disposable win-hub-horizontal win-element-resize">
+        <div class="win-hub-viewport" role="group" aria-label="Scrolling Container" style="opacity: 1;">
+            <div class="win-hub-surface">
+                <div id="section1" class="section win-hub-section win-disposable">
+                <div class="win-hub-section-header">
+                    <button type="button" role="heading" class="win-hub-section-header-tabstop">
+                        <div class="win-hub-section-header-wrapper" tabindex="-1">
+                            <h2 class="win-type-subheader win-hub-section-header-content">Section 1</h2>
+                            <span class="win-hub-section-header-chevron win-type-body">See more</span>
+                        </div>
+                    </button>
+              </div>
+              <div class="win-hub-section-content">
+                    <div class="table">
+                    4
+                    <div class="row">
+                        <!-- First column: tall cell. -->
+                        <div class="cell">
+                            <div class="table">
+                                <div class="row">
+                                    <div class="tall cell start" tabindex="1"></div>
+                                </div>
+                            </div>
+                        </div>
+                                <!-- Second column: large + four small cells. -->
+                                <div class="cell">
+                                    <div class="table">
+                                        <div class="row">
+                                            <div class="large cell" tabindex="2"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="cell">
+                                                <div class="table">
+                                                    <div class="row">
+                                                        <div class="square cell" tabindex="3"></div>
+                                                        <div class="square cell" tabindex="4"></div>
+                                                        <div class="square cell" tabindex="5"></div>
+                                                        <div class="square cell" tabindex="6"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <!-- Third column: three square cells. -->
+                            <div class="cell">
+                                <div class="table">
+                                    <div class="row">
+                                        <div class="square cell" tabindex="7" data-xyfocus="{up: '#section1 .win-hub-section-header-tabstop'}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="square cell" tabindex="8"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="square cell" tabindex="9"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section2" class="section win-hub-section win-disposable">
+                <div class="win-hub-section-header">
+                    <button type="button" role="heading" class="win-hub-section-header-tabstop">
+                        <div class="win-hub-section-header-wrapper" tabindex="-1">
+                            <h2 class="win-type-subheader win-hub-section-header-content">Section 2</h2>
+                            <span class="win-hub-section-header-chevron win-type-body">See more</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="win-hub-section-content">
+                    <!-- Fourth column: three wide cells. -->
+                    <div class="table">
+                        <div class="row">
+                            <div class="wide cell" tabindex="10"></div>
+                        </div>
+                        <div class="row">
+                            <div class="wide cell" tabindex="11"></div>
+                        </div>
+                        <div class="row">
+                            <div class="wide cell" tabindex="12"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// Setup xyfocus for use with arrow keys.
+xyfocus.keyCodeMap.up.push(xyfocus.Key.upArrow);
+xyfocus.keyCodeMap.down.push(xyfocus.Key.downArrow);
+xyfocus.keyCodeMap.left.push(xyfocus.Key.leftArrow);
+xyfocus.keyCodeMap.right.push(xyfocus.Key.rightArrow);
+</script>
+</body>
+</html>

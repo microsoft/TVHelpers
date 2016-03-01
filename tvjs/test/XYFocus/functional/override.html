@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Functional Test 2</title>
+<link href="./css/ui-dark.css" rel="stylesheet">
+<script src="../../../src/XYFocus/xyfocus-1.0.0.0.js"></script>
+<style>
+#content {
+    /* Enables scrolling and disables margin collapsing between #content and its descendants */
+    overflow: auto;
+    height: calc(100% - 43px);
+    /* 43px affected by nav button's total height */
+    margin-top: 43px;
+    /* 43px = nav button's total height */
+}
+.fullscreenOutput #content {
+    height: 100%;
+    margin-top: 0;
+}
+#code-viewer {
+    height: calc(100% - 43px);
+    /* 43px = nav button's total height */
+    padding: 43px 10px 0 10px;
+    overflow: auto;
+    margin: 0;
+    background-color: #1E1E1E;
+    -webkit-overflow-scrolling: touch;
+}
+#content,
+#code-viewer,
+#hud {
+    display: none;
+}
+body.showing-output #content,
+body.showing-code #code-viewer,
+body.initialized #hud {
+    display: inherit;
+}
+#hud button.nav-button {
+    touch-action: manipulation;
+    /* Disable IE's 300ms touch delay */
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 800;
+    /* High up but below WinJS's light dismissables */
+    top: 0;
+    right: 0;
+    height: 33px;
+    width: 33px;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    border: 1px dotted transparent;
+    margin: 5px 20px 5px 0;
+    /* affects #content height & margin-top, #code-viewer height */
+    outline: none;
+    background-color: transparent;
+    color: black;
+    overflow: hidden;
+}
+#hud .win-hoverable button.nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+#hud button.nav-button.nav-button:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#hud button.nav-button.win-keyboard:focus {
+    border-color: rgb(255, 255, 255);
+}
+#hud .nav-button:after {
+    position: relative;
+    color: white;
+    font-size: 25px;
+    font-family: "Segoe UI Symbol", "Symbols";
+    content: "\E115";
+}
+</style>
+<style id="WinJSAccentsStyle">
+.win-link,
+.win-progress-bar,
+.win-progress-ring,
+.win-ring {
+    color: rgb(0, 120, 215);
+}
+::selection,
+.win-button.win-button-primary,
+.win-dropdown option:checked,
+select[multiple].win-dropdown option:checked {
+    background-color: rgb(0, 120, 215);
+}
+.win-textbox:focus,
+.win-textarea:focus,
+.win-textbox:focus:hover,
+.win-textarea:focus:hover {
+    border-color: rgb(0, 120, 215);
+}
+.win-textbox::-ms-clear:hover:not(:active),
+.win-textbox::-ms-reveal:hover:not(:active) {
+    color: rgb(0, 120, 215);
+}
+.win-checkbox:checked::-ms-check,
+.win-textbox::-ms-clear:active,
+.win-textbox::-ms-reveal:active {
+    background-color: rgb(0, 120, 215);
+}
+.win-progress-bar::-webkit-progress-value,
+.win-progress-ring::-webkit-progress-value,
+.win-ring::-webkit-progress-value {
+    background-color: rgb(0, 120, 215);
+}
+.win-progress-bar:not(:indeterminate)::-moz-progress-bar,
+.win-progress-ring:not(:indeterminate)::-moz-progress-bar,
+.win-ring:not(:indeterminate)::-moz-progress-bar {
+    background-color: rgb(0, 120, 215);
+}
+.win-checkbox:indeterminate::-ms-check,
+.win-checkbox:hover:indeterminate::-ms-check,
+.win-radio:checked::-ms-check {
+    border-color: rgb(0, 120, 215);
+}
+.win-slider::-ms-thumb,
+.win-slider::-ms-fill-lower {
+    background: rgb(0, 120, 215);
+}
+.win-slider::-webkit-slider-thumb {
+    background: rgb(0, 120, 215);
+}
+.win-slider::-moz-range-thumb {
+   background: rgb(0, 120, 215);
+}
+.win-listview:not(.win-selectionstylefilled) .win-selectioncheckmarkbackground,
+.win-itemcontainer:not(.win-selectionstylefilled) .win-selectioncheckmarkbackground {
+    border-color: rgb(0, 120, 215);
+    background-color: rgb(0, 120, 215);
+}
+.win-listview:not(.win-selectionstylefilled) .win-container.win-selected .win-selectionborder,
+.win-itemcontainer:not(.win-selectionstylefilled).win-container.win-selected .win-selectionborder {
+    border-color: rgb(0, 120, 215);
+}
+.win-listview.win-selectionstylefilled .win-selected .win-selectionbackground,
+.win-itemcontainer.win-selectionstylefilled.win-selected .win-selectionbackground {
+    background-color: rgb(0, 120, 215);
+}
+.win-rating .win-star.win-user.win-full,
+.win-rating .win-star.win-user.win-full.win-disabled {
+    color: rgb(0, 120, 215);
+}
+.win-toggleswitch-on .win-toggleswitch-track {
+    border-color: rgb(0, 120, 215);
+}
+.win-semanticzoom-zoomedoutview .win-hub-section-header-interactive .win-hub-section-header-content,
+.win-hub-section-header-interactive .win-hub-section-header-chevron {
+    color: rgb(0, 120, 215);
+}
+button[aria-checked=true].win-command:before,
+.win-menu-containsflyoutcommand button.win-command-flyout-activated:before {
+    background-color: rgb(0, 120, 215);
+    border-color: rgb(0, 120, 215);
+}
+.win-flyout,
+.win-settingsflyout {
+    border-color: rgb(0, 120, 215);
+}
+html.win-hoverable .win-autosuggestbox .win-autosuggestbox-suggestion-selected:hover {
+    background-color: rgba(0, 120, 215, 0.8);
+}
+html.win-hoverable .win-ui-light .win-autosuggestbox .win-autosuggestbox-suggestion-selected:hover,
+html.win-hoverable .win-ui-light.win-autosuggestbox .win-autosuggestbox-suggestion-selected:hover {
+    background-color: rgba(0, 120, 215, 0.6);
+}
+.win-autosuggestbox .win-autosuggestbox-suggestion-selected {
+    background-color: rgba(0, 120, 215, 0.6);
+}
+.win-ui-light .win-autosuggestbox .win-autosuggestbox-suggestion-selected,
+.win-ui-light.win-autosuggestbox .win-autosuggestbox-suggestion-selected {
+    background-color: rgba(0, 120, 215, 0.4);
+}
+.win-autosuggestbox .win-autosuggestbox-suggestion-selected.win-autosuggestbox-suggestion-selected:hover:active {
+    background-color: rgba(0, 120, 215, 0.9);
+}
+.win-ui-light .win-autosuggestbox .win-autosuggestbox-suggestion-selected.win-autosuggestbox-suggestion-selected:hover:active,
+.win-ui-light.win-autosuggestbox .win-autosuggestbox-suggestion-selected.win-autosuggestbox-suggestion-selected:hover:active {
+    background-color: rgba(0, 120, 215, 0.7);
+}
+html.win-hoverable .win-searchbox-button:not(.win-searchbox-button-disabled):hover {
+    color: rgb(0, 120, 215);
+}
+.win-searchbox-button.win-searchbox-button:not(.win-searchbox-button-disabled):hover:active {
+    background-color: rgb(0, 120, 215);
+}
+html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover {
+    background-color: rgba(0, 120, 215, 0.8);
+}
+html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover,
+html.win-hoverable .win-ui-light.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover {
+    background-color: rgba(0, 120, 215, 0.6);
+}
+html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover.win-pressed {
+    background-color: rgba(0, 120, 215, 0.9);
+}
+html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover.win-pressed,
+html.win-hoverable .win-ui-light.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened:hover.win-pressed {
+    background-color: rgba(0, 120, 215, 0.7);
+}
+.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened {
+    background-color: rgba(0, 120, 215, 0.6);
+}
+.win-ui-light .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened,
+.win-ui-light.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened {
+   background-color: rgba(0, 120, 215, 0.4);
+}
+
+.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened.win-pressed {
+    background-color: rgba(0, 120, 215, 0.9);
+}
+.win-ui-light .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened.win-pressed,
+.win-ui-light.win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-opened.win-pressed {
+    background-color: rgba(0, 120, 215, 0.7);
+}
+.win-contentdialog-dialog {
+    outline-color: rgb(0, 120, 215);
+}
+</style>
+<style>
+body {
+    color: #CCCCCC;
+}
+.container {
+    width: 603px;
+    height: 140px;
+    margin: 4px;
+}
+button.large {
+    background-color: #383838;
+    border: 2px solid #161616;
+    width: 120px;
+    height: 120px;
+    padding: 0;
+}
+button:focus {
+    background-color: #36AEF0;
+    border: 2px solid #FFFFFF;
+    outline: none;
+}
+button.large:first-child {
+    margin-left: 110px;
+}
+.dataWin {
+    display: inline-block;
+    width: 110px;
+}
+.override {
+    display: inline-block;
+    width: 119px;
+    text-align: center;
+}
+</style>
+</head>
+
+<body class="win-type-body initialized showing-output">
+<div id="content">
+    <button class="win-button" onclick="document.querySelector('#cell1').focus()">Initialize Focus</button>
+    <div class="container">
+        <button class="win-button large" id="cell1" data-xyfocus="{ left: '#cell4' }">#cell1</button>
+        <button class="win-button large" id="cell2">#cell2</button>
+        <button class="win-button large" id="cell3">#cell3</button>
+        <button class="win-button large" id="cell4" data-xyfocus="{ right: '#cell1' }">#cell4</button>
+        <div class="dataWin">data-xyfocus=</div>
+        <div class="override">"{ left: '#cell4' }"</div>
+        <div class="override">"{}"</div>
+        <div class="override">"{}"</div>
+        <div class="override">"{ right: '#cell1' }"</div>
+    </div>
+</div>
+<div id="hud">
+    <div class="nav-menu win-overlay win-disposable win-flyout win-menu" tabindex="-1" unselectable="on" role="menu" aria-label="Menu" style="visibility: hidden; opacity: 0; display: none;">
+        <button class="script-command win-disposable win-command win-command-button" type="button" aria-label="JS" role="menuitem" style="display: block;">
+            <div class="win-menucommand-liner"><span class="win-toggleicon" aria-hidden="true"></span><span class="win-label" aria-hidden="true">JS</span><span class="win-flyouticon" aria-hidden="true"></span></div>
+        </button>
+        <button class="css-command win-disposable win-command win-command-button" type="button" aria-label="CSS" role="menuitem" style="display: block;">
+            <div class="win-menucommand-liner"><span class="win-toggleicon" aria-hidden="true"></span><span class="win-label" aria-hidden="true">CSS</span><span class="win-flyouticon" aria-hidden="true"></span></div>
+        </button>
+        <button class="html-command win-disposable win-command win-command-button" type="button" aria-label="HTML" role="menuitem" style="display: block;">
+            <div class="win-menucommand-liner"><span class="win-toggleicon" aria-hidden="true"></span><span class="win-label" aria-hidden="true">HTML</span><span class="win-flyouticon" aria-hidden="true"></span></div>
+        </button>
+        <button class="output-command win-disposable win-command win-command-button" type="button" aria-label="Output" role="menuitem">
+            <div class="win-menucommand-liner"><span class="win-toggleicon" aria-hidden="true"></span><span class="win-label" aria-hidden="true">Output</span><span class="win-flyouticon" aria-hidden="true"></span></div>
+        </button>
+      </div>
+</div>
+<script>
+// Setup xyfocus for use with arrow keys.
+xyfocus.keyCodeMap.up.push(xyfocus.Key.upArrow);
+xyfocus.keyCodeMap.down.push(xyfocus.Key.downArrow);
+xyfocus.keyCodeMap.left.push(xyfocus.Key.leftArrow);
+xyfocus.keyCodeMap.right.push(xyfocus.Key.rightArrow);
+</script>
+</body>
+</html>
