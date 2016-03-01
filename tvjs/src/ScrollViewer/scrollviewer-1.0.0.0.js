@@ -7,7 +7,10 @@
     var THRESHOLD_TO_SHOW_TOP_ARROW = 50;
     var DelayBeforeCheckingSizeOfScrollableRegion = 500;
 
-    var _KEY_PAGE_UP = 33,
+    var _KEY_ESCAPE = 27,
+        _KEY_ENTER = 13,
+        _KEY_SPACE = 32,
+        _KEY_PAGE_UP = 33,
         _KEY_PAGE_DOWN = 34,
         _KEY_LEFT_ARROW = 37,
         _KEY_UP_ARROW = 38,
@@ -80,7 +83,8 @@
             this._element.classList.add("tv-scrollviewer");
             this._handleFocus = this._handleFocus.bind(this);
             this._handleFocusOut = this._handleFocusOut.bind(this);
-            this._handleKeyDown = this._handleKeyDown.bind(this);
+            this._handleKeyDownBound = this._handleKeyDown.bind(this);
+            this._handleKeyUpBound = this._handleKeyUp.bind(this);
             this._handleScroll = this._handleScroll.bind(this);
             this._scrollDownBySmallAmount = this._scrollDownBySmallAmount.bind(this);
             this._scrollUpBySmallAmount = this._scrollUpBySmallAmount.bind(this);
@@ -158,7 +162,8 @@
                     this._element.classList.remove("tv-scrollviewer-scrollmode-text");
                     this._scrollingContainer.classList.remove("tv-active");
                     this._element.classList.add("tv-scrollviewer-scrollmode-list");
-                    this._element.removeEventListener("keydown", this._handleKeyDown, true);
+                    this._element.removeEventListener("keydown", this._handleKeyDownBound);
+                    this._element.removeEventListener("keydown", this._handleKeyUpBound);
                     this._setInactive();
                 }
                 else {
@@ -166,7 +171,8 @@
                     this._element.classList.remove("tv-scrollviewer-scrollmode-list");
                     this._element.classList.add("tv-scrollviewer-scrollmode-text");
                     this._scrollingContainer.classList.add("tv-active");
-                    this._element.addEventListener("keydown", this._handleKeyDown, true);
+                    this._element.addEventListener("keydown", this._handleKeyDownBound, true);
+                    this._element.addEventListener("keydown", this._handleKeyUpBound, true);
                 }
             },
             enumerable: true,
@@ -182,7 +188,8 @@
                 return;
             }
             this._disposed = true;
-            this._element.classList.remove("tv-xyfocus-suspended");
+            this._element.removeEventListener("keydown", this._handleKeyDownBound);
+            this._element.removeEventListener("keydown", this._handleKeyUpBound);
         };
         /// <signature helpKeyword="WinJS.UI.ScrollViewer.refresh">  
         /// <summary locid="WinJS.UI.ScrollViewer.refresh">  
@@ -338,7 +345,8 @@
                 case _KEY_GAMEPAD_LEFT_THUMBSTICK_RIGHT:
                     var direction = direction || "right";
                     // If we successfully move focus to a new target element, then set the ScrollViewer as inactive  
-                    if (this._isActive()) {
+                    if (this._isActive() &&
+                        this._scrollMode === ScrollMode.nonModalText) {
                         var previousFocusRectangleObject = this._scrollingContainer.getBoundingClientRect();
                         var previousFocusRectangle = {
                             top: previousFocusRectangleObject.top,
@@ -367,6 +375,28 @@
             }
             if (handled) {
                 ev.stopPropagation();
+            }
+        };
+        _ScrollViewer.prototype._handleKeyUp = function (ev) {
+            if (this._scrollMode !== ScrollMode.text) {
+                return;
+            }
+
+            switch (ev.keyCode) {
+                case _KEY_GAMEPAD_A:
+                case _KEY_ENTER:
+                case _KEY_SPACE:
+                    this._setActive();
+                    break;
+                case _KEY_GAMEPAD_B:
+                case _KEY_ESCAPE:
+                    if (this._isActive) {
+                        ev.stopPropagation();
+                    }
+                    this._setInactive();
+                    break;
+                default:
+                    break;
             }
         };
         _ScrollViewer.prototype._handleScroll = function (ev) {

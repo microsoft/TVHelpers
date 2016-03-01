@@ -121,7 +121,7 @@
 .tv-scrollviewer-scrollmode-text.tv-scrollable .tv-scrollviewer-contentelement:hover:not(:focus) {
   border-color: #6b6b6b;
 }
-.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:active {
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement.tv-active {
   background-color: rgba(235, 235, 235, 0.1);
   box-shadow: inset 0 0 0 10px #101010;
 }
@@ -131,9 +131,6 @@
 }
 .tv-scrollviewer-contentelement {
   -ms-scrollbar-face-color: #101010;
-}
-.tv-scrollviewer-contentelement:focus {
-  background-color: rgba(235, 235, 235, 0.1);
 }
 .tv-scrollviewer .tv-scrollable-down .tv-overlay-scrolldownindicator {
   color: #ebebeb;
