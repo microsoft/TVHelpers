@@ -1,2 +1,2 @@
 # TV Helpers
-This project consists of several helper components, samples, and sample app to help you get started building applications for media, TV, and Xbox on the Universal Windows Platform for both C# and JavaScript developers.
+This project consists of several helper components, samples, and sample app to help you get started building applications for media, TV, and Xbox on the Universal Windows Platform.  TVjs can help JavaScript developers enable their UWA to work with controller on Xbox One.  TVjs also includes Searchbox and ScrollViewer controls to help you build a user experience optimzed for Xbox One.  TVjs can also help C# developers who need this functionality within a WebView control.
