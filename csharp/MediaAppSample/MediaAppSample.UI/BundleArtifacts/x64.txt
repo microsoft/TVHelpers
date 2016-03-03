@@ -1,2 +1,0 @@
-MainPackage=C:\Projects\UniversalTemplate\Source\Contoso.UI\bin\x64\Release\Contoso.UI_1.1.4.0_x64.appx
-SymbolPackage=C:\Projects\UniversalTemplate\Source\Contoso.UI\AppPackages\Contoso.UI_1.1.4.0_Test\Contoso.UI_1.1.4.0_x64.appxsym

@@ -65,7 +65,7 @@ namespace MediaAppSample.UI.Services
                 case "showByName":
                     // Access the value of the {destination} phrase in the voice command
                     string itemName = info.GetSemanticInterpretation("ItemName");
-                    this.Item(itemName);
+                    this.Details(itemName);
                     return true;
 
                 default:
@@ -90,7 +90,7 @@ namespace MediaAppSample.UI.Services
                     switch (dic["model"].ToLower())
                     {
                         case "itemmodel":
-                            this.Item(dic["ID"]);
+                            this.Details(dic["ID"]);
                             return true;
 
                     }
@@ -102,7 +102,7 @@ namespace MediaAppSample.UI.Services
                     int id = int.MinValue;
                     if (int.TryParse(arguments, out id))
                     {
-                        this.Item(id);
+                        this.Details(id);
                         return true;
                     }
                     else
@@ -188,7 +188,7 @@ namespace MediaAppSample.UI.Services
                 throw new ArgumentNullException(nameof(model));
 
             if (model is ItemModel || model is ItemViewModel)
-                this.Item(model);
+                this.Details(model);
             else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
         }
@@ -237,12 +237,30 @@ namespace MediaAppSample.UI.Services
             this.ParentFrame.Navigate(typeof(AccountForgotView), this.SerializeParameter(parameter));
         }
 
-        public override void Item(object parameter)
+        public override void Details(object parameter)
         {
             if (this.IsChildFramePresent)
                 this.Frame.Navigate(typeof(ItemView), this.SerializeParameter(parameter));
             else
                 this.Home(new NavigationRequest(typeof(ItemView), parameter));
+        }
+
+        public override void Queue()
+        {
+            this.Frame.Navigate(typeof(QueueView));
+        }
+
+        public override void Gallery(object parameter)
+        {
+            this.Frame.Navigate(typeof(GalleryView), this.SerializeParameter(parameter));
+        }
+
+        public override void Media(object parameter)
+        {
+            if (this.IsChildFramePresent)
+                this.Frame.Navigate(typeof(MediaView), this.SerializeParameter(parameter));
+            else
+                this.Home(new NavigationRequest(typeof(MediaView), parameter));
         }
 
         #endregion

@@ -37,6 +37,12 @@ namespace MediaAppSample.Core.Services
 
         public abstract void Search(object parameter = null);
 
-        public abstract void Item(object parameter);
+        public abstract void Details(object parameter);
+
+        public abstract void Queue();
+
+        public abstract void Gallery(object parameter);
+
+        public abstract void Media(object parameter);
     }
 }

@@ -80,12 +80,17 @@ namespace MediaAppSample.UI.Views
                 lvMenuTop.SelectedItem = null;
                 lvMenuBottom.SelectedItem = btnSettings;
             }
-            else if (view is SearchView)
+            else if (view is QueueView)
             {
-                lvMenuTop.SelectedItem = btnSearch;
+                lvMenuTop.SelectedItem = btnQueue;
                 lvMenuBottom.SelectedItem = null;
             }
-            else if (view is MainView || view is ItemView)
+            else if (view is GalleryView)
+            {
+                lvMenuTop.SelectedItem = btnMovies;
+                lvMenuBottom.SelectedItem = null;
+            }
+            else if (view is MainView || view is ItemView || view is MediaView)
             {
                 lvMenuTop.SelectedItem = btnHome;
                 lvMenuBottom.SelectedItem = null;

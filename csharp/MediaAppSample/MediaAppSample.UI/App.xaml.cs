@@ -34,12 +34,13 @@ namespace MediaAppSample.UI
             // Initalize the platform object which is the singleton instance to access various services
             Platform.Current = new Platform()
             {
-                Navigation = new NavigationManager()
+                Navigation = new NavigationManager(),
+                //Analytics = new FlurryAnalyticsService("M76D4BWBDRTWTVJZZ27P")
             };
 
             Platform.Current.Logger.CurrentLevel = LogLevels.Information;
             
-            //this.RequestedTheme = ApplicationTheme.Dark;
+            this.RequestedTheme = ApplicationTheme.Dark;
 
             // TODO Microsoft.HockeyApp.HockeyClient.Current.Configure("Your-App-ID");
         }

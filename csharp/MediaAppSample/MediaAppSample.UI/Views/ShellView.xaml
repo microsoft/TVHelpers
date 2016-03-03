@@ -111,10 +111,9 @@
                                 </Interactions:EventTriggerBehavior>
                             </Interactivity:Interaction.Behaviors>
                             <controls:SplitViewNavigationButton x:Name="btnHome" Text="Home" Symbol="Home" Command="{x:Bind ViewModel.Commands.NavigateToHomeCommand}" />
-                            <controls:SplitViewNavigationButton x:Name="btnSearch" Text="Search" Symbol="Find" Command="{x:Bind ViewModel.Commands.NavigateToSearchCommand}" />
-                            <controls:SplitViewNavigationButton Text="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Commands.NavigateToRateAppCommand}" />
-                            <controls:SplitViewNavigationButton Text="Help" Symbol="Help" Command="{x:Bind ViewModel.Commands.NavigateToPrivacyPolicyCommand}" />
-                            <controls:SplitViewNavigationButton Text="About" Symbol="Read" Command="{x:Bind ViewModel.Commands.NavigateToAboutCommand}" />
+                            <controls:SplitViewNavigationButton x:Name="btnMovies" Text="Movies" Symbol="MusicInfo" Command="{x:Bind ViewModel.Commands.NavigateToGalleryCommand}" />
+                            <controls:SplitViewNavigationButton x:Name="btnTV" Text="TV" Symbol="Video" Command="{x:Bind ViewModel.Commands.NavigateToGalleryCommand}" />
+                            <controls:SplitViewNavigationButton x:Name="btnQueue" Text="Queue" Symbol="Library" Command="{x:Bind ViewModel.Commands.NavigateToQueueCommand}" />
                         </ListView>
                         <Rectangle Grid.Row="1" Height="2" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
                         <ListView x:Name="lvMenuBottom" 
@@ -128,6 +127,7 @@
                                     <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=svMain}" PropertyName="IsPaneOpen" Value="False"  />
                                 </Interactions:EventTriggerBehavior>
                             </Interactivity:Interaction.Behaviors>
+                            <controls:SplitViewNavigationButton Text="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Commands.NavigateToRateAppCommand}" />
                             <controls:SplitViewNavigationButton Text="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
                             <controls:SplitViewNavigationButton x:Name="btnSettings" Text="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Commands.NavigateToSettingsCommand}" />
                         </ListView>

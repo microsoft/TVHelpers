@@ -135,6 +135,27 @@ namespace MediaAppSample.Core.Commands
             get { return _shareCommand ?? (_shareCommand = new ShareCommand()); }
         }
 
+
+        private CommandBase _navigateToGalleryCommand = null;
+        public CommandBase NavigateToGalleryCommand
+        {
+            get { return _navigateToGalleryCommand ?? (_navigateToGalleryCommand = new NavigationCommand("NavigateToGalleryCommand", Platform.Current.Navigation.Gallery)); }
+        }
+
+
+        private CommandBase _navigateToQueueCommand = null;
+        public CommandBase NavigateToQueueCommand
+        {
+            get { return _navigateToQueueCommand ?? (_navigateToQueueCommand = new NavigationCommand("NavigateToQueueCommand", Platform.Current.Navigation.Queue)); }
+        }
+
+
+        private CommandBase _navigateToMediaCommand = null;
+        public CommandBase NavigateToMediaCommand
+        {
+            get { return _navigateToMediaCommand ?? (_navigateToMediaCommand = new NavigationCommand("NavigateToMediaCommand", Platform.Current.Navigation.Media)); }
+        }
+
         #endregion
 
         #region Map Commands

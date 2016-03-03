@@ -71,7 +71,7 @@ namespace MediaAppSample.UI.Controls
             {
                 var item = args.ChosenSuggestion as ItemModel;
                 sender.Text = item.LineOne;
-                Platform.Current.Navigation.Item(args.ChosenSuggestion as ItemModel);
+                Platform.Current.Navigation.Details(args.ChosenSuggestion as ItemModel);
             }
             else
             {
