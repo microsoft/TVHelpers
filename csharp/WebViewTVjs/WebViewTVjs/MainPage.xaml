@@ -9,10 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid  BorderBrush="#FF707070" BorderThickness="1" Margin="0,10,0,0">
-            <WebView x:Name="WebViewControl" Source="/html/BasicDirectionalNavigation.html"
-                     NavigationStarting="WebViewControl_NavigationStarting"  ContentLoading="WebViewControl_ContentLoading"
-                     DOMContentLoaded="WebViewControl_DOMContentLoaded" UnviewableContentIdentified="WebViewControl_UnviewableContentIdentified"
-                     NavigationCompleted="WebViewControl_NavigationCompleted"/>
+            <WebView x:Name="WebViewControl" />
         </Grid>
     </Grid>
 </Page>

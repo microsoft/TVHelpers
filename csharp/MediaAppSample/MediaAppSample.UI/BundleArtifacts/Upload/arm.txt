@@ -1,0 +1,6 @@
+MainPackage=C:\Projects\UniversalTemplate\Source\Contoso.UI\bin\ARM\Release\Upload\Contoso.UI_1.1.3.0_ARM.appx
+SymbolPackage=C:\Projects\UniversalTemplate\Source\Contoso.UI\AppPackages\Contoso.UI_1.1.3.0\Contoso.UI_1.1.3.0_ARM.appxsym
+ResourcePack=C:\Projects\UniversalTemplate\Source\Contoso.UI\_scale-100.appx
+ResourcePack=C:\Projects\UniversalTemplate\Source\Contoso.UI\_scale-125.appx
+ResourcePack=C:\Projects\UniversalTemplate\Source\Contoso.UI\_scale-150.appx
+ResourcePack=C:\Projects\UniversalTemplate\Source\Contoso.UI\_scale-400.appx

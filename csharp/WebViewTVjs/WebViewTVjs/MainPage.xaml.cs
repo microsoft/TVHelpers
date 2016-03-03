@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Cryptography;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,34 +26,25 @@ namespace WebViewTVjs
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public MainPage()
+        public  MainPage()
         {
             this.InitializeComponent();
+
+            LoadHTMLContent();
         }
 
-        private void WebViewControl_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private  async void LoadHTMLContent()
         {
-
+            string content = await LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
+            // Convert the string to a stream.
+            WebViewControl.NavigateToString(content);
         }
 
-        private void WebViewControl_ContentLoading(WebView sender, WebViewContentLoadingEventArgs args)
+        public static async Task<string> LoadStringFromPackageFileAsync(string name)
         {
-
-        }
-
-        private void WebViewControl_DOMContentLoaded(WebView sender, WebViewDOMContentLoadedEventArgs args)
-        {
-
-        }
-
-        private void WebViewControl_UnviewableContentIdentified(WebView sender, WebViewUnviewableContentIdentifiedEventArgs args)
-        {
-
-        }
-
-        private void WebViewControl_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-
+            // Using the storage classes to read the content from a file as a string.
+            StorageFile f = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///html/{name}"));
+            return await FileIO.ReadTextAsync(f);
         }
     }
 }
