@@ -1,0 +1,144 @@
+/* Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
+.tv-scrollviewer .tv-itemcontainer {
+  border-top: 8px;
+  border-bottom: 8px;
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-color: transparent;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.tv-scrollviewer .tv-itemcontainer .tv-tile-focusindicator {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: calc(84%);
+}
+.tv-scrollviewer .tv-itemcontainer .tv-itemcontainer-captureproxy,
+.tv-overlay-container .tv-itemcontainer .tv-itemcontainer-captureproxy {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: calc(84%);
+}
+.tv-scrollviewer {
+  display: -ms-grid;
+  -ms-grid-rows: 1fr 50px;
+  -ms-grid-columns: 100%;
+  height: 100%;
+  width: 100%;
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement {
+  border-style: solid;
+  border-width: 4px;
+  padding-right: 24px;
+  padding-left: 0;
+  transition-duration: 100ms;
+  transition-timing-function: linear;
+  transition-property: border-color padding;
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
+  transition-duration: 100ms;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:active {
+  transition-duration: 0.467s;
+  transition-timing-function: cubic-bezier(0.84, 0, 1, 0.32);
+  transition-property: box-shadow;
+}
+.tv-scrollviewer .tv-scrollindicator {
+  -ms-grid-row: 2;
+  -ms-grid-row-align: end;
+  display: -ms-grid;
+  -ms-grid-rows: 50px 50px;
+  -ms-grid-columns: 16px 1fr 1fr 16px;
+}
+.tv-scrollviewer .tv-overlay-arrowindicators {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+/* If the text is not scrollable we don't show the arrows. */
+.tv-scrollviewer .tv-overlay-arrowindicators {
+  visibility: hidden;
+}
+/* But if there is scrollable content, then we do show the arrows. */
+.tv-scrollable .tv-scrollable-up .tv-overlay-arrowindicators,
+.tv-scrollable .tv-scrollable-down .tv-overlay-arrowindicators {
+  visibility: visible;
+}
+/* The ScrollViewer in list most does not show the scroll bars */
+.tv-scrollviewer-scrollmode-list .tv-scrollviewer-contentelement {
+  -ms-overflow-style: none;
+}
+.tv-scrollviewer .tv-scrollviewer-contentelement:focus {
+  outline: none;
+}
+.tv-scrollviewer-contentelement {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  height: auto;
+  width: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  -ms-touch-action: none;
+}
+/* When the ScrollViewer is in a hub, we want to set the pan direction to horizontal  
+    so that the user can pan horizontally on details pages if vertical scrolling is  
+    not required. */
+.tv-hub-horizontal .tv-scrollviewer-contentelement {
+  -ms-touch-action: pan-x;
+}
+.tv-hub-vertical .tv-scrollviewer-contentelement {
+  -ms-touch-action: pan-y;
+}
+.tv-scrollable .tv-scrollviewer-contentelement {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-touch-action: pan-y;
+  overflow: auto;
+}
+/* Ensures the VUI for ScrollViewers will be above the focus of the item containers. */
+.tv-scrollindicator {
+  position: relative;
+  z-index: 1;
+}
+.tv-overlay-scrollupindicator::before {
+  font-family: 'Segoe UI Symbol';
+  content: '\1F53C';
+}
+.tv-overlay-scrolldownindicator::before {
+  font-family: 'Segoe UI Symbol';
+  content: '\1F53D';
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement {
+  border-color: rgba(16, 16, 16, 0);
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement:focus {
+  border-color: rgb(235, 235, 235);
+}
+.tv-scrollviewer-scrollmode-text.tv-scrollable .tv-scrollviewer-contentelement:hover:not(:focus) {
+  border-color: #6b6b6b;
+}
+.tv-scrollviewer-scrollmode-text .tv-scrollviewer-contentelement.tv-active {
+  background-color: rgba(235, 235, 235, 0.1);
+  box-shadow: inset 0 0 0 1px #101010;
+}
+.tv-scrollviewer .tv-overlay-scrollupindicator,
+.tv-scrollviewer .tv-overlay-scrolldownindicator {
+  color: #6b6b6b;
+}
+.tv-scrollviewer-contentelement {
+  -ms-scrollbar-face-color: #101010;
+}
+.tv-scrollviewer .tv-scrollable-down .tv-overlay-scrolldownindicator {
+  color: #ebebeb;
+}
+.tv-scrollviewer .tv-scrollable-up .tv-overlay-scrollupindicator {
+  color: #ebebeb;
+}
+.tv-scrollviewer .tv-scrollable-up.tv-scrollable-down .tv-overlay-scrollupindicator,
+.tv-scrollviewer .tv-scrollable-up.tv-scrollable-down .tv-overlay-scrolldownindicator {
+  color: #ebebeb;
+}
