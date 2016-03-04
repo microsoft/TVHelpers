@@ -11,13 +11,13 @@
 
 namespace MediaAppSample.Core.Models
 {
-    public class RatingsAndReviewModel : ModelBase
+    public class RatingModel : ModelBase
     {
         #region Properties
 
         public string ID { get; set; }
 
-        public string ReviewSource { get; set; }
+        public string RatingSource { get; set; }
 
         public string RatingDetails { get; set; }
 

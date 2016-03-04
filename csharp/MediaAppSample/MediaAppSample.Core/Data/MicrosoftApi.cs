@@ -35,7 +35,7 @@ namespace MediaAppSample.Core.Data
         public async Task<MicrosoftAccountDetails> GetUserProfile(string token, CancellationToken ct)
         {
             string url = string.Format(URL_PROFILE_DATA, token);
-            return await this.GetAsync<MicrosoftAccountDetails>(url, SerializerTypes.Json, ct);
+            return await this.GetAsync<MicrosoftAccountDetails>(url, ct, SerializerTypes.Json);
         }
 
         #endregion

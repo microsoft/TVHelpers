@@ -54,6 +54,18 @@ namespace MediaAppSample.Core.Data
 
         #endregion
 
+        #region People/Reviews
+
+        Task<IEnumerable<ReviewModel>> GetReviews(string contentID, CancellationToken ct);
+
+        Task<IEnumerable<RatingModel>> GetRatings(string contentID, CancellationToken ct);
+
+        Task<IEnumerable<PersonModel>> GetCast(string contentID, CancellationToken ct);
+
+        Task<IEnumerable<PersonModel>> GetCrew(string contentID, CancellationToken ct);
+
+        #endregion
+
         #region Queue
 
         Task<IEnumerable<QueueModel>> GetQueue(CancellationToken ct);

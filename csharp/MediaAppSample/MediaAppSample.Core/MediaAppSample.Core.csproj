@@ -160,7 +160,6 @@
     <Compile Include="Data\MicrosoftApi.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\BackgroundTaskRunInfo.cs" />
-    <Compile Include="Models\CastAndCrewModel.cs" />
     <Compile Include="Models\ClientApiModels.cs" />
     <Compile Include="Models\ContentItemBase.cs" />
     <Compile Include="Models\ItemBase.cs" />
@@ -169,8 +168,10 @@
     <Compile Include="Models\ModelList.cs" />
     <Compile Include="Models\MovieModel.cs" />
     <Compile Include="Models\NotifyTaskCompletion.cs" />
+    <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\QueueModel.cs" />
-    <Compile Include="Models\RatingsAndReviewModel.cs" />
+    <Compile Include="Models\RatingModel.cs" />
+    <Compile Include="Models\ReviewModel.cs" />
     <Compile Include="Models\SeasonModel.cs" />
     <Compile Include="Models\TvEpisodeModel.cs" />
     <Compile Include="Models\TvSeriesModel.cs" />

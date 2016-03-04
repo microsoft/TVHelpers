@@ -22,15 +22,26 @@ namespace MediaAppSample.Core.Models
         Radio,
     }
 
+    public enum Genres
+    {
+        Drama,
+        SciFi,
+        Action,
+        Crime,
+        Family,
+        Horror,
+        Comedy,
+    }
+
     public abstract class ItemBase : ModelBase
     {
         #region Properties
 
-        private string _contentId;
+        private string _ID;
         public virtual string ContentID
         {
-            get { return _contentId; }
-            set { this.SetProperty(ref _contentId, value); }
+            get { return _ID; }
+            set { this.SetProperty(ref _ID, value); }
         }
 
         private string _contentRating;
@@ -95,15 +106,6 @@ namespace MediaAppSample.Core.Models
             get { return _landscapeImage; }
             set { this.SetProperty(ref _landscapeImage, value); }
         }
-
-        private string _flag;
-        public string Flag
-        {
-            get { return _flag; }
-            set { this.SetProperty(ref _flag, value); }
-        }
-
-        public string ByLine => "'Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vesitibulum fringilla felis diam, elementum.' - Convallis";
 
         #endregion
     }

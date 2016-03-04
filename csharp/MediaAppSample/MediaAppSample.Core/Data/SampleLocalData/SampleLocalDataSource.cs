@@ -14,7 +14,6 @@ using MediaAppSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,157 +22,20 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 {
     public sealed class SampleLocalDataSource : ClientApiBase, IDataSource
     {
-        #region Variables
+        #region Sample Data Variables
 
-        private const string DESCRIPTION = "Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fringilla felis diam. Meecenas mauris lorem, iaculis rhoncus volutpat vel, tritique ut sapien. Pellentesque eros neque, pharetra consectetur nisi nec, iaculis finibus lectus. Cras elit odio, ultricies eu fermentum ac, facilisis sed elit. Suspendisse molestie molestie mi vel lobortis. Praesent id bibendum nulla. Phasellus sed tortor purus. Duis ultrices consectetur diam ut commodo. Fusce et vulputate nulla. Maecenas porttitor quam id dui hendrerit, quis tempus mauris rhoncus. Aenean at nisi fermentum eros laoreet fringilla. Sed eu purus sed arcu pulvinar lobortis. Nulla blandit nec augue sit amet ultricies. Aliquam sit amet eleifend lorem. ";
-        private const string PATH_ROOT = "ms-appx:///Data/SampleLocalData/";
-        private const string IMAGE_PATH_PREFIX = PATH_ROOT + "Images/";
-        private const string CAST_IMAGE_PATH_PREFIX = PATH_ROOT + "Cast/";
-        private const string MEDIA_PATH_PREFIX = PATH_ROOT + "Videos/";
-        private const string MEDIA_PATH = "wildlife.mp4";
+        private const string SAMPLE_NAME = "Lorem Ipsum";
+        private const string SAMPLE_DESCRIPTION = "Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fringilla felis diam. Meecenas mauris lorem, iaculis rhoncus volutpat vel, tritique ut sapien. Pellentesque eros neque, pharetra consectetur nisi nec, iaculis finibus lectus. Cras elit odio, ultricies eu fermentum ac, facilisis sed elit. Suspendisse molestie molestie mi vel lobortis. Praesent id bibendum nulla. Phasellus sed tortor purus. Duis ultrices consectetur diam ut commodo. Fusce et vulputate nulla. Maecenas porttitor quam id dui hendrerit, quis tempus mauris rhoncus. Aenean at nisi fermentum eros laoreet fringilla. Sed eu purus sed arcu pulvinar lobortis. Nulla blandit nec augue sit amet ultricies. Aliquam sit amet eleifend lorem. ";
+        private const string SAMPLE_PATH_ROOT = "ms-appx:///Data/SampleLocalData/";
+        private const string SAMPLE_IMAGE_PATH_ROOT = SAMPLE_PATH_ROOT + "Images/";
+        private const string SAMPLE_CAST_PATH_ROOT = SAMPLE_PATH_ROOT + "Cast/";
+        private const string SAMPLE_MEDIA_PATH_ROOT = SAMPLE_PATH_ROOT + "Videos/";
+        private const string SAMPLE_MEDIA_FILE = "wildlife.mp4";
         private readonly Random _random = new Random(1234);
-
-        // short-term hardcoding for US 
-        private readonly CultureInfo _usCultureInfo = new CultureInfo("en-US");
-
-        private enum Genres
-        {
-            Drama,
-            SciFi,
-            Action,
-            Crime,
-            Family,
-            Horror,
-            Comedy,
-        }
-
+        
         #endregion
 
         #region Methods
-
-        #region Account
-
-        /// <summary>
-        /// Performs authentication for the application.
-        /// </summary>
-        /// <param name="vm">Sign in view model instance that contains the user's login information.</param>
-        /// <returns>Login reponse with authorization details.</returns>
-        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct)
-        {
-            var response = new UserResponse() { AccessToken = "1234567890", RefreshToken = "abcdefghijklmnop", ID = vm.Username, Email = vm.Username, FirstName = "John", LastName = "Doe" };
-            await Task.Delay(2000, ct);
-            return response;
-
-            //this.Client.DefaultRequestHeaders.Add("Authorization", "Basic YzExNGEzM2U4YjNhNDdmY2E3NzBhYmJiMGNlOWE0YjE6NDFjOTcxYTU3NzlhNGZhMGI4NGZmN2EzNTA4NTQ5M2U=");
-
-            //var dic = new Dictionary<string, string>();
-            //dic.Add("grant_type", "password");
-            //dic.Add("username", vm.Username);
-            //dic.Add("password", vm.Password);
-            //dic.Add("scope", "streaming");
-            //var contents = new HttpFormUrlEncodedContent(dic);
-
-            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
-
-            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNIN, contents, SerializerTypes.Json);
-        }
-
-        /// <summary>
-        /// Performs account creation for the application.
-        /// </summary>
-        /// <param name="vm">Sign up view model instance containing all the user's registration information.</param>
-        /// <returns>Login response and authorization information if the account creation process was successful.</returns>
-        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct)
-        {
-            var response = new UserResponse() { AccessToken = "0987654321", RefreshToken = "qrstuvwxwyz", ID = vm.Username, Email = vm.Username, FirstName = vm.FirstName, LastName = vm.LastName };
-            await Task.Delay(2000, ct);
-            return response;
-
-            //var dic = new Dictionary<string, string>();
-            //dic.Add("grant_type", "password");
-            //dic.Add("username", vm.Username);
-            //dic.Add("password", vm.Password1);
-            //dic.Add("scope", "streaming");
-            //var contents = new HttpFormUrlEncodedContent(dic);
-
-            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
-
-            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNUP, contents);
-        }
-
-        /// <summary>
-        /// Requests forgotten account information when a user cannot rememeber their authentication details.
-        /// </summary>
-        /// <param name="vm">Account forgot view model instance contain partial account details.</param>
-        /// <returns>Response information indicating whether the call was successful or not.</returns>
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct)
-        {
-            var response = new ForgotPasswordResponse() { IsValid = true, Message = "Your password has been sent to your e-mail!" };
-            await Task.Delay(2000, ct);
-            return response;
-        }
-
-        /// <summary>
-        /// Authenticates a user account returned from the Web Account Manager service.
-        /// </summary>
-        /// <param name="wi">Web account info object instance representing an authenticated WAM user.</param>
-        /// <param name="ct">Cancellation token.</param>
-        /// <returns>Response object from the server.</returns>
-        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
-        {
-            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if Contoso account exists else register new account.
-
-            switch (wi.Type)
-            {
-                case Services.WebAccountManager.WebAccountTypes.Microsoft:
-                    {
-                        // Retrieve MSA profile data
-                        MicrosoftAccountDetails msa = null;
-                        using (var api = new MicrosoftApi())
-                        {
-                            msa = await api.GetUserProfile(wi.Token, ct);
-                        }
-
-                        if (msa == null)
-                            throw new Exception("Could not retrieve Microsoft account profile data!");
-
-                        var response = await this.IsMicrosoftAccountRegistered(msa.id, ct);
-                        if (response != null)
-                        {
-                            // User account exists, return response
-                            return response;
-                        }
-                        else
-                        {
-                            // No account exists, use MSA profile to register user
-                            AccountSignUpViewModel vm = new AccountSignUpViewModel();
-
-                            // Set all the MSA data to the ViewModel
-                            vm.Populate(msa);
-
-                            // Call the registration API to create a new account and return
-                            return await this.RegisterAsync(vm, ct);
-                        }
-                    }
-
-                default:
-                    throw new NotImplementedException(wi.Type.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Checks to see if a MSA account ID is an existing user of this app service or not.
-        /// </summary>
-        /// <param name="id">Unique MSA account ID.</param>
-        /// <param name="ct">Cancelation token.</param>
-        /// <returns>Response object from the server.</returns>
-        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken ct)
-        {
-            // TODO server side logic to check if MSA user is existing or not as a user of this application. Returns "false" in this sample.
-            return Task.FromResult<UserResponse>(null);
-        }
-
-        #endregion
 
         #region Search
 
@@ -330,201 +192,6 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #endregion
 
-        #region Ratings/Reviews/Casts
-
-        private static IEnumerable<RatingsAndReviewModel> GetRatings(string contentID)
-        {
-            return new ObservableCollection<RatingsAndReviewModel>
-            {
-                new RatingsAndReviewModel()
-                {
-                    ID = "rating1",
-                    ReviewSource = "Rating Source 1",
-                    RatingDetails = "Rating Source 1 critics",
-                    RatingScore = 89,
-                    RatingScale = 100
-                },
-                new RatingsAndReviewModel()
-                {
-                    ID = "rating2",
-                    ReviewSource = "Rating Source 2",
-                    RatingDetails = "Based on 35 critic reviews",
-                    RatingScore = 74,
-                    RatingScale = 100
-                },
-                new RatingsAndReviewModel()
-                {
-                    ID = "rating3",
-                    ReviewSource = "Rating Source 3",
-                    RatingDetails = "From 15,242 user reviews",
-                    RatingScore = 8.1,
-                    RatingScale = 10
-                }
-            };
-        }
-
-        private static IEnumerable<RatingsAndReviewModel> GetReviews(string contentID)
-        {
-            return new ObservableCollection<RatingsAndReviewModel>
-            {
-                new RatingsAndReviewModel()
-                {
-                    ID = "review1",
-                    ReviewSource = "Newspaper 1",
-                    RatingDetails = DESCRIPTION,
-                    RatingScore = 3.5,
-                    RatingScale = 5
-                },
-                new RatingsAndReviewModel()
-                {
-                    ID = "review2",
-                    ReviewSource = "Online Source 2",
-                    RatingDetails = DESCRIPTION,
-                    RatingScore = 4.8,
-                    RatingScale = 5
-                },
-                new RatingsAndReviewModel()
-                {
-                    ID = "review3",
-                    ReviewSource = "Newspaper 3",
-                    RatingDetails = DESCRIPTION,
-                    RatingScore = 3.5,
-                    RatingScale = 5
-                },
-                //new RatingsAndReviewModel()
-                //{
-                //    ID = "review4",
-                //    ReviewSource = "Online Source 4",
-                //    RatingDetails = DESCRIPTION,
-                //    RatingScore = 3.9,
-                //    RatingScale = 5
-                //},
-                //new RatingsAndReviewModel()
-                //{
-                //    ID = "review5",
-                //    ReviewSource = "Newspaper 5",
-                //    RatingDetails = DESCRIPTION,
-                //    RatingScore = 4.1,
-                //    RatingScale = 5
-                //}
-            };
-        }
-
-        private static IEnumerable<CastAndCrewModel> GetCast(string contentID)
-        {
-            return new ObservableCollection<CastAndCrewModel>
-            {
-                new CastAndCrewModel()
-                {
-                    ID = "cast1",
-                    Name = "Ryan Porter",
-                    Role = "Hiro",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_06.jpg",
-                    OtherWorks = "Movie 5, Movie 8",
-                    Biography = DESCRIPTION
-                },
-                new CastAndCrewModel()
-                {
-                    ID = "cast2",
-                    Name = "Scott Adsit",
-                    Role = "Baymax",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_05.jpg",
-                    OtherWorks = "TV Series 3, TV Series 4",
-                    Biography = DESCRIPTION
-                },
-                new CastAndCrewModel()
-                {
-                    ID = "cast3",
-                    Name = "Jenny Chung",
-                    Role = "Go Go",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_04.jpg",
-                    OtherWorks = "Movie 1, Movie 11, TV Series 6",
-                    Biography = DESCRIPTION
-                },
-                new CastAndCrewModel()
-                {
-                    ID = "cast4",
-                    Name = "Daniel Henry",
-                    Role = "Tadeshi",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_03.jpg",
-                    OtherWorks = "Movie 4, Movie 9, TV Series 9",
-                    Biography = DESCRIPTION
-                },
-                //new CastAndCrewModel()
-                //{
-                //    ID = "cast5",
-                //    Name = "Cast Member 5",
-                //    Role = "Role 5",
-                //    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_02.jpg",
-                //    OtherWorks = "Movie 17, Movie 14, TV Series 12",
-                //    Biography = DESCRIPTION
-                //}
-            };
-        }
-
-        private static IEnumerable<CastAndCrewModel> GetCrew(string contentID)
-        {
-            return new ObservableCollection<CastAndCrewModel>
-            {
-                new CastAndCrewModel()
-                {
-                    ID = "crew1",
-                    Name = "Don Hall",
-                    Role = "Director / Writer",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_01.jpg",
-                    OtherWorks = "Movie 2, Movie 3, Movie 4",
-                    Biography = DESCRIPTION
-                },
-                new CastAndCrewModel()
-                {
-                    ID = "crew2",
-                    Name = "Chris Williams",
-                    Role = "Director / Writer",
-                    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_02.jpg",
-                    OtherWorks = "Movie 6, TV Series 3, Movie 18",
-                    Biography = DESCRIPTION
-                },
-                //new CastAndCrewModel()
-                //{
-                //    ID = "crew3",
-                //    Name = "Creator 3",
-                //    Role = "Producer",
-                //    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_03.jpg",
-                //    OtherWorks = "TV Series 2, Movie 3, Movie 10",
-                //    Biography = DESCRIPTION
-                //},
-                //new CastAndCrewModel()
-                //{
-                //    ID = "crew4",
-                //    Name = "Creator 4",
-                //    Role = "Screenplay",
-                //    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_04.jpg",
-                //    OtherWorks = "Movie 16, TV Series 3, Movie 9",
-                //    Biography = DESCRIPTION
-                //},
-                //new CastAndCrewModel()
-                //{
-                //    ID = "crew5",
-                //    Name = "Creator 5",
-                //    Role = "Writer",
-                //    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_05.jpg",
-                //    OtherWorks = "Movie 15, Movie 3, Movie 7",
-                //    Biography = DESCRIPTION
-                //},
-                //new CastAndCrewModel()
-                //{
-                //    ID = "crew6",
-                //    Name = "Creator 6",
-                //    Role = "Screenplay",
-                //    Image = CAST_IMAGE_PATH_PREFIX + "CastImage_06.jpg",
-                //    OtherWorks = "Movie 12, Movie 3, TV Series 4",
-                //    Biography = DESCRIPTION
-                //}
-            };
-        }
-
-        #endregion
-
         #region Queue
 
         public async Task<IEnumerable<QueueModel>> GetQueue(CancellationToken ct)
@@ -598,24 +265,24 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     UserRating = 0,
                     AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
                     Genre = ((Genres)_random.Next(6)).ToString(),
-                    FeaturedImage = IMAGE_PATH_PREFIX + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
-                    MediaImage = IMAGE_PATH_PREFIX + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
-                    LandscapeImage = IMAGE_PATH_PREFIX + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    PosterImage = IMAGE_PATH_PREFIX + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
-                    ResumeImage = IMAGE_PATH_PREFIX + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
-                    InlineImage = IMAGE_PATH_PREFIX + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = IMAGE_PATH_PREFIX + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
-                    URL = MEDIA_PATH_PREFIX + MEDIA_PATH,
-                    Description = DESCRIPTION,
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
                     Length = "120",
-                    ReleaseDate = DateTime.Parse("1/15/2015", _usCultureInfo),
-                    Cast = new ObservableCollection<CastAndCrewModel>(GetCast("movie" + imageNumber)),
-                    Creators = new ObservableCollection<CastAndCrewModel>(GetCrew("movie" + imageNumber)),
-                    CriticReviews = new ObservableCollection<RatingsAndReviewModel>(GetReviews("movie" + imageNumber)),
-                    ContentRatings = new ObservableCollection<RatingsAndReviewModel>(GetRatings("movie" + imageNumber)),
-                    Flag = "Just Added",
+                    ReleaseDate = new DateTime(2015, 1, 15),
+                    Cast = new ModelList<PersonModel>(GetCast("movie" + imageNumber)),
+                    Creators = new ModelList<PersonModel>(GetCrew("movie" + imageNumber)),
+                    CriticReviews = new ModelList<ReviewModel>(GetReviews("movie" + imageNumber)),
+                    ContentRatings = new ModelList<RatingModel>(GetRatings("movie" + imageNumber)),
+                    //Flag = "Just Added",
                 };
-                if (number == 1) item.Flag = "Featured";
+                //if (number == 1) item.Flag = "Featured";
                 list.Add(item as T);
             }
 
@@ -629,22 +296,22 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     UserRating = 0,
                     AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
                     Genre = ((Genres)_random.Next(6)).ToString(),
-                    FeaturedImage = IMAGE_PATH_PREFIX + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
-                    MediaImage = IMAGE_PATH_PREFIX + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
-                    LandscapeImage = IMAGE_PATH_PREFIX + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = IMAGE_PATH_PREFIX + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
-                    ResumeImage = IMAGE_PATH_PREFIX + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
-                    InlineImage = IMAGE_PATH_PREFIX + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
-                    URL = MEDIA_PATH_PREFIX + MEDIA_PATH,
-                    Description = DESCRIPTION,
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
                     ContentRating = "TV-13",
                     ReleaseDate = "2013 - 2014",
                     Length = "44",
-                    Cast = new ObservableCollection<CastAndCrewModel>(GetCast("series" + imageNumber)),
-                    Creators = new ObservableCollection<CastAndCrewModel>(GetCrew("series" + imageNumber)),
-                    CriticReviews = new ObservableCollection<RatingsAndReviewModel>(GetReviews("series" + imageNumber)),
-                    ContentRatings = new ObservableCollection<RatingsAndReviewModel>(GetRatings("series" + imageNumber)),
-                    Flag = "Most Popular",
+                    Cast = new ModelList<PersonModel>(GetCast("series" + imageNumber)),
+                    Creators = new ModelList<PersonModel>(GetCrew("series" + imageNumber)),
+                    CriticReviews = new ModelList<ReviewModel>(GetReviews("series" + imageNumber)),
+                    ContentRatings = new ModelList<RatingModel>(GetRatings("series" + imageNumber)),
+                    //Flag = "Most Popular",
                 };
                 //item.Seasons = new ObservableCollection<SeasonModel>(this.GetSeasons(item));
                 list.Add(item as T);
@@ -661,22 +328,22 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     UserRating = 0,
                     AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
                     Genre = "Drama",
-                    FeaturedImage = IMAGE_PATH_PREFIX + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
-                    MediaImage = IMAGE_PATH_PREFIX + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
-                    LandscapeImage = IMAGE_PATH_PREFIX + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = IMAGE_PATH_PREFIX + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
-                    ResumeImage = IMAGE_PATH_PREFIX + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
-                    InlineImage = IMAGE_PATH_PREFIX + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
-                    URL = MEDIA_PATH_PREFIX + MEDIA_PATH,
-                    Description = DESCRIPTION,
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
                     Length = "60",
                     SeasonNumber = 3,
                     EpisodeNumber = 1,
-                    AirDate = DateTime.Parse("1/15/2015", _usCultureInfo),
-                    Cast = new ObservableCollection<CastAndCrewModel>(GetCast("episode" + imageNumber)),
-                    Creators = new ObservableCollection<CastAndCrewModel>(GetCrew("episode" + imageNumber)),
-                    CriticReviews = new ObservableCollection<RatingsAndReviewModel>(GetReviews("episode" + imageNumber)),
-                    ContentRatings = new ObservableCollection<RatingsAndReviewModel>(GetRatings("episode" + imageNumber)),
+                    AirDate = new DateTime(2015, 1, 15),
+                    //Cast = new ObservableCollection<PersonModel>(GetCast("episode" + imageNumber)),
+                    //Creators = new ObservableCollection<PersonModel>(GetCrew("episode" + imageNumber)),
+                    //CriticReviews = new ObservableCollection<ReviewModel>(GetReviews("episode" + imageNumber)),
+                    //ContentRatings = new ObservableCollection<ReviewModel>(GetRatings("episode" + imageNumber)),
                 };
 
 
@@ -698,7 +365,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     //MediaImage = IMAGE_PATH_PREFIX + "16-9movie/hero2.png",
                     //SquareThumbnailImage = IMAGE_PATH_PREFIX + "1-1tv/odysseyteam.png",
                     //LandscapeThumbnailImage = IMAGE_PATH_PREFIX + "2-1landscape/taxi.png",
-                    Description = DESCRIPTION
+                    Description = SAMPLE_DESCRIPTION
                 };
 
                 switch (item.SeasonNumber)
@@ -725,6 +392,265 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         }
 
         #endregion ContentItemBase
+
+
+
+
+        #region Ratings/Reviews/Casts
+
+        public Task<IEnumerable<RatingModel>> GetRatings(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<RatingModel>>(this.GetRatings(contentID));
+        }
+        private IEnumerable<RatingModel> GetRatings(string contentID)
+        {
+            return new ObservableCollection<RatingModel>
+            {
+                new RatingModel()
+                {
+                    ID = "rating1",
+                    RatingSource = "Rating Source 1",
+                    RatingDetails = "Rating Source 1 critics",
+                    RatingScore = 89,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating2",
+                    RatingSource = "Rating Source 2",
+                    RatingDetails = "Based on 35 critic reviews",
+                    RatingScore = 74,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating3",
+                    RatingSource = "Rating Source 3",
+                    RatingDetails = "From 15,242 user reviews",
+                    RatingScore = 8.1,
+                    RatingScale = 10
+                }
+            };
+        }
+
+        public Task<IEnumerable<ReviewModel>> GetReviews(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<ReviewModel>>(this.GetReviews(contentID));
+        }
+        private IEnumerable<ReviewModel> GetReviews(string contentID)
+        {
+            return new ObservableCollection<ReviewModel>
+            {
+                new ReviewModel()
+                {
+                    ID = "review1",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review2",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review3",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+            };
+        }
+
+        public Task<IEnumerable<PersonModel>> GetCast(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<PersonModel>>(this.GetCast(contentID));
+        }
+        private IEnumerable<PersonModel> GetCast(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "cast1",
+                    FullName = "Ryan Porter",
+                    Role = "Hiro",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast2",
+                    FullName = "Scott Adsit",
+                    Role = "Baymax",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast3",
+                    FullName = "Jenny Chung",
+                    Role = "Go Go",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast4",
+                    FullName = "Daniel Henry",
+                    Role = "Tadeshi",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
+                },
+            };
+        }
+
+        public Task<IEnumerable<PersonModel>> GetCrew(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<PersonModel>>(this.GetCrew(contentID));
+        }
+        private IEnumerable<PersonModel> GetCrew(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "crew1",
+                    FullName = "Don Hall",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "crew2",
+                    FullName = "Chris Williams",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
+                },
+            };
+        }
+
+        #endregion
+
+        #region Account
+
+        /// <summary>
+        /// Performs authentication for the application.
+        /// </summary>
+        /// <param name="vm">Sign in view model instance that contains the user's login information.</param>
+        /// <returns>Login reponse with authorization details.</returns>
+        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct)
+        {
+            var response = new UserResponse() { AccessToken = "1234567890", RefreshToken = "abcdefghijklmnop", ID = vm.Username, Email = vm.Username, FirstName = "John", LastName = "Doe" };
+            await Task.Delay(2000, ct);
+            return response;
+
+            //this.Client.DefaultRequestHeaders.Add("Authorization", "Basic YzExNGEzM2U4YjNhNDdmY2E3NzBhYmJiMGNlOWE0YjE6NDFjOTcxYTU3NzlhNGZhMGI4NGZmN2EzNTA4NTQ5M2U=");
+
+            //var dic = new Dictionary<string, string>();
+            //dic.Add("grant_type", "password");
+            //dic.Add("username", vm.Username);
+            //dic.Add("password", vm.Password);
+            //dic.Add("scope", "streaming");
+            //var contents = new HttpFormUrlEncodedContent(dic);
+
+            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
+
+            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNIN, contents, SerializerTypes.Json);
+        }
+
+        /// <summary>
+        /// Performs account creation for the application.
+        /// </summary>
+        /// <param name="vm">Sign up view model instance containing all the user's registration information.</param>
+        /// <returns>Login response and authorization information if the account creation process was successful.</returns>
+        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct)
+        {
+            var response = new UserResponse() { AccessToken = "0987654321", RefreshToken = "qrstuvwxwyz", ID = vm.Username, Email = vm.Username, FirstName = vm.FirstName, LastName = vm.LastName };
+            await Task.Delay(2000, ct);
+            return response;
+
+            //var dic = new Dictionary<string, string>();
+            //dic.Add("grant_type", "password");
+            //dic.Add("username", vm.Username);
+            //dic.Add("password", vm.Password1);
+            //dic.Add("scope", "streaming");
+            //var contents = new HttpFormUrlEncodedContent(dic);
+
+            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
+
+            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNUP, contents);
+        }
+
+        /// <summary>
+        /// Requests forgotten account information when a user cannot rememeber their authentication details.
+        /// </summary>
+        /// <param name="vm">Account forgot view model instance contain partial account details.</param>
+        /// <returns>Response information indicating whether the call was successful or not.</returns>
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct)
+        {
+            var response = new ForgotPasswordResponse() { IsValid = true, Message = "Your password has been sent to your e-mail!" };
+            await Task.Delay(2000, ct);
+            return response;
+        }
+
+        /// <summary>
+        /// Authenticates a user account returned from the Web Account Manager service.
+        /// </summary>
+        /// <param name="wi">Web account info object instance representing an authenticated WAM user.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Response object from the server.</returns>
+        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
+        {
+            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if Contoso account exists else register new account.
+
+            switch (wi.Type)
+            {
+                case Services.WebAccountManager.WebAccountTypes.Microsoft:
+                    {
+                        // Retrieve MSA profile data
+                        MicrosoftAccountDetails msa = null;
+                        using (var api = new MicrosoftApi())
+                        {
+                            msa = await api.GetUserProfile(wi.Token, ct);
+                        }
+
+                        if (msa == null)
+                            throw new Exception("Could not retrieve Microsoft account profile data!");
+
+                        var response = await this.IsMicrosoftAccountRegistered(msa.id, ct);
+                        if (response != null)
+                        {
+                            // User account exists, return response
+                            return response;
+                        }
+                        else
+                        {
+                            // No account exists, use MSA profile to register user
+                            AccountSignUpViewModel vm = new AccountSignUpViewModel();
+
+                            // Set all the MSA data to the ViewModel
+                            vm.Populate(msa);
+
+                            // Call the registration API to create a new account and return
+                            return await this.RegisterAsync(vm, ct);
+                        }
+                    }
+
+                default:
+                    throw new NotImplementedException(wi.Type.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Checks to see if a MSA account ID is an existing user of this app service or not.
+        /// </summary>
+        /// <param name="id">Unique MSA account ID.</param>
+        /// <param name="ct">Cancelation token.</param>
+        /// <returns>Response object from the server.</returns>
+        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken ct)
+        {
+            // TODO server side logic to check if MSA user is existing or not as a user of this application. Returns "false" in this sample.
+            return Task.FromResult<UserResponse>(null);
+        }
+
+        #endregion
 
         #endregion
     }

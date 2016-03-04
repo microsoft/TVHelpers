@@ -52,12 +52,12 @@ namespace MediaAppSample.Core.Data
         /// <param name="retryCount">Number of retry attempts if a call fails. Default is zero.</param>
         /// <returns>Instance of the type specified representing the data returned from the URL.</returns>
         /// <summary>
-        protected async Task<T> GetAsync<T>(string url, SerializerTypes serializerType = SerializerTypes.Default, CancellationToken? ct = null)
+        protected async Task<T> GetAsync<T>(string url, CancellationToken ct, SerializerTypes serializerType = SerializerTypes.Default)
         {
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentNullException(nameof(url));
 
-            var response = await this.Client.GetAsync(new Uri(this.BaseUri, url)).AsTask(ct.HasValue ? ct.Value : CancellationToken.None);
+            var response = await this.Client.GetAsync(new Uri(this.BaseUri, url)).AsTask(ct);
             this.Log(response);
             response.EnsureSuccessStatusCode();
             var data = await response.Content.ReadAsStringAsync();
@@ -78,7 +78,7 @@ namespace MediaAppSample.Core.Data
         /// <param name="retryCount">Number of retry attempts if a call fails. Default is zero.</param>
         /// <returns>Instance of the type specified representing the data returned from the URL.</returns>
         /// <summary>
-        protected async Task<T> PostAsync<T, R>(string url, R contents, SerializerTypes serializerType = SerializerTypes.Default, CancellationToken ct) where R : IHttpContent
+        protected async Task<T> PostAsync<T, R>(string url, R contents, CancellationToken ct, SerializerTypes serializerType = SerializerTypes.Default) where R : IHttpContent
         {
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentNullException(nameof(url));

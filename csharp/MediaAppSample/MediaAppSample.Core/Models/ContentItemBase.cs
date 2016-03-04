@@ -9,7 +9,6 @@
 //
 //*********************************************************
 
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace MediaAppSample.Core.Models
@@ -69,29 +68,29 @@ namespace MediaAppSample.Core.Models
             set { this.SetProperty(ref _Length, value); }
         }
 
-        private ObservableCollection<CastAndCrewModel> _Creators;
-        public ObservableCollection<CastAndCrewModel> Creators
+        private ModelList<PersonModel> _Creators;
+        public ModelList<PersonModel> Creators
         {
             get { return _Creators; }
             internal set { this.SetProperty(ref _Creators, value); }
         }
 
-        private ObservableCollection<CastAndCrewModel> _Cast;
-        public ObservableCollection<CastAndCrewModel> Cast
+        private ModelList<PersonModel> _Cast;
+        public ModelList<PersonModel> Cast
         {
             get { return _Cast; }
             internal set { this.SetProperty(ref _Cast, value); }
         }
 
-        private ObservableCollection<RatingsAndReviewModel> _CriticReviews;
-        public ObservableCollection<RatingsAndReviewModel> CriticReviews
+        private ModelList<ReviewModel> _CriticReviews;
+        public ModelList<ReviewModel> CriticReviews
         {
             get { return _CriticReviews; }
             set { this.SetProperty(ref _CriticReviews, value); }
         }
 
-        private ObservableCollection<RatingsAndReviewModel> _ContentRatings;
-        public ObservableCollection<RatingsAndReviewModel> ContentRatings
+        private ModelList<RatingModel> _ContentRatings;
+        public ModelList<RatingModel> ContentRatings
         {
             get { return _ContentRatings; }
             set { this.SetProperty(ref _ContentRatings, value); }

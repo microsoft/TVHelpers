@@ -11,21 +11,17 @@
 
 namespace MediaAppSample.Core.Models
 {
-    public class CastAndCrewModel : ModelBase
+    public class PersonModel : ModelBase
     {
         #region Properties
 
         public string ID { get; set; }
 
-        public string Name { get; set; }
+        public string FullName { get; set; }
 
         public string Role { get; set; }
 
         public string Image { get; set; }
-
-        public string OtherWorks { get; set; }
-
-        public string Biography { get; set; }
 
         #endregion
     }
