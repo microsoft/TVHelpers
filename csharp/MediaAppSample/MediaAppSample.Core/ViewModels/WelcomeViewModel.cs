@@ -69,12 +69,9 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.ShowBusyStatus(Strings.Account.TextAuthenticating, true);
 
-                _cts = new CancellationTokenSource();                
-                using (var api = new ClientApi())
-                {
-                    var response = await api.AuthenticateAsync(wad, _cts.Token);
-                    Platform.Current.AuthManager.SetUser(response);
-                }
+                _cts = new CancellationTokenSource();
+                var response = await DataSource.Current.AuthenticateAsync(wad, _cts.Token);
+                Platform.Current.AuthManager.SetUser(response);
 
                 Platform.Current.Navigation.Home(this.ViewParameter);
             }

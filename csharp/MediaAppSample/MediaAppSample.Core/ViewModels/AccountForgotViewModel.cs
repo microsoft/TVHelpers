@@ -99,16 +99,13 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextValidatingUsername, true);
 
-                using (var api = new ClientApi())
-                {
-                    var response = await api.ForgotPasswordAsync(this);
+                var response = await DataSource.Current.ForgotPasswordAsync(this);
 
-                    this.ClearStatus();
+                this.ClearStatus();
 
-                    await this.ShowMessageBoxAsync(response.Message, this.Title);
-                    if (response?.IsValid == true)
-                        Platform.Current.Navigation.GoBack();
-                }
+                await this.ShowMessageBoxAsync(response.Message, this.Title);
+                if (response?.IsValid == true)
+                    Platform.Current.Navigation.GoBack();
             }
             catch (Exception ex)
             {

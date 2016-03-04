@@ -130,14 +130,14 @@ namespace MediaAppSample.UI.Services
             Platform.Current.Logger.Log(LogLevels.Information, "SetShareContent - Model: {0}", model?.GetType().Name);
 
             // Sharing is based on the model data that was passed in. Perform customized sharing based on the type of the model provided.
-            if (model is ItemModel)
+            if (model is ContentItemBase)
             {
-                var m = model as ItemModel;
-                requestData.Properties.Title = m.LineOne;
-                requestData.Properties.Description = m.LineTwo;
+                var m = model as ContentItemBase;
+                requestData.Properties.Title = m.Title;
+                requestData.Properties.Description = m.Description;
                 var args = Platform.Current.GenerateModelArguments(model);
                 requestData.Properties.ContentSourceApplicationLink = new Uri(Platform.Current.AppInfo.GetDeepLink(args), UriKind.Absolute);
-                string body = m.LineOne + Environment.NewLine + m.LineTwo + Environment.NewLine + m.LineThree + Environment.NewLine + m.LineFour;
+                string body = m.Title + Environment.NewLine + m.Description;
                 requestData.SetText(body);
             }
             else
@@ -187,7 +187,7 @@ namespace MediaAppSample.UI.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            if (model is ItemModel || model is ItemViewModel)
+            if (model is ItemBase )
                 this.Details(model);
             else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);

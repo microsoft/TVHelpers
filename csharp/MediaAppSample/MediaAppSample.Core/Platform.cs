@@ -129,31 +129,29 @@ namespace MediaAppSample.Core
                     return;
 
                 // SAMPLE - Load data from your API, do any background work here.
-                using (var api = new ClientApi())
+
+                var data = await DataSource.Current.GetItems(ct);
+                if (data != null)
                 {
-                    var data = await api.GetItems(ct);
-                    if (data != null)
+                    var items = data.ToObservableCollection();
+                    if (items.Count > 0)
                     {
-                        var items = data.ToObservableCollection();
-                        if (items.Count > 0)
-                        {
-                            var index = DateTime.Now.Second % items.Count;
-                            Platform.Current.Notifications.DisplayToast(items[index]);
-                        }
+                        var index = DateTime.Now.Second % items.Count;
+                        Platform.Current.Notifications.DisplayToast(items[index]);
                     }
+                }
+
+                ct.ThrowIfCancellationRequested();
+
+                if (cost <= BackgroundWorkCostValue.Medium)
+                {
+                    // Update primary tile
+                    await Platform.Current.Notifications.CreateOrUpdateTileAsync(new ModelList<ContentItemBase>(data));
 
                     ct.ThrowIfCancellationRequested();
 
-                    if (cost <= BackgroundWorkCostValue.Medium)
-                    {
-                        // Update primary tile
-                        await Platform.Current.Notifications.CreateOrUpdateTileAsync(new ModelList<ItemModel>(data));
-
-                        ct.ThrowIfCancellationRequested();
-                        
-                        // Update all tiles pinned from this application
-                        await Platform.Current.Notifications.UpdateAllSecondaryTilesAsync(ct);
-                    }
+                    // Update all tiles pinned from this application
+                    await Platform.Current.Notifications.UpdateAllSecondaryTilesAsync(ct);
                 }
             }
             catch(OperationCanceledException)
@@ -222,10 +220,10 @@ namespace MediaAppSample.Core
 
             // For each model you want to support, you'll add any custom properties 
             // to the dictionary based on the type of object
-            if (model is ItemModel)
+            if (model is ItemBase)
             {
-                var item = model as ItemModel;
-                dic.Add("ID", item.ID.ToString());
+                var item = model as ItemBase;
+                dic.Add("ID", item.ContentID.ToString());
             }
             else
             {
@@ -248,10 +246,10 @@ namespace MediaAppSample.Core
             {
                 return string.Empty;
             }
-            else if (model is ItemModel)
+            else if (model is ItemBase)
             {
-                var item = model as ItemModel;
-                return "ItemModel_" + item.ID;
+                var item = model as ItemBase;
+                return "ContentItemBase_" + item.ContentID;
             }
             else
                 return null;
@@ -269,11 +267,8 @@ namespace MediaAppSample.Core
             {
                 if (tileID.StartsWith("ItemModel_"))
                 {
-                    int id = int.Parse(tileID.Split('_').Last());
-                    using (var api = new ClientApi())
-                    {
-                        return await api.GetItemByID(id, ct);
-                    }
+                    var id = tileID.Split('_').Last();
+                    return await DataSource.Current.GetItemByID(id, ct);
                 }
             }
             catch (Exception ex)

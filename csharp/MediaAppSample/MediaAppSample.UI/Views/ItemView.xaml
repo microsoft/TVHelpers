@@ -37,16 +37,8 @@
 
         <ScrollViewer>
             <StackPanel x:Name="ContentPanel" Margin="{StaticResource ViewBodyMargins}">
-                <TextBlock Text="{x:Bind ViewModel.Item.LineOne, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.LineTwo, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.LineThree, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.LineFour, Mode=OneWay}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.Latitude, Converter={StaticResource stringFormatConverter}, ConverterParameter='Latitude \{0\}', Mode=OneWay}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.Longitude, Converter={StaticResource stringFormatConverter}, ConverterParameter='Longitude \{0\}', Mode=OneWay}" />
-                <Button Content="View map" Command="{x:Bind ViewModel.Commands.NavigateToMapExternalCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
-                <Button Content="View driving directions" Command="{x:Bind ViewModel.Commands.NavigateToMapExternalDrivingCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
-                <Button Content="View walking directions" Command="{x:Bind ViewModel.Commands.NavigateToMapExternalWalkingCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
-                <Button Content="Download" Command="{x:Bind ViewModel.DownloadCommand, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsDownloadEnabled, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
             </StackPanel>
         </ScrollViewer>
 

@@ -61,22 +61,6 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _DebuggingViewModel, value); }
         }
 
-
-        private ItemViewModel _Item1 = new ItemViewModel(1);
-        public ItemViewModel Item1
-        {
-            get { return _Item1; }
-            private set { this.SetProperty(ref _Item1, value); }
-        }
-
-
-        private ItemViewModel _Item2 = new ItemViewModel(2);
-        public ItemViewModel Item2
-        {
-            get { return _Item2; }
-            private set { this.SetProperty(ref _Item2, value); }
-        }
-
         #endregion
 
         #region Constructors
@@ -93,9 +77,6 @@ namespace MediaAppSample.Core.ViewModels
 
             if(this.DebugVM != null)
                 this.ViewModels.Add(this.DebugVM);
-
-            this.ViewModels.Add(this.Item1);
-            this.ViewModels.Add(this.Item2);
         }
 
         #endregion

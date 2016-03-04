@@ -8,7 +8,6 @@
 // PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 //
 //*********************************************************
-using MediaAppSample.Core.Data.SampleLocalData;
 
 namespace MediaAppSample.Core.Data
 {
@@ -21,8 +20,8 @@ namespace MediaAppSample.Core.Data
 
         static DataSource()
         {
-            Current = new SampleLocalDataSource();
-            //Current = new MediaApp.Data.Channel9Data.Channel9DataSource();
+            Current = new SampleLocalData.SampleLocalDataSource();
+            //Current = new Channel9Data.Channel9DataSource();
         }
     }
 }

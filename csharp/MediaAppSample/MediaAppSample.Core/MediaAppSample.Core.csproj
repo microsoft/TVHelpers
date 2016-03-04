@@ -138,7 +138,6 @@
   <ItemGroup>
     <Compile Include="AgentSync.cs" />
     <Compile Include="Data\ClientApiBase.cs" />
-    <Compile Include="Data\ClientApi.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CommandsManager.cs" />
     <Compile Include="Commands\GenericCommand.cs" />
@@ -165,7 +164,6 @@
     <Compile Include="Models\ClientApiModels.cs" />
     <Compile Include="Models\ContentItemBase.cs" />
     <Compile Include="Models\ItemBase.cs" />
-    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\ModelList.cs" />

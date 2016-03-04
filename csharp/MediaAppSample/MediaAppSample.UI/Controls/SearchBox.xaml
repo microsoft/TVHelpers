@@ -18,10 +18,10 @@
                     QuerySubmitted="searchBox_QuerySubmitted" 
                     SuggestionChosen="searchBox_SuggestionChosen">
         <AutoSuggestBox.ItemTemplate>
-            <DataTemplate x:DataType="models:ItemModel">
+            <DataTemplate x:DataType="models:ContentItemBase">
                 <StackPanel>
-                    <TextBlock Text="{x:Bind LineOne}" FontWeight="Bold" />
-                    <TextBlock Text="{x:Bind LineTwo}" />
+                    <TextBlock Text="{x:Bind Title}" FontWeight="Bold" />
+                    <TextBlock Text="{x:Bind Description}" />
                 </StackPanel>
             </DataTemplate>
         </AutoSuggestBox.ItemTemplate>
