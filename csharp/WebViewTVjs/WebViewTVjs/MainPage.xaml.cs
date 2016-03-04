@@ -36,10 +36,10 @@ namespace WebViewTVjs
         private  async void LoadHTMLContent()
         {
             var task = LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
-
+            // Ensure page loads before loading script
             task.Wait();
             WebViewControl.NavigateToString(task.Result);
-
+            // load the script
             string script = await LoadStringFromPackageFileAsync($"tvjs/DirectionalNavigation/directionalnavigation-1.0.0.0.js");
             await WebViewControl.InvokeScriptAsync("eval", new string[] { script });
 
