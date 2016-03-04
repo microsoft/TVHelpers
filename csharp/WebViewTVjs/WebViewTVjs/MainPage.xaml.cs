@@ -36,21 +36,22 @@ namespace WebViewTVjs
         private  async void LoadHTMLContent()
         {
             var task = LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
-            // Ensure page loads before loading script
-            task.Wait();
+            // Ensure page loads before injecting the script
+            task.Wait(2000);
             WebViewControl.NavigateToString(task.Result);
-            // load the script
+            // Inject directional navigation script
             string script = await LoadStringFromPackageFileAsync($"tvjs/DirectionalNavigation/directionalnavigation-1.0.0.0.js");
             await WebViewControl.InvokeScriptAsync("eval", new string[] { script });
 
+            WebViewControl.Focus(FocusState.Programmatic);
             
         }
 
         public static async Task<string> LoadStringFromPackageFileAsync(string name)
         {
             // Using the storage classes to read the content from a file as a string.
-            StorageFile f = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///html/{name}"));
-            return await FileIO.ReadTextAsync(f);
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///html/{name}"));
+            return await FileIO.ReadTextAsync(file);
         }
     }
 }
