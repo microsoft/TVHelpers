@@ -137,8 +137,16 @@ namespace MediaAppSample.Core.ViewModels
 
         public override Task OnSaveStateAsync(SaveStateEventArgs e)
         {
-            this.View.GotFocus -= View_GotFocus;
-            Platform.Current.SaveSettings();
+            try
+            {
+                this.View.GotFocus -= View_GotFocus;
+                Platform.Current.SaveSettings();
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error during GeneralSettingsViewModel.OnSaveStateAsync");
+                throw;
+            }
             return base.OnSaveStateAsync(e);
         }
 
