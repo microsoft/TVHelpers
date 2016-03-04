@@ -101,7 +101,8 @@ namespace MediaAppSample.Core.ViewModels
          
         public override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
-            this.View.GotFocus += View_GotFocus;
+            if(this.View != null)
+                this.View.GotFocus += View_GotFocus;
 
             if (isFirstRun)
             {
@@ -139,7 +140,8 @@ namespace MediaAppSample.Core.ViewModels
         {
             try
             {
-                this.View.GotFocus -= View_GotFocus;
+                if (this.View != null)
+                    this.View.GotFocus -= View_GotFocus;
                 Platform.Current.SaveSettings();
             }
             catch(Exception ex)
