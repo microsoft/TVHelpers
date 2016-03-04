@@ -248,7 +248,6 @@
     <Compile Include="Services\WebAccountManager.cs" />
     <Compile Include="ViewModels\WebBrowserViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
-    <Compile Include="ViewStateEvents.cs" />
     <Content Include="Data\SampleLocalData\Cast\CastImage_01.jpg" />
     <Content Include="Data\SampleLocalData\Cast\CastImage_02.jpg" />
     <Content Include="Data\SampleLocalData\Cast\CastImage_03.jpg" />
