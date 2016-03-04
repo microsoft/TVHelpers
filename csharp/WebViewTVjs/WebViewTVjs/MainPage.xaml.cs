@@ -37,7 +37,7 @@ namespace WebViewTVjs
         {
             var task = LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
             // Ensure page loads before injecting the script
-            task.Wait(2000);
+            task.Wait(2500);
             WebViewControl.NavigateToString(task.Result);
             // Inject directional navigation script
             string script = await LoadStringFromPackageFileAsync($"tvjs/DirectionalNavigation/directionalnavigation-1.0.0.0.js");
