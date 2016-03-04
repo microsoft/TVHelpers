@@ -2,6 +2,7 @@
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
@@ -107,7 +108,7 @@ namespace MediaAppSample.Core.ViewModels
                 this.ShowBusyStatus(Strings.Account.TextAuthenticating, true);
 
                 string userMessage = null;
-                var response = await DataSource.Current.AuthenticateAsync(this);
+                var response = await DataSource.Current.AuthenticateAsync(this, CancellationToken.None);
 
                 // Ensure that there is a valid token returned
                 if (response?.AccessToken != null)

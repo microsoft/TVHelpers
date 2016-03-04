@@ -138,7 +138,7 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.SetTitle(Strings.Resources.TextLoading);
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                this.Item = await DataSource.Current.GetItemByID(this.ContentID, token);
+                this.Item = await DataSource.Current.GetContentItem(this.ContentID, token);
                 this.ClearStatus();
             }
             catch (OperationCanceledException)

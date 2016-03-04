@@ -21,10 +21,10 @@ namespace MediaAppSample.Core.Data.Channel9Data
         /// </summary>
         /// <param name="vm">Sign in view model instance that contains the user's login information.</param>
         /// <returns>Login reponse with authorization details.</returns>
-        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken? ct = null)
+        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct)
         {
             var response = new UserResponse() { AccessToken = "1234567890", RefreshToken = "abcdefghijklmnop", ID = vm.Username, Email = vm.Username, FirstName = "John", LastName = "Doe" };
-            await Task.Delay(2000, ct.HasValue ? ct.Value : CancellationToken.None);
+            await Task.Delay(2000, ct);
             return response;
 
             //this.Client.DefaultRequestHeaders.Add("Authorization", "Basic YzExNGEzM2U4YjNhNDdmY2E3NzBhYmJiMGNlOWE0YjE6NDFjOTcxYTU3NzlhNGZhMGI4NGZmN2EzNTA4NTQ5M2U=");
@@ -46,10 +46,10 @@ namespace MediaAppSample.Core.Data.Channel9Data
         /// </summary>
         /// <param name="vm">Sign up view model instance containing all the user's registration information.</param>
         /// <returns>Login response and authorization information if the account creation process was successful.</returns>
-        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken? ct = null)
+        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct)
         {
             var response = new UserResponse() { AccessToken = "0987654321", RefreshToken = "qrstuvwxwyz", ID = vm.Username, Email = vm.Username, FirstName = vm.FirstName, LastName = vm.LastName };
-            await Task.Delay(2000, ct.HasValue ? ct.Value : CancellationToken.None);
+            await Task.Delay(2000, ct);
             return response;
 
             //var dic = new Dictionary<string, string>();
@@ -69,10 +69,10 @@ namespace MediaAppSample.Core.Data.Channel9Data
         /// </summary>
         /// <param name="vm">Account forgot view model instance contain partial account details.</param>
         /// <returns>Response information indicating whether the call was successful or not.</returns>
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken? ct = null)
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct)
         {
             var response = new ForgotPasswordResponse() { IsValid = true, Message = "Your password has been sent to your e-mail!" };
-            await Task.Delay(2000, ct.HasValue ? ct.Value : CancellationToken.None);
+            await Task.Delay(2000, ct);
             return response;
         }
 
@@ -82,7 +82,7 @@ namespace MediaAppSample.Core.Data.Channel9Data
         /// <param name="wi">Web account info object instance representing an authenticated WAM user.</param>
         /// <param name="ct">Cancellation token.</param>
         /// <returns>Response object from the server.</returns>
-        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken? ct = null)
+        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
         {
             // This logic below should be server side. Token should be used to retrieve MSA and then check to see if Contoso account exists else register new account.
 
@@ -115,7 +115,7 @@ namespace MediaAppSample.Core.Data.Channel9Data
                             vm.Populate(msa);
 
                             // Call the registration API to create a new account and return
-                            return await this.RegisterAsync(vm);
+                            return await this.RegisterAsync(vm, ct);
                         }
                     }
 
@@ -130,7 +130,7 @@ namespace MediaAppSample.Core.Data.Channel9Data
         /// <param name="id">Unique MSA account ID.</param>
         /// <param name="ct">Cancelation token.</param>
         /// <returns>Response object from the server.</returns>
-        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken? ct = null)
+        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken ct)
         {
             // TODO server side logic to check if MSA user is existing or not as a user of this application. Returns "false" in this sample.
             return Task.FromResult<UserResponse>(null);
@@ -140,7 +140,7 @@ namespace MediaAppSample.Core.Data.Channel9Data
 
         #region Search
 
-        public Task<IEnumerable<ContentItemBase>> SearchItems(string searchText, CancellationToken? ct)
+        public Task<IEnumerable<ContentItemBase>> SearchItems(string searchText, CancellationToken ct)
         {
             throw new NotImplementedException();
         }
@@ -149,18 +149,18 @@ namespace MediaAppSample.Core.Data.Channel9Data
 
         #region Queue
 
-        public Task<IEnumerable<QueueModel>> GetQueue()
+        public Task<IEnumerable<QueueModel>> GetQueue(CancellationToken ct)
         {
             List<QueueModel> list = new List<QueueModel>();
             return Task.FromResult<IEnumerable<QueueModel>>(list);
         }
 
-        public Task AddToQueue(ContentItemBase item)
+        public Task AddToQueue(ContentItemBase item, CancellationToken ct)
         {
             return Task.FromResult<object>(null);
         }
 
-        public Task RemoveFromQueue(ContentItemBase item)
+        public Task RemoveFromQueue(ContentItemBase item, CancellationToken ct)
         {
             return Task.FromResult<object>(null);
         }
@@ -169,13 +169,13 @@ namespace MediaAppSample.Core.Data.Channel9Data
 
         #region Movies
 
-        public async Task<MovieModel> GetMovieHero()
+        public async Task<MovieModel> GetMovieHero(CancellationToken ct)
         {
-            var list = await this.GetMovies();
+            var list = await this.GetMovies(ct);
             return list.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<MovieModel>> GetMovies()
+        public async Task<IEnumerable<MovieModel>> GetMovies(CancellationToken ct)
         {
             string url = "https://channel9.msdn.com/Events/Build/2015/RSS";
 
@@ -222,29 +222,29 @@ namespace MediaAppSample.Core.Data.Channel9Data
             return null;
         }
 
-        public async Task<IEnumerable<MovieModel>> GetMoviesFeatured()
+        public async Task<IEnumerable<MovieModel>> GetMoviesFeatured(CancellationToken ct)
         {
-            return (await this.GetMovies()).Take(4);
+            return (await this.GetMovies(ct)).Take(4);
         }
 
-        public async Task<IEnumerable<TvSeriesModel>> GetTvFeatured()
+        public async Task<IEnumerable<TvSeriesModel>> GetTvFeatured(CancellationToken ct)
         {
-            return (await this.GetTvSeries()).Take(4);
+            return (await this.GetTvSeries(ct)).Take(4);
         }
 
-        public async Task<IEnumerable<TvEpisodeModel>> GetEpisodes()
+        public async Task<IEnumerable<TvEpisodeModel>> GetEpisodes(CancellationToken ct)
         {
-            return (await this.GetTvEpisodes());
+            return (await this.GetTvEpisodes(ct));
         }
 
-        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleases()
+        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleases(CancellationToken ct)
         {
-            return (await this.GetMovies()).Take(7);
+            return (await this.GetMovies(ct)).Take(7);
         }
 
-        public async Task<IEnumerable<MovieModel>> GetMoviesTrailers()
+        public async Task<IEnumerable<MovieModel>> GetMoviesTrailers(CancellationToken ct)
         {
-            return (await this.GetMovies()).Take(6);
+            return (await this.GetMovies(ct)).Take(6);
         }
 
         #endregion
@@ -266,18 +266,18 @@ namespace MediaAppSample.Core.Data.Channel9Data
             return models;
         }
 
-        public Task<ContentItemBase> GetContentItem(string contentID)
+        public Task<ContentItemBase> GetContentItem(string contentID, CancellationToken ct)
         {
             return Task.FromResult<ContentItemBase>(null);
         }
 
-        public Task<IEnumerable<ContentItemBase>> GetRelated(string contentID)
+        public Task<IEnumerable<ContentItemBase>> GetRelated(string contentID, CancellationToken ct)
         {
             var list = new List<ContentItemBase>();
             return Task.FromResult<IEnumerable<ContentItemBase>>(list);
         }
 
-        public Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID)
+        public Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID, CancellationToken ct)
         {
             var list = new List<ContentItemBase>();
             return Task.FromResult<IEnumerable<ContentItemBase>>(list);
@@ -285,12 +285,12 @@ namespace MediaAppSample.Core.Data.Channel9Data
 
         #region TV
 
-        public async Task<IEnumerable<TvSeriesModel>> GetTvSeries()
+        public async Task<IEnumerable<TvSeriesModel>> GetTvSeries(CancellationToken ct)
         {
             string url = "https://channel9.msdn.com/Events/GDC/GDC-2015/RSS";
 
             var client = new SyndicationClient();
-            var feed = await client.RetrieveFeedAsync(new Uri(url, UriKind.Absolute));
+            var feed = await client.RetrieveFeedAsync(new Uri(url, UriKind.Absolute)).AsTask(ct);
 
             var list = new List<TvSeriesModel>();
             foreach (var item in feed.Items.Take(25))
@@ -313,23 +313,23 @@ namespace MediaAppSample.Core.Data.Channel9Data
             return list;
         }
 
-        public async Task<TvSeriesModel> GetTvHero()
+        public async Task<TvSeriesModel> GetTvHero(CancellationToken ct)
         {
-            var list = await this.GetTvSeries();
+            var list = await this.GetTvSeries(ct);
             return list.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<TvEpisodeModel>> GetTvEpisodes()
+        public async Task<IEnumerable<TvEpisodeModel>> GetTvEpisodes(CancellationToken ct)
         {
-            return (await this.GetTvInline()).Take(3);
+            return (await this.GetTvInline(ct)).Take(3);
         }
 
-        public async Task<IEnumerable<TvEpisodeModel>> GetTvInline()
+        public async Task<IEnumerable<TvEpisodeModel>> GetTvInline(CancellationToken ct)
         {
             string url = "https://channel9.msdn.com/Events/GDC/GDC-2015/RSS";
 
             var client = new SyndicationClient();
-            var feed = await client.RetrieveFeedAsync(new Uri(url, UriKind.Absolute));
+            var feed = await client.RetrieveFeedAsync(new Uri(url, UriKind.Absolute)).AsTask(ct);
 
             var list = new List<TvEpisodeModel>();
             foreach (var item in feed.Items.Take(5))
@@ -352,65 +352,18 @@ namespace MediaAppSample.Core.Data.Channel9Data
             return list;
         }
 
-        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleases()
+        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleases(CancellationToken ct)
         {
-            return (await this.GetTvSeries()).Take(7);
+            return (await this.GetTvSeries(ct)).Take(7);
         }
 
-        public IEnumerable<SeasonModel> GetSeasons(TvSeriesModel series)
+        public IEnumerable<SeasonModel> GetSeasons(TvSeriesModel series, CancellationToken ct)
         {
             var list = new List<SeasonModel>();
             return list;
         }
 
         #endregion
-
-        #endregion
-
-        #region Sample Data
-
-        /// <summary>
-        /// Gets sample data.
-        /// </summary>
-        /// <param name="ct">Cancelation token.</param>
-        /// <returns>List of items.</returns>
-        public Task<IEnumerable<ContentItemBase>> GetItems(CancellationToken? ct)
-        {
-            var list = new List<ContentItemBase>();
-            //list.Add(new ItemModel() { ID = "1", LineOne = "Runtime One", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu", Latitude = 40, Longitude = -87 });
-            //list.Add(new ItemModel() { ID = "2", LineOne = "Runtime Two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus", Latitude = 1, Longitude = 10 });
-            //list.Add(new ItemModel() { ID = "3", LineOne = "Runtime Three", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent", Latitude = 2, Longitude = 20 });
-            //list.Add(new ItemModel() { ID = "4", LineOne = "Runtime Four", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos", Latitude = 3, Longitude = 30 });
-            //list.Add(new ItemModel() { ID = "5", LineOne = "Runtime Five", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur", Latitude = 4, Longitude = 40 });
-            //list.Add(new ItemModel() { ID = "6", LineOne = "Runtime Six", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent", Latitude = 5, Longitude = 50 });
-            //list.Add(new ItemModel() { ID = "7", LineOne = "Runtime Seven", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat", Latitude = 6, Longitude = 60 });
-            //list.Add(new ItemModel() { ID = "8", LineOne = "Runtime Eight", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum", Latitude = 7, Longitude = 70 });
-            //list.Add(new ItemModel() { ID = "9", LineOne = "Runtime Nine", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu", Latitude = 8, Longitude = 80 });
-            //list.Add(new ItemModel() { ID = "10", LineOne = "Runtime Ten", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus", Latitude = 9, Longitude = 90 });
-            //list.Add(new ItemModel() { ID = "11", LineOne = "Runtime Eleven", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent", Latitude = 10, Longitude = 100 });
-            //list.Add(new ItemModel() { ID = "12", LineOne = "Runtime Twelve", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos", Latitude = 11, Longitude = 110 });
-            //list.Add(new ItemModel() { ID = "13", LineOne = "Runtime Thirteen", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur", Latitude = 12, Longitude = 120 });
-            //list.Add(new ItemModel() { ID = "14", LineOne = "Runtime Fourteen", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent", Latitude = 13, Longitude = 130 });
-            //list.Add(new ItemModel() { ID = "15", LineOne = "Runtime Fifteen", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat", Latitude = 14, Longitude = 140 });
-            //list.Add(new ItemModel() { ID = "16", LineOne = "Runtime Sixteen", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum", Latitude = 15, Longitude = 150 });
-            if (ct.HasValue) ct.Value.ThrowIfCancellationRequested();
-            return Task.FromResult<IEnumerable<ContentItemBase>>(list);
-        }
-
-        /// <summary>
-        /// Gets a sample data item by ID.
-        /// </summary>
-        /// <param name="id">ID to retrieve.</param>
-        /// <param name="ct">Cancelation token.</param>
-        /// <returns>ItemModel instance matching the specified ID.</returns>
-        public async Task<ContentItemBase> GetItemByID(string id, CancellationToken? ct)
-        {
-            var items = await this.GetItems(ct);
-            if (ct.HasValue) ct.Value.ThrowIfCancellationRequested();
-            await Task.Delay(3000, ct.HasValue ? ct.Value : CancellationToken.None);
-            if (ct.HasValue) ct.Value.ThrowIfCancellationRequested();
-            return items.FirstOrDefault(f => f.ContentID == id);
-        }
 
         #endregion
     }

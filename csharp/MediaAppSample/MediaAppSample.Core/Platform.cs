@@ -130,7 +130,7 @@ namespace MediaAppSample.Core
 
                 // SAMPLE - Load data from your API, do any background work here.
 
-                var data = await DataSource.Current.GetItems(ct);
+                var data = await DataSource.Current.GetMovies(ct);
                 if (data != null)
                 {
                     var items = data.ToObservableCollection();
@@ -268,7 +268,7 @@ namespace MediaAppSample.Core
                 if (tileID.StartsWith("ItemModel_"))
                 {
                     var id = tileID.Split('_').Last();
-                    return await DataSource.Current.GetItemByID(id, ct);
+                    return await DataSource.Current.GetContentItem(id, ct);
                 }
             }
             catch (Exception ex)

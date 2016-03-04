@@ -24,54 +24,47 @@ namespace MediaAppSample.Core.Data
     {
         #region Account 
 
-        Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken? ct = null);
-        Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken? ct = null);
-        Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken? ct = null);
-        Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken? ct = null);
+        Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct);
+        Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct);
+        Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct);
+        Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct);
 
         #endregion
 
         #region Content
 
-        Task<ContentItemBase> GetContentItem(string contentId);
-        Task<IEnumerable<ContentItemBase>> GetRelated(string contentID);
-        Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID);
+        Task<ContentItemBase> GetContentItem(string contentId, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetRelated(string contentID, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID, CancellationToken ct);
         
-        Task<IEnumerable<MovieModel>> GetMovies();
-        Task<MovieModel> GetMovieHero();
-        Task<IEnumerable<MovieModel>> GetMoviesFeatured();
-        Task<IEnumerable<MovieModel>> GetMoviesNewReleases();
-        Task<IEnumerable<MovieModel>> GetMoviesTrailers();
+        Task<IEnumerable<MovieModel>> GetMovies(CancellationToken ct);
+        Task<MovieModel> GetMovieHero(CancellationToken ct);
+        Task<IEnumerable<MovieModel>> GetMoviesFeatured(CancellationToken ct);
+        Task<IEnumerable<MovieModel>> GetMoviesNewReleases(CancellationToken ct);
+        Task<IEnumerable<MovieModel>> GetMoviesTrailers(CancellationToken ct);
         
-        Task<IEnumerable<TvSeriesModel>> GetTvSeries();
-        Task<TvSeriesModel> GetTvHero();
-        Task<IEnumerable<TvSeriesModel>> GetTvFeatured();
-        Task<IEnumerable<TvSeriesModel>> GetTvNewReleases();
-        Task<IEnumerable<TvEpisodeModel>> GetTvInline();
-        Task<IEnumerable<TvEpisodeModel>> GetTvEpisodes();
+        Task<IEnumerable<TvSeriesModel>> GetTvSeries(CancellationToken ct);
+        Task<TvSeriesModel> GetTvHero(CancellationToken ct);
+        Task<IEnumerable<TvSeriesModel>> GetTvFeatured(CancellationToken ct);
+        Task<IEnumerable<TvSeriesModel>> GetTvNewReleases(CancellationToken ct);
+        Task<IEnumerable<TvEpisodeModel>> GetTvInline(CancellationToken ct);
+        Task<IEnumerable<TvEpisodeModel>> GetTvEpisodes(CancellationToken ct);
         //Task<IEnumerable<SeasonModel>> GetSeasons(TvSeriesModel series);
-        IEnumerable<SeasonModel> GetSeasons(TvSeriesModel series);
+        IEnumerable<SeasonModel> GetSeasons(TvSeriesModel series, CancellationToken ct);
 
         #endregion
 
         #region Queue
 
-        Task<IEnumerable<QueueModel>> GetQueue();
-        Task AddToQueue(ContentItemBase item);
-        Task RemoveFromQueue(ContentItemBase item);
+        Task<IEnumerable<QueueModel>> GetQueue(CancellationToken ct);
+        Task AddToQueue(ContentItemBase item, CancellationToken ct);
+        Task RemoveFromQueue(ContentItemBase item, CancellationToken ct);
 
         #endregion
 
         #region Search
 
-        Task<IEnumerable<ContentItemBase>> SearchItems(string searchText, CancellationToken? ct);
-
-        #endregion
-
-        #region Sample Data
-
-        Task<IEnumerable<ContentItemBase>> GetItems(CancellationToken? ct);
-        Task<ContentItemBase> GetItemByID(string id, CancellationToken? ct);
+        Task<IEnumerable<ContentItemBase>> SearchItems(string searchText, CancellationToken ct);
 
         #endregion
     }

@@ -32,7 +32,7 @@ namespace MediaAppSample.Core.Data
         /// <param name="token">Token to access the Microsoft account data.</param>
         /// <param name="ct">Cancellation token.</param>
         /// <returns>User data else null if not found or invalid token.</returns>
-        public async Task<MicrosoftAccountDetails> GetUserProfile(string token, CancellationToken? ct = null)
+        public async Task<MicrosoftAccountDetails> GetUserProfile(string token, CancellationToken ct)
         {
             string url = string.Format(URL_PROFILE_DATA, token);
             return await this.GetAsync<MicrosoftAccountDetails>(url, SerializerTypes.Json, ct);

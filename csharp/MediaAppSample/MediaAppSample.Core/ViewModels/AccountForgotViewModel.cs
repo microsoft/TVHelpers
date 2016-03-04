@@ -2,6 +2,7 @@
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
@@ -99,7 +100,7 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextValidatingUsername, true);
 
-                var response = await DataSource.Current.ForgotPasswordAsync(this);
+                var response = await DataSource.Current.ForgotPasswordAsync(this, CancellationToken.None);
 
                 this.ClearStatus();
 

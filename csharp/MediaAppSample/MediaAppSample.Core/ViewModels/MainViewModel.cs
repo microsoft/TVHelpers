@@ -92,7 +92,7 @@ namespace MediaAppSample.Core.ViewModels
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
 
                 this.Items.Clear();
-                this.Items.AddRange(await DataSource.Current.GetItems(ct));
+                this.Items.AddRange(await DataSource.Current.GetMovies(ct));
                 
                 // Save to cache
                 await this.SaveToCacheAsync(() => this.Items);

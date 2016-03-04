@@ -208,7 +208,7 @@ namespace MediaAppSample.Core.ViewModels
                 this.ShowBusyStatus(Strings.Account.TextCreatingAccount, true);
 
                 string userMessage = null;
-                var response = await DataSource.Current.RegisterAsync(this);
+                var response = await DataSource.Current.RegisterAsync(this, CancellationToken.None);
 
                 if (response?.AccessToken != null)
                     Platform.Current.AuthManager.SetUser(response);
