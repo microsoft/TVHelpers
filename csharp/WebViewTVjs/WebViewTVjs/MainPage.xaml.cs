@@ -35,9 +35,15 @@ namespace WebViewTVjs
 
         private  async void LoadHTMLContent()
         {
-            string content = await LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
-            // Convert the string to a stream.
-            WebViewControl.NavigateToString(content);
+            var task = LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
+
+            task.Wait();
+            WebViewControl.NavigateToString(task.Result);
+
+            string script = await LoadStringFromPackageFileAsync($"tvjs/DirectionalNavigation/directionalnavigation-1.0.0.0.js");
+            await WebViewControl.InvokeScriptAsync("eval", new string[] { script });
+
+            
         }
 
         public static async Task<string> LoadStringFromPackageFileAsync(string name)
