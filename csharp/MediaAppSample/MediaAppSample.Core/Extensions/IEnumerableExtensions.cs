@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 public static class IEnumerableExtensions
 {
@@ -17,5 +16,11 @@ public static class IEnumerableExtensions
         foreach (var o in collection)
             list.Add(o);
         return list;
+    }
+
+    public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+    {
+        foreach (var o in source)
+            action(o);
     }
 }

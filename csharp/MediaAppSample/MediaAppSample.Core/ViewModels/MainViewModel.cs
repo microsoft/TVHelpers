@@ -1,4 +1,5 @@
 ﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
 using System.Collections.Generic;

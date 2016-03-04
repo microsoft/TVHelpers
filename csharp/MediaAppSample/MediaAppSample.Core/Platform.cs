@@ -1,4 +1,5 @@
-﻿using MediaAppSample.Core.Models;
+﻿using MediaAppSample.Core.Data;
+using MediaAppSample.Core.Models;
 using MediaAppSample.Core.Services;
 using MediaAppSample.Core.ViewModels;
 using System;
