@@ -1,4 +1,5 @@
 ﻿using MediaAppSample.Core.Models;
+using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
@@ -56,10 +57,18 @@ namespace MediaAppSample.Core.ViewModels
 
         public override async Task OnSaveStateAsync(SaveStateEventArgs e)
         {
-            // Call load on each sub-ViewModel in this collection when displaying this page
-            foreach(var vm in this.ViewModels)
-                if (vm != null && vm.IsInitialized)
-                    await vm.SaveStateAsync(e);
+            try
+            {
+                // Call load on each sub-ViewModel in this collection when displaying this page
+                foreach (var vm in this.ViewModels)
+                    if (vm != null && vm.IsInitialized)
+                        await vm.SaveStateAsync(e);
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error during CollectionViewModelBase.OnSaveStateAsync calling each individual child ViewModel.SaveStateAsync");
+                throw;
+            }
 
             await base.OnSaveStateAsync(e);
         }
