@@ -78,45 +78,35 @@ namespace MediaAppSample.Core.Data
         /// <param name="retryCount">Number of retry attempts if a call fails. Default is zero.</param>
         /// <returns>Instance of the type specified representing the data returned from the URL.</returns>
         /// <summary>
-        protected async Task<T> PostAsync<T, R>(string url, R contents, SerializerTypes serializerType = SerializerTypes.Default, CancellationToken? ct = null) where R : IHttpContent
+        protected async Task<T> PostAsync<T, R>(string url, R contents, SerializerTypes serializerType = SerializerTypes.Default, CancellationToken ct) where R : IHttpContent
         {
             if (string.IsNullOrEmpty(url))
                 throw new ArgumentNullException(nameof(url));
-
-            var response = await this.Client.PostAsync(new Uri(this.BaseUri, url), contents).AsTask(ct.HasValue ? ct.Value : CancellationToken.None);
-            this.Log(response);
-            response.EnsureSuccessStatusCode();
-            var data = await response.Content?.ReadAsStringAsync();
-            return Serializer.Deserialize<T>(data, serializerType);
+            
+            try
+            {
+                var response = await this.Client.PostAsync(new Uri(this.BaseUri, url), contents).AsTask(ct);
+                this.Log(response);
+                response.EnsureSuccessStatusCode();
+                var data = await response.Content?.ReadAsStringAsync();
+                return Serializer.Deserialize<T>(data, serializerType);
+            }
+            catch (Exception ex)
+            {
+                switch (ex.HResult)
+                {
+                    case E_WINHTTP_TIMEOUT:
+                    // The connection to the server timed out.
+                    case E_WINHTTP_NAME_NOT_RESOLVED:
+                    case E_WINHTTP_CANNOT_CONNECT:
+                    case E_WINHTTP_CONNECTION_ERROR:
+                    // Unable to connect to the server. Check that you have Internet access.
+                    default:
+                        // "Unexpected error connecting to server: ex.Message
+                        return default(T);
+                }
+            }
         }
-
-        //public async Task<JsonValue> PostAsync(string relativeUri)
-        //{
-        //    HttpClient httpClient = new HttpClient();
-        //    HttpResponseMessage httpResponse = null;
-        //    try
-        //    {
-        //        httpResponse = await httpClient.PostAsync(new Uri(this.BaseUri, relativeUri), content);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        switch (ex.HResult)
-        //        {
-        //            case E_WINHTTP_TIMEOUT:
-        //            // The connection to the server timed out.
-        //            case E_WINHTTP_NAME_NOT_RESOLVED:
-        //            case E_WINHTTP_CANNOT_CONNECT:
-        //            case E_WINHTTP_CONNECTION_ERROR:
-        //            // Unable to connect to the server. Check that you have Internet access.
-        //            default:
-        //                // "Unexpected error connecting to server: ex.Message
-        //                return null;
-        //        }
-        //    }
-
-        //    // We assume that if the server responds at all, it responds with valid JSON.
-        //    return JsonValue.Parse(await httpResponse.Content.ReadAsStringAsync());
-        //}
 
         #endregion
 
