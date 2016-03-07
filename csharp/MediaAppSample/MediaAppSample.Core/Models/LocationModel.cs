@@ -15,6 +15,23 @@ namespace MediaAppSample.Core.Models
     }
 
     /// <summary>
+    /// Collection for holding LocationModel instance.
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    public class LocationModelList<TItem> : ModelList<TItem> where TItem : LocationModel
+    {
+        /// <summary>
+        /// Set the distance away for all location model instances in this collection.
+        /// </summary>
+        /// <param name="loc"></param>
+        public void SetDistancesAway(ILocationModel loc)
+        {
+            foreach (var item in this)
+                item.SetDistanceAway(loc);
+        }
+    }
+
+    /// <summary>
     /// Models that contain latitude/longitude can inherit from this class to gain ModelBase + ILocationModel functionality and
     /// any other functionality common to location based models.
     /// </summary>

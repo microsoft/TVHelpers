@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace MediaAppSample.Core.Models
 {
     /// <summary>
-    /// Task wrapper for async operations that are UI bindable. See https://msdn.microsoft.com/en-us/magazine/dn605875.aspx
+    /// Task wrapper for async operations to make them UI bindable. See https://msdn.microsoft.com/en-us/magazine/dn605875.aspx
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
     public sealed class NotifyTaskCompletion<TResult> : ModelBase

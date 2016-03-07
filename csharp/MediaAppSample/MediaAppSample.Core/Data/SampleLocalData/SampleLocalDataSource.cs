@@ -483,28 +483,28 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                 new PersonModel()
                 {
                     ID = "cast1",
-                    FullName = "Ryan Porter",
+                    Name = "Ryan Porter",
                     Role = "Hiro",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
                 },
                 new PersonModel()
                 {
                     ID = "cast2",
-                    FullName = "Scott Adsit",
+                    Name = "Scott Adsit",
                     Role = "Baymax",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
                 },
                 new PersonModel()
                 {
                     ID = "cast3",
-                    FullName = "Jenny Chung",
+                    Name = "Jenny Chung",
                     Role = "Go Go",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
                 },
                 new PersonModel()
                 {
                     ID = "cast4",
-                    FullName = "Daniel Henry",
+                    Name = "Daniel Henry",
                     Role = "Tadeshi",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
                 },
@@ -522,14 +522,14 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                 new PersonModel()
                 {
                     ID = "crew1",
-                    FullName = "Don Hall",
+                    Name = "Don Hall",
                     Role = "Director / Writer",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
                 },
                 new PersonModel()
                 {
                     ID = "crew2",
-                    FullName = "Chris Williams",
+                    Name = "Chris Williams",
                     Role = "Director / Writer",
                     Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
                 },

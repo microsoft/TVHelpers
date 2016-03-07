@@ -9,8 +9,6 @@
 //
 //*********************************************************
 
-using System.Collections.ObjectModel;
-
 namespace MediaAppSample.Core.Models
 {
     public class SeasonModel : ItemBase
@@ -19,7 +17,7 @@ namespace MediaAppSample.Core.Models
 
         public SeasonModel()
         {
-            this.Episodes = new ObservableCollection<TvEpisodeModel>();
+            this.Episodes = new ContentItemCollection<TvEpisodeModel>();
         }
 
         #endregion

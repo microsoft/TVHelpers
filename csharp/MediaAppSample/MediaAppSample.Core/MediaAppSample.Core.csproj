@@ -167,7 +167,6 @@
     <Compile Include="Models\BackgroundTaskRunInfo.cs" />
     <Compile Include="Models\ClientApiModels.cs" />
     <Compile Include="Models\ContentItemBase.cs" />
-    <Compile Include="Models\ContentItemCollection.cs" />
     <Compile Include="Models\ItemBase.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
@@ -175,7 +174,6 @@
     <Compile Include="Models\MovieModel.cs" />
     <Compile Include="Models\NotifyTaskCompletion.cs" />
     <Compile Include="Models\PersonModel.cs" />
-    <Compile Include="Models\QueueCollection.cs" />
     <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\ReviewModel.cs" />
