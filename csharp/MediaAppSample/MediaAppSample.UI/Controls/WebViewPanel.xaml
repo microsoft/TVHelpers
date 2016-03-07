@@ -1,4 +1,4 @@
-﻿<controls:WebViewPanelBase
+<controls:WebViewPanelBase
     x:Class="MediaAppSample.UI.Controls.WebViewPanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -30,10 +30,10 @@
 
         <CommandBar Grid.Row="2" Visibility="{x:Bind ViewModel.ShowNavigation, Mode=OneWay, Converter={StaticResource visConverter}}">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Go back" Icon="Back" Command="{x:Bind ViewModel.Commands.NavigateGoBackCommand}" />
+                <AppBarButton Label="Go back" Icon="Back" Command="{x:Bind ViewModel.Platform.Navigation.NavigateGoBackCommand}" />
                 <AppBarButton Label="Home" Icon="Home" Command="{x:Bind ViewModel.BrowserHomeCommand}" />
                 <AppBarButton Label="Refresh" Icon="Refresh" Command="{x:Bind ViewModel.BrowserRefreshCommand}" />
-                <AppBarButton Label="Go forward" Icon="Forward" Command="{x:Bind ViewModel.Commands.NavigateGoForwardCommand}" />
+                <AppBarButton Label="Go forward" Icon="Forward" Command="{x:Bind ViewModel.Platform.Navigation.NavigateGoForwardCommand}" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Grid>

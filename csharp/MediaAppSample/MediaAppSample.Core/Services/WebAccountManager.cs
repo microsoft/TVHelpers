@@ -1,4 +1,3 @@
-﻿using MediaAppSample.Core.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +16,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public WebAccountManager WebAccountManager
         {
-            get { return this.GetAdapter<WebAccountManager>(); }
-            set { this.Register<WebAccountManager>(value); }
+            get { return this.GetService<WebAccountManager>(); }
+            protected set { this.SetService<WebAccountManager>(value); }
         }
     }
 
@@ -102,7 +101,9 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Public Methods
+        #region Methods
+
+        #region Public
 
         /// <summary>
         /// Displays the Web Account Manager for users to chose an account to authenticate with.
@@ -131,7 +132,7 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Private Methods
+        #region Private
 
         #region Handlers
 
@@ -168,11 +169,11 @@ namespace MediaAppSample.Core.Services
                     }
                 }
 
-                e.HeaderText = "Sign-In / Sign-Up with an account that you can associate with MediaAppSample.";
+                e.HeaderText = Strings.Account.TextWebAccountManagerSignUpDescription;
 
                 // You can add links such as privacy policy, help, general account settings
-                e.Commands.Add(new SettingsCommand("privacypolicy", Strings.Resources.ViewTitlePrivacyPolicy, (c) => { CommandsManager.Instance.NavigateToPrivacyPolicyCommand.Execute(null); this.Cleanup(); }));
-                e.Commands.Add(new SettingsCommand("tos", Strings.Resources.ViewTitleTermsOfService, (c) => { CommandsManager.Instance.NavigateToTermsOfServiceCommand.Execute(null); this.Cleanup(); }));
+                e.Commands.Add(new SettingsCommand("privacypolicy", Strings.Resources.ViewTitlePrivacyPolicy, (c) => { Platform.Current.Navigation.NavigateToPrivacyPolicyCommand.Execute(null); this.Cleanup(); }));
+                e.Commands.Add(new SettingsCommand("tos", Strings.Resources.ViewTitleTermsOfService, (c) => { Platform.Current.Navigation.NavigateToTermsOfServiceCommand.Execute(null); this.Cleanup(); }));
             }
             catch(Exception ex)
             {
@@ -423,6 +424,8 @@ namespace MediaAppSample.Core.Services
             account = null;
             this.DeleteUsersWebAccountDetails(pi.WebAccountType);
         }
+
+        #endregion
 
         #endregion
 

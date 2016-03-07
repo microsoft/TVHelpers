@@ -1,8 +1,7 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +12,9 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Account.ViewTitleForgotPassword; }
@@ -70,7 +72,7 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        public override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
@@ -100,13 +102,16 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextValidatingUsername, true);
 
-                var response = await DataSource.Current.ForgotPasswordAsync(this, CancellationToken.None);
+                using (var api = new ClientApi())
+                {
+                    var response = await api.ForgotPasswordAsync(this);
 
-                this.ClearStatus();
+                    this.ClearStatus();
 
-                await this.ShowMessageBoxAsync(response.Message, this.Title);
-                if (response?.IsValid == true)
-                    Platform.Current.Navigation.GoBack();
+                    await this.ShowMessageBoxAsync(response.Message, this.Title);
+                    if (response?.IsValid == true)
+                        Platform.Current.Navigation.GoBack();
+                }
             }
             catch (Exception ex)
             {
@@ -124,6 +129,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class AccountForgotViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public AccountForgotViewModel ViewModel { get { return this; } }
     }
 }

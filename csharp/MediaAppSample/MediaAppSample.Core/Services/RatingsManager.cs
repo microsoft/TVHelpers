@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.ViewModels;
+using MediaAppSample.Core.ViewModels;
 using System;
 using System.Threading.Tasks;
 
@@ -11,8 +11,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public RatingsManager Ratings
         {
-            get { return this.GetAdapter<RatingsManager>(); }
-            protected set { this.Register<RatingsManager>(value); }
+            get { return this.GetService<RatingsManager>(); }
+            protected set { this.SetService<RatingsManager>(value); }
         }
     }
 
@@ -24,6 +24,7 @@ namespace MediaAppSample.Core.Services
         #region Properties
 
         private const string LAST_PROMPTED_FOR_RATING = "LastPromptedForRating";
+        private const string LAUNCH_COUNT = "LaunchCount";
 
         private DateTime LastPromptedForRating { get; set; }
 
@@ -46,10 +47,19 @@ namespace MediaAppSample.Core.Services
         /// <returns>Awaitable task is returned.</returns>
         public async Task CheckForRatingsPromptAsync(ViewModelBase vm)
         {
+            bool showPrompt = false;
+            bool showPromptoToSendEmail = false;
+
             // PLACE YOUR CUSTOM RATE PROMPT LOGIC HERE!
             this.LastPromptedForRating = Platform.Current.Storage.LoadSetting<DateTime>(LAST_PROMPTED_FOR_RATING);
 
-            bool showPrompt = false;
+            long launchCount = Platform.Current.Storage.LoadSetting<long>(LAUNCH_COUNT);
+            launchCount++;
+            if (launchCount == 3)
+            {
+                showPrompt = showPromptoToSendEmail = true;
+            }
+            Platform.Current.Storage.SaveSetting(LAUNCH_COUNT, launchCount);
 
             // If trial, not expired, and less than 2 days away from expiring, set as TRUE
             bool preTrialExpiredBasedPrompt = 
@@ -61,7 +71,7 @@ namespace MediaAppSample.Core.Services
             {
                 showPrompt = true;
             }
-            else if (this.LastPromptedForRating != DateTime.MinValue && this.LastPromptedForRating.AddDays(30) < DateTime.Now)
+            else if (this.LastPromptedForRating != DateTime.MinValue && this.LastPromptedForRating.AddDays(21) < DateTime.Now)
             {
                 // Every X days after the last prompt, set as TRUE
                 showPrompt = true;
@@ -73,17 +83,17 @@ namespace MediaAppSample.Core.Services
             }
 
             if(showPrompt)
-                await this.PromptForRatingAsync(vm);
+                await this.PromptForRatingAsync(vm, showPromptoToSendEmail);
         }
 
         /// <summary>
         /// Displays a dialog to the user requesting the user to provide ratings/feedback for this application.
         /// </summary>
         /// <returns>Awaitable task is returned.</returns>
-        private async Task PromptForRatingAsync(ViewModelBase vm)
+        private async Task PromptForRatingAsync(ViewModelBase vm, bool showPromptoToSendEmail = false)
         {
             // Prompt the user to rate the app
-            var result = await vm.ShowMessageBoxAsync(Strings.Resources.PromptRateApplicationMessage, Strings.Resources.PromptRateApplicationTitle, new string[] { Strings.Resources.TextYes, Strings.Resources.TextNo }, 1);
+            var result = await vm.ShowMessageBoxAsync(Strings.Resources.PromptRateApplicationMessage, Strings.Resources.PromptRateApplicationTitle, new string[] { Strings.Resources.TextYes, Strings.Resources.TextMaybeLater }, 1);
 
             // Store the time the user was prompted
             Platform.Current.Storage.SaveSetting(LAST_PROMPTED_FOR_RATING, DateTime.Now);
@@ -92,6 +102,12 @@ namespace MediaAppSample.Core.Services
             {
                 // Navigate user to the platform specific rating mechanism
                 await Platform.Current.Navigation.RateApplicationAsync();
+            }
+            else if (showPromptoToSendEmail)
+            {
+                result = await vm.ShowMessageBoxAsync(Strings.Resources.PromptRateApplicationEmailFeedbackMessage, Strings.Resources.PromptRateApplicationEmailFeedbackTitle, new string[] { Strings.Resources.TextYes, Strings.Resources.TextNo }, 1);
+                if (result == 0)
+                    await Platform.Current.Logger.SendSupportEmailAsync();
             }
         }
 

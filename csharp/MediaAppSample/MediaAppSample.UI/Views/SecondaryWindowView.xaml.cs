@@ -25,7 +25,7 @@ namespace MediaAppSample.UI.Views
         protected override void OnApplicationResuming()
         {
             // Set the child frame to the navigation service so that it can appropriately perform navigation of pages to the desired frame.
-            this.Frame.SetSubFrame(bodyFrame);
+            this.Frame.SetChildFrame(bodyFrame);
 
             base.OnApplicationResuming();
         }
@@ -33,7 +33,7 @@ namespace MediaAppSample.UI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // Set the child frame to the navigation service so that it can appropriately perform navigation of pages to the desired frame.
-            this.Frame.SetSubFrame(bodyFrame);
+            this.Frame.SetChildFrame(bodyFrame);
 
             base.OnNavigatedTo(e);
         }
@@ -43,7 +43,7 @@ namespace MediaAppSample.UI.Views
             base.OnNavigatedFrom(e);
 
             // Remove the bodyFrame as the childFrame
-            this.Frame.SetSubFrame(null);
+            this.Frame.SetChildFrame(null);
         }
 
         protected override async Task OnLoadStateAsync(LoadStateEventArgs e)

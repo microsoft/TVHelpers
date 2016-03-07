@@ -43,7 +43,7 @@ namespace MediaAppSample.UI.Services
         }
 
         /// <summary>
-        /// Handles protocol activation i.e. contoso:4
+        /// Handles protocol activation i.e. MediaAppSample:4
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace MediaAppSample.UI.Services
                 case "showByName":
                     // Access the value of the {destination} phrase in the voice command
                     string itemName = info.GetSemanticInterpretation("ItemName");
-                    this.Details(itemName);
+                    this.Item(itemName);
                     return true;
 
                 default:
@@ -90,7 +90,7 @@ namespace MediaAppSample.UI.Services
                     switch (dic["model"].ToLower())
                     {
                         case "itemmodel":
-                            this.Details(dic["ID"]);
+                            this.Item(dic["ID"]);
                             return true;
 
                     }
@@ -102,7 +102,7 @@ namespace MediaAppSample.UI.Services
                     int id = int.MinValue;
                     if (int.TryParse(arguments, out id))
                     {
-                        this.Details(id);
+                        this.Item(id);
                         return true;
                     }
                     else
@@ -120,37 +120,6 @@ namespace MediaAppSample.UI.Services
         }
 
         #endregion Handle Activation
-
-        #region Sharing Methods
-
-        protected override void SetShareContent(DataRequest request, IModel model)
-        {
-            DataPackage requestData = request.Data;
-
-            Platform.Current.Logger.Log(LogLevels.Information, "SetShareContent - Model: {0}", model?.GetType().Name);
-
-            // Sharing is based on the model data that was passed in. Perform customized sharing based on the type of the model provided.
-            if (model is ContentItemBase)
-            {
-                var m = model as ContentItemBase;
-                requestData.Properties.Title = m.Title;
-                requestData.Properties.Description = m.Description;
-                var args = Platform.Current.GenerateModelArguments(model);
-                requestData.Properties.ContentSourceApplicationLink = new Uri(Platform.Current.AppInfo.GetDeepLink(args), UriKind.Absolute);
-                string body = m.Title + Environment.NewLine + m.Description;
-                requestData.SetText(body);
-            }
-            else
-            {
-                requestData.Properties.Title = Core.Strings.Resources.ApplicationName;
-                requestData.Properties.Description = Core.Strings.Resources.ApplicationDescription;
-                requestData.Properties.ContentSourceApplicationLink = new Uri(Platform.Current.AppInfo.StoreURL, UriKind.Absolute);
-                string body = string.Format(Core.Strings.Resources.ApplicationSharingBodyText, Core.Strings.Resources.ApplicationName, Platform.Current.AppInfo.StoreURL);
-                requestData.SetText(body);
-            }
-        }
-
-        #endregion Sharing
 
         #region Navigation Methods
 
@@ -187,8 +156,8 @@ namespace MediaAppSample.UI.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            if (model is ItemBase )
-                this.Details(model);
+            if (model is ItemModel || model is ItemViewModel)
+                this.Item(model);
             else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
         }
@@ -235,6 +204,14 @@ namespace MediaAppSample.UI.Services
         public override void AccountForgot(object parameter = null)
         {
             this.ParentFrame.Navigate(typeof(AccountForgotView), this.SerializeParameter(parameter));
+        }
+
+        public override void Item(object parameter)
+        {
+            if (this.IsChildFramePresent)
+                this.Frame.Navigate(typeof(ItemView), this.SerializeParameter(parameter));
+            else
+                this.Home(new NavigationRequest(typeof(ItemView), parameter));
         }
 
         public override void Details(object parameter)

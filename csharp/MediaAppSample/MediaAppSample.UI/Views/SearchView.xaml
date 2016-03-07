@@ -27,7 +27,7 @@
                       IsSwipeEnabled="false"
                       IsItemClickEnabled="True" 
                       ItemTemplate="{StaticResource ItemModelListDataTemplate}"
-                      behaviors:ListViewCommandBehavior.Command="{x:Bind ViewModel.Commands.NavigateToModelCommand, Mode=OneWay}" />
+                      behaviors:ListViewCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />
 
         </Grid>
 

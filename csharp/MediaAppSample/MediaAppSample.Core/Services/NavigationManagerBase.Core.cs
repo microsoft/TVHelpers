@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core;
+using MediaAppSample.Core;
 using MediaAppSample.Core.Models;
 using MediaAppSample.Core.ViewModels;
 using System;
@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.System;
@@ -27,8 +26,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public NavigationManagerBase Navigation
         {
-            get { return this.GetAdapter<NavigationManagerBase>(); }
-            set { this.Register<NavigationManagerBase>(value); }
+            get { return this.GetService<NavigationManagerBase>(); }
+            set { this.SetService<NavigationManagerBase>(value); }
         }
     }
 
@@ -53,7 +52,7 @@ namespace MediaAppSample.Core.Services
             get
             {
                 var frame = Window.Current.Content as Frame;
-                return frame.GetSubFrame() ?? frame;
+                return frame.GetChildFrame() ?? frame;
             }
         }
         
@@ -399,39 +398,6 @@ namespace MediaAppSample.Core.Services
             Platform.Current.Analytics.Event("ApplicationExit");
             Application.Current.Exit();
         }
-
-        #endregion
-
-        #region Sharing
-
-        /// <summary>
-        /// Share a model of data with Windows.
-        /// </summary>
-        /// <param name="model"></param>
-        public void Share(IModel model)
-        {
-            Platform.Current.Analytics.Event("Share");
-
-            DataTransferManager.GetForCurrentView().DataRequested += (sender, e) =>
-            {
-                try
-                {
-                    this.SetShareContent(e.Request, model ?? Platform.Current.ViewModel);
-                }
-                catch (Exception ex)
-                {
-                    Platform.Current.Logger.LogError(ex, "Error in OnDataRequested");
-#if DEBUG
-                    e.Request.FailWithDisplayText(ex.ToString());
-#else
-                e.Request.FailWithDisplayText(Strings.Resources.TextErrorGeneric);
-#endif
-                }
-            };
-            DataTransferManager.ShowShareUI();
-        }
-
-        protected abstract void SetShareContent(DataRequest request, IModel model);
 
         #endregion
 

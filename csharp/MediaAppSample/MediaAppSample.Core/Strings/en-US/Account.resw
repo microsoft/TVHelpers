@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -126,6 +126,9 @@
   <data name="TextCreatingAccount" xml:space="preserve">
     <value>Creating account...</value>
   </data>
+  <data name="TextSigningOut" xml:space="preserve">
+    <value>Signing out...</value>
+  </data>
   <data name="TextSignout" xml:space="preserve">
     <value>Sign out</value>
   </data>
@@ -137,6 +140,15 @@
   </data>
   <data name="TextValidatingUsername" xml:space="preserve">
     <value>Validating username...</value>
+  </data>
+  <data name="TextWebAccountManagerRegisterAccountFailure" xml:space="preserve">
+    <value>An error occurred while attempting to use your {0} profile to register an account. Please try again later.</value>
+  </data>
+  <data name="TextWebAccountManagerRetrievingProfile" xml:space="preserve">
+    <value>Retrieving your {0} profile...</value>
+  </data>
+  <data name="TextWebAccountManagerSignUpDescription" xml:space="preserve">
+    <value>Sign-In / Sign-Up with an account that you can associate with MediaAppSample.</value>
   </data>
   <data name="ViewTitleForgotPassword" xml:space="preserve">
     <value>Forgot Password</value>

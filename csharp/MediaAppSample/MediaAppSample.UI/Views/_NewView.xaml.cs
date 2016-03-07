@@ -1,5 +1,4 @@
-﻿using MediaAppSample.Core;
-using MediaAppSample.Core.ViewModels;
+﻿using MediaAppSample.Core.ViewModels;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 

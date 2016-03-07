@@ -173,10 +173,13 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="ItemModelListDataTemplate" x:DataType="models:ContentItemBase">
+    <DataTemplate x:Key="ItemModelListDataTemplate" x:DataType="models:ItemModel">
         <StackPanel Margin="0,8">
-            <TextBlock Text="{Binding Title, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource TitleTextBlockStyle}" />
-            <TextBlock Text="{Binding Description, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" />
+            <TextBlock Text="{Binding LineOne, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Text="{Binding LineTwo, Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" />
+            <TextBlock Text="{Binding DistanceAwayDisplay, Mode=OneWay}" 
+                       Visibility="{Binding DistanceAway, Converter={StaticResource visConverter}}" 
+                       TextWrapping="Wrap" Style="{StaticResource BodyTextBlockStyle}" Opacity=".6" />
         </StackPanel>
     </DataTemplate>
     

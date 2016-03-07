@@ -117,28 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextDeterminingLocation" xml:space="preserve">
-    <value>Finding your location...</value>
-  </data>
-  <data name="TextDistanceAwayDisplay" xml:space="preserve">
-    <value>{0} {1} away</value>
-  </data>
-  <data name="TextGeocodingAddress" xml:space="preserve">
-    <value>Determining address...</value>
-  </data>
-  <data name="TextKilomentersLong" xml:space="preserve">
-    <value>Kilometers</value>
-  </data>
-  <data name="TextKilomentersShort" xml:space="preserve">
-    <value>km</value>
-  </data>
-  <data name="TextLocationServicesDisabledStatus" xml:space="preserve">
-    <value>Location access has not been enabled for this app. Use the manage button and ensure this app has been enabled to use location services.</value>
-  </data>
-  <data name="TextMilesLong" xml:space="preserve">
-    <value>Miles</value>
-  </data>
-  <data name="TextMilesShort" xml:space="preserve">
-    <value>mi</value>
+  <data name="TextBackgroundAppDisabledStatus" xml:space="preserve">
+    <value>Background tasks have not been enabled for this app. Use the manage button and ensure this app has been enabled to run in the background.</value>
   </data>
 </root>

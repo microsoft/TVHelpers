@@ -29,8 +29,8 @@
             </Button>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="480">
-                <Button Width="100" Margin="4" Content="Sign in" Command="{x:Bind ViewModel.Commands.NavigateToAccountSignInCommand}" />
-                <Button Width="100" Margin="4" Content="Register" Command="{x:Bind ViewModel.Commands.NavigateToAccountSignUpCommand}" />
+                <Button Width="100" Margin="4" Content="Sign in" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountSignInCommand}" />
+                <Button Width="100" Margin="4" Content="Register" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountSignUpCommand}" />
             </StackPanel>            
         </StackPanel>
 

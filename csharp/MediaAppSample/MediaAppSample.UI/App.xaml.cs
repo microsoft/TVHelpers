@@ -32,11 +32,8 @@ namespace MediaAppSample.UI
             this.UnhandledException += App_UnhandledException;
 
             // Initalize the platform object which is the singleton instance to access various services
-            Platform.Current = new Platform()
-            {
-                Navigation = new NavigationManager(),
-                //Analytics = new FlurryAnalyticsService("M76D4BWBDRTWTVJZZ27P")
-            };
+            Platform.Current.Navigation = new NavigationManager();
+            //Platform.Current.Analytics = new FlurryAnalyticsService("M76D4BWBDRTWTVJZZ27P");
 
             Platform.Current.Logger.CurrentLevel = LogLevels.Information;
             

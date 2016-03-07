@@ -1,4 +1,5 @@
-﻿using MediaAppSample.Core.ViewModels;
+using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,8 +36,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public LoggingService Logger
         {
-            get { return this.GetAdapter<LoggingService>(); }
-            protected internal set { this.Register<LoggingService>(value); }
+            get { return this.GetService<LoggingService>(); }
+            protected set { this.SetService<LoggingService>(value); }
         }
     }
 
@@ -73,6 +74,19 @@ namespace MediaAppSample.Core.Services
             get { return _Messages; }
             private set { this.SetProperty(ref _Messages, value); }
         }
+
+        #region Email Commands
+
+        private CommandBase _SendSupportEmailCommand = null;
+        /// <summary>
+        /// Command to initiate sending an email to support with device info.
+        /// </summary>
+        public CommandBase SendSupportEmailCommand
+        {
+            get { return _SendSupportEmailCommand ?? (_SendSupportEmailCommand = new GenericCommand("SendSupportEmailCommand", async () => await this.SendSupportEmailAsync())); }
+        }
+
+        #endregion
 
         #endregion
 
@@ -199,8 +213,10 @@ namespace MediaAppSample.Core.Services
         {
             try
             {
+                Platform.Current.Logger.Log(LogLevels.Debug, "Checking if application crashed on previous run...");
                 if (await Platform.Current.Storage.DoesFileExistsAsync(ERROR_REPORT_FILENAME, ERROR_REPORT_DATA_CONTAINER))
                 {
+                    Platform.Current.Logger.Log(LogLevels.Debug, "Application crashed on previous run, prompt user to send report.");
                     if (await vm.ShowMessageBoxAsync(Strings.Resources.ApplicationProblemPromptMessage, Strings.Resources.ApplicationProblemPromptTitle, new string[] { Strings.Resources.TextYes, Strings.Resources.TextNo }) == 0)
                     {
                         string subject = string.Format(Strings.Resources.ApplicationProblemEmailSubjectTemplate, Windows.ApplicationModel.Package.Current.DisplayName, Platform.Current.AppInfo.VersionNumber);
@@ -208,6 +224,7 @@ namespace MediaAppSample.Core.Services
 
                         string body = Strings.Resources.ApplicationProblemEmailBodyTemplate;
                         body += await Platform.Current.Storage.ReadFileAsStringAsync(ERROR_REPORT_FILENAME, ERROR_REPORT_DATA_CONTAINER);
+                        Platform.Current.Logger.Log(LogLevels.Information, "PREVIOUS CRASH LOGS: \t" + body);
 
                         await Platform.Current.Navigation.SendEmailAsync(subject, body, Strings.Resources.ApplicationSupportEmailAddress, attachment);
                     }
@@ -222,11 +239,25 @@ namespace MediaAppSample.Core.Services
         }
 
         /// <summary>
+        /// Sends an email to support with device information.
+        /// </summary>
+        public async Task SendSupportEmailAsync()
+        {
+            var subject = string.Format(Strings.Resources.ApplicationSupportEmailSubjectTemplate, Windows.ApplicationModel.Package.Current.DisplayName, Platform.Current.AppInfo.VersionNumber);
+            var report = Platform.Current.Logger.GenerateApplicationReport();
+            var attachment = await Platform.Current.Storage.SaveFileAsync("Application.log", report, ApplicationData.Current.TemporaryFolder);
+
+            var body = Strings.Resources.ApplicationSupportEmailBodyTemplate;
+            body += report;
+            await Platform.Current.Navigation.SendEmailAsync(subject, body, Strings.Resources.ApplicationSupportEmailAddress, attachment);
+        }
+
+        /// <summary>
         /// Builds an application report with system details and logged messages.
         /// </summary>
         /// <param name="ex">Exception object if available.</param>
         /// <returns>String representing the system and app logging data.</returns>
-        public string GenerateApplicationReport(Exception ex = null)
+        private string GenerateApplicationReport(Exception ex = null)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("UTC TIME: " + DateTime.Now.ToUniversalTime().ToString());
@@ -245,13 +276,13 @@ namespace MediaAppSample.Core.Services
             if (Window.Current != null)
             {
                 sb.AppendLine("USER INTERACTION MODE: " + Windows.UI.ViewManagement.UIViewSettings.GetForCurrentView().UserInteractionMode.ToString());
-
                 var di = DisplayInformation.GetForCurrentView();
-                sb.AppendLine(string.Format("SCREEN RAW DPI - X: {0} Y: {1}", di.RawDpiX, di.RawDpiY));
                 sb.AppendLine(string.Format("SCREEN ORIENTATION - CURRENT: {0}  Native: {1}", di.CurrentOrientation, di.NativeOrientation));
-                sb.AppendLine(string.Format("DEVICE PHYSICAL PIXELS: {0} x {1}", this.GetResolution(Window.Current.Bounds.Width, DisplayInformation.GetForCurrentView().ResolutionScale).ToString("0.#"), this.GetResolution(Window.Current.Bounds.Height, DisplayInformation.GetForCurrentView().ResolutionScale).ToString("0.#")));
-                sb.AppendLine("SCREEN RESOLUTION SCALE: " + di.ResolutionScale);
-                sb.AppendLine(string.Format("DEVICE LOGICAL PIXELS: {0} x {1}", Window.Current.Bounds.Width.ToString("0.#"), Window.Current.Bounds.Height.ToString("0.#")));
+                sb.AppendLine(string.Format("SCREEN PHYSICAL PIXELS: {0} x {1} - DPI: X: {2} Y: {3}", 
+                    this.GetResolution(Window.Current.Bounds.Width, DisplayInformation.GetForCurrentView().ResolutionScale).ToString("0.#"), 
+                    this.GetResolution(Window.Current.Bounds.Height, DisplayInformation.GetForCurrentView().ResolutionScale).ToString("0.#"),
+                    di.RawDpiX, di.RawDpiY));
+                sb.AppendLine(string.Format("SCREEN LOGICAL PIXELS: {0} x {1} - {2}", Window.Current.Bounds.Width.ToString("0.#"), Window.Current.Bounds.Height.ToString("0.#"), di.ResolutionScale));
             }
             
             if (ex != null)

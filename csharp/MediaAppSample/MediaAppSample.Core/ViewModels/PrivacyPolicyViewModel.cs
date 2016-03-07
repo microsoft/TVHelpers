@@ -1,4 +1,4 @@
-﻿using Windows.ApplicationModel;
+using Windows.ApplicationModel;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -6,6 +6,9 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Resources.ViewTitlePrivacyPolicy; }
@@ -31,15 +34,5 @@ namespace MediaAppSample.Core.ViewModels
         }
 
         #endregion Methods
-    }
-}
-
-namespace MediaAppSample.Core.ViewModels.Designer
-{
-    public sealed class PrivacyPolicyViewModel : MediaAppSample.Core.ViewModels.PrivacyPolicyViewModel
-    {
-        public PrivacyPolicyViewModel()
-        {
-        }
     }
 }

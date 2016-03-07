@@ -1,4 +1,4 @@
-﻿namespace MediaAppSample.Core.Commands
+namespace MediaAppSample.Core.Commands
 {
     /// <summary>
     /// Command for navigating to an internal web browser to display a webpage within the app.

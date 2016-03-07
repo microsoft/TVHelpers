@@ -1,4 +1,4 @@
-﻿using Windows.ApplicationModel;
+using Windows.ApplicationModel;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -6,12 +6,15 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Resources.ViewTitleTermsOfService; }
         }
 
-        #endregion Properties
+        #endregion
 
         #region Constructors
 
@@ -21,7 +24,7 @@ namespace MediaAppSample.Core.ViewModels
                 return;
         }
 
-        #endregion Constructors
+        #endregion
 
         #region Methods
 
@@ -30,16 +33,6 @@ namespace MediaAppSample.Core.ViewModels
             this.NavigateTo("http://go.microsoft.com/fwlink/?LinkID=206977");
         }
 
-        #endregion Methods
-    }
-}
-
-namespace MediaAppSample.Core.ViewModels.Designer
-{
-    public sealed class TermsOfServiceViewModel : MediaAppSample.Core.ViewModels.TermsOfServiceViewModel
-    {
-        public TermsOfServiceViewModel()
-        {
-        }
+        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MediaAppSample.Core.Models
+namespace MediaAppSample.Core.Models
 {
     /// <summary>
     /// Container class for local application settings.  Create all your local app setting properties here.

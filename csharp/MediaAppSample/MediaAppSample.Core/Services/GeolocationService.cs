@@ -1,9 +1,11 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Models;
 using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Windows.System;
 
 namespace MediaAppSample.Core.Services
 {
@@ -14,8 +16,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public GeolocationService Geolocation
         {
-            get { return this.GetAdapter<GeolocationService>(); }
-            protected set { this.Register<GeolocationService>(value); }
+            get { return this.GetService<GeolocationService>(); }
+            protected set { this.SetService<GeolocationService>(value); }
         }
     }
 
@@ -77,6 +79,16 @@ namespace MediaAppSample.Core.Services
                         Platform.Current.AppSettingsLocal.LocationLastKnown = value;
                 }
             }
+        }
+
+        private CommandBase _ManageLocationServicesCommand = null;
+        /// <summary>
+        /// Manage location settings in the Windows Settings app.
+        /// </summary>
+        public CommandBase ManageLocationServicesCommand
+        {
+            // Deep linking to Settings app sections: https://msdn.microsoft.com/en-us/library/windows/apps/mt228342.aspx
+            get { return _ManageLocationServicesCommand ?? (_ManageLocationServicesCommand = new GenericCommand("ManageLocationServicesCommand", async () => await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-location")))); }
         }
 
         #endregion Properties

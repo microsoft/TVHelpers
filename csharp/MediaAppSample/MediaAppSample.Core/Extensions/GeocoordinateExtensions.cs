@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using Windows.Devices.Geolocation;
 
 public static class GeocoordinateExtensions

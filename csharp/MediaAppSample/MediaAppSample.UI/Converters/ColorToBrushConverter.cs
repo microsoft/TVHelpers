@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core;
+using MediaAppSample.Core;
 using System;
 using Windows.UI;
 using Windows.UI.Xaml.Data;

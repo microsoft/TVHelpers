@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="MediaAppSample.UI.Controls.SearchBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,10 +18,10 @@
                     QuerySubmitted="searchBox_QuerySubmitted" 
                     SuggestionChosen="searchBox_SuggestionChosen">
         <AutoSuggestBox.ItemTemplate>
-            <DataTemplate x:DataType="models:ContentItemBase">
+            <DataTemplate x:DataType="models:ItemModel">
                 <StackPanel>
-                    <TextBlock Text="{x:Bind Title}" FontWeight="Bold" />
-                    <TextBlock Text="{x:Bind Description}" />
+                    <TextBlock Text="{x:Bind LineOne}" FontWeight="Bold" />
+                    <TextBlock Text="{x:Bind LineTwo}" />
                 </StackPanel>
             </DataTemplate>
         </AutoSuggestBox.ItemTemplate>

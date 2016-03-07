@@ -1,4 +1,5 @@
-﻿using MediaAppSample.Core.ViewModels;
+﻿using MediaAppSample.Core;
+using MediaAppSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace MediaAppSample.Core
+namespace MediaAppSample.UI.Views
 {
     /// <summary>
     /// Base class for all pages in your application.
@@ -17,6 +18,8 @@ namespace MediaAppSample.Core
     public abstract class ViewBase<TViewModel> : Page, INotifyPropertyChanged where TViewModel : ViewModelBase
     {
         #region Properties
+
+        private bool _isInitialized = false;
 
         private string _pageKey { get; set; }
 
@@ -131,7 +134,7 @@ namespace MediaAppSample.Core
                 }
 
                 // Wrapper object for all the navigated to event data and session state
-                var args = new LoadStateEventArgs(e, dic);
+                var args = new LoadStateEventArgs(e, dic, _isInitialized);
 
                 // Pass navigation event data back to the page so that it has a chance to do any custom logic with access to the page state dictionary.
                 await this.OnLoadStateAsync(args);
@@ -144,6 +147,10 @@ namespace MediaAppSample.Core
             {
                 Platform.Current.Logger.LogError(ex, "Error during {0}.OnNavigatedTo: {1} Parameter: {2}", e.SourcePageType.Name, e.NavigationMode, e.Parameter);
                 throw ex;
+            }
+            finally
+            {
+                _isInitialized = true;
             }
         }
 
@@ -242,6 +249,7 @@ namespace MediaAppSample.Core
         /// </summary>
         protected virtual void OnApplicationResuming()
         {
+            this.ViewModel?.OnApplicationResuming();
         }
 
         #endregion

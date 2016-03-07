@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -8,7 +8,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace MediaAppSample.Core
+namespace MediaAppSample.UI
 {
     /// <summary>
     /// SuspensionManager captures global session state to simplify process lifetime management

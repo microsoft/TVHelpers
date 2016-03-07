@@ -27,8 +27,8 @@
 
         <Grid Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">            
             <StackPanel MaxWidth="480">
-                
-                <HyperlinkButton Content="Forgot your password?" Command="{x:Bind ViewModel.Commands.NavigateToAccountForgotCommand}" CommandParameter="{x:Bind ViewModel, Mode=OneWay}" />
+
+                <HyperlinkButton Content="Forgot your password?" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountForgotCommand}" CommandParameter="{x:Bind ViewModel, Mode=OneWay}" />
 
                 <TextBlock Text="E-mail or username" Style="{StaticResource CaptionTextBlockStyle}" />
                 <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" InputScope="EmailSmtpAddress">

@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core;
+using MediaAppSample.Core;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
@@ -40,20 +40,22 @@ namespace MediaAppSample.UI.Controls
                         }
 
                         _cts = new CancellationTokenSource();
-
-                        try
+                        using (var api = new ClientApi())
                         {
-                            sender.ItemsSource = await DataSource.Current.SearchItems(sender.Text, _cts.Token);
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            // Do nothing if cancellation was requested
-                        }
-                        finally
-                        {
-                            if (_cts != null)
-                                _cts.Dispose();
-                            _cts = null;
+                            try
+                            {
+                                sender.ItemsSource = await api.SearchItems(sender.Text, _cts.Token);
+                            }
+                            catch(OperationCanceledException)
+                            {
+                                // Do nothing if cancellation was requested
+                            }
+                            finally
+                            {
+                                if(_cts != null)
+                                    _cts.Dispose();
+                                _cts = null;
+                            }
                         }
                     }
                 }
@@ -68,9 +70,9 @@ namespace MediaAppSample.UI.Controls
         {
             if (args.ChosenSuggestion != null)
             {
-                var item = args.ChosenSuggestion as ContentItemBase;
-                sender.Text = item.Title;
-                Platform.Current.Navigation.Details(args.ChosenSuggestion as ContentItemBase);
+                var item = args.ChosenSuggestion as ItemModel;
+                sender.Text = item.LineOne;
+                Platform.Current.Navigation.Item(args.ChosenSuggestion as ItemModel);
             }
             else
             {
@@ -81,9 +83,9 @@ namespace MediaAppSample.UI.Controls
 
         private void searchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-            var item = args.SelectedItem as ContentItemBase;
+            var item = args.SelectedItem as ItemModel;
             if (item != null)
-                sender.Text = item.Title;
+                sender.Text = item.LineOne;
         }
     }
 }

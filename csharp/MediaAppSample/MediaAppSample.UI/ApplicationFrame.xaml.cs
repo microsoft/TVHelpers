@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core;
+using MediaAppSample.Core;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,7 +24,7 @@ namespace MediaAppSample.UI
 
         private void Current_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "AppSettingsRoaming")
+            if (e.PropertyName == nameof(Platform.Current.AppSettingsRoaming))
                 Platform.Current.AppSettingsRoaming.PropertyChanged += AppSettingsRoaming_PropertyChanged;
         }
 

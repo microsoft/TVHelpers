@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.VoiceCommands;
@@ -12,8 +12,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public VoiceCommandManager VoiceCommandManager
         {
-            get { return this.GetAdapter<VoiceCommandManager>(); }
-            set { this.Register<VoiceCommandManager>(value); }
+            get { return this.GetService<VoiceCommandManager>(); }
+            protected set { this.SetService<VoiceCommandManager>(value); }
         }
     }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Store;
 
@@ -11,8 +11,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public AppInfoProvider AppInfo
         {
-            get { return this.GetAdapter<AppInfoProvider>(); }
-            set { this.Register<AppInfoProvider>(value); }
+            get { return this.GetService<AppInfoProvider>(); }
+            protected set { this.SetService<AppInfoProvider>(value); }
         }
     }
 

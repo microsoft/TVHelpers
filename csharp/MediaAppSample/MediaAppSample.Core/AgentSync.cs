@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using Windows.UI.Xaml;
 
 namespace MediaAppSample.Core

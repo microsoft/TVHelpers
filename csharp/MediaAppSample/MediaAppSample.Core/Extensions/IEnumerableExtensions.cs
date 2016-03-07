@@ -18,6 +18,12 @@ public static class IEnumerableExtensions
         return list;
     }
 
+    /// <summary>
+    /// Performs an action on each item within the collection.
+    /// </summary>
+    /// <typeparam name="T">Type of the item in the collection.</typeparam>
+    /// <param name="source">Collection source.</param>
+    /// <param name="action">Action to perform on each item.</param>
     public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
     {
         foreach (var o in source)

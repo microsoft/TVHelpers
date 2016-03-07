@@ -1,4 +1,4 @@
-﻿using Microsoft.Xaml.Interactivity;
+using Microsoft.Xaml.Interactivity;
 using Windows.UI.Xaml.Controls;
 
 namespace MediaAppSample.UI.Behaviors

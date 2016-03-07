@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.ViewModels;
+using MediaAppSample.Core.ViewModels;
 
 namespace MediaAppSample.UI.Controls
 {

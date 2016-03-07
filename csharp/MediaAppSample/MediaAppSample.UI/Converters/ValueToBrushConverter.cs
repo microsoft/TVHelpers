@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Windows.UI.Xaml.Media;
 
 namespace MediaAppSample.UI.Converters

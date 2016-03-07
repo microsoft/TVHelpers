@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 02/17/2016 00:25:10
+// 	Generated: 03/07/2016 10:54:48
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
@@ -197,6 +197,28 @@ namespace MediaAppSample.Core.Strings
         }
         
         /// <summary>
+        /// Localized resource similar to "Would you like to send an e-mail with feedback instead?"
+        /// </summary>
+        public static string PromptRateApplicationEmailFeedbackMessage
+        {
+            get
+            {
+                return resourceLoader.GetString("PromptRateApplicationEmailFeedbackMessage");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Share feedback"
+        /// </summary>
+        public static string PromptRateApplicationEmailFeedbackTitle
+        {
+            get
+            {
+                return resourceLoader.GetString("PromptRateApplicationEmailFeedbackTitle");
+            }
+        }
+        
+        /// <summary>
         /// Localized resource similar to "Would you like to rate this application and provide feedback on how we can make things better?"
         /// </summary>
         public static string PromptRateApplicationMessage
@@ -296,6 +318,17 @@ namespace MediaAppSample.Core.Strings
         }
         
         /// <summary>
+        /// Localized resource similar to "Downloading..."
+        /// </summary>
+        public static string TextDownloading
+        {
+            get
+            {
+                return resourceLoader.GetString("TextDownloading");
+            }
+        }
+        
+        /// <summary>
         /// Localized resource similar to "An unexpected error has occured. We apologize for any inconveniences here and we will be working to resolve this soon."
         /// </summary>
         public static string TextErrorGeneric
@@ -325,6 +358,17 @@ namespace MediaAppSample.Core.Strings
             get
             {
                 return resourceLoader.GetString("TextLoading");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Not right now"
+        /// </summary>
+        public static string TextMaybeLater
+        {
+            get
+            {
+                return resourceLoader.GetString("TextMaybeLater");
             }
         }
         
@@ -457,6 +501,17 @@ namespace MediaAppSample.Core.Strings
             get
             {
                 return resourceLoader.GetString("TextSort");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Sorting..."
+        /// </summary>
+        public static string TextSorting
+        {
+            get
+            {
+                return resourceLoader.GetString("TextSorting");
             }
         }
         

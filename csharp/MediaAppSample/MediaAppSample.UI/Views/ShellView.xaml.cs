@@ -1,6 +1,4 @@
-﻿using MediaAppSample.Core;
-using MediaAppSample.Core.ViewModels;
-using MediaAppSample.UI.Controls;
+﻿using MediaAppSample.Core.ViewModels;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
@@ -40,7 +38,7 @@ namespace MediaAppSample.UI.Views
         protected override void OnApplicationResuming()
         {
             // Set the child frame to the navigation service so that it can appropriately perform navigation of pages to the desired frame.
-            this.Frame.SetSubFrame(bodyFrame);
+            this.Frame.SetChildFrame(bodyFrame);
 
             base.OnApplicationResuming();
         }
@@ -48,7 +46,7 @@ namespace MediaAppSample.UI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // Set the child frame to the navigation service so that it can appropriately perform navigation of pages to the desired frame.
-            this.Frame.SetSubFrame(bodyFrame);
+            this.Frame.SetChildFrame(bodyFrame);
 
             base.OnNavigatedTo(e);
         }
@@ -58,7 +56,7 @@ namespace MediaAppSample.UI.Views
             base.OnNavigatedFrom(e);
 
             // Remove the bodyFrame as the childFrame
-            this.Frame.SetSubFrame(null);
+            this.Frame.SetChildFrame(null);
         }
 
         protected override Task OnLoadStateAsync(LoadStateEventArgs e)
@@ -76,25 +74,11 @@ namespace MediaAppSample.UI.Views
         {
             var view = bodyFrame.Content;
             if (view is SettingsView)
-            {
-                lvMenuTop.SelectedItem = null;
-                lvMenuBottom.SelectedItem = btnSettings;
-            }
-            else if (view is QueueView)
-            {
-                lvMenuTop.SelectedItem = btnQueue;
-                lvMenuBottom.SelectedItem = null;
-            }
-            else if (view is GalleryView)
-            {
-                lvMenuTop.SelectedItem = btnMovies;
-                lvMenuBottom.SelectedItem = null;
-            }
-            else if (view is MainView || view is ItemView || view is MediaView)
-            {
-                lvMenuTop.SelectedItem = btnHome;
-                lvMenuBottom.SelectedItem = null;
-            }
+                btnSettings.IsChecked = true;
+            else if (view is SearchView)
+                btnSearch.IsChecked = true;
+            else if (view is MainView || view is ItemView)
+                btnHome.IsChecked = true;
         }
 
         #endregion
@@ -108,17 +92,6 @@ namespace MediaAppSample.UI.Views
             {
                 this.UpdateSelectedMenuItem();
             });
-        }
-
-        /// <summary>
-        /// Executes the command associated to the navigation menu item clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lvMenu_ItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)
-        {
-            var item = e.ClickedItem as SplitViewNavigationButton;
-            item?.Command.Execute(item?.CommandParameter);
         }
 
         #endregion

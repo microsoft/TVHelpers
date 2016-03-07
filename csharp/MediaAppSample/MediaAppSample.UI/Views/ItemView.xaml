@@ -37,18 +37,26 @@
 
         <ScrollViewer>
             <StackPanel x:Name="ContentPanel" Margin="{StaticResource ViewBodyMargins}">
-                <TextBlock Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.LineOne, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.LineTwo, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.LineThree, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.LineFour, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.Latitude, Converter={StaticResource stringFormatConverter}, ConverterParameter='Latitude \{0\}', Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.Item.Longitude, Converter={StaticResource stringFormatConverter}, ConverterParameter='Longitude \{0\}', Mode=OneWay}" />
+                <Button Content="View map" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMapExternalCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
+                <Button Content="View driving directions" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMapExternalDrivingCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
+                <Button Content="View walking directions" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMapExternalWalkingCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
+                <Button Content="Download" Command="{x:Bind ViewModel.DownloadCommand, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsDownloadEnabled, Mode=OneWay}" />
             </StackPanel>
         </ScrollViewer>
 
         <CommandBar Grid.Row="1">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Home" Icon="Home" Command="{x:Bind ViewModel.Commands.NavigateToHomeCommand}" Visibility="{x:Bind ViewModel.ShowHomeButton, Converter={StaticResource visConverter}}" />
-                <AppBarButton x:Name="btnOpenNewWindow" Label="Open in new window" Icon="NewWindow" Command="{x:Bind ViewModel.Commands.NavigateToNewWindowCommand}" CommandParameter="{x:Bind ViewModel, Mode=OneWay}" />
+                <AppBarButton Label="Home" Icon="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" Visibility="{x:Bind ViewModel.ShowHomeButton, Converter={StaticResource visConverter}}" />
+                <AppBarButton x:Name="btnOpenNewWindow" Label="Open in new window" Icon="NewWindow" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToNewWindowCommand}" CommandParameter="{x:Bind ViewModel, Mode=OneWay}" />
                 <AppBarButton Label="Pin to start" Icon="Pin" Command="{x:Bind ViewModel.PinTileCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource visConverter}}" />
                 <AppBarButton Label="Unpin to start" Icon="UnPin" Command="{x:Bind ViewModel.UnpinTileCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource visConverter}}" />
-                <AppBarButton Label="Share Item" Command="{x:Bind ViewModel.Commands.ShareCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}">
+                <AppBarButton Label="Share Item" Command="{x:Bind ViewModel.Platform.SharingManager.ShareCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}">
                     <FontIcon Glyph="&#xE72D;"/>
                 </AppBarButton>
             </CommandBar.PrimaryCommands>

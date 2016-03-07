@@ -1,10 +1,10 @@
-﻿//using Contoso.Core;
-//using Contoso.Core.Models;
-//using Contoso.Core.Services;
+﻿//using MediaAppSample.Core;
+//using MediaAppSample.Core.Models;
+//using MediaAppSample.Core.Services;
 //using System;
 //using System.Collections.Generic;
 
-//namespace Contoso.UI.Services
+//namespace MediaAppSample.UI.Services
 //{
 //    public sealed class HockeyAppService : AnalyticsServiceBase
 //    {

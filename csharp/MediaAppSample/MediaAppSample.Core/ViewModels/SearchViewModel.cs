@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Data;
+using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
 using System.Threading;
@@ -12,17 +12,19 @@ namespace MediaAppSample.Core.ViewModels
         #region Properties
 
         private string _title = Strings.Search.ButtonTextSearch;
-
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return _title; }
         }
 
-        private ModelList<ContentItemBase> _Results = new ModelList<ContentItemBase>();
+        private ModelList<ItemModel> _Results = new ModelList<ItemModel>();
         /// <summary>
         /// List of search results.
         /// </summary>
-        public ModelList<ContentItemBase> Results
+        public ModelList<ItemModel> Results
         {
             get { return _Results; }
             private set { this.SetProperty(ref _Results, value); }
@@ -54,14 +56,17 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        public override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             string param = null;
+
+            // Use any page parameters as the initial search query
             if (e.NavigationEventArgs.Parameter is string)
                 param = e.NavigationEventArgs.Parameter.ToString().Trim();
 
             if (this.SearchText != param)
             {
+                // Perform the search if there is a new search to perform
                 this.SearchText = param;
                 await this.RefreshAsync();
             }
@@ -69,27 +74,42 @@ namespace MediaAppSample.Core.ViewModels
             await base.OnLoadStateAsync(e, isFirstRun);
         }
 
+        /// <summary>
+        /// Refreshes the search results
+        /// </summary>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Awaitable task.</returns>
         protected override async Task OnRefreshAsync(CancellationToken ct)
         {
             try
             {            
                 if (!string.IsNullOrWhiteSpace(this.SearchText))
                 {
+                    // Show the busy status
                     var title = string.Format(Strings.Search.TextSearching, this.SearchText);
                     this.ShowBusyStatus(title, true);
                     this.SetTitle(title);
-                    Platform.Current.Analytics.Event("Search", this.SearchText);
 
-                    var searchResults = await DataSource.Current.SearchItems(this.SearchText, ct);
-                    this.Results.Clear();
-                    this.Results.AddRange(searchResults);
+                    // Call the API to perform the search
+                    Platform.Current.Analytics.Event("Search", this.SearchText);
+                    using (var api = new ClientApi())
+                    {
+                        var searchResults = await api.SearchItems(this.SearchText, ct);
+                        this.Results.Clear();
+                        this.Results.AddRange(searchResults);
+                    }
+
+                    // Update the page title
                     this.SetTitle(string.Format(Strings.Search.TextSearchResultsCount, this.Results.Count, this.SearchText));
                 }
                 else
                 {
+                    // No results, clear page
                     this.Results.Clear();
                     this.SetTitle(Strings.Search.ButtonTextSearch);
                 }
+
+                // Clear busy status
                 this.ClearStatus();
             }
             catch (OperationCanceledException)
@@ -103,7 +123,7 @@ namespace MediaAppSample.Core.ViewModels
             }
         }
 
-        public override bool OnBackNavigationRequested()
+        protected internal override bool OnBackNavigationRequested()
         {
             return base.OnBackNavigationRequested();
         }
@@ -119,6 +139,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class SearchViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public SearchViewModel ViewModel { get { return this; } }
     }
 }
@@ -129,16 +154,16 @@ namespace MediaAppSample.Core.ViewModels.Designer
     {
         public SearchViewModel()
         {
-            //this.Results.Add(new ItemModel()
-            //{
-            //    ID = "0",
-            //    LineOne = "Mohammed",
-            //    LineTwo = "Adenwala",
-            //    LineThree = "hello world!"
-            //});
+            this.Results.Add(new ItemModel()
+            {
+                ID = 0,
+                LineOne = "Mohammed",
+                LineTwo = "Adenwala",
+                LineThree = "hello world!"
+            });
 
-            //this.Results.Add(new ItemModel() { ID = 1, LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
-            //this.Results.Add(new ItemModel() { ID = 2, LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
+            this.Results.Add(new ItemModel() { ID = 1, LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
+            this.Results.Add(new ItemModel() { ID = 2, LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
         }
     }
 }

@@ -35,9 +35,13 @@
                 <ScrollViewer>
                     <StackPanel>
 
-                        <Button 
-                            Content="Rate application" 
-                            Command="{x:Bind ViewModel.Commands.NavigateToRateAppCommand}" />
+                        <TextBlock Text="Manage" Style="{StaticResource SubtitleTextBlockStyle}" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Rate application" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                            <Button Content="Clear Jumplist" Command="{x:Bind ViewModel.Platform.Jumplist.ClearCommand}" />
+                            <Button Content="Clear Cache" Command="{Binding ViewModel.ClearAppDataCacheCommand}" />
+                            <TextBlock Text="{Binding ViewModel.AppCacheTask.Result, Mode=OneWay}" VerticalAlignment="Center" />
+                        </StackPanel>
 
                         <Border Height="{StaticResource SpacerHeight}" />
                         
@@ -55,7 +59,7 @@
                             Text="{x:Bind ViewModel.LocationServicesStatus, Mode=OneWay}" />
                         <Button 
                             Content="Manage"
-                            Command="{x:Bind ViewModel.ManageLocationServicesCommand}" />
+                            Command="{x:Bind ViewModel.Platform.Geolocation.ManageLocationServicesCommand}" />
 
                         <Border Height="{StaticResource SpacerHeight}" />
 
@@ -66,7 +70,7 @@
                             Text="{x:Bind ViewModel.BackgroundTasksStatus, Mode=OneWay}" />
                         <Button 
                             Content="Manage"
-                            Command="{x:Bind ViewModel.ManageBackgroundTasksCommand}" />
+                            Command="{Binding ViewModel.Platform.BackgroundTasks.ManageBackgroundTasksCommand}" />
 
                     </StackPanel>
                 </ScrollViewer>
@@ -86,10 +90,10 @@
 
                     <TextBlock Text="Support" Style="{StaticResource SubtitleTextBlockStyle}" />
                     <HyperlinkButton 
-                        Command="{x:Bind ViewModel.Commands.NavigateToSupportEmailCommand}" 
+                        Command="{x:Bind ViewModel.Platform.Logger.SendSupportEmailCommand}" 
                         Content="Send us an e-mail" />
                     <HyperlinkButton 
-                        Command="{x:Bind ViewModel.Commands.NavigateToWebViewCommand}"
+                        Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWebViewCommand}"
                         CommandParameter="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}"
                         Content="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}" />
                 </StackPanel>

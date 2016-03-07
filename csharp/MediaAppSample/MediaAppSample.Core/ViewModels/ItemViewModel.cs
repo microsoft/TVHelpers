@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using MediaAppSample.Core.Services;
@@ -15,90 +15,112 @@ namespace MediaAppSample.Core.ViewModels
         #region Properties
 
         private string _Title = Strings.Resources.TextNotApplicable;
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return _Title; }
         }
 
-        private string _ID;
-        public string ContentID
+        private int _ID;
+        public int ID
         {
             get { return _ID; }
             private set { this.SetProperty(ref _ID, value); }
         }
         
-        private ContentItemBase _Item;
-        public ContentItemBase Item
+        private ItemModel _Item;
+        public ItemModel Item
         {
             get { return _Item; }
             protected set
             {
                 if (this.SetProperty(ref _Item, value))
                 {
-                    this.ContentID = _Item?.ContentID;
+                    this.ID = _Item != null ? _Item.ID : int.MinValue;
                     this.NotifyPropertyChanged(() => this.Title);
                 }
             }
         }
+        
+        private bool _IsDownloadEnabled = true;
+        public bool IsDownloadEnabled
+        {
+            get { return _IsDownloadEnabled; }
+            private set { this.SetProperty(ref _IsDownloadEnabled, value); }
+        }
 
         public PinTileCommand PinTileCommand { get; private set; }
         public UnpinTileCommand UnpinTileCommand { get; private set; }
+        public CommandBase DownloadCommand { get; private set; }
 
         #endregion
 
         #region Constructors
 
-        public ItemViewModel(string id = null)
+        public ItemViewModel(int id = int.MinValue)
         {
             if (DesignMode.DesignModeEnabled)
                 return;
 
-            this.ContentID = id;
+            this.ID = id;
             this.RequiresAuthorization = true;
             this.IsRefreshVisible = true;
             this.PinTileCommand = new PinTileCommand();
             this.UnpinTileCommand = new UnpinTileCommand();
             this.PinTileCommand.OnSuccessAction = () => this.UnpinTileCommand.RaiseCanExecuteChanged();
             this.UnpinTileCommand.OnSuccessAction = () => this.PinTileCommand.RaiseCanExecuteChanged();
+            this.DownloadCommand = new GenericCommand("DownloadCommand", async () => await this.DownloadAsync(), () => this.IsDownloadEnabled);
         }
 
         #endregion
 
         #region Methods
 
-        public override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             this.View.GotFocus += View_GotFocus;
             try
             {
-                string parameterID = null;
+                int parameterID = this.ID;
 
-                if(e.Parameter is ContentItemBase)
+                if(e.Parameter is ItemModel)
                 {
-                    this.Item = e.Parameter as ContentItemBase;
-                    parameterID = this.Item.ContentID;
+                    this.Item = e.Parameter as ItemModel;
+                    parameterID = this.Item.ID;
                 }
-                else if (e.Parameter is string)
+                else if (e.Parameter != null)
                 {
-                    try
+                    if (!int.TryParse(e.Parameter.ToString(), out parameterID))
                     {
-                        this.ShowBusyStatus(string.Format("Searching '{0}'...", e.Parameter));
-                        this.Item = (await DataSource.Current.SearchItems(e.Parameter.ToString(), CancellationToken.None)).FirstOrDefault();
-                        parameterID = this.Item?.ContentID;
-                    }
-                    catch
-                    {
-                        throw;
-                    }
-                    finally
-                    {
-                        this.ClearStatus();
+                        parameterID = int.MinValue;
+                        try
+                        {
+                            this.ShowBusyStatus(string.Format(Strings.Search.TextSearching, e.Parameter));
+                            using (var api = new ClientApi())
+                            {
+                                this.Item = (await api.SearchItems(e.Parameter.ToString(), CancellationToken.None)).FirstOrDefault();
+                                parameterID = this.Item != null ? parameterID = this.Item.ID : int.MinValue;
+                            }
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+                        finally
+                        {
+                            this.ClearStatus();
+                        }
                     }
                 }
 
-                if (parameterID != this.ContentID || this.Item == null)
+                if (parameterID == int.MinValue)
+                    throw new ArgumentException("No valid model or ID was passed to the ViewModel!");
+
+                if (parameterID != this.ID || this.Item == null)
                 {
-                    this.ContentID = parameterID;
+                    this.ID = parameterID;
                     this.Item = null;
                     await this.RefreshAsync();
                 }
@@ -118,7 +140,7 @@ namespace MediaAppSample.Core.ViewModels
             await base.OnLoadStateAsync(e, isFirstRun);
         }
 
-        public override Task OnSaveStateAsync(SaveStateEventArgs e)
+        protected override Task OnSaveStateAsync(SaveStateEventArgs e)
         {
             this.View.GotFocus -= View_GotFocus;
             return base.OnSaveStateAsync(e);
@@ -138,7 +160,10 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.SetTitle(Strings.Resources.TextLoading);
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                this.Item = await DataSource.Current.GetContentItem(this.ContentID, token);
+                using (var api = new ClientApi())
+                {
+                    this.Item = await api.GetItemByID(this.ID, token);
+                }
                 this.ClearStatus();
             }
             catch (OperationCanceledException)
@@ -148,7 +173,7 @@ namespace MediaAppSample.Core.ViewModels
             catch (Exception ex)
             {
                 this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
-                Platform.Current.Logger.LogError(ex, "Error during ItemViewModel.RefreshAsync for item with ID {0}", this.ContentID);
+                Platform.Current.Logger.LogError(ex, "Error during ItemViewModel.RefreshAsync for item with ID {0}", this.ID);
                 Platform.Current.Logger.LogError(ex, "Error during MainViewModel.RefreshAsync");
             }
             finally
@@ -165,11 +190,13 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task RefreshUIAsync(bool isFirstRun = false)
         {
-            this.SetTitle(this.Item?.Title ?? Strings.Resources.TextNotApplicable);
+            this.SetTitle(this.Item?.LineOne ?? Strings.Resources.TextNotApplicable);
             this.PinTileCommand.RaiseCanExecuteChanged();
             
             if (this.Item != null)
             {
+                this.Item.SetDistanceAway(Platform.Current.Geolocation.CurrentLocation);
+
                 // Check if tile exists, clear old notifications, update for new notifications
                 if (Platform.Current.Notifications.HasTile(this.Item))
                 {
@@ -179,13 +206,39 @@ namespace MediaAppSample.Core.ViewModels
                 
                 if (isFirstRun)
                 {
-                    var t = Platform.Current.JumpListManager.AddItemAsync(new JumpItemInfo()
+                    var t = Platform.Current.Jumplist.AddItemAsync(new JumpItemInfo()
                     {
-                        Name = this.Item.Title,
-                        Description = this.Item.Description,
+                        Name = this.Item.LineOne,
+                        Description = this.Item.LineTwo,
                         Arguments = Platform.Current.GenerateModelArguments(this.Item)
                     });
                 }
+            }
+        }
+
+        private async Task DownloadAsync()
+        {
+            try
+            {
+                this.IsDownloadEnabled = false;
+
+                this.ShowBusyStatus(Strings.Resources.TextDownloading);
+
+                for (double p = 0; p <= 100; p++)
+                {
+                    await Task.Delay(100);
+                    this.StatusProgressValue = p;
+                }
+            }
+            catch (Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error while downloading!");
+                this.ShowTimedStatus("Couldn't download data. Try again later.");
+            }
+            finally
+            {
+                this.IsDownloadEnabled = true;
+                this.ClearStatus();
             }
         }
 
@@ -194,6 +247,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class ItemViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public ItemViewModel ViewModel { get { return this; } }
     }
 }
@@ -205,14 +263,14 @@ namespace MediaAppSample.Core.ViewModels.Designer
         public ItemViewModel()
             : base()
         {
-            //this.Item = new ItemModel()
-            //{
-            //    ID = 0,
-            //    LineOne = "PinLine1",
-            //    LineTwo = "PinLine2",
-            //    LineThree = "PinLine3",
-            //    LineFour = "PinLine4",
-            //};
+            this.Item = new ItemModel()
+            {
+                ID = 0,
+                LineOne = "PinLine1",
+                LineTwo = "PinLine2",
+                LineThree = "PinLine3",
+                LineFour = "PinLine4",
+            };
         }
     }
 }

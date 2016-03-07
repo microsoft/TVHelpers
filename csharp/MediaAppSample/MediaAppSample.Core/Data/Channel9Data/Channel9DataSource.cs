@@ -84,7 +84,7 @@
 //        /// <returns>Response object from the server.</returns>
 //        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
 //        {
-//            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if Contoso account exists else register new account.
+//            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if MediaAppSample account exists else register new account.
 
 //            switch (wi.Type)
 //            {

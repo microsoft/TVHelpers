@@ -32,8 +32,8 @@
                     Welcome to MediaAppSample! Register for an account to enjoy all the services offerings we provide.
                 </TextBlock>
 
-                <HyperlinkButton Content="Terms of service" Command="{x:Bind ViewModel.Commands.NavigateToTermsOfServiceCommand}" />
-                <HyperlinkButton Content="Privacy policy" Command="{x:Bind ViewModel.Commands.NavigateToPrivacyPolicyCommand}" />
+                <HyperlinkButton Content="Terms of service" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTermsOfServiceCommand}" />
+                <HyperlinkButton Content="Privacy policy" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToPrivacyPolicyCommand}" />
 
                 <Button Style="{StaticResource TransparentButtonStyle}" Command="{x:Bind ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}">
                     <Image Height="24" Source="ms-appx:///Assets/MicrosoftLogo.png" Margin="0,12" />

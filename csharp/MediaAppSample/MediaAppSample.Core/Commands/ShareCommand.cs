@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 
 namespace MediaAppSample.Core.Commands
 {
@@ -13,7 +13,7 @@ namespace MediaAppSample.Core.Commands
         /// Creates a new command instance for sharing IModel objects to other apps.
         /// </summary>
         public ShareCommand()
-            : base("ShareCommand", Platform.Current.Navigation.Share)
+            : base("ShareCommand", Platform.Current.SharingManager.Share)
         {
         }
 

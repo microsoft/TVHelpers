@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -63,14 +63,6 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _IsUserAuthenticated, value); }
         }
 
-        /// <summary>
-        /// Gets access to the global commands collection.
-        /// </summary>
-        public CommandsManager Commands
-        {
-            get { return CommandsManager.Instance; }
-        }
-
         private Page _View;
         /// <summary>
         /// Gets or sets access to the page instance associated to this ViewModel instance.
@@ -78,7 +70,7 @@ namespace MediaAppSample.Core.ViewModels
         public Page View
         {
             get { return _View; }
-            internal set { _View = value; }
+            set { _View = value; }
         }
 
         /// <summary>
@@ -189,40 +181,6 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        /// <summary>
-        /// Waits for a list of task to complete before continuing execution.
-        /// </summary>
-        /// <param name="tasks">List of tasks to execute and wait for all to complete.</param>
-        /// <returns>Awaitable task is returned.</returns>
-        protected async Task WaitAllAsync(params Task[] tasks)
-        {
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-            
-            var t = Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    Task.WaitAll(tasks);
-                    tcs.TrySetResult(null);
-                }
-                catch(Exception ex)
-                {
-                    tcs.TrySetException(ex);
-                }
-            });
-
-            await tcs.Task;
-        }
-
-        private void Current_UserAuthenticated(object sender, bool e)
-        {
-            // Subscribes to user authentication changed event from AuthorizationManager
-            this.InvokeOnUIThread(() =>
-            {
-                this.IsUserAuthenticated = e;
-            });
-        }
-
         #region Navigation Methods
 
         /// <summary>
@@ -241,9 +199,13 @@ namespace MediaAppSample.Core.ViewModels
             {
                 try
                 {
-                    this.ShowBusyStatus("Signing out...", true);
+                    this.ShowBusyStatus(Strings.Account.TextSigningOut, true);
                     Platform.Current.Analytics.Event("AccountSignout");
+
+                    // Allow the app core to signout
                     await Platform.Current.SignoutAll();
+
+                    // Navigate home after successful signout
                     Platform.Current.Navigation.Home();
                 }
                 catch (Exception ex)
@@ -262,7 +224,7 @@ namespace MediaAppSample.Core.ViewModels
         /// Allows a view model to prevent back navigation if it needs to.
         /// </summary>
         /// <returns>True if on back navigation should be cancelled else false.</returns>
-        public virtual bool OnBackNavigationRequested()
+        protected internal virtual bool OnBackNavigationRequested()
         {
             return false;
         }
@@ -271,7 +233,7 @@ namespace MediaAppSample.Core.ViewModels
         /// Allows a view model to prevent forward navigation if it needs to.
         /// </summary>
         /// <returns>True if on forward navigation should be cancelled else false.</returns>
-        public virtual bool OnForwardNavigationRequested()
+        protected internal virtual bool OnForwardNavigationRequested()
         {
             return false;
         }
@@ -286,7 +248,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="view">View that is being shown.</param>
         /// <param name="e">Arguments containing navigation and page state data.</param>
         /// <returns>Awaitable task is returned.</returns>
-        internal async Task LoadStateAsync(Page view, LoadStateEventArgs e)
+        public async Task LoadStateAsync(Page view, LoadStateEventArgs e)
         {
             // Store properties and subscribe to events
             bool isFirstRun = !this.IsInitialized;
@@ -294,7 +256,7 @@ namespace MediaAppSample.Core.ViewModels
             this.View = view;
             this.ViewParameter = e.Parameter;
             this.IsUserAuthenticated = Platform.Current.AuthManager.IsAuthenticated();
-            Platform.Current.AuthManager.UserAuthenticatedStatusChanged += Current_UserAuthenticated;
+            Platform.Current.AuthManager.UserAuthenticatedStatusChanged += AuthenticationManager_UserAuthenticated;
 
             // Check if user is authorized to view this page
             if (this.RequiresAuthorization && !this.IsUserAuthenticated)
@@ -323,7 +285,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="e">Event args with all navigation data.</param>
         /// <param name="isFirstRun">True if this is the first execution of the view/viewmodel</param>
         /// <returns>Awaitable task is returned.</returns>
-        public virtual Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected virtual Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             return Task.CompletedTask;
         }
@@ -333,7 +295,7 @@ namespace MediaAppSample.Core.ViewModels
         /// </summary>
         /// <param name="e">Event args with all navigation data.</param>
         /// <returns>Awaitable task is returned.</returns>
-        public virtual Task OnSaveStateAsync(SaveStateEventArgs e)
+        protected virtual Task OnSaveStateAsync(SaveStateEventArgs e)
         {
             return Task.CompletedTask;
         }
@@ -343,7 +305,7 @@ namespace MediaAppSample.Core.ViewModels
         /// </summary>
         /// <param name="e">Event args with all navigation data.</param>
         /// <returns>Awaitable task is returned.</returns>
-        internal async Task SaveStateAsync(SaveStateEventArgs e)
+        public async Task SaveStateAsync(SaveStateEventArgs e)
         {
             await this.OnSaveStateAsync(e);
 
@@ -360,11 +322,15 @@ namespace MediaAppSample.Core.ViewModels
                 Platform.Current.Logger.LogError(ex, "Failed to save properties to {0} page state.", this.GetType().Name);
             }
 
-            Platform.Current.AuthManager.UserAuthenticatedStatusChanged -= Current_UserAuthenticated;
+            Platform.Current.AuthManager.UserAuthenticatedStatusChanged -= AuthenticationManager_UserAuthenticated;
 
             // Dispose the viewmodel if navigating backwards
             if (e.NavigationEventArgs.NavigationMode == NavigationMode.Back)
                 this.Dispose();
+        }
+
+        public virtual void OnApplicationResuming()
+        {
         }
 
         #endregion
@@ -388,7 +354,7 @@ namespace MediaAppSample.Core.ViewModels
         /// </summary>
         /// <param name="message">Message to display on the UI</param>
         /// <param name="isBlocking">True if full screen blocking UI else false.</param>
-        protected void ShowBusyStatus(string message = "", bool isBlocking = false)
+        protected void ShowBusyStatus(string message = null, bool isBlocking = false)
         {
             this.ShowTimedStatus(message, 0);
             this.StatusIsBusy = true;
@@ -427,7 +393,7 @@ namespace MediaAppSample.Core.ViewModels
         /// Clears any status messages on the UI.
         /// </summary>
         /// <param name="obj"></param>
-        internal void ClearStatus(object obj)
+        protected void ClearStatus(object obj)
         {
             this.ShutdownTimer();
             this.InvokeOnUIThread(this.ClearStatus);
@@ -539,7 +505,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="action">Code to be executed on the UI thread</param>
         /// <param name="priority">Priority to indicate to the system when to prioritize the execution of the code</param>
         /// <returns>Task representing the code to be executing</returns>
-        public void InvokeOnUIThread(Action action, CoreDispatcherPriority priority = CoreDispatcherPriority.Normal)
+        protected void InvokeOnUIThread(Action action, CoreDispatcherPriority priority = CoreDispatcherPriority.Normal)
         {
             if (this.Dispatcher == null || this.Dispatcher.HasThreadAccess)
             {
@@ -562,7 +528,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="message">Message to display.</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns>Awaitable call which returns the index of the button clicked.</returns>
-        public Task<int> ShowMessageBoxAsync(string message, CancellationToken ct)
+        protected internal Task<int> ShowMessageBoxAsync(string message, CancellationToken ct)
         {
             return this.ShowMessageBoxAsync(message, Strings.Resources.ApplicationName, null, 0, ct);
         }
@@ -575,11 +541,11 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="defaultIndex">Index of the default button of the dialog box.</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns>Awaitable call which returns the index of the button clicked.</returns>
-        public Task<int> ShowMessageBoxAsync(string message, IList<string> buttonNames = null, int defaultIndex = 0, CancellationToken? ct = null)
+        protected internal Task<int> ShowMessageBoxAsync(string message, IList<string> buttonNames = null, int defaultIndex = 0, CancellationToken? ct = null)
         {
             return this.ShowMessageBoxAsync(message, Strings.Resources.ApplicationName, buttonNames, defaultIndex, ct);
         }
-        
+
         /// <summary>
         /// Displays a message box dialog.
         /// </summary>
@@ -589,7 +555,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="defaultIndex">Index of the default button of the dialog box.</param>
         /// <param name="ct">Cancelation token</param>
         /// <returns>Awaitable call which returns the index of the button clicked.</returns>
-        public async Task<int> ShowMessageBoxAsync(string message, string title, IList<string> buttonNames = null, int defaultIndex = 0, CancellationToken? ct = null)
+        protected internal async Task<int> ShowMessageBoxAsync(string message, string title, IList<string> buttonNames = null, int defaultIndex = 0, CancellationToken? ct = null)
         {
             if (string.IsNullOrEmpty(message))
                 throw new ArgumentException("The specified message cannot be null or empty.", "message");
@@ -779,7 +745,49 @@ namespace MediaAppSample.Core.ViewModels
 
         #endregion
 
+        #region Tasks
+
+        /// <summary>
+        /// Waits for a list of task to complete before continuing execution.
+        /// </summary>
+        /// <param name="tasks">List of tasks to execute and wait for all to complete.</param>
+        /// <returns>Awaitable task is returned.</returns>
+        protected async Task WaitAllAsync(params Task[] tasks)
+        {
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+
+            var t = Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    Task.WaitAll(tasks);
+                    tcs.TrySetResult(null);
+                }
+                catch (Exception ex)
+                {
+                    tcs.TrySetException(ex);
+                }
+            });
+
+            await tcs.Task;
+        }
+
+        #endregion
+
         #endregion Methods
+
+        #region Event Handlers
+
+        private void AuthenticationManager_UserAuthenticated(object sender, bool e)
+        {
+            // Subscribes to user authentication changed event from AuthorizationManager
+            this.InvokeOnUIThread(() =>
+            {
+                this.IsUserAuthenticated = e;
+            });
+        }
+
+        #endregion
     }
 
     #region Classes
@@ -820,18 +828,21 @@ namespace MediaAppSample.Core.ViewModels
         /// A dictionary of state preserved by this page during an earlier
         /// session.  This will be null the first time a page is visited.
         /// </param>
-        public LoadStateEventArgs(NavigationEventArgs e, IDictionary<string, object> pageState)
+        public LoadStateEventArgs(NavigationEventArgs e, IDictionary<string, object> pageState, bool isViewInitialized)
             : base()
         {
             this.NavigationEventArgs = e;
             this.PageState = pageState;
             this.Parameter = NavigationParameterSerializer.Deserialize(e.Parameter); // Deserializes the parameter from the navigation event if necessary and stores instance
+            this.IsViewInitialized = isViewInitialized;
         }
 
         /// <summary>
         /// Gets the deserialized instance of the parameter passed to this page.
         /// </summary>
         public object Parameter { get; private set; }
+
+        public bool IsViewInitialized { get; private set; }
     }
 
     /// <summary>

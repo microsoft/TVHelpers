@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -12,8 +12,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public AuthorizationManager AuthManager
         {
-            get { return this.GetAdapter<AuthorizationManager>(); }
-            protected set { this.Register<AuthorizationManager>(value); }
+            get { return this.GetService<AuthorizationManager>(); }
+            protected set { this.SetService<AuthorizationManager>(value); }
         }
     }
 

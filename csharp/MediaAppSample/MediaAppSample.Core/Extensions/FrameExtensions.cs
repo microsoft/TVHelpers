@@ -3,15 +3,15 @@ using Windows.UI.Xaml.Controls;
 
 public static class FrameExtensions
 {
-    private static DependencyProperty FrameSubFrameProperty = DependencyProperty.RegisterAttached("_FrameSubFrame", typeof(Frame), typeof(Frame), null);
+    private static DependencyProperty ChildFrameProperty = DependencyProperty.RegisterAttached("_FrameChildFrame", typeof(Frame), typeof(Frame), null);
 
-    public static Frame GetSubFrame(this Frame frame)
+    public static Frame GetChildFrame(this Frame frame)
     {
-        return frame.GetValue(FrameSubFrameProperty) as Frame;
+        return frame.GetValue(ChildFrameProperty) as Frame;
     }
 
-    public static void SetSubFrame(this Frame frame, Frame subFrame)
+    public static void SetChildFrame(this Frame frame, Frame subFrame)
     {
-        frame.SetValue(FrameSubFrameProperty, subFrame);
+        frame.SetValue(ChildFrameProperty, subFrame);
     }
 }

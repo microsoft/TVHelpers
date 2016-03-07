@@ -1,4 +1,4 @@
-﻿<controls:BusyPanelBase
+<controls:BusyPanelBase
     x:Class="MediaAppSample.UI.Controls.BusyPanel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

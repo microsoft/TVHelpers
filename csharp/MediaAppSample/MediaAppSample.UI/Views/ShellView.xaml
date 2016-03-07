@@ -17,22 +17,71 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
-        <Style x:Key="NavigationButtonTextStyle" TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="24,0" />
-            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-        
-        <Style TargetType="controls:SplitViewNavigationButton">
+       
+        <Style TargetType="controls:SplitViewButton">
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="controls:SplitViewNavigationButton">
-                        <StackPanel Orientation="Horizontal"  Margin="2,0,0,0" Height="{StaticResource ShellElementPixelSize}">
-                            <SymbolIcon Symbol="{TemplateBinding Symbol}" Margin="0" />
-                            <TextBlock Text="{TemplateBinding Text}" Style="{StaticResource NavigationButtonTextStyle}" />
-                        </StackPanel>
+                    <ControlTemplate TargetType="controls:SplitViewButton">
+                        <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource ShellElementGridLength}"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bg">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bg">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListMediumBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bg">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked"/>
+                                    <VisualState x:Name="Indeterminate"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="bg" Grid.ColumnSpan="2" />
+                            <SymbolIcon Symbol="{TemplateBinding Symbol}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -100,37 +149,18 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ListView x:Name="lvMenuTop" 
-                              SelectionMode="Single"
-                              ItemClick="lvMenu_ItemClick"
-                              IsItemClickEnabled="True" >
-                            <Interactivity:Interaction.Behaviors>
-                                <Interactions:EventTriggerBehavior EventName="ItemClick" SourceObject="{Binding ElementName=lvMenuTop}">
-                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=lvMenuBottom}" PropertyName="SelectedItem" Value="{x:Null}"  />
-                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=svMain}" PropertyName="IsPaneOpen" Value="False"  />
-                                </Interactions:EventTriggerBehavior>
-                            </Interactivity:Interaction.Behaviors>
-                            <controls:SplitViewNavigationButton x:Name="btnHome" Text="Home" Symbol="Home" Command="{x:Bind ViewModel.Commands.NavigateToHomeCommand}" />
-                            <controls:SplitViewNavigationButton x:Name="btnMovies" Text="Movies" Symbol="MusicInfo" Command="{x:Bind ViewModel.Commands.NavigateToGalleryCommand}" />
-                            <controls:SplitViewNavigationButton x:Name="btnTV" Text="TV" Symbol="Video" Command="{x:Bind ViewModel.Commands.NavigateToGalleryCommand}" />
-                            <controls:SplitViewNavigationButton x:Name="btnQueue" Text="Queue" Symbol="Library" Command="{x:Bind ViewModel.Commands.NavigateToQueueCommand}" />
-                        </ListView>
+                        <StackPanel>
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" Content="Help" Symbol="Help" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToPrivacyPolicyCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" Content="About" Symbol="Read" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAboutCommand}" />
+                        </StackPanel>
                         <Rectangle Grid.Row="1" Height="2" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
-                        <ListView x:Name="lvMenuBottom" 
-                              Grid.Row="2"
-                              SelectionMode="Single"
-                              ItemClick="lvMenu_ItemClick"
-                              IsItemClickEnabled="True" >
-                            <Interactivity:Interaction.Behaviors>
-                                <Interactions:EventTriggerBehavior EventName="ItemClick" SourceObject="{Binding ElementName=lvMenuBottom}">
-                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=lvMenuTop}" PropertyName="SelectedItem" Value="{x:Null}"  />
-                                    <Interactions:ChangePropertyAction TargetObject="{Binding ElementName=svMain}" PropertyName="IsPaneOpen" Value="False"  />
-                                </Interactions:EventTriggerBehavior>
-                            </Interactivity:Interaction.Behaviors>
-                            <controls:SplitViewNavigationButton Text="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Commands.NavigateToRateAppCommand}" />
-                            <controls:SplitViewNavigationButton Text="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
-                            <controls:SplitViewNavigationButton x:Name="btnSettings" Text="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Commands.NavigateToSettingsCommand}" />
-                        </ListView>
+                        <StackPanel Grid.Row="2">
+                            <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
+                        </StackPanel>
                     </Grid>
                 </SplitView.Pane>
 

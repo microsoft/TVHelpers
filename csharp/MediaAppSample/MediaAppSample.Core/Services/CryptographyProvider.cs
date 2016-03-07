@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.DataProtection;
@@ -13,8 +13,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public CryptographyProvider Cryptography
         {
-            get { return this.GetAdapter<CryptographyProvider>(); }
-            protected set { this.Register<CryptographyProvider>(value); }
+            get { return this.GetService<CryptographyProvider>(); }
+            protected set { this.SetService<CryptographyProvider>(value); }
         }
     }
 

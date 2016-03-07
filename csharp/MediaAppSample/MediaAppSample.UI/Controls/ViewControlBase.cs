@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.ViewModels;
+using MediaAppSample.Core.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

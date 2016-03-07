@@ -358,9 +358,9 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>3862MohammedAdenwala.ContosoforWindows</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.MediaAppSampleforWindows</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Contoso</ReservedName>
+      <ReservedName>MediaAppSample</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>

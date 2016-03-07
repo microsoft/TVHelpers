@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 03/07/2016 10:55:16
+// 	Generated: 03/07/2016 10:58:17
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
@@ -25,12 +25,12 @@ namespace MediaAppSample.Core.Strings
     using Windows.ApplicationModel.Resources;
     
     
-    public partial class WebBrowser
+    public partial class BackgroundTasks
     {
         
         private static ResourceLoader resourceLoader;
         
-        static WebBrowser()
+        static BackgroundTasks()
         {
             string executingAssemblyName;
             executingAssemblyName = Windows.UI.Xaml.Application.Current.GetType().AssemblyQualifiedName;
@@ -38,50 +38,28 @@ namespace MediaAppSample.Core.Strings
             executingAssemblySplit = executingAssemblyName.Split(',');
             executingAssemblyName = executingAssemblySplit[1];
             string currentAssemblyName;
-            currentAssemblyName = typeof(WebBrowser).AssemblyQualifiedName;
+            currentAssemblyName = typeof(BackgroundTasks).AssemblyQualifiedName;
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
             if (executingAssemblyName.Equals(currentAssemblyName))
             {
-                resourceLoader = ResourceLoader.GetForCurrentView("WebBrowser");
+                resourceLoader = ResourceLoader.GetForCurrentView("BackgroundTasks");
             }
             else
             {
-                resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/WebBrowser");
+                resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/BackgroundTasks");
             }
         }
         
         /// <summary>
-        /// Localized resource similar to "Go back"
+        /// Localized resource similar to "Background tasks have not been enabled for this app. Use the manage button and ensure this app has been enabled to run in the background."
         /// </summary>
-        public static string TextGoBack
+        public static string TextBackgroundAppDisabledStatus
         {
             get
             {
-                return resourceLoader.GetString("TextGoBack");
-            }
-        }
-        
-        /// <summary>
-        /// Localized resource similar to "Go forward"
-        /// </summary>
-        public static string TextGoForward
-        {
-            get
-            {
-                return resourceLoader.GetString("TextGoForward");
-            }
-        }
-        
-        /// <summary>
-        /// Localized resource similar to "Could not load the requested page. Try again later."
-        /// </summary>
-        public static string TextWebErrorGeneric
-        {
-            get
-            {
-                return resourceLoader.GetString("TextWebErrorGeneric");
+                return resourceLoader.GetString("TextBackgroundAppDisabledStatus");
             }
         }
     }

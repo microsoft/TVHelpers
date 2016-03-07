@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,8 +12,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public AnalyticsServiceBase Analytics
         {
-            get { return this.GetAdapter<AnalyticsServiceBase>(); }
-            set { this.Register<AnalyticsServiceBase>(value); }
+            get { return this.GetService<AnalyticsServiceBase>(); }
+            set { this.SetService<AnalyticsServiceBase>(value); }
         }
     }
 

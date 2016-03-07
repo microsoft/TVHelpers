@@ -1,4 +1,3 @@
-﻿using MediaAppSample.Core.Models;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
@@ -8,12 +7,15 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Resources.ApplicationName; }
         }
 
-        #endregion Properties
+        #endregion
 
         #region Constructors
 
@@ -23,11 +25,11 @@ namespace MediaAppSample.Core.ViewModels
                 return;
         }
 
-        #endregion Constructors
+        #endregion
 
         #region Methods
 
-        public override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
@@ -36,16 +38,26 @@ namespace MediaAppSample.Core.ViewModels
             return base.OnLoadStateAsync(e, isFirstRun);
         }
 
-        public override Task OnSaveStateAsync(SaveStateEventArgs e)
+        protected override Task OnSaveStateAsync(SaveStateEventArgs e)
         {
             return base.OnSaveStateAsync(e);
         }
 
-        #endregion Methods
+        #endregion
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class NewViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public NewViewModel ViewModel { get { return this; } }
     }
 }

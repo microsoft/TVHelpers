@@ -1,7 +1,6 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Models;
 using System;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
 namespace MediaAppSample.Core.ViewModels
@@ -21,7 +20,9 @@ namespace MediaAppSample.Core.ViewModels
         #region Properties
 
         private string _title;
-
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return _title ?? Strings.Resources.ApplicationName; }
@@ -30,6 +31,9 @@ namespace MediaAppSample.Core.ViewModels
         public object BrowserInstance { get; set; }
         
         private bool _ShowNavigation;
+        /// <summary>
+        /// Gets whether or not the navigation command bar should be shown.
+        /// </summary>
         public bool ShowNavigation
         {
             get { return _ShowNavigation; }
@@ -70,10 +74,19 @@ namespace MediaAppSample.Core.ViewModels
         /// </summary>
         public CommandBase BrowserRefreshCommand { get; private set; }
 
+        /// <summary>
+        /// Gets a command used to take the user back to the home webpage.
+        /// </summary>
         public CommandBase BrowserHomeCommand { get; private set; }
 
+        /// <summary>
+        /// Returns whether or not the browser can go back or not.
+        /// </summary>
         public Func<bool> BrowserCanGoBack { get; private set; }
 
+        /// <summary>
+        /// Returns whether or not the browser can go forward or not.
+        /// </summary>
         public Func<bool> BrowserCanGoForward { get; private set; }
 
         #endregion Properties
@@ -96,23 +109,18 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        public override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
-        {
-            if (isFirstRun)
-            {
-            }
-
-            return base.OnLoadStateAsync(e, isFirstRun);
-        }
-
+        /// <summary>
+        /// Initial page that should be navigated on launch of the application. 
+        /// </summary>
         public virtual void InitialNavigation()
         {
             if (this.ViewParameter is string)
                 this.NavigateTo(this.ViewParameter.ToString());
         }
 
-        public override bool OnBackNavigationRequested()
+        protected internal override bool OnBackNavigationRequested()
         {
+            // Allow the browser to tell the global navigation that it should override back navigation and instead nav back in the browser view.
             if (this.ForceBrowserGoBackOnNavigationBack == false && this.BrowserCanGoBack != null && this.BrowserCanGoBack())
             {
                 this.BrowserGoBack();
@@ -122,8 +130,9 @@ namespace MediaAppSample.Core.ViewModels
                 return base.OnBackNavigationRequested();
         }
 
-        public override bool OnForwardNavigationRequested()
+        protected internal override bool OnForwardNavigationRequested()
         {
+            // Allow the browser to tell the global navigation that it should override forward navigation and instead nav forward in the browser view.
             if (this.BrowserCanGoForward != null && this.BrowserCanGoForward())
             {
                 this.BrowserGoForward();
@@ -133,12 +142,20 @@ namespace MediaAppSample.Core.ViewModels
                 return base.OnForwardNavigationRequested();
         }
 
+        /// <summary>
+        /// Clears any error status messagse.
+        /// </summary>
         protected override void ClearStatus()
         {
             this.BrowseErrorMessage = null;
             base.ClearStatus();
         }
 
+        /// <summary>
+        /// Notify the VM that the browser is in the process of navigating to a particular page and offer the ability for it to cancel the navigation.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public bool Navigating(Uri uri)
         {
             this.ShowBusyStatus();
@@ -149,23 +166,34 @@ namespace MediaAppSample.Core.ViewModels
             return false;
         }
 
+        /// <summary>
+        /// Notify this VM that a page has been navigated to.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="title"></param>
         public void Navigated(Uri uri, string title = null)
         {
             this.SetTitle(title);
             this.ClearStatus();
             this.ShowBrowser = true;
-            this.Commands.NavigateGoBackCommand.RaiseCanExecuteChanged();
-            this.Commands.NavigateGoForwardCommand.RaiseCanExecuteChanged();
+            Platform.Current.Navigation.NavigateGoBackCommand.RaiseCanExecuteChanged();
+            Platform.Current.Navigation.NavigateGoForwardCommand.RaiseCanExecuteChanged();
             this.BrowserHomeCommand.RaiseCanExecuteChanged();
             this.BrowserRefreshCommand.RaiseCanExecuteChanged();
         }
 
+        /// <summary>
+        /// Notify this VM that a navigation failure has occurred.
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="exception"></param>
+        /// <param name="title"></param>
         public void NavigationFailed(Uri uri, Exception exception, string title = null)
         {
             this.ClearStatus();
             this.ShowBrowser = false;
-            this.Commands.NavigateGoBackCommand.RaiseCanExecuteChanged();
-            this.Commands.NavigateGoForwardCommand.RaiseCanExecuteChanged();
+            Platform.Current.Navigation.NavigateGoBackCommand.RaiseCanExecuteChanged();
+            Platform.Current.Navigation.NavigateGoForwardCommand.RaiseCanExecuteChanged();
 #if DEBUG
             this.BrowseErrorMessage = exception == null ? Strings.WebBrowser.TextWebErrorGeneric : exception.ToString();
 #else
@@ -184,6 +212,11 @@ namespace MediaAppSample.Core.ViewModels
             this.NotifyPropertyChanged(() => this.Title);
         }
 
+        /// <summary>
+        /// Configure the VM to perform execute custom functions when the browser can go back/forward.
+        /// </summary>
+        /// <param name="canGoBack"></param>
+        /// <param name="canGoForward"></param>
         public void SetBrowserFunctions(Func<bool> canGoBack, Func<bool> canGoForward)
         {
             if (canGoBack != null) this.BrowserCanGoBack = canGoBack;
@@ -241,7 +274,12 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class WebBrowserViewModel
     {
-        public virtual WebBrowserViewModel ViewModel { get { return this; } }
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
+        public WebBrowserViewModel ViewModel { get { return this; } }
     }
 }
 

@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
@@ -13,6 +13,9 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Account.ViewTitleSignUp; }
@@ -163,7 +166,7 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        public override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
@@ -207,20 +210,23 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextCreatingAccount, true);
 
-                string userMessage = null;
-                var response = await DataSource.Current.RegisterAsync(this, CancellationToken.None);
+                using (var api = new ClientApi())
+                {
+                    string userMessage = null;
+                    var response = await api.RegisterAsync(this);
 
-                if (response?.AccessToken != null)
-                    Platform.Current.AuthManager.SetUser(response);
-                else
-                    userMessage = Strings.Account.TextAuthenticationFailed;
+                    if (response?.AccessToken != null)
+                        Platform.Current.AuthManager.SetUser(response);
+                    else
+                        userMessage = Strings.Account.TextAuthenticationFailed;
 
-                this.ClearStatus();
+                    this.ClearStatus();
 
-                if (this.IsUserAuthenticated)
-                    Platform.Current.Navigation.Home();
-                else
-                    await this.ShowMessageBoxAsync(userMessage, this.Title);
+                    if (this.IsUserAuthenticated)
+                        Platform.Current.Navigation.Home();
+                    else
+                        await this.ShowMessageBoxAsync(userMessage, this.Title);
+                }
             }
             catch (Exception ex)
             {
@@ -244,7 +250,7 @@ namespace MediaAppSample.Core.ViewModels
         {
             try
             {
-                this.ShowBusyStatus("Retrieving your Microsoft profile...", true);
+                this.ShowBusyStatus(string.Format(Strings.Account.TextWebAccountManagerRetrievingProfile, pi.WebAccountType), true);
 
                 await Platform.Current.WebAccountManager.SignoutAsync();
 
@@ -284,6 +290,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class AccountSignUpViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public AccountSignUpViewModel ViewModel { get { return this; } }
     }
 }

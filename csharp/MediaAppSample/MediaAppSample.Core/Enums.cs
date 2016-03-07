@@ -1,4 +1,4 @@
-﻿namespace MediaAppSample.Core
+namespace MediaAppSample.Core
 {
     #region Enumerations
 

@@ -1,6 +1,5 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
-using MediaAppSample.Core.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +19,9 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Properties
 
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get { return Strings.Resources.ViewTitleWelcome; }
@@ -48,7 +50,7 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        public override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (e.NavigationEventArgs.NavigationMode == NavigationMode.New)
             {
@@ -56,22 +58,38 @@ namespace MediaAppSample.Core.ViewModels
 
             return base.OnLoadStateAsync(e, isFirstRun);
         }
-
+        
+        /// <summary>
+        /// Launches the WebAccountManager (WAM)
+        /// </summary>
+        /// <returns></returns>
         private async Task LaunchWebAccountManager()
         {
             await Platform.Current.WebAccountManager.SignoutAsync();
             Platform.Current.WebAccountManager.Show(this.WAM_Success, this.WAM_Failed);
         }
 
-        private async void WAM_Success(Services.WebAccountManager.WebAccountProviderInfo pi, Services.WebAccountManager.WebAccountInfo wad, WebTokenRequestResult result)
+        /// <summary>
+        /// Flow to perform on successful pick of an account from the WAM popup
+        /// </summary>
+        /// <param name="pi">Details of the WAM provider choosen</param>
+        /// <param name="info">Details of the WAM authenticated account</param>
+        /// <param name="result">WebTokenRequestResult instance containing token info.</param>
+        private async void WAM_Success(Services.WebAccountManager.WebAccountProviderInfo pi, Services.WebAccountManager.WebAccountInfo info, WebTokenRequestResult result)
         {
             try
             {
                 this.ShowBusyStatus(Strings.Account.TextAuthenticating, true);
 
-                _cts = new CancellationTokenSource();
-                var response = await DataSource.Current.AuthenticateAsync(wad, _cts.Token);
-                Platform.Current.AuthManager.SetUser(response);
+                // Create an account with the API
+                _cts = new CancellationTokenSource();                
+                using (var api = new ClientApi())
+                {
+                    var response = await api.AuthenticateAsync(info, _cts.Token);
+
+                    // Authenticate the user into the app
+                    Platform.Current.AuthManager.SetUser(response);
+                }
 
                 Platform.Current.Navigation.Home(this.ViewParameter);
             }
@@ -86,12 +104,18 @@ namespace MediaAppSample.Core.ViewModels
             }
         }
 
+        /// <summary>
+        /// Flow to perform on any failures from the WAM popup
+        /// </summary>
+        /// <param name="pi"></param>
+        /// <param name="result"></param>
         private async void WAM_Failed(Services.WebAccountManager.WebAccountProviderInfo pi, WebTokenRequestResult result)
         {
             try
             {
+                // Failure with WAM
                 Platform.Current.Logger.LogError(result?.ResponseError.ToException(), "WAM failed to retrieve user account token.");
-                await this.ShowMessageBoxAsync("Could not use your Microsoft Account profile to register an account.");
+                await this.ShowMessageBoxAsync(string.Format(Strings.Account.TextWebAccountManagerRegisterAccountFailure, pi.WebAccountType));
             }
             catch (Exception ex)
             {
@@ -101,6 +125,7 @@ namespace MediaAppSample.Core.ViewModels
 
         public override void Dispose()
         {
+            // Terminate any open tasks
             if (_cts?.IsCancellationRequested == false)
                 _cts?.Cancel();
             _cts?.Dispose();
@@ -114,6 +139,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class WelcomeViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public WelcomeViewModel ViewModel { get { return this; } }
     }
 }

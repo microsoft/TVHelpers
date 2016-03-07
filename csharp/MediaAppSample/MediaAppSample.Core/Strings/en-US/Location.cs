@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 02/10/2016 12:03:41
+// 	Generated: 03/07/2016 10:54:56
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
@@ -104,6 +104,17 @@ namespace MediaAppSample.Core.Strings
             get
             {
                 return resourceLoader.GetString("TextKilomentersShort");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Location access has not been enabled for this app. Use the manage button and ensure this app has been enabled to use location services."
+        /// </summary>
+        public static string TextLocationServicesDisabledStatus
+        {
+            get
+            {
+                return resourceLoader.GetString("TextLocationServicesDisabledStatus");
             }
         }
         

@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core;
+using MediaAppSample.Core;
 using MediaAppSample.Core.ViewModels;
 using Microsoft.Xaml.Interactivity;
 using System;

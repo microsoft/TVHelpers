@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,6 +9,23 @@ using System.Threading.Tasks;
 
 namespace MediaAppSample.Core.Models
 {
+    /// <summary>
+    /// Collection for holding LocationModel instance.
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    public class LocationModelList<TItem> : ModelList<TItem> where TItem : LocationModel
+    {
+        /// <summary>
+        /// Set the distance away for all location model instances in this collection.
+        /// </summary>
+        /// <param name="loc"></param>
+        public void SetDistancesAway(ILocationModel loc)
+        {
+            foreach (var item in this)
+                item.SetDistanceAway(loc);
+        }
+    }
+
     /// <summary>
     /// Collection for holding model instances.
     /// </summary>

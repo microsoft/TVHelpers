@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 01/29/2016 11:23:22
+// 	Generated: 03/07/2016 10:55:03
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
@@ -86,6 +86,17 @@ namespace MediaAppSample.Core.Strings
         }
         
         /// <summary>
+        /// Localized resource similar to "Signing out..."
+        /// </summary>
+        public static string TextSigningOut
+        {
+            get
+            {
+                return resourceLoader.GetString("TextSigningOut");
+            }
+        }
+        
+        /// <summary>
         /// Localized resource similar to "Sign out"
         /// </summary>
         public static string TextSignout
@@ -126,6 +137,39 @@ namespace MediaAppSample.Core.Strings
             get
             {
                 return resourceLoader.GetString("TextValidatingUsername");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "An error occurred while attempting to use your {0} profile to register an account. Please try again later."
+        /// </summary>
+        public static string TextWebAccountManagerRegisterAccountFailure
+        {
+            get
+            {
+                return resourceLoader.GetString("TextWebAccountManagerRegisterAccountFailure");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Retrieving your {0} profile..."
+        /// </summary>
+        public static string TextWebAccountManagerRetrievingProfile
+        {
+            get
+            {
+                return resourceLoader.GetString("TextWebAccountManagerRetrievingProfile");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Sign-In / Sign-Up with an account that you can associate with MediaAppSample."
+        /// </summary>
+        public static string TextWebAccountManagerSignUpDescription
+        {
+            get
+            {
+                return resourceLoader.GetString("TextWebAccountManagerSignUpDescription");
             }
         }
         

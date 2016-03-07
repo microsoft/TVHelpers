@@ -165,6 +165,12 @@
   <data name="ApplicationThemeStatus" xml:space="preserve">
     <value>Theme will be applied the next time you launch the application.</value>
   </data>
+  <data name="PromptRateApplicationEmailFeedbackMessage" xml:space="preserve">
+    <value>Would you like to send an e-mail with feedback instead?</value>
+  </data>
+  <data name="PromptRateApplicationEmailFeedbackTitle" xml:space="preserve">
+    <value>Share feedback</value>
+  </data>
   <data name="PromptRateApplicationMessage" xml:space="preserve">
     <value>Would you like to rate this application and provide feedback on how we can make things better?</value>
   </data>
@@ -194,6 +200,9 @@
   <data name="TextDetails" xml:space="preserve">
     <value>Details</value>
   </data>
+  <data name="TextDownloading" xml:space="preserve">
+    <value>Downloading...</value>
+  </data>
   <data name="TextErrorGeneric" xml:space="preserve">
     <value>An unexpected error has occured. We apologize for any inconveniences here and we will be working to resolve this soon.</value>
   </data>
@@ -202,6 +211,9 @@
   </data>
   <data name="TextLoading" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="TextMaybeLater" xml:space="preserve">
+    <value>Not right now</value>
   </data>
   <data name="TextNo" xml:space="preserve">
     <value>No</value>
@@ -238,6 +250,9 @@
   </data>
   <data name="TextSort" xml:space="preserve">
     <value>Sort</value>
+  </data>
+  <data name="TextSorting" xml:space="preserve">
+    <value>Sorting...</value>
   </data>
   <data name="TextSubmit" xml:space="preserve">
     <value>Submit</value>

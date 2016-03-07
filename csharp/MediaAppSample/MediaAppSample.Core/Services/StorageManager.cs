@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +15,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public StorageManager Storage
         {
-            get { return this.GetAdapter<StorageManager>(); }
-            protected set { this.Register<StorageManager>(value); }
+            get { return this.GetService<StorageManager>(); }
+            protected set { this.SetService<StorageManager>(value); }
         }
     }
 
@@ -434,7 +434,7 @@ namespace MediaAppSample.Core.Services
         /// <param name="folderName">Folder name to delete.</param>
         /// <param name="startingFolder">Starting folder location.</param>
         /// <returns></returns>
-        public async Task DeleteFolder(string folderName, StorageFolder startingFolder)
+        public async Task DeleteFolderAsync(string folderName, StorageFolder startingFolder)
         {
             if (string.IsNullOrEmpty(folderName))
                 throw new ArgumentNullException(nameof(folderName));
@@ -456,6 +456,62 @@ namespace MediaAppSample.Core.Services
             }
         }
 
+        /// <summary>
+        /// Calculates the size of a folder.
+        /// </summary>
+        /// <param name="folderName">Folder name to delete.</param>
+        /// <param name="startingFolder">Starting folder location.</param>
+        /// <returns>Formatted string displaying the size of the folder.</returns>
+        public async Task<string> GetFolderSizeAsync(string folderName, StorageFolder startingFolder)
+        {
+            if (string.IsNullOrEmpty(folderName))
+                throw new ArgumentNullException(nameof(folderName));
+
+            try
+            {
+                // Get to the requested folder destination in the path.
+                var folder = await startingFolder.GetFolderAsync(folderName);
+                if (folder != null)
+                {
+                    long size = 0;
+                    foreach(var file in await folder.GetFilesAsync())
+                    {
+                        var p = await file.GetBasicPropertiesAsync();
+                        size += (long)p.Size;
+                    }
+                    return size.ToStringAsMemory();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+            }
+            catch (Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Could not get folder size for '{0}' in '{1}'", folderName, startingFolder.DisplayName);
+                throw ex;
+            }
+
+            return null;
+        }
+
+        public Task<string> GetAppDataCacheFolderSizeAsync()
+        {
+            return this.GetFolderSizeAsync("AppDataCache", ApplicationData.Current.LocalCacheFolder);
+        }
+
+        public Task ClearAppDataCacheFolderAsync()
+        {
+            try
+            {
+                return this.DeleteFolderAsync("AppDataCache", ApplicationData.Current.LocalCacheFolder);
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error during ClearAppDataCacheFolder");
+                return Task.CompletedTask;
+            }
+        }
+
         #endregion
 
         #region Logout
@@ -466,7 +522,7 @@ namespace MediaAppSample.Core.Services
         /// <returns></returns>
         public Task SignoutAsync()
         {
-            return this.DeleteFolder("AppDataCache", ApplicationData.Current.LocalCacheFolder);
+            return this.ClearAppDataCacheFolderAsync();
         }
 
         #endregion

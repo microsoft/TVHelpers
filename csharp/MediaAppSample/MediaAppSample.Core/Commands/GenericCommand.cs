@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Windows.ApplicationModel;
 
 namespace MediaAppSample.Core.Commands

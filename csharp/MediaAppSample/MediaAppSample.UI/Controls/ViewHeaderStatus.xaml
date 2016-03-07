@@ -1,4 +1,4 @@
-﻿<controls:ViewHeaderStatusBase
+<controls:ViewHeaderStatusBase
     x:Class="MediaAppSample.UI.Controls.ViewHeaderStatus"
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"

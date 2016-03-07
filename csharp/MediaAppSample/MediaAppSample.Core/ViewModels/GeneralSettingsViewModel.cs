@@ -1,45 +1,25 @@
-﻿using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Commands;
+using MediaAppSample.Core.Models;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Devices.Geolocation;
-using Windows.System;
 
 namespace MediaAppSample.Core.ViewModels
 {
     public partial class GeneralSettingsViewModel : ViewModelBase
     {
         #region Properties
-        
+
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get
             {
                 return Strings.Resources.TextTitleGeneral;
             }
-        }
-        
-        private bool _ShowWindowsHelloSetupButton = false;
-        public bool ShowWindowsHelloSetupButton
-        {
-            get { return _ShowWindowsHelloSetupButton; }
-            private set { this.SetProperty(ref _ShowWindowsHelloSetupButton, value); }
-        }
-
-        private bool _ShowWindowsHelloRemoveButton;
-        public bool ShowWindowsHelloRemoveButton
-        {
-            get { return _ShowWindowsHelloRemoveButton; }
-            private set { this.SetProperty(ref _ShowWindowsHelloRemoveButton, value); }
-        }
-
-        public CommandBase RemoveWindowsHelloCommand { get; private set; }
-
-        private bool _WindowsHelloIsBusy = false;
-        public bool WindowsHelloIsBusy
-        {
-            get { return _WindowsHelloIsBusy; }
-            private set { this.SetProperty(ref _WindowsHelloIsBusy, value); }
         }
 
         private string _BackgroundTasksStatus;
@@ -49,13 +29,6 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _BackgroundTasksStatus, value); }
         }
 
-        private CommandBase _ManageBackgroundTasksCommand;
-        public CommandBase ManageBackgroundTasksCommand
-        {
-            get { return _ManageBackgroundTasksCommand; }
-            private set { this.SetProperty(ref _ManageBackgroundTasksCommand, value); }
-        }
-
         private string _LocationServicesStatus;
         public string LocationServicesStatus
         {
@@ -63,13 +36,19 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _LocationServicesStatus, value); }
         }
         
-        private CommandBase _ManageLocationServicesCommand;
-        public CommandBase ManageLocationServicesCommand
+        private CommandBase _ClearAppDataCacheCommand = null;
+        public CommandBase ClearAppDataCacheCommand
         {
-            get { return _ManageLocationServicesCommand; }
-            private set { this.SetProperty(ref _ManageLocationServicesCommand, value); }
+            get { return _ClearAppDataCacheCommand ?? (_ClearAppDataCacheCommand = new NavigationCommand("ClearAppDataCacheCommand", async () => await this.ClearAppDataCacheAsync())); }
         }
-
+        
+        private NotifyTaskCompletion<string> _AppCacheTask;
+        public NotifyTaskCompletion<string> AppCacheTask
+        {
+            get { return _AppCacheTask; }
+            private set { this.SetProperty(ref _AppCacheTask, value); }
+        }
+        
         #endregion
 
         #region Constructors
@@ -78,90 +57,76 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (DesignMode.DesignModeEnabled)
                 return;
-            
-            Platform.Current.AppSettingsLocal.PropertyChanged += AppSettingsLocal_PropertyChanged;
-            Platform.Current.AppSettingsRoaming.PropertyChanged += AppSettingsRoaming_PropertyChanged;
-
-            // Deep linking to Settings app sections: https://msdn.microsoft.com/en-us/library/windows/apps/mt228342.aspx
-            this.ManageLocationServicesCommand = new GenericCommand("ManageLocationServicesCommand", async () => await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-location")));
-            this.ManageBackgroundTasksCommand = new GenericCommand("ManageBackgroundTasksCommand", async () => await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-backgroundapps")));
-        }
-
-        ~GeneralSettingsViewModel()
-        {
-            if (DesignMode.DesignModeEnabled)
-                return;
-            Platform.Current.AppSettingsLocal.PropertyChanged -= AppSettingsLocal_PropertyChanged;
-            Platform.Current.AppSettingsRoaming.PropertyChanged -= AppSettingsRoaming_PropertyChanged;
         }
 
         #endregion
 
         #region Methods
-         
-        public override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if(this.View != null)
                 this.View.GotFocus += View_GotFocus;
 
-            if (isFirstRun)
-            {
-            }
+            this.AppCacheTask = new NotifyTaskCompletion<string>(Platform.Current.Storage.GetAppDataCacheFolderSizeAsync());
 
             await base.OnLoadStateAsync(e, isFirstRun);
         }
 
+        public override void OnApplicationResuming()
+        {
+            this.View_GotFocus(null, null);
+            base.OnApplicationResuming();
+        }
+
         private void View_GotFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var t1 = this.RefreshLocationStatus();
-            var t2 = this.RefreshBackgroundTasksStatus();
+            var t1 = this.UpdateRefreshLocationStatus();
+            var t2 = this.UpdateBackgroundTasksStatus();
         }
 
-        private async Task RefreshLocationStatus()
-        {
-            var accessStatus = await Geolocator.RequestAccessAsync();
-            this.LocationServicesStatus = accessStatus == GeolocationAccessStatus.Denied ?
-                "Location access has not been enabled for this app. Use the manage button and ensure this app has been enabled to use location services." : string.Empty;
-        }
-
-        private async Task RefreshBackgroundTasksStatus()
-        {
-            var allowed = Platform.Current.BackgroundTasksManager.CheckIfAllowed();
-
-            this.BackgroundTasksStatus = !allowed ?
-                "Background tasks have not been enabled for this app. Use the manage button and ensure this app has been enabled to run in the background." : string.Empty;
-
-            if (!Platform.Current.BackgroundTasksManager.AreTasksRegistered && allowed)
-                await Platform.Current.BackgroundTasksManager.RegisterAllAsync();
-        }
-        
-
-        public override Task OnSaveStateAsync(SaveStateEventArgs e)
+        private async Task UpdateRefreshLocationStatus()
         {
             try
             {
-                if (this.View != null)
-                    this.View.GotFocus -= View_GotFocus;
-                Platform.Current.SaveSettings();
+                var accessStatus = await Geolocator.RequestAccessAsync();
+                this.LocationServicesStatus = accessStatus == GeolocationAccessStatus.Denied ? Strings.Location.TextLocationServicesDisabledStatus : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error during UpdateRefreshLocationStatus()");
+            }
+        }
+
+        private async Task UpdateBackgroundTasksStatus()
+        {
+            try
+            {
+                var allowed = Platform.Current.BackgroundTasks.CheckIfAllowed();
+
+                this.BackgroundTasksStatus = !allowed ? Strings.BackgroundTasks.TextBackgroundAppDisabledStatus : string.Empty;
+
+                if (!Platform.Current.BackgroundTasks.AreTasksRegistered && allowed)
+                    await Platform.Current.BackgroundTasks.RegisterAllAsync();
             }
             catch(Exception ex)
             {
-                Platform.Current.Logger.LogError(ex, "Error during GeneralSettingsViewModel.OnSaveStateAsync");
-                throw;
+                Platform.Current.Logger.LogError(ex, "Error during UpdateBackgroundTasksStatus()");
             }
+        }
+
+        protected override Task OnSaveStateAsync(SaveStateEventArgs e)
+        {
+            Platform.Current.SaveSettings();
+            if (this.View != null)
+                this.View.GotFocus -= View_GotFocus;
             return base.OnSaveStateAsync(e);
         }
 
-        #endregion
-
-        #region Event Handlers
-
-        private void AppSettingsLocal_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async Task ClearAppDataCacheAsync()
         {
-        }
-
-        private void AppSettingsRoaming_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
+            await Platform.Current.Storage.ClearAppDataCacheFolderAsync();
+            this.AppCacheTask = new NotifyTaskCompletion<string>(Platform.Current.Storage.GetAppDataCacheFolderSizeAsync());
         }
 
         #endregion
@@ -169,6 +134,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class GeneralSettingsViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public GeneralSettingsViewModel ViewModel { get { return this; } }
     }
 }

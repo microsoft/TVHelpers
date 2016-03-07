@@ -1,4 +1,5 @@
-﻿using System;
+using MediaAppSample.Core.Commands;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.StartScreen;
@@ -10,10 +11,10 @@ namespace MediaAppSample.Core.Services
         /// <summary>
         /// Gets access to the app info service of the platform currently executing.
         /// </summary>
-        public JumplistManager JumpListManager
+        public JumplistManager Jumplist
         {
-            get { return this.GetAdapter<JumplistManager>(); }
-            set { this.Register<JumplistManager>(value); }
+            get { return this.GetService<JumplistManager>(); }
+            protected set { this.SetService<JumplistManager>(value); }
         }
     }
 
@@ -25,6 +26,15 @@ namespace MediaAppSample.Core.Services
         #region Properties
 
         public static bool IsSupported { get; set; }
+        
+        private CommandBase _ClearJumplistCommand = null;
+        /// <summary>
+        /// Clears the task bar jump list of this application.
+        /// </summary>
+        public CommandBase ClearCommand
+        {
+            get { return _ClearJumplistCommand ?? (_ClearJumplistCommand = new NavigationCommand("Jumplist-ClearCommand", async () => await this.ClearAsync())); }
+        }
 
         #endregion
 

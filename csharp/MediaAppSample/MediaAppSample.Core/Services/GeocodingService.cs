@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using System;
 using System.Linq;
 using System.Threading;
@@ -14,8 +14,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public GeocodingService Geocode
         {
-            get { return this.GetAdapter<GeocodingService>(); }
-            protected set { this.Register<GeocodingService>(value); }
+            get { return this.GetService<GeocodingService>(); }
+            protected set { this.SetService<GeocodingService>(value); }
         }
     }
 

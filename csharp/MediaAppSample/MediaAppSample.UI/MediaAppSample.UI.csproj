@@ -120,7 +120,7 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SplitViewNavigationButton.cs" />
+    <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">
       <DependentUpon>ViewHeader.xaml</DependentUpon>
@@ -152,6 +152,7 @@
     <Compile Include="Resources\CoreStyles.xaml.cs">
       <DependentUpon>CoreStyles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SuspensionManager.cs" />
     <Compile Include="Triggers\NotDeviceFamilyTrigger.cs" />
     <Compile Include="Triggers\DeviceFamilyTrigger.cs" />
     <Compile Include="Triggers\ContinuumMobileAvailableTrigger.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewBase.cs" />
     <Compile Include="Views\WebBrowserView.xaml.cs">
       <DependentUpon>WebBrowserView.xaml</DependentUpon>
     </Compile>

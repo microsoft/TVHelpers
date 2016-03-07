@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,8 +17,8 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         public NotificationsService Notifications
         {
-            get { return this.GetAdapter<NotificationsService>(); }
-            protected set { this.Register<NotificationsService>(value); }
+            get { return this.GetService<NotificationsService>(); }
+            protected set { this.SetService<NotificationsService>(value); }
         }
     }
 

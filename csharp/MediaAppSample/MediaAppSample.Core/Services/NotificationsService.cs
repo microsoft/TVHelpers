@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using MediaAppSample.Core.ViewModels;
 using NotificationsExtensions.Tiles;
 using NotificationsExtensions.Toasts;
@@ -25,9 +25,9 @@ namespace MediaAppSample.Core.Services
                 return false;
 
             // Do custom tile creation based on the type of the model passed into this method.
-            if (model is MainViewModel || model is ModelList<ContentItemBase>)
+            if (model is MainViewModel || model is ModelList<ItemModel>)
             {
-                var list = (model as MainViewModel)?.Items ?? model as ModelList<ContentItemBase>;
+                var list = (model as MainViewModel)?.Items ?? model as ModelList<ItemModel>;
                 
                 // Get the blank badge XML payload for a badge number
                 XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
@@ -45,14 +45,14 @@ namespace MediaAppSample.Core.Services
                 // And update the badge
                 badgeUpdater.Update(badge);
             }
-            else if (model is ContentItemBase)
+            else if (model is ItemModel)
             {
-                var item = model as ContentItemBase;
+                var item = model as ItemModel;
 
                 var tile = new SecondaryTile();
                 tile.TileId = Platform.Current.GenerateModelTileID(item);
                 tile.Arguments = Platform.Current.GenerateModelArguments(model);
-                tile.DisplayName = item.Title;
+                tile.DisplayName = item.LineOne;
                 var status = await this.CreateOrUpdateSecondaryTileAsync(tile, new TileVisualOptions());
 
                 if(status)
@@ -70,8 +70,9 @@ namespace MediaAppSample.Core.Services
                                 {
                                     Children =
                                     {
-                                        new TileText(){ Text = item.Title },
-                                        new TileText(){ Text = item.Description, Style = TileTextStyle.CaptionSubtle }
+                                        new TileText(){ Text = item.LineOne },
+                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
                                     }
                                 }
                             },
@@ -82,8 +83,9 @@ namespace MediaAppSample.Core.Services
                                 {
                                     Children =
                                     {
-                                        new TileText(){ Text = item.Title, Style = TileTextStyle.Subtitle },
-                                        new TileText(){ Text = item.Description, Style = TileTextStyle.CaptionSubtle }
+                                        new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
+                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
                                     }
                                 }
                             },
@@ -94,8 +96,9 @@ namespace MediaAppSample.Core.Services
                                 {
                                     Children =
                                     {
-                                        new TileText(){ Text = item.Title, Style = TileTextStyle.Subtitle },
-                                        new TileText(){ Text = item.Description, Style = TileTextStyle.CaptionSubtle }
+                                        new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
+                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
                                     }
                                 }
                             }
@@ -125,15 +128,16 @@ namespace MediaAppSample.Core.Services
             ToastContent tc = null;
 
             // Do custom toast notifications based on the type of the model passed into this method.
-            if(model is ContentItemBase)
+            if(model is ItemModel)
             {
-                var item = model as ContentItemBase;
+                var item = model as ItemModel;
                 tc = new ToastContent()
                 {
                     Visual = new ToastVisual()
                     {
-                        TitleText = new ToastText() { Text = item.Title },
-                        BodyTextLine1 = new ToastText() { Text = item.Description }
+                        TitleText = new ToastText() { Text = item.LineOne },
+                        BodyTextLine1 = new ToastText() { Text = item.LineTwo },
+                        BodyTextLine2 = new ToastText() { Text = item.LineThree }
                     },
                     ActivationType = ToastActivationType.Foreground,
                     Scenario = ToastScenario.Default,

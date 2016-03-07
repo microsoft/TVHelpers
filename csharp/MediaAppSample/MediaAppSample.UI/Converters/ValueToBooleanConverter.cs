@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Windows.UI.Xaml.Data;
 

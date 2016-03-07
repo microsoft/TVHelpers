@@ -1,4 +1,4 @@
-﻿using MediaAppSample.Core.Models;
+using MediaAppSample.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -134,7 +134,7 @@ namespace MediaAppSample.Core.Services
             // Register all background agents
             if (mode != InitializationModes.Background)
             {
-                var btm = Platform.Current.BackgroundTasksManager.RegisterAllAsync();
+                var btm = Platform.Current.BackgroundTasks.RegisterAllAsync();
             }
 
             return Task.CompletedTask;
@@ -226,7 +226,7 @@ namespace MediaAppSample.Core.Services
         /// </summary>
         /// <typeparam name="T">Type reference of the service to retrieve.</typeparam>
         /// <returns>Instance of type T if it was already initialized or null if not found.</returns>
-        private T GetAdapter<T>() where T : ServiceBase
+        private T GetService<T>() where T : ServiceBase
         {
             if (_services.ContainsKey(typeof(T)))
                 return (T)_services[typeof(T)];
@@ -238,7 +238,7 @@ namespace MediaAppSample.Core.Services
         /// Registers and intializes an instance of an adapter.
         /// </summary>
         /// <typeparam name="T">Type reference of the service to register and initialize.</typeparam>
-        private void Register<T>(T instance) where T : ServiceBase
+        private void SetService<T>(T instance) where T : ServiceBase
         {
             // Check if T is already registered
             if (_services.ContainsKey(typeof(T)))

@@ -1,6 +1,8 @@
-﻿using System;
+using MediaAppSample.Core.Commands;
+using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.System;
 
 namespace MediaAppSample.Core.Services
 {
@@ -9,10 +11,10 @@ namespace MediaAppSample.Core.Services
         /// <summary>
         /// Gets access to the geocoding service adapter implement of the platform currently executing.
         /// </summary>
-        public BackgroundTasksManager BackgroundTasksManager
+        public BackgroundTasksManager BackgroundTasks
         {
-            get { return this.GetAdapter<BackgroundTasksManager>(); }
-            protected set { this.Register<BackgroundTasksManager>(value); }
+            get { return this.GetService<BackgroundTasksManager>(); }
+            protected set { this.SetService<BackgroundTasksManager>(value); }
         }
     }
 
@@ -24,6 +26,16 @@ namespace MediaAppSample.Core.Services
         #region Properties
 
         public bool AreTasksRegistered { get; set; }
+        
+        private CommandBase _ManageBackgroundTasksCommand = null;
+        /// <summary>
+        /// Manage background apps from the Windows Settings app.
+        /// </summary>
+        public CommandBase ManageBackgroundTasksCommand
+        {
+            // Deep linking to Settings app sections: https://msdn.microsoft.com/en-us/library/windows/apps/mt228342.aspx
+            get { return _ManageBackgroundTasksCommand ?? (_ManageBackgroundTasksCommand = new GenericCommand("ManageBackgroundTasksCommand", async () => await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-backgroundapps")))); }
+        }
 
         #endregion
 
@@ -43,36 +55,43 @@ namespace MediaAppSample.Core.Services
         /// <returns>Awaitable task is returned.</returns>
         public async Task RegisterAllAsync()
         {
-            // Keep track of the previous version of the app. If the app has been updated, we must first remove the previous task registrations and then re-add them.
-            var previousVersion = Platform.Current.Storage.LoadSetting<string>("PreviousAppVersion");
-            if (previousVersion != Platform.Current.AppInfo.VersionNumber.ToString())
+            try
             {
-                this.RemoveAll();
-                Platform.Current.Storage.SaveSetting("PreviousAppVersion", Platform.Current.AppInfo.VersionNumber.ToString());
-            }
-
-            // Propmts users to give access to run background tasks.
-            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
-            if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity || backgroundAccessStatus == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
-            {
-                try
+                // Keep track of the previous version of the app. If the app has been updated, we must first remove the previous task registrations and then re-add them.
+                var previousVersion = Platform.Current.Storage.LoadSetting<string>("PreviousAppVersion");
+                if (previousVersion != Platform.Current.AppInfo.VersionNumber.ToString())
                 {
-                    // Register each of your background tasks here:
-                    this.RegisterBackgroundTaskAsync("MediaAppSample.BackgroundTasks.TimedWorkerTask", "MediaAppSampleTimeTriggerTask", new TimeTrigger(15, false), null);
-
-                    // Flag that registration was completed
-                    this.AreTasksRegistered = true;
+                    this.RemoveAll();
+                    Platform.Current.Storage.SaveSetting("PreviousAppVersion", Platform.Current.AppInfo.VersionNumber.ToString());
                 }
-                catch(Exception ex)
+
+                // Propmts users to give access to run background tasks.
+                var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+                if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity || backgroundAccessStatus == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
                 {
-                    Platform.Current.Logger.LogError(ex, "Failed to register background tasks.");
+                    try
+                    {
+                        // Register each of your background tasks here:
+                        this.RegisterBackgroundTaskAsync("MediaAppSample.BackgroundTasks.TimedWorkerTask", "MediaAppSampleTimeTriggerTask", new TimeTrigger(15, false), null);
+
+                        // Flag that registration was completed
+                        this.AreTasksRegistered = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Platform.Current.Logger.LogError(ex, "Failed to register background tasks.");
+                    }
+                }
+                else
+                {
+                    // User did not give the app access to run background tasks
+                    Platform.Current.Logger.Log(LogLevels.Information, "Could not register tasks because background access status is '{0}'.", backgroundAccessStatus);
+                    this.AreTasksRegistered = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // User did not give the app access to run background tasks
-                Platform.Current.Logger.Log(LogLevels.Information, "Could not register tasks because background access status is '{0}'.", backgroundAccessStatus);
-                this.AreTasksRegistered = false;
+                Platform.Current.Logger.LogError(ex, "Error during BackgroundTaskManager.RegisterAllAsync()");
             }
         }
 

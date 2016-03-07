@@ -1,4 +1,4 @@
-﻿using Windows.ApplicationModel;
+using Windows.ApplicationModel;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -13,7 +13,10 @@ namespace MediaAppSample.Core.ViewModels
     public partial class SettingsViewModel : CollectionViewModelBase
     {
         #region Properties
-        
+
+        /// <summary>
+        /// Gets the title to be displayed on the view consuming this ViewModel.
+        /// </summary>
         public override string Title
         {
             get
@@ -84,6 +87,11 @@ namespace MediaAppSample.Core.ViewModels
 
     public partial class SettingsViewModel
     {
+        /// <summary>
+        /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
+        /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
+        [Newtonsoft.Json.JsonIgnore()]
+        [System.Runtime.Serialization.IgnoreDataMember()]
         public SettingsViewModel ViewModel { get { return this; } }
     }
 }
