@@ -35,7 +35,7 @@ namespace MediaAppSample.Core.Models
         public bool ContainsItem(ItemBase item)
         {
             if (item == null)
-                throw new System.ArgumentNullException("Item parameter cannot be null.");
+                return false;
 
             foreach (var qi in this)
                 if (qi.Item.ContentID == item.ContentID)
@@ -47,7 +47,7 @@ namespace MediaAppSample.Core.Models
         public bool RemoveItem(ItemBase item)
         {
             if (item == null)
-                throw new System.ArgumentNullException("Item parameter cannot be null.");
+                return false;
 
             foreach (var qi in this)
             {

@@ -23,6 +23,8 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (DesignMode.DesignModeEnabled)
                 return;
+
+            this.IsRefreshVisible = true;
         }
 
         #endregion
