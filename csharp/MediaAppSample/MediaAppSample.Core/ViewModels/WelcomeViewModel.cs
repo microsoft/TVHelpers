@@ -82,14 +82,12 @@ namespace MediaAppSample.Core.ViewModels
                 this.ShowBusyStatus(Strings.Account.TextAuthenticating, true);
 
                 // Create an account with the API
-                _cts = new CancellationTokenSource();                
-                using (var api = new ClientApi())
-                {
-                    var response = await api.AuthenticateAsync(info, _cts.Token);
+                _cts = new CancellationTokenSource();
 
-                    // Authenticate the user into the app
-                    Platform.Current.AuthManager.SetUser(response);
-                }
+                var response = await DataSource.Current.AuthenticateAsync(info, _cts.Token);
+
+                // Authenticate the user into the app
+                Platform.Current.AuthManager.SetUser(response);
 
                 Platform.Current.Navigation.Home(this.ViewParameter);
             }

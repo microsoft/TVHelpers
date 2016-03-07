@@ -2,6 +2,7 @@ using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
@@ -102,16 +103,13 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextValidatingUsername, true);
 
-                using (var api = new ClientApi())
-                {
-                    var response = await api.ForgotPasswordAsync(this);
+                var response = await DataSource.Current.ForgotPasswordAsync(this, CancellationToken.None);
 
-                    this.ClearStatus();
+                this.ClearStatus();
 
-                    await this.ShowMessageBoxAsync(response.Message, this.Title);
-                    if (response?.IsValid == true)
-                        Platform.Current.Navigation.GoBack();
-                }
+                await this.ShowMessageBoxAsync(response.Message, this.Title);
+                if (response?.IsValid == true)
+                    Platform.Current.Navigation.GoBack();
             }
             catch (Exception ex)
             {

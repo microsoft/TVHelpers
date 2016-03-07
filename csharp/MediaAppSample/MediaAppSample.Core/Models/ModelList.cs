@@ -156,6 +156,11 @@ namespace MediaAppSample.Core.Models
             return true;
         }
 
+        internal void Add(ContentItemBase contentItemBase)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Notifies listeners that a property value has changed.
         /// </summary>

@@ -25,16 +25,16 @@
 
         <Grid x:Name="ContentPanel">
 
-            <ListView ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+            <!--<ListView ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                       SelectionMode="None"
                       IsSwipeEnabled="false"
                       IsItemClickEnabled="True" 
                       ItemTemplate="{StaticResource ItemModelListDataTemplate}"
-                      behaviors:ListViewCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />
+                      behaviors:ListViewCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />-->
             
         </Grid>
 
-        <CommandBar Grid.Row="1">
+        <!--<CommandBar Grid.Row="1">
             <CommandBar.PrimaryCommands>
                 <AppBarButton Label="Sort" Icon="Sort">
                     <AppBarButton.Flyout>
@@ -46,7 +46,7 @@
                     </AppBarButton.Flyout>
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
-        </CommandBar>
+        </CommandBar>-->
         
     </Grid>
     

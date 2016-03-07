@@ -24,96 +24,98 @@ namespace MediaAppSample.Core.Services
             if (model == null)
                 return false;
 
-            // Do custom tile creation based on the type of the model passed into this method.
-            if (model is MainViewModel || model is ModelList<ItemModel>)
-            {
-                var list = (model as MainViewModel)?.Items ?? model as ModelList<ItemModel>;
+            await Task.CompletedTask;
+
+            //// Do custom tile creation based on the type of the model passed into this method.
+            //if (model is MainViewModel)
+            //{
+            //    var list = (model as MainViewModel)?.Items ?? model as ModelList<ItemModel>;
                 
-                // Get the blank badge XML payload for a badge number
-                XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
+            //    // Get the blank badge XML payload for a badge number
+            //    XmlDocument badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
 
-                // Set the value of the badge in the XML to our number
-                XmlElement badgeElement = badgeXml.SelectSingleNode("/badge") as XmlElement;
-                badgeElement.SetAttribute("value", list?.Count.ToString());
+            //    // Set the value of the badge in the XML to our number
+            //    XmlElement badgeElement = badgeXml.SelectSingleNode("/badge") as XmlElement;
+            //    badgeElement.SetAttribute("value", list?.Count.ToString());
 
-                // Create the badge notification
-                BadgeNotification badge = new BadgeNotification(badgeXml);
+            //    // Create the badge notification
+            //    BadgeNotification badge = new BadgeNotification(badgeXml);
 
-                // Create the badge updater for the application
-                BadgeUpdater badgeUpdater = BadgeUpdateManager.CreateBadgeUpdaterForApplication();
+            //    // Create the badge updater for the application
+            //    BadgeUpdater badgeUpdater = BadgeUpdateManager.CreateBadgeUpdaterForApplication();
 
-                // And update the badge
-                badgeUpdater.Update(badge);
-            }
-            else if (model is ItemModel)
-            {
-                var item = model as ItemModel;
+            //    // And update the badge
+            //    badgeUpdater.Update(badge);
+            //}
+            //else if (model is ItemModel)
+            //{
+            //    var item = model as ItemModel;
 
-                var tile = new SecondaryTile();
-                tile.TileId = Platform.Current.GenerateModelTileID(item);
-                tile.Arguments = Platform.Current.GenerateModelArguments(model);
-                tile.DisplayName = item.LineOne;
-                var status = await this.CreateOrUpdateSecondaryTileAsync(tile, new TileVisualOptions());
+            //    var tile = new SecondaryTile();
+            //    tile.TileId = Platform.Current.GenerateModelTileID(item);
+            //    tile.Arguments = Platform.Current.GenerateModelArguments(model);
+            //    tile.DisplayName = item.LineOne;
+            //    var status = await this.CreateOrUpdateSecondaryTileAsync(tile, new TileVisualOptions());
 
-                if(status)
-                {
-                    #region Create ItemModel TileContent
+            //    if(status)
+            //    {
+            //        #region Create ItemModel TileContent
 
-                    // Construct the tile content
-                    TileContent content = new TileContent()
-                    {
-                        Visual = new TileVisual()
-                        {
-                            TileMedium = new TileBinding()
-                            {
-                                Content = new TileBindingContentAdaptive()
-                                {
-                                    Children =
-                                    {
-                                        new TileText(){ Text = item.LineOne },
-                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
-                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
-                                    }
-                                }
-                            },
+            //        // Construct the tile content
+            //        TileContent content = new TileContent()
+            //        {
+            //            Visual = new TileVisual()
+            //            {
+            //                TileMedium = new TileBinding()
+            //                {
+            //                    Content = new TileBindingContentAdaptive()
+            //                    {
+            //                        Children =
+            //                        {
+            //                            new TileText(){ Text = item.LineOne },
+            //                            new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+            //                            new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
+            //                        }
+            //                    }
+            //                },
 
-                            TileWide = new TileBinding()
-                            {
-                                Content = new TileBindingContentAdaptive()
-                                {
-                                    Children =
-                                    {
-                                        new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
-                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
-                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
-                                    }
-                                }
-                            },
+            //                TileWide = new TileBinding()
+            //                {
+            //                    Content = new TileBindingContentAdaptive()
+            //                    {
+            //                        Children =
+            //                        {
+            //                            new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
+            //                            new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+            //                            new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
+            //                        }
+            //                    }
+            //                },
 
-                            TileLarge = new TileBinding()
-                            {
-                                Content = new TileBindingContentAdaptive()
-                                {
-                                    Children =
-                                    {
-                                        new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
-                                        new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
-                                        new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
-                                    }
-                                }
-                            }
-                        }
-                    };
+            //                TileLarge = new TileBinding()
+            //                {
+            //                    Content = new TileBindingContentAdaptive()
+            //                    {
+            //                        Children =
+            //                        {
+            //                            new TileText(){ Text = item.LineOne, Style = TileTextStyle.Subtitle },
+            //                            new TileText(){ Text = item.LineTwo, Style = TileTextStyle.CaptionSubtle },
+            //                            new TileText(){ Text = item.LineThree, Style = TileTextStyle.CaptionSubtle }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        };
 
-                    #endregion
+            //        #endregion
 
-                    var notification = new TileNotification(content.GetXml());
-                    notification.ExpirationTime = DateTimeOffset.UtcNow.AddMinutes(10);
-                    TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(notification);
-                }
+            //        var notification = new TileNotification(content.GetXml());
+            //        notification.ExpirationTime = DateTimeOffset.UtcNow.AddMinutes(10);
+            //        TileUpdateManager.CreateTileUpdaterForSecondaryTile(tile.TileId).Update(notification);
+            //    }
 
-                return status;
-            }
+            //    return status;
+            //}
 
             return false;
         }
@@ -127,24 +129,24 @@ namespace MediaAppSample.Core.Services
         {
             ToastContent tc = null;
 
-            // Do custom toast notifications based on the type of the model passed into this method.
-            if(model is ItemModel)
-            {
-                var item = model as ItemModel;
-                tc = new ToastContent()
-                {
-                    Visual = new ToastVisual()
-                    {
-                        TitleText = new ToastText() { Text = item.LineOne },
-                        BodyTextLine1 = new ToastText() { Text = item.LineTwo },
-                        BodyTextLine2 = new ToastText() { Text = item.LineThree }
-                    },
-                    ActivationType = ToastActivationType.Foreground,
-                    Scenario = ToastScenario.Default,
-                    Launch = Platform.Current.GenerateModelArguments(model),
-                    Duration = ToastDuration.Short
-                };
-            }
+            //// Do custom toast notifications based on the type of the model passed into this method.
+            //if(model is ItemModel)
+            //{
+            //    var item = model as ItemModel;
+            //    tc = new ToastContent()
+            //    {
+            //        Visual = new ToastVisual()
+            //        {
+            //            TitleText = new ToastText() { Text = item.LineOne },
+            //            BodyTextLine1 = new ToastText() { Text = item.LineTwo },
+            //            BodyTextLine2 = new ToastText() { Text = item.LineThree }
+            //        },
+            //        ActivationType = ToastActivationType.Foreground,
+            //        Scenario = ToastScenario.Default,
+            //        Launch = Platform.Current.GenerateModelArguments(model),
+            //        Duration = ToastDuration.Short
+            //    };
+            //}
 
             if (tc != null)
             {

@@ -179,9 +179,6 @@
     <Compile Include="Views\AccountSignUpView.xaml.cs">
       <DependentUpon>AccountSignUpView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ItemView.xaml.cs">
-      <DependentUpon>ItemView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -329,10 +326,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\GalleryView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

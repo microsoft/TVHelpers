@@ -2,6 +2,7 @@ using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
@@ -109,25 +110,22 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextAuthenticating, true);
 
-                using (var api = new ClientApi())
-                {
-                    string userMessage = null;
-                    var response = await api.AuthenticateAsync(this);
+                string userMessage = null;
+                var response = await DataSource.Current.AuthenticateAsync(this, CancellationToken.None);
 
-                    // Ensure that there is a valid token returned
-                    if (response?.AccessToken != null)
-                        Platform.Current.AuthManager.SetUser(response);
-                    else
-                        userMessage = Strings.Account.TextAuthenticationFailed;
+                // Ensure that there is a valid token returned
+                if (response?.AccessToken != null)
+                    Platform.Current.AuthManager.SetUser(response);
+                else
+                    userMessage = Strings.Account.TextAuthenticationFailed;
 
-                    this.ClearStatus();
+                this.ClearStatus();
 
-                    // Nav home if authenticated else display error message
-                    if (this.IsUserAuthenticated)
-                        Platform.Current.Navigation.Home();
-                    else
-                        await this.ShowMessageBoxAsync(userMessage, this.Title);
-                }
+                // Nav home if authenticated else display error message
+                if (this.IsUserAuthenticated)
+                    Platform.Current.Navigation.Home();
+                else
+                    await this.ShowMessageBoxAsync(userMessage, this.Title);
             }
             catch (Exception ex)
             {

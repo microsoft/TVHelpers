@@ -169,7 +169,6 @@
     <Compile Include="Models\ClientApiModels.cs" />
     <Compile Include="Models\ContentItemBase.cs" />
     <Compile Include="Models\ItemBase.cs" />
-    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\ModelList.cs" />

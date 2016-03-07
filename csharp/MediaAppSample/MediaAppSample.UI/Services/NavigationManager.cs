@@ -62,11 +62,11 @@ namespace MediaAppSample.UI.Services
             var info = new VoiceCommandInfo(e.Result);
             switch (info.VoiceCommandName)
             {
-                case "showByName":
-                    // Access the value of the {destination} phrase in the voice command
-                    string itemName = info.GetSemanticInterpretation("ItemName");
-                    this.Item(itemName);
-                    return true;
+                //case "showByName":
+                //    // Access the value of the {destination} phrase in the voice command
+                //    string itemName = info.GetSemanticInterpretation("ItemName");
+                //    this.Item(itemName);
+                //    return true;
 
                 default:
                     // If we can't determine what page to launch, go to the default entry point.
@@ -87,13 +87,13 @@ namespace MediaAppSample.UI.Services
 
                 if (dic.ContainsKey("model"))
                 {
-                    switch (dic["model"].ToLower())
-                    {
-                        case "itemmodel":
-                            this.Item(dic["ID"]);
-                            return true;
+                    //switch (dic["model"].ToLower())
+                    //{
+                    //    case "itemmodel":
+                    //        this.Item(dic["ID"]);
+                    //        return true;
 
-                    }
+                    //}
                     throw new NotImplementedException(string.Format("No action implemented for model type ", dic["model"]));
                 }
                 else
@@ -102,7 +102,7 @@ namespace MediaAppSample.UI.Services
                     int id = int.MinValue;
                     if (int.TryParse(arguments, out id))
                     {
-                        this.Item(id);
+                        //this.Item(id);
                         return true;
                     }
                     else
@@ -156,9 +156,9 @@ namespace MediaAppSample.UI.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            if (model is ItemModel || model is ItemViewModel)
-                this.Item(model);
-            else
+            //if (model is ContentItemBase)
+            //    this.Item(model);
+            //else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
         }
 
@@ -205,21 +205,13 @@ namespace MediaAppSample.UI.Services
         {
             this.ParentFrame.Navigate(typeof(AccountForgotView), this.SerializeParameter(parameter));
         }
-
-        public override void Item(object parameter)
-        {
-            if (this.IsChildFramePresent)
-                this.Frame.Navigate(typeof(ItemView), this.SerializeParameter(parameter));
-            else
-                this.Home(new NavigationRequest(typeof(ItemView), parameter));
-        }
-
+        
         public override void Details(object parameter)
         {
-            if (this.IsChildFramePresent)
-                this.Frame.Navigate(typeof(ItemView), this.SerializeParameter(parameter));
-            else
-                this.Home(new NavigationRequest(typeof(ItemView), parameter));
+            //if (this.IsChildFramePresent)
+            //    this.Frame.Navigate(typeof(DetailsView), this.SerializeParameter(parameter));
+            //else
+            //    this.Home(new NavigationRequest(typeof(DetailsView), parameter));
         }
 
         public override void Queue()

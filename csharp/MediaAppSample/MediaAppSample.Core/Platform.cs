@@ -167,41 +167,40 @@ namespace MediaAppSample.Core
         /// Work that should be performed from the background agent.
         /// </summary>
         /// <returns>Awaitable task is returned.</returns>
-        public async Task TimedBackgroundWorkAsync(BackgroundWorkCostValue cost, CancellationToken ct)
+        public Task TimedBackgroundWorkAsync(BackgroundWorkCostValue cost, CancellationToken ct)
         {
             try
             {
-                // Perform work that needs to be done on a background task/agent...
-                if (Platform.Current.AuthManager.IsAuthenticated() == false)
-                    return;
+                return Task.CompletedTask;
 
-                // SAMPLE - Load data from your API, do any background work here.
-                using (var api = new ClientApi())
-                {
-                    var data = await api.GetItems(ct);
-                    if (data != null)
-                    {
-                        var items = data.ToObservableCollection();
-                        if (items.Count > 0)
-                        {
-                            var index = DateTime.Now.Second % items.Count;
-                            Platform.Current.Notifications.DisplayToast(items[index]);
-                        }
-                    }
+                //// Perform work that needs to be done on a background task/agent...
+                //if (Platform.Current.AuthManager.IsAuthenticated() == false)
+                //    return Task.CompletedTask;
 
-                    ct.ThrowIfCancellationRequested();
+                //// SAMPLE - Load data from your API, do any background work here.
+                //var data = await DataSource.Current.GetItems(ct);
+                //if (data != null)
+                //{
+                //    var items = data.ToObservableCollection();
+                //    if (items.Count > 0)
+                //    {
+                //        var index = DateTime.Now.Second % items.Count;
+                //        Platform.Current.Notifications.DisplayToast(items[index]);
+                //    }
+                //}
 
-                    if (cost <= BackgroundWorkCostValue.Medium)
-                    {
-                        // Update primary tile
-                        await Platform.Current.Notifications.CreateOrUpdateTileAsync(new ModelList<ItemModel>(data));
+                //ct.ThrowIfCancellationRequested();
 
-                        ct.ThrowIfCancellationRequested();
+                //if (cost <= BackgroundWorkCostValue.Medium)
+                //{
+                //    // Update primary tile
+                //    await Platform.Current.Notifications.CreateOrUpdateTileAsync(new ModelList<ItemModel>(data));
 
-                        // Update all tiles pinned from this application
-                        await Platform.Current.Notifications.UpdateAllSecondaryTilesAsync(ct);
-                    }
-                }
+                //    ct.ThrowIfCancellationRequested();
+
+                //    // Update all tiles pinned from this application
+                //    await Platform.Current.Notifications.UpdateAllSecondaryTilesAsync(ct);
+                //}
             }
             catch (OperationCanceledException)
             {
@@ -233,10 +232,10 @@ namespace MediaAppSample.Core
 
             // For each model you want to support, you'll add any custom properties 
             // to the dictionary based on the type of object
-            if (model is ItemModel)
+            if (model is ContentItemBase)
             {
-                var item = model as ItemModel;
-                dic.Add("ID", item.ID.ToString());
+                var item = model as ContentItemBase;
+                dic.Add("ID", item.ContentID.ToString());
             }
             else
             {
@@ -259,10 +258,10 @@ namespace MediaAppSample.Core
             {
                 return string.Empty;
             }
-            else if (model is ItemModel)
+            else if (model is ContentItemBase)
             {
-                var item = model as ItemModel;
-                return "ItemModel_" + item.ID;
+                var item = model as ContentItemBase;
+                return "ContentItemBase_" + item.ContentID;
             }
             else
                 return null;
@@ -274,18 +273,18 @@ namespace MediaAppSample.Core
         /// <param name="tileID">Tile ID to retrieve an object instance for.</param>
         /// <param name="ct">Cancelation token.</param>
         /// <returns>Object instance if found else null.</returns>
-        public async Task<IModel> GenerateModelFromTileIdAsync(string tileID, CancellationToken ct)
+        public Task<IModel> GenerateModelFromTileIdAsync(string tileID, CancellationToken ct)
         {
             try
             {
-                if (tileID.StartsWith("ItemModel_"))
-                {
-                    int id = int.Parse(tileID.Split('_').Last());
-                    using (var api = new ClientApi())
-                    {
-                        return await api.GetItemByID(id, ct);
-                    }
-                }
+                //if (tileID.StartsWith("ItemModel_"))
+                //{
+                //    int id = int.Parse(tileID.Split('_').Last());
+                //    using (var api = new ClientApi())
+                //    {
+                //        return await api.GetItemByID(id, ct);
+                //    }
+                //}
             }
             catch (Exception ex)
             {

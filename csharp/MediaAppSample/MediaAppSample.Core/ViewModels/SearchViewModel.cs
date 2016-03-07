@@ -20,11 +20,11 @@ namespace MediaAppSample.Core.ViewModels
             get { return _title; }
         }
 
-        private ModelList<ItemModel> _Results = new ModelList<ItemModel>();
+        private ModelList<ContentItemBase> _Results = new ModelList<ContentItemBase>();
         /// <summary>
         /// List of search results.
         /// </summary>
-        public ModelList<ItemModel> Results
+        public ModelList<ContentItemBase> Results
         {
             get { return _Results; }
             private set { this.SetProperty(ref _Results, value); }
@@ -92,12 +92,9 @@ namespace MediaAppSample.Core.ViewModels
 
                     // Call the API to perform the search
                     Platform.Current.Analytics.Event("Search", this.SearchText);
-                    using (var api = new ClientApi())
-                    {
-                        var searchResults = await api.SearchItems(this.SearchText, ct);
-                        this.Results.Clear();
-                        this.Results.AddRange(searchResults);
-                    }
+                    var searchResults = await DataSource.Current.SearchItems(this.SearchText, ct);
+                    this.Results.Clear();
+                    this.Results.AddRange(searchResults);
 
                     // Update the page title
                     this.SetTitle(string.Format(Strings.Search.TextSearchResultsCount, this.Results.Count, this.SearchText));
@@ -154,16 +151,16 @@ namespace MediaAppSample.Core.ViewModels.Designer
     {
         public SearchViewModel()
         {
-            this.Results.Add(new ItemModel()
-            {
-                ID = 0,
-                LineOne = "Mohammed",
-                LineTwo = "Adenwala",
-                LineThree = "hello world!"
-            });
+            //this.Results.Add(new ContentItemBase()
+            //{
+            //    ID = 0,
+            //    LineOne = "Mohammed",
+            //    LineTwo = "Adenwala",
+            //    LineThree = "hello world!"
+            //});
 
-            this.Results.Add(new ItemModel() { ID = 1, LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
-            this.Results.Add(new ItemModel() { ID = 2, LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
+            //this.Results.Add(new ContentItemBase() { ID = 1, LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu" });
+            //this.Results.Add(new ContentItemBase() { ID = 2, LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus" });
         }
     }
 }

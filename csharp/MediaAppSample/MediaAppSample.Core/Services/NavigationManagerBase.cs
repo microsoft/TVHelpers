@@ -255,8 +255,6 @@ namespace MediaAppSample.Core.Services
 
         public abstract void Search(object parameter = null);
 
-        public abstract void Item(object parameter);
-
         public abstract void Details(object parameter);
 
         public abstract void Queue();

@@ -77,7 +77,7 @@ namespace MediaAppSample.UI.Views
                 btnSettings.IsChecked = true;
             else if (view is SearchView)
                 btnSearch.IsChecked = true;
-            else if (view is MainView || view is ItemView)
+            else if (view is MainView)
                 btnHome.IsChecked = true;
         }
 

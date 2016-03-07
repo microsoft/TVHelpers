@@ -210,23 +210,20 @@ namespace MediaAppSample.Core.ViewModels
                 this.IsSubmitEnabled = false;
                 this.ShowBusyStatus(Strings.Account.TextCreatingAccount, true);
 
-                using (var api = new ClientApi())
-                {
-                    string userMessage = null;
-                    var response = await api.RegisterAsync(this);
+                string userMessage = null;
+                var response = await DataSource.Current.RegisterAsync(this, CancellationToken.None);
 
-                    if (response?.AccessToken != null)
-                        Platform.Current.AuthManager.SetUser(response);
-                    else
-                        userMessage = Strings.Account.TextAuthenticationFailed;
+                if (response?.AccessToken != null)
+                    Platform.Current.AuthManager.SetUser(response);
+                else
+                    userMessage = Strings.Account.TextAuthenticationFailed;
 
-                    this.ClearStatus();
+                this.ClearStatus();
 
-                    if (this.IsUserAuthenticated)
-                        Platform.Current.Navigation.Home();
-                    else
-                        await this.ShowMessageBoxAsync(userMessage, this.Title);
-                }
+                if (this.IsUserAuthenticated)
+                    Platform.Current.Navigation.Home();
+                else
+                    await this.ShowMessageBoxAsync(userMessage, this.Title);
             }
             catch (Exception ex)
             {
