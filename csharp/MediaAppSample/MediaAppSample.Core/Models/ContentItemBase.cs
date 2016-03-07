@@ -9,6 +9,7 @@
 //
 //*********************************************************
 
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace MediaAppSample.Core.Models
@@ -19,7 +20,6 @@ namespace MediaAppSample.Core.Models
 
         public ContentItemBase()
         {
-            this.Length = string.Empty;
         }
 
         #endregion
@@ -98,8 +98,6 @@ namespace MediaAppSample.Core.Models
 
         public abstract int Year { get; }
 
-        public ICommand Command { get; set; }
-
         #endregion
 
         public override string ToString()
@@ -110,6 +108,19 @@ namespace MediaAppSample.Core.Models
 
     public sealed class ContentItemCollection<T> : ModelList<T> where T : ContentItemBase
     {
+        #region Constructors
+
+        public ContentItemCollection()
+        {
+        }
+
+        public ContentItemCollection(IEnumerable<T> items)
+        {
+            this.AddRange(items);
+        }
+
+        #endregion
+
         public bool ContainsItem(ContentItemBase item)
         {
             if (item == null)

@@ -1,8 +1,6 @@
-using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -21,27 +19,104 @@ namespace MediaAppSample.Core.ViewModels
             get { return Strings.Resources.ViewTitleWelcome; }
         }
 
-        private GalleryViewModel _GalleryTvViewModel;
-        public GalleryViewModel GalleryTvViewModel
+        #region Movie Properties
+
+        private MovieModel _movieHero = null;
+        /// <summary>
+        /// Gets MovieModel representing the hero movie.
+        /// </summary>
+        public MovieModel MovieHero
         {
-            get { return _GalleryTvViewModel; }
-            private set { this.SetProperty(ref _GalleryTvViewModel, value); }
+            get { return _movieHero; }
+            private set { this.SetProperty(ref _movieHero, value); }
         }
 
-        private GalleryViewModel _GalleryMoviesViewModel;
-        public GalleryViewModel GalleryMoviesViewModel
+        private ContentItemCollection<MovieModel> _moviesFeatured = new ContentItemCollection<MovieModel>();
+        /// <summary>
+        /// Gets the list of featured movies.
+        /// </summary>
+        public ContentItemCollection<MovieModel> MoviesFeatured
         {
-            get { return _GalleryMoviesViewModel; }
-            private set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
+            get { return _moviesFeatured; }
+            private set { this.SetProperty(ref _moviesFeatured, value); }
         }
 
-        private QueueViewModel _QueueViewModel;
-        public QueueViewModel QueueViewModel
+        private ContentItemCollection<MovieModel> _movieNewReleases = new ContentItemCollection<MovieModel>();
+        /// <summary>
+        /// Gets the list of new movie releases.
+        /// </summary>
+        public ContentItemCollection<MovieModel> MovieNewReleases
         {
-            get { return _QueueViewModel; }
-            private set { this.SetProperty(ref _QueueViewModel, value); }
+            get { return _movieNewReleases; }
+            private set { this.SetProperty(ref _movieNewReleases, value); }
         }
-        
+
+        private ContentItemCollection<MovieModel> _movieTrailers = new ContentItemCollection<MovieModel>();
+        /// <summary>
+        /// Gets the list of movie trailers.
+        /// </summary>
+        public ContentItemCollection<MovieModel> MovieTrailers
+        {
+            get { return _movieTrailers; }
+            private set { this.SetProperty(ref _movieTrailers, value); }
+        }
+
+        #endregion
+
+        #region TV Properties
+
+        private TvSeriesModel _tvHero = null;
+        /// <summary>
+        /// Gets tv series that is the TV hero
+        /// </summary>
+        public TvSeriesModel TvHero
+        {
+            get { return _tvHero; }
+            private set { this.SetProperty(ref _tvHero, value); }
+        }
+
+        private ContentItemCollection<TvSeriesModel> _tvFeatured = new ContentItemCollection<TvSeriesModel>();
+        /// <summary>
+        /// Gets the list of featured TV series
+        /// </summary>
+        public ContentItemCollection<TvSeriesModel> TvFeatured
+        {
+            get { return _tvFeatured; }
+            private set { this.SetProperty(ref _tvFeatured, value); }
+        }
+
+        private ContentItemCollection<TvSeriesModel> _tvNewReleases = new ContentItemCollection<TvSeriesModel>();
+        /// <summary>
+        /// Gets the list of new release TV series
+        /// </summary>
+        public ContentItemCollection<TvSeriesModel> TvNewReleases
+        {
+            get { return _tvNewReleases; }
+            private set { this.SetProperty(ref _tvNewReleases, value); }
+        }
+
+        private ContentItemCollection<TvEpisodeModel> _tvInline = new ContentItemCollection<TvEpisodeModel>();
+        /// <summary>
+        /// Gets the list of the TV episodes for the Inline section
+        /// </summary>
+        public ContentItemCollection<TvEpisodeModel> TvInline
+        {
+            get { return _tvInline; }
+            private set { this.SetProperty(ref _tvInline, value); }
+        }
+
+        private ContentItemCollection<TvEpisodeModel> _TvEpisodes = new ContentItemCollection<TvEpisodeModel>();
+        /// <summary>
+        /// Gets a list of all the TV epsisodes.
+        /// </summary>
+        public ContentItemCollection<TvEpisodeModel> TvEpisodes
+        {
+            get { return _TvEpisodes; }
+            private set { this.SetProperty(ref _TvEpisodes, value); }
+        }
+
+        #endregion
+
         #endregion Properties
 
         #region Constructors
@@ -53,10 +128,6 @@ namespace MediaAppSample.Core.ViewModels
 
             this.RequiresAuthorization = true;
             this.IsRefreshVisible = true;
-
-            this.GalleryMoviesViewModel = new GalleryViewModel(GalleryViews.Movies);
-            this.GalleryTvViewModel = new GalleryViewModel(GalleryViews.TV);
-            this.QueueViewModel = new QueueViewModel();
         }
 
         #endregion Constructors
@@ -81,21 +152,25 @@ namespace MediaAppSample.Core.ViewModels
         {
             try
             {
-                // SAMPLE CODE -- YOU CAN DELETE ALL THIS INSIDE THE TRY CATCH
-
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                //using (var api = new ClientApi())
-                //{
-                //    //this.Items.Clear();
-                //    this.Items.AddRange(await api.GetItems(ct));
-                //}
-
-                //// Save to cache
-                //await this.SaveToCacheAsync(() => this.Items);
                 
+                // Load app data areas in parallel
+                await this.WaitAllAsync(
+                    ct,
+                    this.LoadMovieHeroAsync(ct),
+                    this.LoadMoviesFeaturedAsync(ct),
+                    this.LoadMoviesNewReleasesAsync(ct),
+                    this.LoadMovieTrailersAsync(ct),
+                    this.LoadTvHeroAsync(ct),
+                    this.LoadTvFeaturedAsync(ct),
+                    this.LoadTvNewReleasesAsync(ct),
+                    this.LoadTvInline(ct)
+                    );
+
                 ct.ThrowIfCancellationRequested();
                 this.ShowBusyStatus("Updating voice commands and tiles...");
                 await this.WaitAllAsync(
+                    ct,
                     this.UpdateVoiceCommandsAsync(),
                     Platform.Current.Notifications.CreateOrUpdateTileAsync(this)
                     );
@@ -123,6 +198,90 @@ namespace MediaAppSample.Core.ViewModels
             //    list.Add(item.LineOne);
             //await Platform.Current.VoiceCommandManager.UpdatePhraseListAsync("CommandSet", "ItemName", list);
             return Task.CompletedTask;
+        }
+
+        
+        private async Task LoadMovieTrailersAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesTrailers(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues 
+                this.MovieTrailers = list;
+            });
+        }
+
+        private async Task LoadMovieHeroAsync(CancellationToken ct)
+        {
+            var model = await DataSource.Current.GetMovieHero(ct);
+            if (model != null)
+            {
+                this.InvokeOnUIThread(() =>
+                {
+                    // Set the data on the UI thread to avoid cross threading issues
+                    this.MovieHero = model;
+                });
+            }
+        }
+
+        private async Task LoadMoviesFeaturedAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesFeatured(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.MoviesFeatured = list;
+            });
+        }
+
+        private async Task LoadTvFeaturedAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvFeatured(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.TvFeatured = list;
+            });
+        }
+
+        private async Task LoadMoviesNewReleasesAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesNewReleases(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.MovieNewReleases = list;
+            });
+        }
+
+        private async Task LoadTvInline(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<TvEpisodeModel>(await DataSource.Current.GetTvInline(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.TvInline = list;
+            });
+        }
+
+        private async Task LoadTvHeroAsync(CancellationToken ct)
+        {
+            var model = await DataSource.Current.GetTvHero(ct);
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.TvHero = model;
+            });
+        }
+
+        private async Task LoadTvNewReleasesAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvNewReleases(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.TvNewReleases = list;
+            });
         }
 
         #endregion Methods

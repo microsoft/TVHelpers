@@ -35,6 +35,27 @@ namespace MediaAppSample.Core
             private set { this.SetProperty(ref _ViewModel, value); }
         }
 
+        private GalleryViewModel _GalleryTvViewModel;
+        public GalleryViewModel GalleryTvViewModel
+        {
+            get { return _GalleryTvViewModel; }
+            private set { this.SetProperty(ref _GalleryTvViewModel, value); }
+        }
+
+        private GalleryViewModel _GalleryMoviesViewModel;
+        public GalleryViewModel GalleryMoviesViewModel
+        {
+            get { return _GalleryMoviesViewModel; }
+            private set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
+        }
+
+        private QueueViewModel _QueueViewModel;
+        public QueueViewModel QueueViewModel
+        {
+            get { return _QueueViewModel; }
+            private set { this.SetProperty(ref _QueueViewModel, value); }
+        }
+
         #endregion
 
         #region Constructors
@@ -83,8 +104,10 @@ namespace MediaAppSample.Core
             // Your custom app logic which you want to always run at start of
             // your app should be placed here.
 
-            if (this.ViewModel == null)
-                this.ViewModel = new MainViewModel();
+            if (this.ViewModel == null) this.ViewModel = new MainViewModel();
+            if (this.GalleryMoviesViewModel == null) this.GalleryMoviesViewModel = new GalleryViewModel(GalleryViews.Movies);
+            if (this.GalleryTvViewModel == null) this.GalleryTvViewModel = new GalleryViewModel(GalleryViews.TV);
+            if (this.QueueViewModel == null) this.QueueViewModel = new QueueViewModel();
 
             if (mode == InitializationModes.New)
             {

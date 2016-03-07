@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 using System.Threading;
+using System;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -58,14 +59,33 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (isFirstRun)
             {
+                await this.RefreshAsync();
             }
 
             await base.OnLoadStateAsync(e, isFirstRun);
         }
 
-        protected override Task OnRefreshAsync(CancellationToken ct)
+        protected override async Task OnRefreshAsync(CancellationToken ct)
         {
-            return base.OnRefreshAsync(ct);
+            try
+            {
+                this.ShowBusyStatus(Strings.Resources.TextLoading, true);
+
+                // DO WORK HERE
+                await Task.CompletedTask;
+
+                ct.ThrowIfCancellationRequested();
+                this.ClearStatus();
+            }
+            catch (OperationCanceledException)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextCancellationRequested, 3000);
+            }
+            catch (Exception ex)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
+                Platform.Current.Logger.LogError(ex, "Error during RefreshAsync");
+            }
         }
 
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)
@@ -73,7 +93,7 @@ namespace MediaAppSample.Core.ViewModels
             return base.OnSaveStateAsync(e);
         }
 
-        #endregion Methods
+        #endregion
     }
 
     public partial class GalleryViewModel

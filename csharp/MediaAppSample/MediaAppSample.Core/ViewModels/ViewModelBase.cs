@@ -752,7 +752,7 @@ namespace MediaAppSample.Core.ViewModels
         /// </summary>
         /// <param name="tasks">List of tasks to execute and wait for all to complete.</param>
         /// <returns>Awaitable task is returned.</returns>
-        protected async Task WaitAllAsync(params Task[] tasks)
+        protected async Task WaitAllAsync(CancellationToken ct, params Task[] tasks)
         {
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
 
@@ -760,14 +760,14 @@ namespace MediaAppSample.Core.ViewModels
             {
                 try
                 {
-                    Task.WaitAll(tasks);
+                    Task.WaitAll(tasks, ct);
                     tcs.TrySetResult(null);
                 }
                 catch (Exception ex)
                 {
                     tcs.TrySetException(ex);
                 }
-            });
+            }, ct);
 
             await tcs.Task;
         }

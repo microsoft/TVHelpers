@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
@@ -31,13 +33,37 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
+                await this.RefreshAsync();
             }
 
-            return base.OnLoadStateAsync(e, isFirstRun);
+            await base.OnLoadStateAsync(e, isFirstRun);
+        }
+
+        protected override async Task OnRefreshAsync(CancellationToken ct)
+        {
+            try
+            {
+                this.ShowBusyStatus(Strings.Resources.TextLoading, true);
+
+                // DO WORK HERE
+                await Task.CompletedTask;
+
+                ct.ThrowIfCancellationRequested();
+                this.ClearStatus();
+            }
+            catch (OperationCanceledException)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextCancellationRequested, 3000);
+            }
+            catch (Exception ex)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
+                Platform.Current.Logger.LogError(ex, "Error during RefreshAsync");
+            }
         }
 
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)

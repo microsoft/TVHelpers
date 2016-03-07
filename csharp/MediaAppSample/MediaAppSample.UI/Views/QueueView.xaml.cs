@@ -18,7 +18,7 @@ namespace MediaAppSample.UI.Views
         protected override async Task OnLoadStateAsync(LoadStateEventArgs e)
         {
             if (this.ViewModel == null)
-                this.SetViewModel(Platform.Current.ViewModel.QueueViewModel);
+                this.SetViewModel(Platform.Current.QueueViewModel);
 
             await base.OnLoadStateAsync(e);
         }

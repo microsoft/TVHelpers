@@ -102,12 +102,33 @@ namespace MediaAppSample.Core.ViewModels
 
         protected override async Task OnRefreshAsync(CancellationToken ct)
         {
-            var list = new QueueCollection();
-            list.AddRange(await DataSource.Current.GetQueue(ct));
-            this.Queue = list;
-            await this.SaveToCacheAsync(() => this.Queue);
+            try
+            {
+                this.ShowBusyStatus(Strings.Resources.TextLoading, true);
 
-            await base.OnRefreshAsync(ct);
+                // Load queue data
+                var list = new QueueCollection();
+                list.AddRange(await DataSource.Current.GetQueue(ct));
+                this.Queue = list;
+                await this.SaveToCacheAsync(() => this.Queue);
+
+                ct.ThrowIfCancellationRequested();
+                this.ClearStatus();
+            }
+            catch (OperationCanceledException)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextCancellationRequested, 3000);
+            }
+            catch (Exception ex)
+            {
+                this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
+                Platform.Current.Logger.LogError(ex, "Error during RefreshAsync");
+            }
+        }
+
+        protected override Task OnSaveStateAsync(SaveStateEventArgs e)
+        {
+            return base.OnSaveStateAsync(e);
         }
 
         private void UpdateQueueProperties()
