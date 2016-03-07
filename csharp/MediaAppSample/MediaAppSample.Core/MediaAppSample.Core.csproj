@@ -142,7 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentSync.cs" />
-    <Compile Include="Data\ClientApi.cs" />
     <Compile Include="Data\ClientApiBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\GenericCommand.cs" />
