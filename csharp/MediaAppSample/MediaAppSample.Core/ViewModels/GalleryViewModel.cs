@@ -1,39 +1,70 @@
 ﻿using MediaAppSample.Core.Models;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml.Navigation;
+using System.Threading;
 
 namespace MediaAppSample.Core.ViewModels
 {
     public partial class GalleryViewModel : ViewModelBase
     {
         #region Properties
-
+        
         public override string Title
         {
-            get { return "Gallery"; }
+            get
+            {
+                switch (this.GalleryView)
+                {
+                    case GalleryViews.Movies:
+                        return "Movies"; // TODO localize
+                    case GalleryViews.TV:
+                        return "TV"; // TODO localize
+                    default:
+                        return this.GalleryView.ToString();
+                }
+            }
+        }
+
+        private GalleryViews _GalleryView;
+        public GalleryViews GalleryView
+        {
+            get { return _GalleryView; }
+            private set
+            {
+                if(this.SetProperty(ref _GalleryView, value))
+                    this.NotifyPropertyChanged(() => this.Title);
+            }
         }
 
         #endregion Properties
 
         #region Constructors
 
-        public GalleryViewModel()
+        public GalleryViewModel(GalleryViews galleryView = GalleryViews.Movies)
         {
             if (DesignMode.DesignModeEnabled)
                 return;
+
+            this.GalleryView = galleryView;
         }
 
         #endregion Constructors
 
         #region Methods
 
-        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
             }
 
-            return base.OnLoadStateAsync(e, isFirstRun);
+            await base.OnLoadStateAsync(e, isFirstRun);
+        }
+
+        protected override Task OnRefreshAsync(CancellationToken ct)
+        {
+            return base.OnRefreshAsync(ct);
         }
 
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)

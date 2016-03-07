@@ -32,7 +32,16 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         private const string SAMPLE_MEDIA_PATH_ROOT = SAMPLE_PATH_ROOT + "Videos/";
         private const string SAMPLE_MEDIA_FILE = "wildlife.mp4";
         private readonly Random _random = new Random(1234);
-        
+
+        #endregion
+
+        #region Constructors
+
+        public SampleLocalDataSource() 
+            : base("http://api.contoso.com/v1/")
+        {
+        }
+
         #endregion
 
         #region Methods
@@ -393,6 +402,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #endregion ContentItemBase
 
+        
 
 
 

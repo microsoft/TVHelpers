@@ -62,11 +62,11 @@ namespace MediaAppSample.UI.Services
             var info = new VoiceCommandInfo(e.Result);
             switch (info.VoiceCommandName)
             {
-                //case "showByName":
-                //    // Access the value of the {destination} phrase in the voice command
-                //    string itemName = info.GetSemanticInterpretation("ItemName");
-                //    this.Item(itemName);
-                //    return true;
+                case "showByName":
+                    // Access the value of the {destination} phrase in the voice command
+                    string itemName = info.GetSemanticInterpretation("ItemName");
+                    this.Details(itemName);
+                    return true;
 
                 default:
                     // If we can't determine what page to launch, go to the default entry point.
@@ -156,9 +156,9 @@ namespace MediaAppSample.UI.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            //if (model is ContentItemBase)
-            //    this.Item(model);
-            //else
+            if (model is ContentItemBase)
+                this.Details(model);
+            else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
         }
 
@@ -208,10 +208,10 @@ namespace MediaAppSample.UI.Services
         
         public override void Details(object parameter)
         {
-            //if (this.IsChildFramePresent)
-            //    this.Frame.Navigate(typeof(DetailsView), this.SerializeParameter(parameter));
-            //else
-            //    this.Home(new NavigationRequest(typeof(DetailsView), parameter));
+            if (this.IsChildFramePresent)
+                this.Frame.Navigate(typeof(DetailsView), this.SerializeParameter(parameter));
+            else
+                this.Home(new NavigationRequest(typeof(DetailsView), parameter));
         }
 
         public override void Queue()
@@ -219,9 +219,14 @@ namespace MediaAppSample.UI.Services
             this.Frame.Navigate(typeof(QueueView));
         }
 
-        public override void Gallery(object parameter)
+        public override void Movies()
         {
-            this.Frame.Navigate(typeof(GalleryView), this.SerializeParameter(parameter));
+            this.Frame.Navigate(typeof(GalleryMoviesView));
+        }
+
+        public override void TV()
+        {
+            this.Frame.Navigate(typeof(GalleryTvView));
         }
 
         public override void Media(object parameter)

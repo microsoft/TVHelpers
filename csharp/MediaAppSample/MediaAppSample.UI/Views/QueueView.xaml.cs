@@ -1,7 +1,6 @@
 ﻿using MediaAppSample.Core;
 using MediaAppSample.Core.ViewModels;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Navigation;
 
 namespace MediaAppSample.UI.Views
 {
@@ -18,8 +17,8 @@ namespace MediaAppSample.UI.Views
 
         protected override async Task OnLoadStateAsync(LoadStateEventArgs e)
         {
-            if (e.NavigationEventArgs.NavigationMode == NavigationMode.New || this.ViewModel == null)
-                this.SetViewModel(new QueueViewModel());
+            if (this.ViewModel == null)
+                this.SetViewModel(Platform.Current.ViewModel.QueueViewModel);
 
             await base.OnLoadStateAsync(e);
         }

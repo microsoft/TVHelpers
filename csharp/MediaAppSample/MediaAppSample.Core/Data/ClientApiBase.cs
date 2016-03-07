@@ -25,8 +25,11 @@ namespace MediaAppSample.Core.Data
 
         #region Constructors
 
-        public ClientApiBase(string baseURL = null)
+        public ClientApiBase(string baseURL)
         {
+            if (string.IsNullOrEmpty(baseURL))
+                throw new ArgumentNullException(nameof(baseURL));
+
             this.BaseUri = new Uri(baseURL);
             this.Client = new HttpClient();
         }

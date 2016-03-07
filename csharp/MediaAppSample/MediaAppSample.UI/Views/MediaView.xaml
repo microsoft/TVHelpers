@@ -5,7 +5,7 @@
     xmlns:views="using:MediaAppSample.UI.Views"
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
-    d:DataContext="{d:DesignInstance designTime:NewViewModel, IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance designTime:MediaViewModel, IsDesignTimeCreatable=True}"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">

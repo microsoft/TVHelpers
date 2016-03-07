@@ -358,12 +358,40 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>3862MohammedAdenwala.MediaAppSampleforWindows</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.ContosoforWindows</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>MediaAppSample</ReservedName>
+      <ReservedName>Contoso for Windows</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
+    <MainPackageIdentityName>3862MohammedAdenwala.120Sports</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.AdenwalaTODO</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.Belly</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.BellyBeta</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.BluetoothMessenger</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.eBayDemo</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.NamaazTimesforMumineen</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.ParkChicago</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.Qamoos</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.RadioThermostat</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.SettleUp</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.SpotifyW10Hackathon</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.Transit</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitAtlanta</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitBoston</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitChicago</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitDallas</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitDC</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitIndianapolis</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitNewJersey</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitNewYorkCity</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitSacramento</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitSanFrancisco</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitSeattle</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.TransitSLC</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.USTVNOW</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.WhoFarted</MainPackageIdentityName>
+    <MainPackageIdentityName>3862MohammedAdenwala.YikYakforWindows</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4P7NK" />
 </StoreAssociation>

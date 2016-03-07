@@ -57,5 +57,11 @@ namespace MediaAppSample.Core
         WalkingDirections
     }
 
+    public enum GalleryViews
+    {
+        Movies,
+        TV
+    }
+
     #endregion
 }

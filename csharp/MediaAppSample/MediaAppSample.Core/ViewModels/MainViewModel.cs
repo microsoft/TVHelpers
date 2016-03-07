@@ -20,6 +20,27 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return Strings.Resources.ViewTitleWelcome; }
         }
+
+        private GalleryViewModel _GalleryTvViewModel;
+        public GalleryViewModel GalleryTvViewModel
+        {
+            get { return _GalleryTvViewModel; }
+            private set { this.SetProperty(ref _GalleryTvViewModel, value); }
+        }
+
+        private GalleryViewModel _GalleryMoviesViewModel;
+        public GalleryViewModel GalleryMoviesViewModel
+        {
+            get { return _GalleryMoviesViewModel; }
+            private set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
+        }
+
+        private QueueViewModel _QueueViewModel;
+        public QueueViewModel QueueViewModel
+        {
+            get { return _QueueViewModel; }
+            private set { this.SetProperty(ref _QueueViewModel, value); }
+        }
         
         #endregion Properties
 
@@ -32,6 +53,10 @@ namespace MediaAppSample.Core.ViewModels
 
             this.RequiresAuthorization = true;
             this.IsRefreshVisible = true;
+
+            this.GalleryMoviesViewModel = new GalleryViewModel(GalleryViews.Movies);
+            this.GalleryTvViewModel = new GalleryViewModel(GalleryViews.TV);
+            this.QueueViewModel = new QueueViewModel();
         }
 
         #endregion Constructors

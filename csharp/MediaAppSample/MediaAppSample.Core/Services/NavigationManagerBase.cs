@@ -91,6 +91,30 @@ namespace MediaAppSample.Core.Services
         {
             get { return _navigateToTermsOfServiceCommand ?? (_navigateToTermsOfServiceCommand = new NavigationCommand("NavigateToTermsOfServiceCommand", this.TermsOfService)); }
         }
+        
+        private CommandBase _navigateToQueueCommand = null;
+        public CommandBase NavigateToQueueCommand
+        {
+            get { return _navigateToQueueCommand ?? (_navigateToQueueCommand = new NavigationCommand("NavigateToQueueCommand", Platform.Current.Navigation.Queue)); }
+        }
+
+        private CommandBase _navigateToMoviesCommand = null;
+        public CommandBase NavigateToMoviesCommand
+        {
+            get { return _navigateToMoviesCommand ?? (_navigateToMoviesCommand = new NavigationCommand("NavigateToMoviesCommand", Platform.Current.Navigation.Movies)); }
+        }
+
+        private CommandBase _navigateToTVCommand = null;
+        public CommandBase NavigateToTVCommand
+        {
+            get { return _navigateToTVCommand ?? (_navigateToTVCommand = new NavigationCommand("NavigateToTVCommand", Platform.Current.Navigation.TV)); }
+        }
+
+        private CommandBase _navigateToMediaCommand = null;
+        public CommandBase NavigateToMediaCommand
+        {
+            get { return _navigateToMediaCommand ?? (_navigateToMediaCommand = new NavigationCommand("NavigateToMediaCommand", Platform.Current.Navigation.Media)); }
+        }
 
         #endregion
 
@@ -259,7 +283,9 @@ namespace MediaAppSample.Core.Services
 
         public abstract void Queue();
 
-        public abstract void Gallery(object parameter);
+        public abstract void Movies();
+
+        public abstract void TV();
 
         public abstract void Media(object parameter);
 

@@ -243,6 +243,7 @@
     <Compile Include="ViewModels\GalleryViewModel.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\QueueViewModel.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\_NewViewModel.cs" />
     <Compile Include="ViewModels\CollectionViewModelBase.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
