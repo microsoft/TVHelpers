@@ -31,7 +31,7 @@ namespace MediaAppSample.Core.Models
 
         public override int Year => 2015;
 
-        public ObservableCollection<SeasonModel> Seasons { get; set; }
+        public ModelList<SeasonModel> Seasons { get; set; }
 
         #endregion
     }

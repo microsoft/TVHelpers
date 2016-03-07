@@ -32,7 +32,7 @@ namespace MediaAppSample.Core.Models
 
         public int SeasonNumber { get; set; }
 
-        public ObservableCollection<TvEpisodeModel> Episodes { get; set; }
+        public ContentItemCollection<TvEpisodeModel> Episodes { get; set; }
 
         #endregion
     }

@@ -107,6 +107,15 @@ namespace MediaAppSample.Core.Models
             set { this.SetProperty(ref _landscapeImage, value); }
         }
 
+        private string _flag;
+        public string Flag
+        {
+            get { return _flag; }
+            set { this.SetProperty(ref _flag, value); }
+        }
+
+        public string ByLine => "'Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vesitibulum fringilla felis diam, elementum.' - Convallis";
+
         #endregion
     }
 }
