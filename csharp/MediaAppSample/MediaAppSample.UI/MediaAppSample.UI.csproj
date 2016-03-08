@@ -98,6 +98,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\HeaderLogo.png" />
     <Content Include="Assets\MicrosoftLogo.png" />
     <None Include="App_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
@@ -120,6 +121,7 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">

@@ -117,6 +117,14 @@ namespace MediaAppSample.Core.ViewModels
 
         #endregion
 
+
+        private double _DeviceWindowHeight;
+        public double DeviceWindowHeight
+        {
+            get { return _DeviceWindowHeight; }
+            set { this.SetProperty(ref _DeviceWindowHeight, value); }
+        }
+
         #endregion Properties
 
         #region Constructors

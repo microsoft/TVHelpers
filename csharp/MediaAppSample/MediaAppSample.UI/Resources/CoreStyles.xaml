@@ -8,6 +8,35 @@
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:converters="using:MediaAppSample.UI.Converters">
 
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="ThemeBackground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="White" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99000000" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33000000" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#99000000" />
+            <!--The AccentColorBrush can be set to the built-in system user color using {ThemeResource SystemAccentColor}
+            or a custom-defined branding color (in this case #FFDA4757 as shown.)-->
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="ThemeBackground" Color="White" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99FFFFFF" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="ThemeBackground" Color="White" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
     <converters:StringLowerCasingConverter x:Key="lowerCasingConverter" />
     <converters:StringUpperCasingConverter x:Key="upperCasingConverter" />
     <converters:StringFormatConverter x:Key="stringFormatConverter" />
@@ -18,6 +47,81 @@
     <converters:ValueToVisibilityConverter x:Key="visInvertedConverter" InvertValue="True" />
     <converters:ValueToOpacityConverter x:Key="opacityConverter" />
     <converters:ValueToDoubleConverter x:Key="doubleConverter" />
+
+    <Style x:Key="TextBlockBase" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{ThemeResource ThemeTextForeground}"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+    </Style>
+
+    <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource HeaderFontSize}"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource SubheaderFontSize}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource TitleFontSize}"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+
+    <Style x:Key="SubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource SubtitleFontSize}"/>
+    </Style>
+
+    <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+        <Setter Property="FontWeight" Value="SemiLight"/>
+    </Style>
+
+    <Style x:Key="BodyTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+    </Style>
+
+    <Style x:Key="CaptionAltTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="13"/>
+        <!-- {StaticResource CaptionAltFontSize}-->
+        <Setter Property="Foreground" Value="#CCFFFFFF"/>
+    </Style>
+
+    <Style x:Key="CaptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
+        <Setter Property="FontSize" Value="{StaticResource CaptionFontSize}"/>
+    </Style>
+
+    <Style x:Key="HubSectionHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{StaticResource HubSectionHeaderMargin}"/>
+        <Setter Property="Foreground" Value="#99FFFFFF"/>
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+    </Style>
+
+    <Style TargetType="PasswordBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
+    </Style>
+    
+    
 
     <x:Double x:Key="ShellElementPixelSize">48</x:Double>
     <GridLength x:Key="ShellElementGridLength">48</GridLength>
@@ -183,7 +287,41 @@
     <DataTemplate x:Key="WebBrowserDataTemplate">
         <controls:WebViewPanel />
     </DataTemplate>
-    
+
+    <Style TargetType="controls:ImageControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ImageControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="ImageLoaded">
+                                    <!--<VisualState.Setters>
+                                        <Setter Target="progressRing.IsActive" Value="False" />
+                                    </VisualState.Setters>-->
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0:0:0.3" Storyboard.TargetName="Image" Storyboard.TargetProperty="Opacity" To="1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ImageFailed" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Image x:Name="Image" Opacity="0" Stretch="UniformToFill" HorizontalAlignment="Center">
+                                <Image.Source>
+                                    <BitmapImage x:Name="BitmapImage" DecodePixelHeight="{Binding DecodePixelHeight, RelativeSource={RelativeSource TemplatedParent}}" DecodePixelWidth="{Binding DecodePixelWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </Image.Source>
+                            </Image>
+                            <!--<ProgressRing x:Name="progressRing" IsActive="True" Visibility="Visible"/>-->
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <Style TargetType="Pivot">
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Padding" Value="0"/>
