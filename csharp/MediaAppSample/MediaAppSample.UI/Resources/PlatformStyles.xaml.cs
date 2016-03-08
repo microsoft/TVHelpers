@@ -1,6 +1,6 @@
 ﻿namespace MediaAppSample.UI.Resources
 {
-    public partial class CoreStyles
+    public partial class PlatformStyles
     {
     }
 }

@@ -31,10 +31,10 @@
                 <TextBox Text="{Binding ViewModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="EmailSmtpAddress">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:FocusOnLoadBehavior  />
-                        <behaviors:EnterKeyBehavior Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                        <behaviors:EnterKeyBehavior Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                     </interactivity:Interaction.Behaviors>
                 </TextBox>
-                <Button Content="Submit" Style="{StaticResource PrimaryButtonStyle}" Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Submit" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
             </StackPanel>
         </Grid>
 

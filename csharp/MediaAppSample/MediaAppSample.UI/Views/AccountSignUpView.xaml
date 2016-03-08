@@ -32,15 +32,15 @@
                     Welcome to MediaAppSample! Register for an account to enjoy all the services offerings we provide.
                 </TextBlock>
 
-                <HyperlinkButton Content="Terms of service" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTermsOfServiceCommand}" />
-                <HyperlinkButton Content="Privacy policy" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToPrivacyPolicyCommand}" />
+                <HyperlinkButton Content="Terms of service" Command="{Binding ViewModel.Platform.Navigation.NavigateToTermsOfServiceCommand}" />
+                <HyperlinkButton Content="Privacy policy" Command="{Binding ViewModel.Platform.Navigation.NavigateToPrivacyPolicyCommand}" />
 
-                <Button Style="{StaticResource TransparentButtonStyle}" Command="{x:Bind ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}">
+                <Button Style="{StaticResource TransparentButtonStyle}" Command="{Binding ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}">
                     <Image Height="24" Source="ms-appx:///Assets/MicrosoftLogo.png" Margin="0,12" />
                 </Button>
 
                 <TextBlock Text="First Name" Style="{StaticResource CaptionTextBlockStyle}" />
-                <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}" InputScope="PersonalFullName">
+                <TextBox Text="{Binding ViewModel.FirstName, Mode=TwoWay}" InputScope="PersonalFullName">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:FocusOnLoadBehavior />
                         <behaviors:EnterKeyBehavior />
@@ -48,14 +48,14 @@
                 </TextBox>
                 
                 <TextBlock Text="Last Name" Style="{StaticResource CaptionTextBlockStyle}" />
-                <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}" InputScope="PersonalFullName">
+                <TextBox Text="{Binding ViewModel.LastName, Mode=TwoWay}" InputScope="PersonalFullName">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:EnterKeyBehavior />
                     </interactivity:Interaction.Behaviors>
                 </TextBox>
                 
                 <TextBlock Text="E-mail or username" Style="{StaticResource CaptionTextBlockStyle}" />
-                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" InputScope="EmailSmtpAddress">
+                <TextBox Text="{Binding ViewModel.Username, Mode=TwoWay}" InputScope="EmailSmtpAddress">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:EnterKeyBehavior />
                     </interactivity:Interaction.Behaviors>
@@ -97,20 +97,20 @@
                 </TextBox>
 
                 <TextBlock Text="Password" Style="{StaticResource CaptionTextBlockStyle}" />
-                <PasswordBox Password="{x:Bind ViewModel.Password1, Mode=TwoWay}">
+                <PasswordBox Password="{Binding ViewModel.Password1, Mode=TwoWay}">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:EnterKeyBehavior />
                     </interactivity:Interaction.Behaviors>
                 </PasswordBox>
                 
                 <TextBlock Text="Confirm Password" Style="{StaticResource CaptionTextBlockStyle}" />
-                <PasswordBox Password="{x:Bind ViewModel.Password2, Mode=TwoWay}">
+                <PasswordBox Password="{Binding ViewModel.Password2, Mode=TwoWay}">
                     <interactivity:Interaction.Behaviors>
-                        <behaviors:EnterKeyBehavior Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                        <behaviors:EnterKeyBehavior Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                     </interactivity:Interaction.Behaviors>
                 </PasswordBox>
                 
-                <Button Content="Register" Style="{StaticResource PrimaryButtonStyle}" Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Register" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                 
             </StackPanel>
         </ScrollViewer>

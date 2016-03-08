@@ -143,7 +143,7 @@
             <SplitView x:Name="svMain" Grid.Row="1" Grid.ColumnSpan="2"
                    DisplayMode="Inline"
                    OpenPaneLength="200"
-                   IsPaneOpen="{x:Bind togMenu.IsChecked, Mode=TwoWay, Converter={StaticResource boolConverter}}">
+                   IsPaneOpen="{Binding togMenu.IsChecked, Mode=TwoWay, Converter={StaticResource boolConverter}}">
                 <SplitView.Pane>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -152,17 +152,17 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <StackPanel>
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="Queue" Symbol="Directions" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMoviesCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTVCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{Binding ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{Binding ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="Queue" Symbol="Directions" Command="{Binding ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{Binding ViewModel.Platform.Navigation.NavigateToMoviesCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{Binding ViewModel.Platform.Navigation.NavigateToTVCommand}" />
                         </StackPanel>
                         <Rectangle Grid.Row="1" Height="2" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
                         <StackPanel Grid.Row="2">
-                            <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{Binding ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{Binding ViewModel.NavigateToAccountSignoutCommand}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{Binding ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
                         </StackPanel>
                     </Grid>
                 </SplitView.Pane>

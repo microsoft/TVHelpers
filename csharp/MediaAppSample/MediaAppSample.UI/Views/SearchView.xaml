@@ -21,12 +21,12 @@
 
         <Grid x:Name="ContentPanel">
 
-            <ListView ItemsSource="{x:Bind ViewModel.Results, Mode=OneWay}"
+            <!--<ListView ItemsSource="{Binding ViewModel.Results, Mode=OneWay}"
                       SelectionMode="None"
                       IsSwipeEnabled="false"
                       IsItemClickEnabled="True" 
                       ItemTemplate="{StaticResource ItemModelListDataTemplate}"
-                      behaviors:ListViewCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />
+                      behaviors:ListViewCommandBehavior.Command="{Binding ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />-->
 
         </Grid>
 

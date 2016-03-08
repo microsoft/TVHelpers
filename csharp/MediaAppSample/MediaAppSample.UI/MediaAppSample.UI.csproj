@@ -114,6 +114,7 @@
     <Compile Include="ApplicationFrame.xaml.cs">
       <DependentUpon>ApplicationFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Behaviors\DynamicStyleBehavior.cs" />
     <Compile Include="Behaviors\PivotCollectionViewModelBehavior.cs" />
     <Compile Include="Behaviors\FocusOnLoadBehavior.cs" />
     <Compile Include="Behaviors\EnterKeyBehavior.cs" />
@@ -121,7 +122,22 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CarouselControl.xaml.cs">
+      <DependentUpon>CarouselControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DelayTimer.cs" />
+    <Compile Include="Controls\DetailsControl.cs" />
+    <Compile Include="Controls\FlipViewItemControl.cs" />
+    <Compile Include="Controls\HeroControl.xaml.cs">
+      <DependentUpon>HeroControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageControl.cs" />
+    <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
+    <Compile Include="Controls\MetadataControl.xaml.cs">
+      <DependentUpon>MetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyQueueConrol.cs" />
+    <Compile Include="Controls\QueueHeroConrol.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">
@@ -148,6 +164,9 @@
     <Compile Include="Converters\ValueToStyleConverter.cs" />
     <Compile Include="Converters\ValueToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\PlatformStyles.xaml.cs">
+      <DependentUpon>PlatformStyles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\FlurryAnalyticsService.cs" />
     <Compile Include="Services\HockeyAppService.cs" />
     <Compile Include="Services\NavigationManager.cs" />
@@ -160,6 +179,9 @@
     <Compile Include="Triggers\ContinuumMobileAvailableTrigger.cs" />
     <Compile Include="Triggers\ContinuumMobileExecutingTrigger.cs" />
     <Compile Include="Triggers\TabletModeTrigger.cs" />
+    <Compile Include="Views\GalleryMoviesView.xaml.cs">
+      <DependentUpon>GalleryMoviesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GalleryTvView.xaml.cs">
       <DependentUpon>GalleryTvView.xaml</DependentUpon>
     </Compile>
@@ -199,9 +221,6 @@
     </Compile>
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GalleryMoviesView.xaml.cs">
-      <DependentUpon>GalleryMoviesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\_NewView.xaml.cs">
       <DependentUpon>_NewView.xaml</DependentUpon>
@@ -301,6 +320,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\CarouselControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\HeroControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ViewHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -321,6 +352,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\PlatformStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AccountForgotView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -332,6 +367,10 @@
     <Page Include="Views\AccountSignUpView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GalleryMoviesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GalleryTvView.xaml">
       <SubType>Designer</SubType>
@@ -370,10 +409,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DetailsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\GalleryMoviesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

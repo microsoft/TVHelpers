@@ -37,8 +37,8 @@
 
                         <TextBlock Text="Manage" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Rate application" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                            <Button Content="Clear Jumplist" Command="{x:Bind ViewModel.Platform.Jumplist.ClearCommand}" />
+                            <Button Content="Rate application" Command="{Binding ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                            <Button Content="Clear Jumplist" Command="{Binding ViewModel.Platform.Jumplist.ClearCommand}" />
                             <Button Content="Clear Cache" Command="{Binding ViewModel.ClearAppDataCacheCommand}" />
                             <TextBlock Text="{Binding ViewModel.AppCacheTask.Result, Mode=OneWay}" VerticalAlignment="Center" />
                         </StackPanel>
@@ -55,19 +55,19 @@
                         <TextBlock Text="Location Services" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock 
                             Style="{StaticResource ErrorTextBlockStyle}" 
-                            Visibility="{x:Bind ViewModel.LocationServicesStatus, Mode=OneWay, Converter={StaticResource visConverter}}"
-                            Text="{x:Bind ViewModel.LocationServicesStatus, Mode=OneWay}" />
+                            Visibility="{Binding ViewModel.LocationServicesStatus, Mode=OneWay, Converter={StaticResource visConverter}}"
+                            Text="{Binding ViewModel.LocationServicesStatus, Mode=OneWay}" />
                         <Button 
                             Content="Manage"
-                            Command="{x:Bind ViewModel.Platform.Geolocation.ManageLocationServicesCommand}" />
+                            Command="{Binding ViewModel.Platform.Geolocation.ManageLocationServicesCommand}" />
 
                         <Border Height="{StaticResource SpacerHeight}" />
 
                         <TextBlock Text="Background Tasks" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock 
                             Style="{StaticResource ErrorTextBlockStyle}" 
-                            Visibility="{x:Bind ViewModel.BackgroundTasksStatus, Mode=OneWay, Converter={StaticResource visConverter}}" 
-                            Text="{x:Bind ViewModel.BackgroundTasksStatus, Mode=OneWay}" />
+                            Visibility="{Binding ViewModel.BackgroundTasksStatus, Mode=OneWay, Converter={StaticResource visConverter}}" 
+                            Text="{Binding ViewModel.BackgroundTasksStatus, Mode=OneWay}" />
                         <Button 
                             Content="Manage"
                             Command="{Binding ViewModel.Platform.BackgroundTasks.ManageBackgroundTasksCommand}" />
@@ -86,16 +86,16 @@
                 </Grid.ChildrenTransitions>
                 <StackPanel>
                     <TextBlock Text="Version" Style="{StaticResource SubtitleTextBlockStyle}" />
-                    <TextBlock Text="{x:Bind ViewModel.Platform.AppInfo.VersionNumber}" />
+                    <TextBlock Text="{Binding ViewModel.Platform.AppInfo.VersionNumber}" />
 
                     <TextBlock Text="Support" Style="{StaticResource SubtitleTextBlockStyle}" />
                     <HyperlinkButton 
-                        Command="{x:Bind ViewModel.Platform.Logger.SendSupportEmailCommand}" 
+                        Command="{Binding ViewModel.Platform.Logger.SendSupportEmailCommand}" 
                         Content="Send us an e-mail" />
                     <HyperlinkButton 
-                        Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWebViewCommand}"
-                        CommandParameter="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}"
-                        Content="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}" />
+                        Command="{Binding ViewModel.Platform.Navigation.NavigateToWebViewCommand}"
+                        CommandParameter="{Binding ViewModel.TwitterAddress, Mode=OneTime}"
+                        Content="{Binding ViewModel.TwitterAddress, Mode=OneTime}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -117,28 +117,28 @@
                             </Style>
                         </StackPanel.Resources>
 
-                        <Button Content="Test application crash" Command="{x:Bind ViewModel.TestAppCrashCommand}" />
+                        <Button Content="Test application crash" Command="{Binding ViewModel.TestAppCrashCommand}" />
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Auth Token</TextBlock>
                         <TextBlock Text="{Binding ViewModel.Platform.AuthManager.User.AccessToken, Mode=OneWay}"/>
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Auth Refresh Token</TextBlock>
-                        <TextBlock Text="{x:Bind ViewModel.Platform.AuthManager.User.RefreshToken, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding ViewModel.Platform.AuthManager.User.RefreshToken, Mode=OneWay}"/>
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Display Name</TextBlock>
-                        <TextBlock Text="{x:Bind ViewModel.Platform.AuthManager.User.DisplayName, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding ViewModel.Platform.AuthManager.User.DisplayName, Mode=OneWay}"/>
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">ID</TextBlock>
-                        <TextBlock Text="{x:Bind ViewModel.Platform.AuthManager.User.ID, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding ViewModel.Platform.AuthManager.User.ID, Mode=OneWay}"/>
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Email</TextBlock>
-                        <TextBlock Text="{x:Bind ViewModel.Platform.AuthManager.User.Email, Mode=OneWay}"/>
+                        <TextBlock Text="{Binding ViewModel.Platform.AuthManager.User.Email, Mode=OneWay}"/>
 
                         <Border Height="{StaticResource SpacerHeight}" />
                         <Border Height="{StaticResource SpacerHeight}" />
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Logs</TextBlock>
-                        <ListView ItemsSource="{x:Bind ViewModel.Platform.Logger.Messages, Mode=OneWay}" SelectionMode="None" IsSwipeEnabled="false">
+                        <ListView ItemsSource="{Binding ViewModel.Platform.Logger.Messages, Mode=OneWay}" SelectionMode="None" IsSwipeEnabled="false">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding}" />
@@ -150,16 +150,16 @@
                         <Border Height="{StaticResource SpacerHeight}" />
 
                         <TextBlock Opacity=".6" Style="{StaticResource CaptionTextBlockStyle}">Background Tasks Statuses</TextBlock>
-                        <ListView ItemsSource="{x:Bind ViewModel.BackgroundTasksInfo, Mode=OneWay}" SelectionMode="None" IsSwipeEnabled="false">
+                        <ListView ItemsSource="{Binding ViewModel.BackgroundTasksInfo, Mode=OneWay}" SelectionMode="None" IsSwipeEnabled="false">
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="models:BackgroundTaskRunInfo">
                                     <StackPanel>
-                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{x:Bind TaskName}" />
-                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Lasted executed: <Run Text="{x:Bind EndTime}" /></TextBlock>
-                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Execution time: <Run Text="{x:Bind TimeToRun}" /></TextBlock>
-                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Run successful: <Run Text="{x:Bind RunSuccessfully}" /></TextBlock>
-                                        <TextBlock Style="{StaticResource ErrorTextBlockStyle}" Text="{x:Bind CancelReason}" Visibility="{x:Bind CancelReason, Converter={StaticResource visConverter}}" />
-                                        <TextBlock Style="{StaticResource ErrorTextBlockStyle}" FontSize="11" Text="{x:Bind ExceptionDetails}" Visibility="{x:Bind ExceptionDetails, Converter={StaticResource visConverter}}" />
+                                        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding TaskName}" />
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Lasted executed: <Run Text="{Binding EndTime}" /></TextBlock>
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Execution time: <Run Text="{Binding TimeToRun}" /></TextBlock>
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Run successful: <Run Text="{Binding RunSuccessfully}" /></TextBlock>
+                                        <TextBlock Style="{StaticResource ErrorTextBlockStyle}" Text="{Binding CancelReason}" Visibility="{Binding CancelReason, Converter={StaticResource visConverter}}" />
+                                        <TextBlock Style="{StaticResource ErrorTextBlockStyle}" FontSize="11" Text="{Binding ExceptionDetails}" Visibility="{Binding ExceptionDetails, Converter={StaticResource visConverter}}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -202,18 +202,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <controls:ViewHeader Visibility="{x:Bind ViewModel.IsViewInChildFrame, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
+        <controls:ViewHeader Visibility="{Binding ViewModel.IsViewInChildFrame, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
 
         <Pivot Grid.Row="1" x:Name="pivot">
             <interactivity:Interaction.Behaviors>
                 <behaviors:PivotCollectionViewModelBehavior />
             </interactivity:Interaction.Behaviors>
-            <PivotItem DataContext="{x:Bind ViewModel.GeneralVM, Mode=OneWay}" Header="{x:Bind ViewModel.GeneralVM.Title}" ContentTemplate="{StaticResource GeneralSettingsDataTemplate}" />
+            <PivotItem DataContext="{Binding ViewModel.GeneralVM, Mode=OneWay}" Header="{Binding ViewModel.GeneralVM.Title}" ContentTemplate="{StaticResource GeneralSettingsDataTemplate}" />
             <PivotItem Header="Cortana" ContentTemplate="{StaticResource CortanaDataTemplate}" />
-            <PivotItem DataContext="{x:Bind ViewModel.PrivacyVM}" Header="{x:Bind ViewModel.PrivacyVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
-            <PivotItem DataContext="{x:Bind ViewModel.TosVM}" Header="{x:Bind ViewModel.TosVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
-            <PivotItem DataContext="{x:Bind ViewModel.AboutVM}" Header="{x:Bind ViewModel.AboutVM.Title}" ContentTemplate="{StaticResource AboutDataTemplate}" />
-            <PivotItem x:Name="piDebug" DataContext="{x:Bind ViewModel.DebugVM}" Header="{x:Bind ViewModel.DebugVM.Title}" ContentTemplate="{StaticResource DebuggingDataTemplate}" />
+            <PivotItem DataContext="{Binding ViewModel.PrivacyVM}" Header="{Binding ViewModel.PrivacyVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
+            <PivotItem DataContext="{Binding ViewModel.TosVM}" Header="{Binding ViewModel.TosVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
+            <PivotItem DataContext="{Binding ViewModel.AboutVM}" Header="{Binding ViewModel.AboutVM.Title}" ContentTemplate="{StaticResource AboutDataTemplate}" />
+            <PivotItem x:Name="piDebug" DataContext="{Binding ViewModel.DebugVM}" Header="{Binding ViewModel.DebugVM.Title}" ContentTemplate="{StaticResource DebuggingDataTemplate}" />
         </Pivot>
 
     </Grid>

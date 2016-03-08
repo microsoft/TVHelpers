@@ -21,7 +21,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <controls:ViewHeader Visibility="{x:Bind ViewModel.IsViewInChildFrame, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
+        <controls:ViewHeader Visibility="{Binding ViewModel.IsViewInChildFrame, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
         <ContentPresenter Grid.Row="1" ContentTemplate="{StaticResource WebBrowserDataTemplate}" />
 
     </Grid>

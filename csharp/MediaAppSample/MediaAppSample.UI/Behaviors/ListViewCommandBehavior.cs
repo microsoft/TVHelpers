@@ -1,3 +1,14 @@
+//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+//
+//*********************************************************
+
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -7,11 +18,11 @@ namespace MediaAppSample.UI.Behaviors
     /// <summary>
     /// Creates an attached property for all ListViewBase controls allowing binding  a command object to it's ItemClick event.
     /// </summary>
-    public static class ListViewCommandBehavior
+    public static class ListViewBaseCommandBehavior
     {
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.RegisterAttached("Command", typeof(ICommand),
-            typeof(ListViewCommandBehavior), new PropertyMetadata(null, OnCommandPropertyChanged));
+            typeof(ListViewBaseCommandBehavior), new PropertyMetadata(null, OnCommandPropertyChanged));
 
         public static void SetCommand(DependencyObject d, ICommand value)
         {
@@ -31,10 +42,11 @@ namespace MediaAppSample.UI.Behaviors
             {
                 // Remove the old click handler if there was a previous command
                 if (e.OldValue != null)
+                {
                     control.ItemClick -= OnItemClick;
+                }
 
-                if(e.NewValue != null)
-                    control.ItemClick += OnItemClick;
+                control.ItemClick += OnItemClick;
             }
         }
 
@@ -46,7 +58,9 @@ namespace MediaAppSample.UI.Behaviors
                 var command = GetCommand(control);
 
                 if (command != null && command.CanExecute(e.ClickedItem))
+                {
                     command.Execute(e.ClickedItem);
+                }
             }
         }
     }

@@ -42,28 +42,28 @@
                 </Hub.Header>
 
                 <!-- Movie Hero -->
-                <HubSection x:Name="MovieHero" Height="{x:Bind ViewModel.DeviceWindowHeight, Mode=OneWay}">
+                <HubSection x:Name="MovieHero" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
                     <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
                         <controls:HeroControl/>
                     </DataTemplate>-->
                 </HubSection>
 
                 <!-- small form factor Queue --><!--
-                <HubSection x:Name="PhoneQueue" DataContext="{x:Bind ViewModel}" Visibility="Collapsed" x:Uid="MyQueue_Header">
+                <HubSection x:Name="PhoneQueue" DataContext="{Binding ViewModel}" Visibility="Collapsed" x:Uid="MyQueue_Header">
                     <DataTemplate x:DataType="viewmodels:MainViewModel" >
                         --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                            <Button x:Uid="SeeQueue" Command="{x:Bind NavigateMediaCommand}"
+                            <Button x:Uid="SeeQueue" Command="{Binding NavigateMediaCommand}"
                                 Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}"/>
                             <ListView
-                                ItemClick="{x:Bind NavigateDetails_Click}"
-                                ItemsSource="{x:Bind QueueTop3, Mode=OneWay}"
+                                ItemClick="{Binding NavigateDetails_Click}"
+                                ItemsSource="{Binding QueueTop3, Mode=OneWay}"
                                 ItemTemplate="{StaticResource PhoneQueueTemplate}"/>
                         </Grid>--><!--
                     </DataTemplate>
                 </HubSection>-->
 
                 <!-- Movies featured -->
-                <HubSection Height="{x:Bind ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
+                <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
                     <!--<DataTemplate>
                         <controls:CarouselControl DataContext="{Binding MoviesFeatured, Mode=OneWay}"/>
                     </DataTemplate>-->
@@ -71,60 +71,60 @@
 
                 <!-- Movies new releases -->
                 <HubSection x:Name="NewReleases" x:Uid="NewReleases_Header" Header="New Releases">
-                    <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
                         <Grid Background="#FF1F1F1F">
-                            <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                            --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
                                 <Button x:Uid="SeeAllMovies"
-                                    Command="{x:Bind NavigateGalleryCommand}" CommandParameter="Movies"
+                                    Command="{Binding NavigateGalleryCommand}" CommandParameter="Movies"
                                     Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}"/>
                                 <ListView x:Name="movieRelease"
                                     IsItemClickEnabled="True"
-                                    ItemClick="{x:Bind NavigateDetails_Click}"
-                                    ItemsSource="{x:Bind MovieNewReleases, Mode=OneWay}"
+                                    ItemClick="{Binding NavigateDetails_Click}"
+                                    ItemsSource="{Binding MovieNewReleases, Mode=OneWay}"
                                     ItemContainerStyle="{StaticResource PaddedListViewItem}"
                                     behaviors:DynamicStyleBehavior.TemplateName="PosterDataTemplate"/>
-                            </Grid>-->
+                            </Grid>--><!--
                         </Grid>
-                    </DataTemplate>
+                    </DataTemplate>-->
                 </HubSection>
 
                 <!-- TV Featured -->
-                <HubSection x:Uid="TV_Header" Height="{x:Bind ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV Featured">
-                    <DataTemplate>
-                        <!--<controls:CarouselControl DataContext="{Binding TvFeatured, Mode=OneWay}"/>-->
-                    </DataTemplate>
+                <HubSection x:Uid="TV_Header" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV Featured">
+                    <!--<DataTemplate>
+                        --><!--<controls:CarouselControl DataContext="{Binding TvFeatured, Mode=OneWay}"/>--><!--
+                    </DataTemplate>-->
                 </HubSection>
 
                 <!-- TV new releases -->
                 <HubSection x:Name="TvReleaseHs" x:Uid="NewEpisodes_Header" Header="TV New Releases">
-                    <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
                         <Grid Background="#FF1F1F1F">
-                            <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                                <Button x:Uid="SeeAllTV" Command="{x:Bind NavigateGalleryCommand}" CommandParameter="TV"
+                            --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                                <Button x:Uid="SeeAllTV" Command="{Binding NavigateGalleryCommand}" CommandParameter="TV"
                                     Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}" />
                                 <ListView x:Name="TvRelease"
                                     IsItemClickEnabled="True"
-                                    ItemClick="{x:Bind NavigateDetails_Click}"
+                                    ItemClick="{Binding NavigateDetails_Click}"
                                     ItemContainerStyle="{StaticResource PaddedListViewItem}"
-                                    ItemsSource="{x:Bind TvNewReleases, Mode=OneWay}"
+                                    ItemsSource="{Binding TvNewReleases, Mode=OneWay}"
                                     behaviors:DynamicStyleBehavior.TemplateName="TvSeriesDataTemplate"/>
-                            </Grid>-->
+                            </Grid>--><!--
                         </Grid>
-                    </DataTemplate>
+                    </DataTemplate>-->
                 </HubSection>
 
                 <!-- TV sneak peeks -->
                 <HubSection x:Uid="SneakPeeks_Header" Header="TV Sneak Peeks">
-                    <DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
+                        --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
                             <ListView x:Name="inlineRelease"
-                                ItemsSource="{x:Bind TvInline, Mode=OneWay}"
+                                ItemsSource="{Binding TvInline, Mode=OneWay}"
                                 IsItemClickEnabled="True"      
                                 ItemClick="InlineClick"
                                 ItemContainerStyle="{StaticResource PaddedListViewItem}"
                                 behaviors:DynamicStyleBehavior.TemplateName="InlineDataTemplate" />
-                        </Grid>-->
-                    </DataTemplate>
+                        </Grid>--><!--
+                    </DataTemplate>-->
                 </HubSection>
 
             </Hub>

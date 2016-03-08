@@ -20,8 +20,8 @@
         <AutoSuggestBox.ItemTemplate>
             <DataTemplate x:DataType="models:ContentItemBase">
                 <StackPanel>
-                    <TextBlock Text="{x:Bind Title}" FontWeight="Bold" />
-                    <TextBlock Text="{x:Bind Description}" />
+                    <TextBlock Text="{Binding Title}" FontWeight="Bold" />
+                    <TextBlock Text="{Binding Description}" />
                 </StackPanel>
             </DataTemplate>
         </AutoSuggestBox.ItemTemplate>

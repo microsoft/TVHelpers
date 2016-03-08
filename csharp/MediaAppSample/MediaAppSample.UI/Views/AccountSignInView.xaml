@@ -28,10 +28,10 @@
         <Grid Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">            
             <StackPanel MaxWidth="480">
 
-                <HyperlinkButton Content="Forgot your password?" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountForgotCommand}" CommandParameter="{x:Bind ViewModel, Mode=OneWay}" />
+                <HyperlinkButton Content="Forgot your password?" Command="{Binding ViewModel.Platform.Navigation.NavigateToAccountForgotCommand}" CommandParameter="{Binding ViewModel, Mode=OneWay}" />
 
                 <TextBlock Text="E-mail or username" Style="{StaticResource CaptionTextBlockStyle}" />
-                <TextBox Text="{x:Bind ViewModel.Username, Mode=TwoWay}" InputScope="EmailSmtpAddress">
+                <TextBox Text="{Binding ViewModel.Username, Mode=TwoWay}" InputScope="EmailSmtpAddress">
                     <interactivity:Interaction.Behaviors>
                         <behaviors:FocusOnLoadBehavior />
                         <behaviors:EnterKeyBehavior />
@@ -39,13 +39,13 @@
                 </TextBox>
 
                 <TextBlock Text="Password" Style="{StaticResource CaptionTextBlockStyle}" />
-                <PasswordBox x:Name="txtPassword" Password="{x:Bind ViewModel.Password, Mode=TwoWay}">
+                <PasswordBox x:Name="txtPassword" Password="{Binding ViewModel.Password, Mode=TwoWay}">
                     <interactivity:Interaction.Behaviors>
-                        <behaviors:EnterKeyBehavior Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                        <behaviors:EnterKeyBehavior Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                     </interactivity:Interaction.Behaviors>
                 </PasswordBox>
 
-                <Button Content="Sign In" Style="{StaticResource PrimaryButtonStyle}" Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Sign In" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                 
             </StackPanel>
         </Grid>
