@@ -92,86 +92,56 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="togMenu.IsChecked" Value="False" />
-                        <Setter Target="svMain.DisplayMode" Value="CompactOverlay" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="togMenu.IsChecked" Value="False" />
-                        <Setter Target="svMain.DisplayMode" Value="Overlay" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
-        <Grid DataContext="{Binding DataContext, ElementName=bodyFrame, Mode=OneWay}">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{StaticResource ShellElementGridLength}" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{StaticResource ShellElementGridLength}"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.ColumnSpan="2" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
-
-            <ToggleButton x:Name="togMenu" 
-                          Width="{StaticResource ShellElementPixelSize}" 
-                          Height="{StaticResource ShellElementPixelSize}"
-                          IsTabStop="True"
-                          IsChecked="True"
-                          Foreground="{ThemeResource SystemAltHighColor}"
-                          Background="{ThemeResource SystemAccentColor}">
-                <FontIcon FontSize="20" Glyph="&#xE700;" />
-            </ToggleButton>
-
-            <controls:ViewHeader Grid.Column="1" Grid.RowSpan="2" />
-
-            <SplitView x:Name="svMain" Grid.Row="1" Grid.ColumnSpan="2"
-                   DisplayMode="Inline"
+        
+        <SplitView x:Name="svMain"
+                   DisplayMode="CompactOverlay"
                    OpenPaneLength="200"
-                   IsPaneOpen="{Binding togMenu.IsChecked, Mode=TwoWay, Converter={StaticResource boolConverter}}">
-                <SplitView.Pane>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <StackPanel>
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{Binding ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{Binding ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="Queue" Symbol="Directions" Command="{Binding ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{Binding ViewModel.Platform.Navigation.NavigateToMoviesCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{Binding ViewModel.Platform.Navigation.NavigateToTVCommand}" />
-                        </StackPanel>
-                        <Rectangle Grid.Row="1" Height="2" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" />
-                        <StackPanel Grid.Row="2">
-                            <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{Binding ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{Binding ViewModel.NavigateToAccountSignoutCommand}" />
-                            <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{Binding ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
-                        </StackPanel>
-                    </Grid>
-                </SplitView.Pane>
+                   IsPaneOpen="{x:Bind ViewModel.IsMenuOpen, Mode=OneWay}">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="0,48,0,0">
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="Queue" Symbol="Directions" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMoviesCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTVCommand}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,2,0,0">
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
+                    </StackPanel>
+                </Grid>
+            </SplitView.Pane>
 
-                <ui:ApplicationFrame x:Name="bodyFrame" />
+            <Grid>
+                <ui:ApplicationFrame x:Name="bodyFrame">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition/>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </ui:ApplicationFrame>
+                <Grid Background="#BB000000"
+                      Visibility="{x:Bind ViewModel.IsMenuOpen, Mode=OneWay, Converter={StaticResource visConverter}}" />
+            </Grid>
 
-            </SplitView>
-
-        </Grid>
+        </SplitView>
+        
+        <ToggleButton x:Name="togMenu" 
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      IsChecked="{x:Bind ViewModel.IsMenuOpen, Mode=TwoWay, Converter={StaticResource boolConverter}}"
+                      Width="{StaticResource ShellElementPixelSize}" 
+                      Height="{StaticResource ShellElementPixelSize}"
+                      Foreground="{ThemeResource SystemAltHighColor}"
+                      Background="{ThemeResource SystemAccentColor}">
+            <FontIcon FontSize="20" Glyph="&#xE700;" />
+        </ToggleButton>
         
     </Grid>
 </views:ShellViewBase>

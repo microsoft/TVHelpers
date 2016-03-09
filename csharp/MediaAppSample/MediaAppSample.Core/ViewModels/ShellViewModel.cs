@@ -1,4 +1,3 @@
-using MediaAppSample.Core.Models;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
@@ -15,6 +14,13 @@ namespace MediaAppSample.Core.ViewModels
         public override string Title
         {
             get { return Strings.Resources.ViewTitleWelcome; }
+        }
+
+        private bool _IsMenuOpen;
+        public bool IsMenuOpen
+        {
+            get { return _IsMenuOpen; }
+            set { this.SetProperty(ref _IsMenuOpen, value); }
         }
 
         #endregion Properties

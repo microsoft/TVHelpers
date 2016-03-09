@@ -9,13 +9,17 @@
 //
 //*********************************************************
 
-using Windows.Foundation;
+using MediaAppSample.Core.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace MediaAppSample.UI.Controls
 {
-    public sealed partial class CarouselControl : UserControl
+    public abstract class CarouselControlBase : ViewControlBase<MainViewModel>
+    {
+    }
+
+    public sealed partial class CarouselControl : CarouselControlBase
     {
         public CarouselControl()
         {
@@ -23,8 +27,6 @@ namespace MediaAppSample.UI.Controls
             flipView.DataContextChanged += FlipView_DataContextChanged;
             GotFocus += CarouselControl_GotFocus;
         }
-
-
 
         private void FlipView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {

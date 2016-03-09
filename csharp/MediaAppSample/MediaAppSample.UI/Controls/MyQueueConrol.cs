@@ -19,10 +19,5 @@ namespace MediaAppSample.UI.Controls
         {
             DefaultStyleKey = typeof(MyQueueControl);
         }
-
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
     }
 }

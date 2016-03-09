@@ -10,7 +10,7 @@
 //
 //*********************************************************
 -->
-<UserControl
+<controls:MetadataControlBase
     x:Class="MediaAppSample.UI.Controls.MetadataControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -23,7 +23,7 @@
     xmlns:designTime="using:MediaAppSample.Core.ViewModels"
     d:DataContext="{d:DesignInstance designTime:DetailsViewModel, IsDesignTimeCreatable=True}">
 
-    <Grid x:Name="root" Width="{Binding MainVM.DeviceWindowWidth, Mode=OneWay}">
+    <Grid x:Name="root">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -232,4 +232,4 @@
 
     </Grid>
 
-</UserControl>
+</controls:MetadataControlBase>

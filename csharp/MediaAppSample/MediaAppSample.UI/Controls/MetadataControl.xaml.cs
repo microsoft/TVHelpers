@@ -9,18 +9,16 @@
 //
 //*********************************************************
 
-using MediaAppSample.Core;
 using MediaAppSample.Core.ViewModels;
-using Windows.UI.Xaml.Controls;
 
 namespace MediaAppSample.UI.Controls
 {
-    public sealed partial class MetadataControl : UserControl
+    public abstract class MetadataControlBase : ViewControlBase<DetailsViewModel>
     {
-        public MainViewModel MainVM => Platform.Current.ViewModel;
+    }
 
-        public DetailsViewModel VM => this.DataContext as DetailsViewModel;
-
+    public sealed partial class MetadataControl : MetadataControlBase
+    {
         /// <summary>
         /// Note that we use a UserControl for simplicity. Optimally this should be written as a Control with a ControlTemplate
         /// to take advantage of performance improvements.
