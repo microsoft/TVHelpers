@@ -40,7 +40,7 @@
                     <ControlTemplate TargetType="controls:SplitViewButton">
                         <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource ShellElementGridLength}"/>
+                                <ColumnDefinition Width="48"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -136,8 +136,8 @@
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top"
                       IsChecked="{x:Bind ViewModel.IsMenuOpen, Mode=TwoWay, Converter={StaticResource boolConverter}}"
-                      Width="{StaticResource ShellElementPixelSize}" 
-                      Height="{StaticResource ShellElementPixelSize}"
+                      Width="48" 
+                      Height="48"
                       Foreground="{ThemeResource SystemAltHighColor}"
                       Background="{ThemeResource SystemAccentColor}">
             <FontIcon FontSize="20" Glyph="&#xE700;" />

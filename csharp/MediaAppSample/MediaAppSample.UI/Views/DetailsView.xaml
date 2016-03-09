@@ -23,7 +23,7 @@
 
         <controls:ViewHeader />
 
-        <Grid Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">
+        <Grid Grid.Row="1" x:Name="ContentPanel">
             <TextBlock>Coming soon!</TextBlock>
         </Grid>
 

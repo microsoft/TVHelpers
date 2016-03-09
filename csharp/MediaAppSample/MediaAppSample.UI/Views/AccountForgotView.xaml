@@ -25,7 +25,7 @@
 
         <controls:ViewHeader />
 
-        <Grid Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">
+        <Grid Grid.Row="1" x:Name="ContentPanel">
             <StackPanel MaxWidth="480">
                 <TextBlock Text="Username:" Style="{StaticResource CaptionTextBlockStyle}" />
                 <TextBox Text="{Binding ViewModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="EmailSmtpAddress">
@@ -34,7 +34,7 @@
                         <behaviors:EnterKeyBehavior Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                     </interactivity:Interaction.Behaviors>
                 </TextBox>
-                <Button Content="Submit" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Submit" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
             </StackPanel>
         </Grid>
 

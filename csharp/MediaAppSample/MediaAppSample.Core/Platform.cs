@@ -1,10 +1,8 @@
-using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using MediaAppSample.Core.Services;
 using MediaAppSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;

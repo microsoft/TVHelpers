@@ -110,7 +110,7 @@
                     </interactivity:Interaction.Behaviors>
                 </PasswordBox>
                 
-                <Button Content="Register" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Register" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                 
             </StackPanel>
         </ScrollViewer>

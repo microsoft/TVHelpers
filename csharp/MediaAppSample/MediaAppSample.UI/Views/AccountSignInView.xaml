@@ -25,7 +25,7 @@
 
         <controls:ViewHeader />
 
-        <Grid Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">            
+        <Grid Grid.Row="1" x:Name="ContentPanel">            
             <StackPanel MaxWidth="480">
 
                 <HyperlinkButton Content="Forgot your password?" Command="{Binding ViewModel.Platform.Navigation.NavigateToAccountForgotCommand}" CommandParameter="{Binding ViewModel, Mode=OneWay}" />
@@ -45,7 +45,7 @@
                     </interactivity:Interaction.Behaviors>
                 </PasswordBox>
 
-                <Button Content="Sign In" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
+                <Button Content="Sign In" Command="{Binding ViewModel.SubmitCommand, Mode=OneWay}" />
                 
             </StackPanel>
         </Grid>

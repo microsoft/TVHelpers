@@ -137,7 +137,7 @@
       <DependentUpon>MetadataControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MyQueueConrol.cs" />
-    <Compile Include="Controls\QueueHeroConrol.cs" />
+    <Compile Include="Controls\QueueHeroControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">
@@ -164,14 +164,17 @@
     <Compile Include="Converters\ValueToStyleConverter.cs" />
     <Compile Include="Converters\ValueToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\PlatformStyles.xaml.cs">
-      <DependentUpon>PlatformStyles.xaml</DependentUpon>
+    <Compile Include="Resources\Templates.xaml.cs">
+      <DependentUpon>Templates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ControlStyles.xaml.cs">
+      <DependentUpon>ControlStyles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\FlurryAnalyticsService.cs" />
     <Compile Include="Services\HockeyAppService.cs" />
     <Compile Include="Services\NavigationManager.cs" />
-    <Compile Include="Resources\CoreStyles.xaml.cs">
-      <DependentUpon>CoreStyles.xaml</DependentUpon>
+    <Compile Include="Resources\Common.xaml.cs">
+      <DependentUpon>Common.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuspensionManager.cs" />
     <Compile Include="Triggers\NotDeviceFamilyTrigger.cs" />
@@ -348,13 +351,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\CoreStyles.xaml">
+    <Page Include="Resources\Common.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\PlatformStyles.xaml">
+    <Page Include="Resources\Templates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\ControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\AccountForgotView.xaml">
       <Generator>MSBuild:Compile</Generator>

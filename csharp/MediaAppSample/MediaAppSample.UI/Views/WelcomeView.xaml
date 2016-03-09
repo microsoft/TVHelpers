@@ -23,7 +23,7 @@
 
         <controls:ViewHeader />
 
-        <StackPanel Grid.Row="1" x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}" VerticalAlignment="Center">
+        <StackPanel Grid.Row="1" x:Name="ContentPanel" VerticalAlignment="Center">
             <Button Width="208" Margin="4" HorizontalAlignment="Center" Command="{Binding ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}">
                 <Image Height="24" Source="ms-appx:///Assets/MicrosoftLogo.png" />
             </Button>

@@ -15,6 +15,6 @@
             <ProgressBar Visibility="{Binding ViewModel.StatusIsBusy, Converter={StaticResource visConverter}, Mode=OneWay, FallbackValue=Collapsed}" IsIndeterminate="{Binding ViewModel.StatusIsBusy, Mode=OneWay}" />
             <ProgressBar Visibility="{Binding ViewModel.StatusProgressValue, Converter={StaticResource visConverter}}" Value="{Binding ViewModel.StatusProgressValue, Mode=OneWay, Converter={StaticResource doubleConverter}}" Minimum="0" Maximum="100" Opacity=".75" />
         </Grid>
-        <TextBlock Style="{StaticResource StatusTextBlockStyle}" Text="{Binding ViewModel.StatusText, Mode=OneWay}" Visibility="{Binding ViewModel.StatusText, Mode=OneWay, Converter={StaticResource visConverter}}" />
+        <TextBlock Text="{Binding ViewModel.StatusText, Mode=OneWay}" Visibility="{Binding ViewModel.StatusText, Mode=OneWay, Converter={StaticResource visConverter}}" />
     </StackPanel>
 </controls:ViewHeaderStatusBase>

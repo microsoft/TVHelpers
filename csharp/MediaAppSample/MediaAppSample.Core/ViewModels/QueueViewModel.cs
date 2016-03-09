@@ -30,7 +30,7 @@ namespace MediaAppSample.Core.ViewModels
                 if (this.SetProperty(ref _queue, value))
                 {
                     // If the collection object changes, subscribe to the collection changed event so you can
-                    // notify the QueueTop3 property to update to show the latest queue items.
+                    // notify the QueuePreview property to update to show the latest queue items.
                     if (value != null)
                         value.CollectionChanged += (o, e) => this.UpdateQueueProperties();
 
@@ -39,14 +39,14 @@ namespace MediaAppSample.Core.ViewModels
             }
         }
 
-        private QueueCollection _QueueTop3;
+        private QueueCollection _QueuePreview;
         /// <summary>
         /// Gets the top 3 times in the queue collection.
         /// </summary>
-        public QueueCollection QueueTop3
+        public QueueCollection QueuePreview
         {
-            get { return _QueueTop3; }
-            private set { this.SetProperty(ref _QueueTop3, value); }
+            get { return _QueuePreview; }
+            private set { this.SetProperty(ref _QueuePreview, value); }
         }
 
         private QueueModel _NextQueueItem;
@@ -81,7 +81,7 @@ namespace MediaAppSample.Core.ViewModels
                 return;
 
             this.IsRefreshVisible = true;
-            this.QueueTop3 = new QueueCollection();
+            this.QueuePreview = new QueueCollection();
             this.Queue = new QueueCollection();
         }
 
@@ -135,13 +135,13 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (this.Queue != null)
             {
-                this.QueueTop3 = new QueueCollection();
-                this.QueueTop3.AddRange(this.Queue.Take(3));
+                this.QueuePreview = new QueueCollection();
+                this.QueuePreview.AddRange(this.Queue.Take(3));
                 this.NextQueueItem = this.Queue.FirstOrDefault();
             }
             else
             {
-                this.QueueTop3 = null;
+                this.QueuePreview = null;
                 this.NextQueueItem = null;
             }
         }

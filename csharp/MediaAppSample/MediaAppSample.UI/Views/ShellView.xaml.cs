@@ -1,4 +1,5 @@
-﻿using MediaAppSample.Core.ViewModels;
+﻿using MediaAppSample.Core;
+using MediaAppSample.Core.ViewModels;
 using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
@@ -96,6 +97,7 @@ namespace MediaAppSample.UI.Views
             // Update the selected item when a page navigation occurs in the body frame
             await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
+                this.ViewModel.IsMenuOpen = false;
                 this.UpdateSelectedMenuItem();
             });
         }

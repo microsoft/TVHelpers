@@ -42,20 +42,6 @@
                     </DataTemplate>
                 </HubSection>
 
-                <!-- small form factor Queue --><!--
-                <HubSection x:Name="PhoneQueue" DataContext="{Binding ViewModel}" Visibility="Collapsed" x:Uid="MyQueue_Header">
-                    <DataTemplate x:DataType="viewmodels:MainViewModel" >
-                        --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                            <Button x:Uid="SeeQueue" Command="{Binding NavigateMediaCommand}"
-                                Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}"/>
-                            <ListView
-                                ItemClick="{Binding NavigateDetails_Click}"
-                                ItemsSource="{Binding QueueTop3, Mode=OneWay}"
-                                ItemTemplate="{StaticResource PhoneQueueTemplate}"/>
-                        </Grid>--><!--
-                    </DataTemplate>
-                </HubSection>-->
-
                 <!-- Movies featured -->
                 <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
                     <!--<DataTemplate>

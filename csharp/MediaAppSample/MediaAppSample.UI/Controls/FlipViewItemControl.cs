@@ -19,10 +19,5 @@ namespace MediaAppSample.UI.Controls
         {
             DefaultStyleKey = typeof(FlipViewItemControl);
         }
-
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
     }
 }

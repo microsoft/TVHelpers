@@ -17,7 +17,7 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <Grid x:Name="ContentPanel" Style="{StaticResource ContentPanelStyle}">
+        <Grid x:Name="ContentPanel">
             <TextBlock>Coming soon!</TextBlock>
         </Grid>
 

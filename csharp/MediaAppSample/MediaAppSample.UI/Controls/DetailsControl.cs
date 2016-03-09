@@ -20,10 +20,5 @@ namespace MediaAppSample.UI.Controls
             // the template for this control is defined in SharedStyles.
             DefaultStyleKey = typeof(DetailsControl);
         }
-
-        protected override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
     }
 }
