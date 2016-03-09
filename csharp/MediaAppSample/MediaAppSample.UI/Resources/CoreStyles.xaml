@@ -877,7 +877,7 @@
                     Style="{StaticResource BodyTextBlockStyle}" TextWrapping="WrapWholeWords" Grid.Row="2"/>
             <ContentControl ContentTemplate="{StaticResource RatingDataTemplate}"
                     Margin="0,12,0,0" IsTabStop="False" Grid.Row="3"
-                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource visConverter}}"/>
         </Grid>
     </DataTemplate>
 
@@ -895,7 +895,7 @@
                     CommandParameter="{Binding}" Style="{StaticResource UnderlineButton}"  Grid.Row="1"/>
                 <ContentControl ContentTemplate="{StaticResource RatingDataTemplate}"
                     Margin="0,14,0,0" IsTabStop="False" Grid.Row="3"
-                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource visConverter}}"/>
             </Grid>
         </Grid>
     </DataTemplate>
@@ -1408,7 +1408,7 @@
                                     Style="{StaticResource BodyTextBlockStyle}" TextWrapping="WrapWholeWords" Grid.Row="2"/>-->
                                 <ContentControl ContentTemplate="{StaticResource RatingDataTemplate}"
                                     Margin="0,14,0,0" IsTabStop="False" Grid.Row="3"
-                                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+                                    Visibility="{Binding Title, Mode=OneWay, Converter={StaticResource visConverter}}"/>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -1453,14 +1453,14 @@
                                             CommandParameter="{Binding Item}"
                                             Style="{StaticResource TextButtonStyle}"/>
                                         <Button x:Name="addtoQueue"
-                                            Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, ElementName=removefromQueue, Converter={StaticResource VisibilityInverseConverter}}"
+                                            Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, ElementName=removefromQueue, Converter={StaticResource visInvertedConverter}}"
                                             x:Uid="AddToQueue_Content"
                                             Width="200"
                                             Command="{Binding AddToQueueCommand}"
                                             CommandParameter="{Binding Item}"
                                             Style="{StaticResource TextButtonStyle}"/>
                                         <Button x:Name="removefromQueue" 
-                                            Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, ElementName=removefromQueue, Converter={StaticResource VisibilityConverter}}"
+                                            Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, ElementName=removefromQueue, Converter={StaticResource visConverter}}"
                                             x:Uid="RemoveFromQueue_Content"
                                             Width="200"
                                             Command="{Binding RemoveFromQueueCommand}"
@@ -1613,7 +1613,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
-                            <Image x:Name="Image" Opacity="0" HorizontalAlignment="Center"><!--TODO Stretch="{TemplateBinding Stretch}"-->
+                            <Image x:Name="Image" Opacity="0" Stretch="UniformToFill" HorizontalAlignment="Center"><!--TODO Stretch="{TemplateBinding Stretch}"-->
                                 <Image.Source>
                                     <BitmapImage x:Name="BitmapImage" DecodePixelHeight="{Binding DecodePixelHeight, RelativeSource={RelativeSource TemplatedParent}}" DecodePixelWidth="{Binding DecodePixelWidth, RelativeSource={RelativeSource TemplatedParent}}" />
                                 </Image.Source>

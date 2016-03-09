@@ -131,6 +131,27 @@ namespace MediaAppSample.Core.ViewModels
             set { this.SetProperty(ref _DeviceWindowWidth, value); }
         }
 
+        private GalleryViewModel _GalleryTvViewModel = new GalleryViewModel();
+        public GalleryViewModel GalleryTvViewModel
+        {
+            get { return _GalleryTvViewModel; }
+            private set { this.SetProperty(ref _GalleryTvViewModel, value); }
+        }
+
+        private GalleryViewModel _GalleryMoviesViewModel = new GalleryViewModel();
+        public GalleryViewModel GalleryMoviesViewModel
+        {
+            get { return _GalleryMoviesViewModel; }
+            private set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
+        }
+
+        private QueueViewModel _QueueViewModel = new QueueViewModel();
+        public QueueViewModel QueueViewModel
+        {
+            get { return _QueueViewModel; }
+            private set { this.SetProperty(ref _QueueViewModel, value); }
+        }
+
         #endregion Properties
 
         #region Constructors
@@ -167,7 +188,7 @@ namespace MediaAppSample.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                
+
                 // Load app data areas in parallel
                 await this.WaitAllAsync(
                     ct,
@@ -178,7 +199,8 @@ namespace MediaAppSample.Core.ViewModels
                     this.LoadTvHeroAsync(ct),
                     this.LoadTvFeaturedAsync(ct),
                     this.LoadTvNewReleasesAsync(ct),
-                    this.LoadTvInline(ct)
+                    this.LoadTvInline(ct),
+                    this.QueueViewModel.RefreshAsync()
                     );
 
                 ct.ThrowIfCancellationRequested();

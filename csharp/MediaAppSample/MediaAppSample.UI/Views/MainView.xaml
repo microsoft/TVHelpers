@@ -26,26 +26,20 @@
 
                 <Hub.Header>
                     <Grid x:Name="HeaderGrid" Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
-                        <Grid>
-                            <Grid x:Name="Logo" HorizontalAlignment="Left">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Image Source="/Assets/HeaderLogo.png" Height="40" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="MainHeaderTitle" x:Uid="SimplyEntertaining" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" Grid.Column="1" Margin="0,-5,0,0"/>
-                            </Grid>
-                            <TextBlock x:Name="Title" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" Margin="0,-5,0,0" Opacity="0" />
-                            <TextBlock x:Name="Title2" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" Margin="0,-5,0,0" Opacity="0" />
-                        </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Assets/HeaderLogo.png" Height="40" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="MainHeaderTitle" x:Uid="SimplyEntertaining" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
                     </Grid>
                 </Hub.Header>
 
                 <!-- Movie Hero -->
                 <HubSection x:Name="MovieHero" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
-                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <controls:HeroControl/>
-                    </DataTemplate>-->
+                    <DataTemplate x:DataType="viewmodels:MainViewModel">
+                        <controls:HeroControl />
+                    </DataTemplate>
                 </HubSection>
 
                 <!-- small form factor Queue --><!--

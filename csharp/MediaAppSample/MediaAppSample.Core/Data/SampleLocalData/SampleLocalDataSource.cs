@@ -26,7 +26,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         private const string SAMPLE_NAME = "Lorem Ipsum";
         private const string SAMPLE_DESCRIPTION = "Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fringilla felis diam. Meecenas mauris lorem, iaculis rhoncus volutpat vel, tritique ut sapien. Pellentesque eros neque, pharetra consectetur nisi nec, iaculis finibus lectus. Cras elit odio, ultricies eu fermentum ac, facilisis sed elit. Suspendisse molestie molestie mi vel lobortis. Praesent id bibendum nulla. Phasellus sed tortor purus. Duis ultrices consectetur diam ut commodo. Fusce et vulputate nulla. Maecenas porttitor quam id dui hendrerit, quis tempus mauris rhoncus. Aenean at nisi fermentum eros laoreet fringilla. Sed eu purus sed arcu pulvinar lobortis. Nulla blandit nec augue sit amet ultricies. Aliquam sit amet eleifend lorem. ";
-        private const string SAMPLE_PATH_ROOT = "ms-appx:///Data/SampleLocalData/";
+        private const string SAMPLE_PATH_ROOT = "ms-appx:///MediaAppSample.Core/Data/SampleLocalData/";
         private const string SAMPLE_IMAGE_PATH_ROOT = SAMPLE_PATH_ROOT + "Images/";
         private const string SAMPLE_CAST_PATH_ROOT = SAMPLE_PATH_ROOT + "Cast/";
         private const string SAMPLE_MEDIA_PATH_ROOT = SAMPLE_PATH_ROOT + "Videos/";

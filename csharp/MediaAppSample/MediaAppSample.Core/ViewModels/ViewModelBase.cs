@@ -640,7 +640,7 @@ namespace MediaAppSample.Core.ViewModels
         /// Refreshes data on the entire page. 
         /// </summary>
         /// <returns></returns>
-        protected async Task RefreshAsync()
+        public async Task RefreshAsync()
         {
             if (_cts != null)
                 return;

@@ -116,6 +116,12 @@ namespace MediaAppSample.Core.Services
             get { return _navigateToMediaCommand ?? (_navigateToMediaCommand = new NavigationCommand("NavigateToMediaCommand", Platform.Current.Navigation.Media)); }
         }
 
+        private CommandBase _navigateToDetailsCommand = null;
+        public CommandBase NavigateToDetailsCommand
+        {
+            get { return _navigateToDetailsCommand ?? (_navigateToDetailsCommand = new NavigationCommand("NavigateToDetailsCommand", Platform.Current.Navigation.Details)); }
+        }
+
         #endregion
 
         #region Web Browser Commands

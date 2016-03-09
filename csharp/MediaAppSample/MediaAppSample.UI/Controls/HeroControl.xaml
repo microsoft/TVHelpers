@@ -19,10 +19,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
     xmlns:controls="using:MediaAppSample.UI.Controls"
-    xmlns:triggers="using:MediaAppSample.UI.Triggers"    
-    xmlns:designTime="using:MediaAppSample.Core.ViewModels"
-    mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance designTime:MainViewModel, IsDesignTimeCreatable=True}">
+    xmlns:triggers="using:MediaAppSample.UI.Triggers"
+    xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
+    d:DataContext="{d:DesignInstance designTime:MainViewModel, IsDesignTimeCreatable=True}"
+    mc:Ignorable="d">
 
     <Grid>
 
@@ -47,26 +47,27 @@
         </VisualStateManager.VisualStateGroups>
 
         <Grid>
-            <controls:ImageControl Source="{Binding MovieHero.FeaturedImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+            <controls:ImageControl Source="{x:Bind ViewModel.MovieHero.FeaturedImage}" Stretch="Fill" HorizontalAlignment="Center"/>
             <Rectangle Fill="{ThemeResource ThemeImageOverlay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                <ContentControl x:Name="TextContent" DataContext="{Binding VM.MovieHero, Mode=OneWay}" IsTabStop="False" 
+                <ContentControl x:Name="TextContent" DataContext="{x:Bind ViewModel.MovieHero, Mode=OneWay}" IsTabStop="False" 
                     ContentTemplate="{StaticResource TitleContentControl}" Margin="0,0,0,68"
                     MaxWidth="500" MaxHeight="270" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                 <Grid x:Name="QueueContent" Margin="0,0,32,68" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                      Visibility="{Binding MainVM.QueueTop3, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                      Visibility="{x:Bind ViewModel.QueueViewModel.QueueTop3, Mode=OneWay, Converter={StaticResource visConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Margin="3,0,3,10">
                         <TextBlock x:Uid="MyQueue_Text" Style="{StaticResource SubtitleTextBlockStyle}"/>
-                        <Button x:Uid="SeeQueue" Margin="0,8,0,0" Style="{StaticResource SeeAllButtonStyle}" Command="{Binding VM.NavigateQueueCommand}"/>
+                        <Button x:Uid="SeeQueue" Margin="0,8,0,0" Style="{StaticResource SeeAllButtonStyle}" 
+                                Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}"/>
                     </Grid>
                     <ListView x:Name="QueueTop3"
                         Grid.Row="1" Padding="0" Margin="0"
-                        ItemsSource="{Binding MainVM.QueueTop3, Mode=OneWay}"
-                        behaviors:ListViewBaseCommandBehavior.Command="{Binding VM.NavigateDetailCommand}"
+                        ItemsSource="{x:Bind ViewModel.QueueViewModel.QueueTop3, Mode=OneWay}"
+                        behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}"
                         ItemsPanel ="{StaticResource VerticalItemsPanelTemplate}"
                         behaviors:DynamicStyleBehavior.TemplateName="Queue2X1Template" />
                 </Grid>
