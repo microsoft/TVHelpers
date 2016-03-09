@@ -1,0 +1,78 @@
+﻿<!--
+//*********************************************************
+//
+// Copyright (c) Microsoft. All rights reserved.
+// This code is licensed under the MIT License (MIT).
+// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+//
+//*********************************************************
+-->
+
+<UserControl
+    x:Class="MediaAppSample.UI.Controls.HeroControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
+    xmlns:controls="using:MediaAppSample.UI.Controls"
+    xmlns:triggers="using:MediaAppSample.UI.Triggers"    
+    xmlns:designTime="using:MediaAppSample.Core.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance designTime:MainViewModel, IsDesignTimeCreatable=True}">
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="200"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="QueueContent.Visibility" Value="Collapsed"/>
+                        <Setter Target="TextContent.Margin" Value="0,0,0,0"/>
+                        <Setter Target="TextContent.ContentTemplate" Value="{StaticResource TitleContentControlPhone}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid>
+            <controls:ImageControl Source="{Binding MovieHero.FeaturedImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+            <Rectangle Fill="{ThemeResource ThemeImageOverlay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                <ContentControl x:Name="TextContent" DataContext="{Binding VM.MovieHero, Mode=OneWay}" IsTabStop="False" 
+                    ContentTemplate="{StaticResource TitleContentControl}" Margin="0,0,0,68"
+                    MaxWidth="500" MaxHeight="270" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                <Grid x:Name="QueueContent" Margin="0,0,32,68" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                      Visibility="{Binding MainVM.QueueTop3, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="3,0,3,10">
+                        <TextBlock x:Uid="MyQueue_Text" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <Button x:Uid="SeeQueue" Margin="0,8,0,0" Style="{StaticResource SeeAllButtonStyle}" Command="{Binding VM.NavigateQueueCommand}"/>
+                    </Grid>
+                    <ListView x:Name="QueueTop3"
+                        Grid.Row="1" Padding="0" Margin="0"
+                        ItemsSource="{Binding MainVM.QueueTop3, Mode=OneWay}"
+                        behaviors:ListViewBaseCommandBehavior.Command="{Binding VM.NavigateDetailCommand}"
+                        ItemsPanel ="{StaticResource VerticalItemsPanelTemplate}"
+                        behaviors:DynamicStyleBehavior.TemplateName="Queue2X1Template" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+</UserControl>
