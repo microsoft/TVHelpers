@@ -1,0 +1,96 @@
+﻿<ResourceDictionary 
+    x:Class="MediaAppSample.UI.Resources.Common" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
+    xmlns:core="using:MediaAppSample.Core"
+    xmlns:models="using:MediaAppSample.Core.Models"
+    xmlns:viewmodels="using:MediaAppSample.Core.ViewModels"
+    xmlns:controls="using:MediaAppSample.UI.Controls"
+    xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
+    xmlns:triggers="using:MediaAppSample.UI.Triggers"  
+    xmlns:converters="using:MediaAppSample.UI.Converters"
+    mc:Ignorable="d">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="ThemeBackground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="White" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99000000" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33000000" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#99000000" />
+            <!--The AccentColorBrush can be set to the built-in system user color using {ThemeResource SystemAccentColor}
+            or a custom-defined branding color (in this case #FFDA4757 as shown.)-->
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="ThemeBackground" Color="White" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99FFFFFF" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="ThemeBackground" Color="White" />
+            <SolidColorBrush x:Key="ThemeTextForeground" Color="Black" />
+            <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
+            <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <converters:StringLowerCasingConverter x:Key="lowerCasingConverter" />
+    <converters:StringUpperCasingConverter x:Key="upperCasingConverter" />
+    <converters:StringFormatConverter x:Key="stringFormatConverter" />
+    <converters:ValueToBooleanConverter x:Key="boolConverter" />
+    <converters:ValueToBooleanConverter x:Key="boolInvertedConverter" InvertValue="True" />
+    <converters:ValueToStyleConverter x:Key="styleConverter" />
+    <converters:ValueToVisibilityConverter x:Key="visConverter" />
+    <converters:ValueToVisibilityConverter x:Key="visInvertedConverter" InvertValue="True" />
+    <converters:ValueToOpacityConverter x:Key="opacityConverter" />
+    <converters:ValueToDoubleConverter x:Key="doubleConverter" />
+
+    <x:Double  x:Key="TitleSafeSides">48</x:Double>
+    <x:Double  x:Key="TitleSafeTopBottom">10</x:Double>
+    <Thickness x:Key="TitleSafeThickness">48,10</Thickness>
+    <Thickness x:Key="TitleSafeThicknessWidthOnly">48,0</Thickness>
+
+    <x:Double  x:Key="HeaderHeight">48</x:Double>
+    <Thickness x:Key="HubHeaderMargin">0,0,0,0</Thickness>
+    <Thickness x:Key="HubSectionHeaderMargin">0,30,0,0</Thickness>
+    <Thickness x:Key="GalleryHeaderMargin">0,0,0,0</Thickness>
+    <Thickness x:Key="SeeAllMargin">0,28,5,0</Thickness>
+    <Thickness x:Key="MenuMargin">0,50,0,0</Thickness>
+    <Thickness x:Key="MenuContentIndent">48,0,0,0</Thickness>
+
+    <x:Double  x:Key="HamburgerFontSize">20</x:Double>
+    <x:Double  x:Key="HamburgerDimension">38</x:Double>
+    <Thickness x:Key="HamburgerMargin">5,5,0,0</Thickness>
+
+    <x:Double  x:Key="DefaultQueueHeight">444</x:Double>
+
+    <x:Double x:Key="TileResume16X9Width">604</x:Double>
+    <x:Double x:Key="TileResume16X9Height">340</x:Double>
+    <x:Double x:Key="TileTv1X1Width">304</x:Double>
+    <x:Double x:Key="TileTv1X1Height">304</x:Double>
+    <x:Double x:Key="TileMedia2X1Width">304</x:Double>
+    <x:Double x:Key="TileMedia2X1Height">150</x:Double>
+    <x:Double x:Key="TileMedia16X9Width">304</x:Double>
+    <x:Double x:Key="TileMedia16X9Height">171</x:Double>
+    <x:Double x:Key="TilePoster2X3Width">304</x:Double>
+    <x:Double x:Key="TilePoster2X3Height">456</x:Double>
+    <x:Double x:Key="TileInline16X9Width">1536</x:Double>
+    <x:Double x:Key="TileInline16X9Height">864</x:Double>
+
+    <x:Double x:Key="HeaderFontSize">46</x:Double>
+    <x:Double x:Key="SubheaderFontSize">34</x:Double>
+    <x:Double x:Key="TitleFontSize">24</x:Double>
+    <x:Double x:Key="SubtitleFontSize">20</x:Double>
+    <x:Double x:Key="BodyFontSize">15</x:Double>
+    <x:Double x:Key="CaptionAltFontSize">13</x:Double>
+    <x:Double x:Key="CaptionFontSize">12</x:Double>
+
+</ResourceDictionary>
