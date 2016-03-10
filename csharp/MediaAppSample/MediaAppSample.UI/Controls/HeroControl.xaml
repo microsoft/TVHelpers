@@ -35,12 +35,11 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="200"/>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="QueueContent.Visibility" Value="Collapsed"/>
                         <Setter Target="TextContent.Margin" Value="0,0,0,0"/>
-                        <Setter Target="TextContent.ContentTemplate" Value="{StaticResource TitleContentControlPhone}"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -49,7 +48,7 @@
         <Grid>
             <controls:ImageControl Source="{x:Bind ViewModel.MovieHero.FeaturedImage}" Stretch="Fill" HorizontalAlignment="Center"/>
             <Rectangle Fill="{ThemeResource ThemeImageOverlay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+            <Grid>
                 <ContentControl x:Name="TextContent" DataContext="{x:Bind ViewModel.MovieHero, Mode=OneWay}" 
                                 IsTabStop="False"
                                 ContentTemplate="{StaticResource TitleContentControl}" Margin="0,0,0,68"
@@ -74,9 +73,8 @@
                                Text="{x:Bind ViewModel.MovieHero.ByLine, Mode=OneWay}"
                                Style="{StaticResource BodyTextBlockStyle}" 
                                TextWrapping="WrapWholeWords" Grid.Row="2"/>
-                    <ContentControl ContentTemplate="{StaticResource RatingDataTemplate}"
-                                    Margin="0,12,0,0" IsTabStop="False" Grid.Row="3"
-                                    Visibility="{x:Bind ViewModel.MovieHero.Title, Mode=OneWay, Converter={StaticResource visConverter}}"/>
+                    <controls:RatingsControl Margin="0,12,0,0" IsTabStop="False" Grid.Row="3"
+                                    Visibility="{x:Bind ViewModel.MovieHero.Title, Mode=OneWay, Converter={StaticResource visConverter}}" />
                 </Grid>
                 
                 <Grid x:Name="QueueContent" Margin="0,0,32,68" 

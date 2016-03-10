@@ -37,13 +37,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{x:Bind Flag, Mode=OneWay}" Style="{StaticResource CaptionAltTextBlockStyle}"/>
-            <Button x:Name="button" Content="{x:Bind Title, Mode=OneWay}" Margin="0,-8,0,0" Command="{Binding Command}"
-                    CommandParameter="{x:Bind Mode=OneWay}" Style="{StaticResource UnderlineButton}"  Grid.Row="1"/>
-            <TextBlock x:Name="byline" Margin="0,15,0,0" Text="{x:Bind ByLine, Mode=OneWay}"
-                    Style="{StaticResource BodyTextBlockStyle}" TextWrapping="WrapWholeWords" Grid.Row="2"/>
-            <ContentControl ContentTemplate="{StaticResource RatingDataTemplate}"
-                    Margin="0,12,0,0" IsTabStop="False" Grid.Row="3"
-                    Visibility="{x:Bind Title, Mode=OneWay, Converter={StaticResource visConverter}}"/>
+            <Button Content="{x:Bind Title, Mode=OneWay}" Margin="0,-8,0,0" Command="{Binding Command}" CommandParameter="{Binding Mode=OneWay}" Style="{StaticResource UnderlineButton}"  Grid.Row="1"/>
+            <TextBlock Margin="0,16,0,0" Text="{x:Bind ByLine, Mode=OneWay}"
+                       Style="{StaticResource BodyTextBlockStyle}" TextWrapping="WrapWholeWords" Grid.Row="2"/>
+            <controls:RatingsControl Margin="0,12,0,0" IsTabStop="False" Grid.Row="3"
+                                     Visibility="{x:Bind Title, Mode=OneWay, Converter={StaticResource visConverter}}" />
         </Grid>
     </DataTemplate>
 
@@ -222,16 +220,5 @@
             </StackPanel>
         </Grid>
     </DataTemplate>-->
-
-    <DataTemplate x:Key="RatingDataTemplate">
-        <!-- currently XAML does not have a RatingControl, so this is a mockup-->
-        <StackPanel Orientation="Horizontal" >
-            <TextBlock Text="&#xE113;" Margin="0,0,0,0" Foreground="{StaticResource AccentColorBrush}" Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI Symbol" />
-            <TextBlock Text="&#xE113;" Margin="15,0,0,0" Foreground="{StaticResource AccentColorBrush}" Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI Symbol" />
-            <TextBlock Text="&#xE113;" Margin="15,0,0,0" Foreground="{StaticResource AccentColorBrush}" Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI Symbol" />
-            <TextBlock Text="&#xE113;" Margin="15,0,0,0" Foreground="{StaticResource AccentColorBrush}" Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI Symbol" />
-            <TextBlock Text="&#xE113;" Margin="15,0,0,0" Foreground="#FF3B3B3B" Style="{StaticResource BodyTextBlockStyle}" FontFamily="Segoe UI Symbol" />
-        </StackPanel>
-    </DataTemplate>
     
 </ResourceDictionary>

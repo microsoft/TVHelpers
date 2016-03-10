@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Controls\MyQueueConrol.cs" />
     <Compile Include="Controls\QueueHeroControl.cs" />
+    <Compile Include="Controls\RatingsControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">

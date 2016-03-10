@@ -53,22 +53,22 @@
     <converters:ValueToOpacityConverter x:Key="opacityConverter" />
     <converters:ValueToDoubleConverter x:Key="doubleConverter" />
 
-    <x:Double  x:Key="TitleSafeSides">48</x:Double>
+    <!--<x:Double  x:Key="TitleSafeSides">48</x:Double>
     <x:Double  x:Key="TitleSafeTopBottom">10</x:Double>
     <Thickness x:Key="TitleSafeThickness">48,10</Thickness>
-    <Thickness x:Key="TitleSafeThicknessWidthOnly">48,0</Thickness>
+    <Thickness x:Key="TitleSafeThicknessWidthOnly">48,0</Thickness>-->
 
     <x:Double  x:Key="HeaderHeight">48</x:Double>
-    <Thickness x:Key="HubHeaderMargin">0,0,0,0</Thickness>
-    <Thickness x:Key="HubSectionHeaderMargin">0,30,0,0</Thickness>
+    <Thickness x:Key="HubHeaderMargin">0</Thickness>
+    <Thickness x:Key="HubSectionHeaderMargin">0,28,0,0</Thickness>
     <Thickness x:Key="GalleryHeaderMargin">0,0,0,0</Thickness>
-    <Thickness x:Key="SeeAllMargin">0,28,5,0</Thickness>
-    <Thickness x:Key="MenuMargin">0,50,0,0</Thickness>
+    <Thickness x:Key="SeeAllMargin">0,28,4,0</Thickness>
+    <Thickness x:Key="MenuMargin">0,48,0,0</Thickness>
     <Thickness x:Key="MenuContentIndent">48,0,0,0</Thickness>
 
-    <x:Double  x:Key="HamburgerFontSize">20</x:Double>
+    <!--<x:Double  x:Key="HamburgerFontSize">20</x:Double>
     <x:Double  x:Key="HamburgerDimension">38</x:Double>
-    <Thickness x:Key="HamburgerMargin">5,5,0,0</Thickness>
+    <Thickness x:Key="HamburgerMargin">5,5,0,0</Thickness>-->
 
     <x:Double  x:Key="DefaultQueueHeight">444</x:Double>
 
