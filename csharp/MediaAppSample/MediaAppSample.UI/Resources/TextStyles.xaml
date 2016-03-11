@@ -3,61 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MediaAppSample.UI.Resources">
 
-    <Style x:Key="TextBlockBase" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{ThemeResource ThemeTextForeground}"/>
-        <Setter Property="FontFamily" Value="Segoe UI"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-    </Style>
-
-    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
-    </Style>
-
-    <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource HeaderFontSize}"/>
-        <Setter Property="FontWeight" Value="Light"/>
-    </Style>
-
-    <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource SubheaderFontSize}"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-    </Style>
-
-    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource TitleFontSize}"/>
-        <Setter Property="FontWeight" Value="Light"/>
-    </Style>
-
-    <Style x:Key="SubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource SubtitleFontSize}"/>
-    </Style>
-
-    <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
-        <Setter Property="FontWeight" Value="SemiLight"/>
-    </Style>
-
-    <Style x:Key="BodyTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource BodyFontSize}"/>
-    </Style>
-
-    <Style x:Key="CaptionAltTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="13"/>
-        <!-- {StaticResource CaptionAltFontSize}-->
-        <Setter Property="Foreground" Value="#CCFFFFFF"/>
-    </Style>
-
-    <Style x:Key="CaptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBase}">
-        <Setter Property="FontSize" Value="{StaticResource CaptionFontSize}"/>
-    </Style>
-
-    <Style x:Key="HubSectionHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="{StaticResource HubSectionHeaderMargin}"/>
-        <Setter Property="Foreground" Value="#99FFFFFF"/>
-    </Style>
-
     <Style x:Key="ErrorTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
         <Setter Property="Foreground" Value="Red" />
         <Setter Property="TextWrapping" Value="Wrap" />

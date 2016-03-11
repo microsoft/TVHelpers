@@ -19,6 +19,13 @@ namespace MediaAppSample.Core.ViewModels
             get { return Strings.Resources.ViewTitleWelcome; }
         }
 
+        private ContentItemBase _FeaturedHero;
+        public ContentItemBase FeaturedHero
+        {
+            get { return _FeaturedHero; }
+            private set { this.SetProperty(ref _FeaturedHero, value); }
+        }
+
         #region Movie Properties
 
         private MovieModel _movieHero = null;
@@ -192,6 +199,7 @@ namespace MediaAppSample.Core.ViewModels
                 // Load app data areas in parallel
                 await this.WaitAllAsync(
                     ct,
+                    this.LoadFeaturedHeroAsync(ct),
                     this.LoadMovieHeroAsync(ct),
                     this.LoadMoviesFeaturedAsync(ct),
                     this.LoadMoviesNewReleasesAsync(ct),
@@ -236,7 +244,20 @@ namespace MediaAppSample.Core.ViewModels
             return Task.CompletedTask;
         }
 
-        
+        private async Task LoadFeaturedHeroAsync(CancellationToken ct)
+        {
+            var model = await DataSource.Current.GetMovieHero(ct);
+            if (model != null)
+            {
+                this.InvokeOnUIThread(() =>
+                {
+                    // Set the data on the UI thread to avoid cross threading issues
+                    this.FeaturedHero = model;
+                });
+            }
+        }
+
+
         private async Task LoadMovieTrailersAsync(CancellationToken ct)
         {
             var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesTrailers(ct));

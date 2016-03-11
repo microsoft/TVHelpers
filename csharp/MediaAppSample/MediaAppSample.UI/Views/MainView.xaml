@@ -14,46 +14,46 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
 
-        <Grid>
+        <Hub Orientation="Vertical">
 
-            <Hub Orientation="Vertical">
+            <Hub.Header>
+                <Grid x:Name="HeaderGrid" Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/Assets/HeaderLogo.png" Height="40" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="MainHeaderTitle" x:Uid="SimplyEntertaining" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+                </Grid>
+            </Hub.Header>
 
-                <Hub.Header>
-                    <Grid x:Name="HeaderGrid" Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="/Assets/HeaderLogo.png" Height="40" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="MainHeaderTitle" x:Uid="SimplyEntertaining" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
-                    </Grid>
-                </Hub.Header>
+            <!-- Movie Hero -->
+            <HubSection x:Name="MovieHero" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <Grid />
+                </DataTemplate>
+            </HubSection>
 
-                <!-- Movie Hero -->
-                <HubSection x:Name="MovieHero" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
-                    <DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <controls:HeroControl />
-                    </DataTemplate>
-                </HubSection>
-
-                <!-- Movies featured -->
-                <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
-                    <!--<DataTemplate>
-                        <controls:CarouselControl DataContext="{Binding MoviesFeatured, Mode=OneWay}"/>
+            <!-- Movies featured -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
+                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
+                        <ContentPresenter ContentTemplate="{StaticResource HeroControlItemControlDataTemplate}" />
+                        -->
+                <!--<Grid>
+                            <controls:ImageControl Source="{x:Bind ViewModel.MovieHero.FeaturedImage}" Stretch="Fill" HorizontalAlignment="Center"/>
+                            <Rectangle Fill="{ThemeResource ThemeImageOverlay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        </Grid>-->
+                <!--
                     </DataTemplate>-->
-                </HubSection>
+            </HubSection>
 
-                <!-- Movies new releases -->
-                <HubSection x:Name="NewReleases" x:Uid="NewReleases_Header" Header="New Releases">
-                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
+            <!-- Movies new releases -->
+            <HubSection x:Name="NewReleases" x:Uid="NewReleases_Header" Header="New Releases">
+                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
                         <Grid Background="#FF1F1F1F">
-                            --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                            -->
+                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
                                 <Button x:Uid="SeeAllMovies"
                                     Command="{Binding NavigateGalleryCommand}" CommandParameter="Movies"
                                     Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}"/>
@@ -63,23 +63,27 @@
                                     ItemsSource="{Binding MovieNewReleases, Mode=OneWay}"
                                     ItemContainerStyle="{StaticResource PaddedListViewItem}"
                                     behaviors:DynamicStyleBehavior.TemplateName="PosterDataTemplate"/>
-                            </Grid>--><!--
+                            </Grid>-->
+                <!--
                         </Grid>
                     </DataTemplate>-->
-                </HubSection>
+            </HubSection>
 
-                <!-- TV Featured -->
-                <HubSection x:Uid="TV_Header" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV Featured">
-                    <!--<DataTemplate>
-                        --><!--<controls:CarouselControl DataContext="{Binding TvFeatured, Mode=OneWay}"/>--><!--
+            <!-- TV Featured -->
+            <HubSection x:Uid="TV_Header" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV Featured">
+                <!--<DataTemplate>
+                        -->
+                <!--<controls:CarouselControl DataContext="{Binding TvFeatured, Mode=OneWay}"/>-->
+                <!--
                     </DataTemplate>-->
-                </HubSection>
+            </HubSection>
 
-                <!-- TV new releases -->
-                <HubSection x:Name="TvReleaseHs" x:Uid="NewEpisodes_Header" Header="TV New Releases">
-                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
+            <!-- TV new releases -->
+            <HubSection x:Name="TvReleaseHs" x:Uid="NewEpisodes_Header" Header="TV New Releases">
+                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
                         <Grid Background="#FF1F1F1F">
-                            --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+                            -->
+                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
                                 <Button x:Uid="SeeAllTV" Command="{Binding NavigateGalleryCommand}" CommandParameter="TV"
                                     Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}" />
                                 <ListView x:Name="TvRelease"
@@ -88,57 +92,30 @@
                                     ItemContainerStyle="{StaticResource PaddedListViewItem}"
                                     ItemsSource="{Binding TvNewReleases, Mode=OneWay}"
                                     behaviors:DynamicStyleBehavior.TemplateName="TvSeriesDataTemplate"/>
-                            </Grid>--><!--
+                            </Grid>-->
+                <!--
                         </Grid>
                     </DataTemplate>-->
-                </HubSection>
+            </HubSection>
 
-                <!-- TV sneak peeks -->
-                <HubSection x:Uid="SneakPeeks_Header" Header="TV Sneak Peeks">
-                    <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        --><!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
+            <!-- TV sneak peeks -->
+            <HubSection x:Uid="SneakPeeks_Header" Header="TV Sneak Peeks">
+                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
+                        -->
+                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
                             <ListView x:Name="inlineRelease"
                                 ItemsSource="{Binding TvInline, Mode=OneWay}"
                                 IsItemClickEnabled="True"      
                                 ItemClick="InlineClick"
                                 ItemContainerStyle="{StaticResource PaddedListViewItem}"
                                 behaviors:DynamicStyleBehavior.TemplateName="InlineDataTemplate" />
-                        </Grid>--><!--
+                        </Grid>-->
+                <!--
                     </DataTemplate>-->
-                </HubSection>
+            </HubSection>
 
-            </Hub>
-
-        </Grid>
-
-
-
-        <Grid x:Name="ContentPanel">
-
-            <!--<ListView ItemsSource="{Binding ViewModel.Items, Mode=OneWay}"
-                      SelectionMode="None"
-                      IsSwipeEnabled="false"
-                      IsItemClickEnabled="True" 
-                      ItemTemplate="{StaticResource ItemModelListDataTemplate}"
-                      behaviors:ListViewCommandBehavior.Command="{Binding ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />-->
-            
-        </Grid>
-
-        <!--<CommandBar Grid.Row="1">
-            <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Sort" Icon="Sort">
-                    <AppBarButton.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Line 1" Command="{Binding ViewModel.SortCommand}" CommandParameter="LineOne" />
-                            <MenuFlyoutSeparator />
-                            <MenuFlyoutItem Text="Line 2" Command="{Binding ViewModel.SortCommand}" CommandParameter="LineTwo" />
-                        </MenuFlyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-            </CommandBar.PrimaryCommands>
-        </CommandBar>-->
+        </Hub>
         
     </Grid>
-    
     
 </views:MainViewBase>

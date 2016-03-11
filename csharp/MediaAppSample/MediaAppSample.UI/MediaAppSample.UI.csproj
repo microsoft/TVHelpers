@@ -122,22 +122,9 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CarouselControl.xaml.cs">
-      <DependentUpon>CarouselControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DelayTimer.cs" />
-    <Compile Include="Controls\DetailsControl.cs" />
-    <Compile Include="Controls\FlipViewItemControl.cs" />
-    <Compile Include="Controls\HeroControl.xaml.cs">
-      <DependentUpon>HeroControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\HeroContentItemControl.cs" />
     <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
-    <Compile Include="Controls\MetadataControl.xaml.cs">
-      <DependentUpon>MetadataControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MyQueueConrol.cs" />
-    <Compile Include="Controls\QueueHeroControl.cs" />
     <Compile Include="Controls\RatingsControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
@@ -321,18 +308,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\BusyPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\CarouselControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\HeroControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\MetadataControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

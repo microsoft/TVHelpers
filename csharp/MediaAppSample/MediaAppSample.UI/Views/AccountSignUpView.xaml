@@ -26,7 +26,7 @@
         <controls:ViewHeader />
 
         <ScrollViewer Grid.Row="1">
-            <StackPanel x:Name="ContentPanel" Margin="{StaticResource ViewBodyMargins}" MaxWidth="480">
+            <StackPanel x:Name="ContentPanel" MaxWidth="480">
                 
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap">
                     Welcome to MediaAppSample! Register for an account to enjoy all the services offerings we provide.
