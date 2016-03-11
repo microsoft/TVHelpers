@@ -207,9 +207,6 @@
     <Compile Include="Views\WebBrowserView.xaml.cs">
       <DependentUpon>WebBrowserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SecondaryWindowView.xaml.cs">
-      <DependentUpon>SecondaryWindowView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
     </Compile>
@@ -390,10 +387,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WebBrowserView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SecondaryWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

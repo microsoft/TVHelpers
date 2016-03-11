@@ -1,6 +1,5 @@
 ﻿using MediaAppSample.Core.Commands;
 using MediaAppSample.Core.Models;
-using MediaAppSample.Core.ViewModels;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml.Controls;
 
@@ -221,25 +220,6 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Multi-Window
-
-        private CommandBase _navigateToNewWindowCommand = null;
-        /// <summary>
-        /// Command to navigate to the account forgot crentials view.
-        /// </summary>
-        public CommandBase NavigateToNewWindowCommand
-        {
-            get
-            {
-                return Platform.Current == null ? null : _navigateToNewWindowCommand ?? (_navigateToNewWindowCommand = new GenericCommand<ViewModelBase>("NavigateToNewWindowCommand", async (e) =>
-                {
-                    await this.NavigateInNewWindow(e.View.GetType(), e.ViewParameter);
-                }));
-            }
-        }
-
-        #endregion
-
         #region Rate App Commands
 
         private CommandBase _navigateToRateAppCommand = null;
@@ -266,8 +246,6 @@ namespace MediaAppSample.Core.Services
         protected abstract bool OnActivation(VoiceCommandActivatedEventArgs e);
 
         protected abstract bool OnActivation(ProtocolActivatedEventArgs e);
-
-        protected abstract void NavigateToSecondaryWindow(NavigationRequest request);
 
         public abstract void Home(object parameter = null);
 

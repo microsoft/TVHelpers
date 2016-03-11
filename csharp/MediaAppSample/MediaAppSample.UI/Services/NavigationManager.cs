@@ -162,11 +162,6 @@ namespace MediaAppSample.UI.Services
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
         }
 
-        protected override void NavigateToSecondaryWindow(NavigationRequest request)
-        {
-            this.ParentFrame.Navigate(typeof(SecondaryWindowView), this.SerializeParameter(request));
-        }
-
         protected override void WebView(object parameter)
         {
             this.Frame.Navigate(typeof(WebBrowserView), this.SerializeParameter(parameter));

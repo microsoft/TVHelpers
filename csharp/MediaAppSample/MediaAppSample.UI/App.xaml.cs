@@ -4,8 +4,6 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -120,8 +118,7 @@ namespace MediaAppSample.UI
                     else
                         await Platform.Current.AppInitializingAsync(InitializationModes.Restore);
                 }
-
-                bool firstWindows = false;
+                
                 Frame rootFrame = Window.Current.Content as Frame;
 
                 // Do not repeat app initialization when the Window already has content,
@@ -140,7 +137,6 @@ namespace MediaAppSample.UI
                     
                     // Place the frame in the current Window
                     Window.Current.Content = rootFrame;
-                    firstWindows = true;
 
                     if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                     {
@@ -164,12 +160,6 @@ namespace MediaAppSample.UI
                     
                     // Ensure the current window is active
                     Window.Current.Activate();
-
-                    if (firstWindows)
-                    {
-                        var view = CoreApplication.GetCurrentView();
-                        NavigationManager.AppWindows.Add(ApplicationView.GetApplicationViewIdForWindow(view.CoreWindow), view);
-                    }
                 }
             }
             catch (Exception ex)

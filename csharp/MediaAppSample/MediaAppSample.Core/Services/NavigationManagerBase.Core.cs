@@ -4,16 +4,13 @@ using MediaAppSample.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Email;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -34,14 +31,8 @@ namespace MediaAppSample.Core.Services
     /// <summary>
     /// Base class for accessing navigation services on the platform currently executing.
     /// </summary>
-    public abstract partial class NavigationManagerBase : ServiceBase, IServiceSignout
+    public abstract partial class NavigationManagerBase : ServiceBase
     {
-        #region Variables
-
-        public static Dictionary<int, CoreApplicationView> AppWindows { get; private set; }
-
-        #endregion Variables
-
         #region Properties
         
         /// <summary>
@@ -80,15 +71,6 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Constructors
-
-        static NavigationManagerBase()
-        {
-            AppWindows = new Dictionary<int, CoreApplicationView>();
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -104,32 +86,6 @@ namespace MediaAppSample.Core.Services
             this.RegisterCoreWindow();
 
             base.Initialize();
-        }
-
-        /// <summary>
-        /// On signout of a user, close all secondary windows that might be open.
-        /// </summary>
-        /// <returns></returns>
-        public async Task SignoutAsync()
-        {
-            try
-            {
-                // Close all secondary windows
-                if (AppWindows.Count > 1)
-                {
-                    var currentView = CoreApplication.GetCurrentView();
-                    var currentWindowID = ApplicationView.GetApplicationViewIdForWindow(currentView.CoreWindow);
-                    
-                    var ids = AppWindows.Keys.ToArray().Where(w => w != currentWindowID);
-                    foreach (var otherWindowID in ids)
-                        await ApplicationViewSwitcher.SwitchAsync(currentWindowID, otherWindowID, ApplicationViewSwitchingOptions.ConsolidateViews);
-                }
-            }
-            catch(Exception ex)
-            {
-                Platform.Current.Logger.LogError(ex, "Could not close all secondary windows on Signout!");
-                throw ex;
-            }
         }
 
         /// <summary>
@@ -589,63 +545,6 @@ namespace MediaAppSample.Core.Services
         {
             if(request != null)
                 this.Frame.Navigate(Type.GetType(request.ViewType), this.SerializeParameter(request.ViewParameter));
-        }
-
-        /// <summary>
-        /// Launches another window with the specified page type.
-        /// </summary>
-        /// <param name="viewType">Type of the page requested in the secondary window.</param>
-        /// <param name="parameter">Page parameter to pass to the new page instance.</param>
-        /// <returns>Awaitable task is returned.</returns>
-        public async Task NavigateInNewWindow(Type viewType, object parameter)
-        {
-            try
-            {
-                // Create a new window
-                var view = CoreApplication.CreateNewView();
-                int windowID = 0;
-                await view.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    windowID = ApplicationView.GetApplicationViewIdForWindow(CoreWindow.GetForCurrentThread());
-
-                    // Register the new window
-                    this.RegisterCoreWindow();
-
-                    // Create a frame for the new window
-                    var frame = this.CreateFrame();
-                    Window.Current.Content = frame;
-
-                    // Navigate to a page within the new window based on the parameters of this method
-                    this.NavigateToSecondaryWindow(new NavigationRequest(viewType, this.SerializeParameter(parameter)));
-
-                    // Show the new window
-                    Window.Current.Activate();
-                    ApplicationView.GetForCurrentView().Consolidated += View_Consolidated;
-                });
-
-                // Run this on the last dispatcher so the windows get positioned correctly
-                bool viewShown;
-                await AppWindows[AppWindows.Keys.First()].Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                {
-                    viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(windowID);
-                });
-
-                // Track the new window
-                AppWindows.Add(windowID, view);
-            }
-            catch (Exception ex)
-            {
-                Platform.Current.Logger.LogError(ex, "Could not create new window for view type {0}.", viewType.Name);
-                throw ex;
-            }
-        }
-
-        private void View_Consolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
-        {
-            var windowID = ApplicationView.GetApplicationViewIdForWindow(CoreWindow.GetForCurrentThread());
-            AppWindows.Remove(windowID);
-            ApplicationView.GetForCurrentView().Consolidated -= View_Consolidated;
-            Window.Current.Close();
         }
 
         #endregion
