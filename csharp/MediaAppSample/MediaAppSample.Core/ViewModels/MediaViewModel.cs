@@ -6,19 +6,12 @@ namespace MediaAppSample.Core.ViewModels
 {
     public partial class MediaViewModel : ViewModelBase
     {
-        #region Properties
-
-        public override string Title
-        {
-            get { return "Media"; }
-        }
-
-        #endregion Properties
-
         #region Constructors
 
         public MediaViewModel()
         {
+            this.Title = "Media";
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

@@ -8,14 +8,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Resources.ViewTitleWelcome; }
-        }
-
         private bool _IsMenuOpen;
         public bool IsMenuOpen
         {
@@ -29,6 +21,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public ShellViewModel()
         {
+            this.Title = Strings.Resources.ViewTitleWelcome;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

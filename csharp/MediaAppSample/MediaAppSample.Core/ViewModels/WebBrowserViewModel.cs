@@ -18,15 +18,6 @@ namespace MediaAppSample.Core.ViewModels
         #endregion
 
         #region Properties
-
-        private string _title;
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return _title ?? Strings.Resources.ApplicationName; }
-        }
         
         public object BrowserInstance { get; set; }
         
@@ -95,6 +86,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public WebBrowserViewModel(bool showNavigation = true)
         {
+            this.Title = Strings.Resources.ApplicationName;
+
             if (DesignMode.DesignModeEnabled)
                 return;
             
@@ -173,7 +166,7 @@ namespace MediaAppSample.Core.ViewModels
         /// <param name="title"></param>
         public void Navigated(Uri uri, string title = null)
         {
-            this.SetTitle(title);
+            this.Title = title;
             this.ClearStatus();
             this.ShowBrowser = true;
             Platform.Current.Navigation.NavigateGoBackCommand.RaiseCanExecuteChanged();
@@ -201,17 +194,7 @@ namespace MediaAppSample.Core.ViewModels
 #endif
             Platform.Current.Logger.LogError(exception, "Error navigating to " + uri.ToString());
         }
-
-        /// <summary>
-        /// Sets the view title.
-        /// </summary>
-        /// <param name="title">Title text to display.</param>
-        private void SetTitle(string title)
-        {
-            _title = title;
-            this.NotifyPropertyChanged(() => this.Title);
-        }
-
+        
         /// <summary>
         /// Configure the VM to perform execute custom functions when the browser can go back/forward.
         /// </summary>

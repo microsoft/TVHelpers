@@ -6,14 +6,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Resources.ViewTitleAbout; }
-        }
-
         public string TwitterAddress { get { return Strings.Resources.ApplicationSupportTwitterUsername; } }
 
         #endregion
@@ -22,6 +14,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public AboutViewModel()
         {
+            this.Title = Strings.Resources.ViewTitleAbout;
+
             if (DesignMode.DesignModeEnabled)
                 return;
         }

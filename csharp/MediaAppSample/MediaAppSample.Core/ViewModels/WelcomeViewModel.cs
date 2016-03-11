@@ -19,14 +19,6 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Resources.ViewTitleWelcome; }
-        }
-
         private CommandBase _LaunchWebAccountManagerCommand = null;
         /// <summary>
         /// Command to access Web Account Manager
@@ -42,6 +34,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public WelcomeViewModel()
         {
+            this.Title = Strings.Resources.ViewTitleWelcome;
+
             if (DesignMode.DesignModeEnabled)
                 return;
         }

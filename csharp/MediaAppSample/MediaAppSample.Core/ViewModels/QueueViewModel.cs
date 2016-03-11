@@ -13,11 +13,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        public override string Title
-        {
-            get { return "Queue"; }
-        }
-
         private QueueCollection _queue;
         /// <summary>
         /// Gets a list of content items in the queue
@@ -77,6 +72,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public QueueViewModel()
         {
+            this.Title = "Queue";
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

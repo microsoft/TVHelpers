@@ -14,17 +14,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get
-            {
-                return Strings.Resources.ViewTitleSettings;
-            }
-        }
-
         private GeneralSettingsViewModel _GeneralSettingsViewModel = new GeneralSettingsViewModel();
         public GeneralSettingsViewModel GeneralVM
         {
@@ -70,6 +59,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public SettingsViewModel()
         {
+            this.Title = Strings.Resources.ViewTitleSettings;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

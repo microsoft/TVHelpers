@@ -11,15 +11,7 @@ namespace MediaAppSample.Core.ViewModels
     public partial class DebuggingViewModel : ViewModelBase
     {
         #region Properties
-
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return "Debugging"; }
-        }
-
+        
         public ICommand TestAppCrashCommand { get; private set; }
 
         private ModelList<BackgroundTaskRunInfo> _BackgroundTasksInfo = new ModelList<BackgroundTaskRunInfo>();
@@ -35,6 +27,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public DebuggingViewModel()
         {
+            this.Title = "Debugging";
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

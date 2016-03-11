@@ -11,17 +11,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get
-            {
-                return Strings.Resources.TextTitleGeneral;
-            }
-        }
-
         private string _BackgroundTasksStatus;
         public string BackgroundTasksStatus
         {
@@ -55,6 +44,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public GeneralSettingsViewModel()
         {
+            this.Title = Strings.Resources.TextTitleGeneral;
+
             if (DesignMode.DesignModeEnabled)
                 return;
         }

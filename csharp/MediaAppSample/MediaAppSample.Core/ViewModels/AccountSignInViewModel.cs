@@ -11,15 +11,7 @@ namespace MediaAppSample.Core.ViewModels
     public partial class AccountSignInViewModel : ViewModelBase
     {
         #region Properties
-
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Account.ViewTitleSignIn; }
-        }
-
+        
         /// <summary>
         /// Command used to submit the sign in form.
         /// </summary>
@@ -74,6 +66,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public AccountSignInViewModel()
         {
+            this.Title = Strings.Account.ViewTitleSignIn;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

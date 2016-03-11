@@ -12,15 +12,7 @@ namespace MediaAppSample.Core.ViewModels
     public partial class AccountForgotViewModel : ViewModelBase
     {
         #region Properties
-
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Account.ViewTitleForgotPassword; }
-        }
-
+        
         /// <summary>
         /// Command used to submit the form.
         /// </summary>
@@ -60,6 +52,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public AccountForgotViewModel()
         {
+            this.Title = Strings.Account.ViewTitleForgotPassword;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

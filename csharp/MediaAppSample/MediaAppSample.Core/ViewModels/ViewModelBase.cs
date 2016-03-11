@@ -89,9 +89,14 @@ namespace MediaAppSample.Core.ViewModels
         public bool RequiresAuthorization { get; protected set; }
 
         /// <summary>
-        /// Gets the title for the view specified by this view model.
+        /// Gets or sets the title for the view specified by this view model.
         /// </summary>
-        public abstract string Title { get; }
+        private string _Title;
+        public virtual string Title
+        {
+            get { return _Title; }
+            protected set { this.SetProperty(ref _Title, value); }
+        }
 
         #region Status Properties
 

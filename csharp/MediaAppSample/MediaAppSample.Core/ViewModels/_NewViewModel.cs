@@ -7,22 +7,12 @@ namespace MediaAppSample.Core.ViewModels
 {
     public partial class NewViewModel : ViewModelBase
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Resources.ApplicationName; }
-        }
-
-        #endregion
-
         #region Constructors
 
         public NewViewModel()
         {
+            this.Title = Strings.Resources.ApplicationName;
+
             if (DesignMode.DesignModeEnabled)
                 return;
         }

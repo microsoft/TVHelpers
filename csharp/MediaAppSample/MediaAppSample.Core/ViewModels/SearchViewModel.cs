@@ -11,15 +11,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        private string _title = Strings.Search.ButtonTextSearch;
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return _title; }
-        }
-
         private ModelList<ContentItemBase> _Results = new ModelList<ContentItemBase>();
         /// <summary>
         /// List of search results.
@@ -46,6 +37,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public SearchViewModel()
         {
+            this.Title = Strings.Search.ButtonTextSearch;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 
@@ -86,9 +79,8 @@ namespace MediaAppSample.Core.ViewModels
                 if (!string.IsNullOrWhiteSpace(this.SearchText))
                 {
                     // Show the busy status
-                    var title = string.Format(Strings.Search.TextSearching, this.SearchText);
-                    this.ShowBusyStatus(title, true);
-                    this.SetTitle(title);
+                    this.Title = string.Format(Strings.Search.TextSearching, this.SearchText);
+                    this.ShowBusyStatus(this.Title, true);
 
                     // Call the API to perform the search
                     Platform.Current.Analytics.Event("Search", this.SearchText);
@@ -97,13 +89,13 @@ namespace MediaAppSample.Core.ViewModels
                     this.Results.AddRange(searchResults);
 
                     // Update the page title
-                    this.SetTitle(string.Format(Strings.Search.TextSearchResultsCount, this.Results.Count, this.SearchText));
+                    this.Title = string.Format(Strings.Search.TextSearchResultsCount, this.Results.Count, this.SearchText);
                 }
                 else
                 {
                     // No results, clear page
                     this.Results.Clear();
-                    this.SetTitle(Strings.Search.ButtonTextSearch);
+                    this.Title = Strings.Search.ButtonTextSearch;
                 }
 
                 // Clear busy status
@@ -123,12 +115,6 @@ namespace MediaAppSample.Core.ViewModels
         protected internal override bool OnBackNavigationRequested()
         {
             return base.OnBackNavigationRequested();
-        }
-
-        private void SetTitle(string title)
-        {
-            _title = title;
-            this.NotifyPropertyChanged(() => this.Title);
         }
 
         #endregion Methods

@@ -11,14 +11,6 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
-        /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Resources.ViewTitleWelcome; }
-        }
-
         private ContentItemBase _FeaturedHero;
         public ContentItemBase FeaturedHero
         {
@@ -165,6 +157,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public MainViewModel()
         {
+            this.Title = Strings.Resources.ViewTitleWelcome;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

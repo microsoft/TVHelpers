@@ -14,14 +14,6 @@ namespace MediaAppSample.Core.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the title to be displayed on the view consuming this ViewModel.
-        /// </summary>
-        public override string Title
-        {
-            get { return Strings.Account.ViewTitleSignUp; }
-        }
-
-        /// <summary>
         /// Command used to submit form.
         /// </summary>
         public CommandBase SubmitCommand { get; private set; }
@@ -144,6 +136,8 @@ namespace MediaAppSample.Core.ViewModels
 
         public AccountSignUpViewModel()
         {
+            this.Title = Strings.Account.ViewTitleSignUp;
+
             if (DesignMode.DesignModeEnabled)
                 return;
 

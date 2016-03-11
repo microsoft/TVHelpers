@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 03/07/2016 10:54:48
+// 	Generated: 03/11/2016 14:46:21
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
