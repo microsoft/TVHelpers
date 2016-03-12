@@ -36,7 +36,8 @@ namespace MediaAppSample.Core.Data
         Task<ContentItemBase> GetContentItem(string contentId, CancellationToken ct);
         Task<IEnumerable<ContentItemBase>> GetRelated(string contentID, CancellationToken ct);
         Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID, CancellationToken ct);
-        
+
+        Task<MovieModel> GetFeaturedHero(CancellationToken ct);
         Task<IEnumerable<MovieModel>> GetMovies(CancellationToken ct);
         Task<MovieModel> GetMovieHero(CancellationToken ct);
         Task<IEnumerable<MovieModel>> GetMoviesFeatured(CancellationToken ct);

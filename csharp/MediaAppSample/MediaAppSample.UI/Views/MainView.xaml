@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:views="using:MediaAppSample.UI.Views"
     xmlns:viewmodels="using:MediaAppSample.Core.ViewModels"
+    xmlns:models="using:MediaAppSample.Core.Models"
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
@@ -13,12 +14,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+
+        <DataTemplate x:Name="HeroImageDataTemplate">
+            <Grid>
+                <Image Source="{Binding FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
+                <StackPanel>
+                    <TextBlock Text="{Binding FeaturedHero.Title}" />
+                    <TextBlock Text="{Binding FeaturedHero.Description}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Hub Orientation="Vertical">
 
             <Hub.Header>
-                <Grid x:Name="HeaderGrid" Height="48">
+                <Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -28,13 +43,41 @@
                 </Grid>
             </Hub.Header>
 
-            <!-- Movie Hero -->
-            <HubSection x:Name="MovieHero" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
+            <!-- Featured Hero -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <Grid />
+                    <Grid DataContext="{Binding ViewModel.FeaturedHero}" Margin="0">
+                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+                        <ListView ItemsSource="{Binding ViewModel.QueueViewModel.QueuePreview}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                    </Grid>
                 </DataTemplate>
             </HubSection>
 
+
+            <!-- Movie Hero -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0">
+                <DataTemplate>
+                    <Grid DataContext="{Binding ViewModel.MovieHero}">
+                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+
+            <!-- TV Hero -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0">
+                <DataTemplate>
+                    <Grid DataContext="{Binding ViewModel.TvHero}">
+                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+            
+            
+            
+            
+            
             <!-- Movies featured -->
             <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
                 <!--<DataTemplate x:DataType="viewmodels:MainViewModel">

@@ -8,4 +8,10 @@
         <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
     
+    <Style x:Key="HubSectionHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="{StaticResource HubSectionHeaderMargin}"/>
+        <Setter Property="Foreground" Value="#99FFFFFF"/>
+    </Style>
+    
 </ResourceDictionary>

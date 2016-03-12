@@ -15,7 +15,7 @@ namespace MediaAppSample.Core.ViewModels
         public ContentItemBase FeaturedHero
         {
             get { return _FeaturedHero; }
-            private set { this.SetProperty(ref _FeaturedHero, value); }
+            protected set { this.SetProperty(ref _FeaturedHero, value); }
         }
 
         #region Movie Properties
@@ -134,21 +134,21 @@ namespace MediaAppSample.Core.ViewModels
         public GalleryViewModel GalleryTvViewModel
         {
             get { return _GalleryTvViewModel; }
-            private set { this.SetProperty(ref _GalleryTvViewModel, value); }
+            protected set { this.SetProperty(ref _GalleryTvViewModel, value); }
         }
 
         private GalleryViewModel _GalleryMoviesViewModel = new GalleryViewModel();
         public GalleryViewModel GalleryMoviesViewModel
         {
             get { return _GalleryMoviesViewModel; }
-            private set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
+            protected set { this.SetProperty(ref _GalleryMoviesViewModel, value); }
         }
 
         private QueueViewModel _QueueViewModel = new QueueViewModel();
         public QueueViewModel QueueViewModel
         {
             get { return _QueueViewModel; }
-            private set { this.SetProperty(ref _QueueViewModel, value); }
+            protected set { this.SetProperty(ref _QueueViewModel, value); }
         }
 
         #endregion Properties
@@ -240,7 +240,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadFeaturedHeroAsync(CancellationToken ct)
         {
-            var model = await DataSource.Current.GetMovieHero(ct);
+            var model = await DataSource.Current.GetFeaturedHero(ct);
             if (model != null)
             {
                 this.InvokeOnUIThread(() =>
@@ -355,6 +355,9 @@ namespace MediaAppSample.Core.ViewModels.Designer
     {
         public MainViewModel()
         {
+            this.DeviceWindowHeight = 600;
+            this.DeviceWindowWidth = 800;
+            this.FeaturedHero = Data.SampleLocalData.SampleLocalDataSource.CreateAndAddItemToList<MovieModel>(1);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         private const string SAMPLE_CAST_PATH_ROOT = SAMPLE_PATH_ROOT + "Cast/";
         private const string SAMPLE_MEDIA_PATH_ROOT = SAMPLE_PATH_ROOT + "Videos/";
         private const string SAMPLE_MEDIA_FILE = "wildlife.mp4";
-        private readonly Random _random = new Random(1234);
+        private static readonly Random _random = new Random(1234);
 
         #endregion
 
@@ -68,22 +68,29 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return Task.FromResult<IEnumerable<MovieModel>>(list);
         }
 
-        public async Task<MovieModel> GetMovieHero(CancellationToken ct)
+        public async Task<MovieModel> GetFeaturedHero(CancellationToken ct)
         {
-            // curate movie hero
+            // curated featured hero
             var results = await this.GetMovies(ct);
             return results.FirstOrDefault();
         }
 
+        public async Task<MovieModel> GetMovieHero(CancellationToken ct)
+        {
+            // curated movie hero
+            var results = await this.GetMovies(ct);
+            return results.Skip(1).FirstOrDefault();
+        }
+
         public async Task<IEnumerable<MovieModel>> GetMoviesNewReleases(CancellationToken ct)
         {
-            // curate new release movies
+            // curated new release movies
             return await this.GetMovies(ct);
         }
 
         public async Task<IEnumerable<MovieModel>> GetMoviesFeatured(CancellationToken ct)
         {
-            // curate featured movies
+            // curated featured movies
             var list = new List<MovieModel>();
             var results = await this.GetMovies(ct);
             list.Add(results.First(o => o.ContentID == "movie02"));
@@ -258,7 +265,151 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return results.FirstOrDefault(s => s.ContentID == contentId);
         }
 
-        private void CreateAndAddItemToList<T>(ObservableCollection<T> list, int number) where T : class
+        public static T CreateAndAddItemToList<T>(int number) where T : class
+        {
+            var numberString = number.ToString();
+            var imageNumber = number.ToString("00");
+
+            if (typeof(T) == typeof(MovieModel))
+            {
+                var item = new MovieModel()
+                {
+                    ContentID = "movie" + imageNumber,
+                    ContentRating = "G",
+                    ItemType = ItemTypes.Movie,
+                    Title = "Movie " + numberString,
+                    UserRating = 0,
+                    AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
+                    Genre = ((Genres)_random.Next(6)).ToString(),
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
+                    Length = "120",
+                    ReleaseDate = new DateTime(2015, 1, 15),
+                    Cast = new ModelList<PersonModel>(GetCast("movie" + imageNumber)),
+                    Creators = new ModelList<PersonModel>(GetCrew("movie" + imageNumber)),
+                    CriticReviews = new ModelList<ReviewModel>(GetReviews("movie" + imageNumber)),
+                    ContentRatings = new ModelList<RatingModel>(GetRatings("movie" + imageNumber)),
+                    //Flag = "Just Added",
+                };
+                //if (number == 1) item.Flag = "Featured";
+                return item as T;
+            }
+
+            if (typeof(T) == typeof(TvSeriesModel))
+            {
+                var item = new TvSeriesModel()
+                {
+                    ContentID = "series" + imageNumber,
+                    ItemType = ItemTypes.TvSeries,
+                    Title = "TV Series " + number.ToString(),
+                    UserRating = 0,
+                    AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
+                    Genre = ((Genres)_random.Next(6)).ToString(),
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
+                    ContentRating = "TV-13",
+                    ReleaseDate = "2013 - 2014",
+                    Length = "44",
+                    Cast = new ModelList<PersonModel>(GetCast("series" + imageNumber)),
+                    Creators = new ModelList<PersonModel>(GetCrew("series" + imageNumber)),
+                    CriticReviews = new ModelList<ReviewModel>(GetReviews("series" + imageNumber)),
+                    ContentRatings = new ModelList<RatingModel>(GetRatings("series" + imageNumber)),
+                    //Flag = "Most Popular",
+                };
+                //item.Seasons = new ObservableCollection<SeasonModel>(this.GetSeasons(item));
+                return item as T;
+            }
+
+            if (typeof(T) == typeof(TvEpisodeModel))
+            {
+                var item = new TvEpisodeModel()
+                {
+                    ContentID = "episode" + imageNumber,
+                    ContentRating = "TV-G",
+                    ItemType = ItemTypes.TvEpisode,
+                    Title = "Episode " + number.ToString() + " Title",
+                    UserRating = 0,
+                    AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
+                    Genre = "Drama",
+                    FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
+                    MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
+                    LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
+                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
+                    InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
+                    URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
+                    Description = SAMPLE_DESCRIPTION,
+                    Length = "60",
+                    SeasonNumber = 3,
+                    EpisodeNumber = 1,
+                    AirDate = new DateTime(2015, 1, 15),
+                    //Cast = new ObservableCollection<PersonModel>(GetCast("episode" + imageNumber)),
+                    //Creators = new ObservableCollection<PersonModel>(GetCrew("episode" + imageNumber)),
+                    //CriticReviews = new ObservableCollection<ReviewModel>(GetReviews("episode" + imageNumber)),
+                    //ContentRatings = new ObservableCollection<ReviewModel>(GetRatings("episode" + imageNumber)),
+                };
+
+
+                return item as T;
+            }
+
+            if (typeof(T) == typeof(SeasonModel))
+            {
+                var item = new SeasonModel()
+                {
+                    ContentID = "season" + imageNumber,
+                    ContentRating = "TV-G",
+                    ItemType = ItemTypes.TvSeries,
+                    SeasonNumber = number,
+                    UserRating = 3.5,
+                    AverageUserRating = 3.0 + _random.NextDouble() * 2.0,
+                    Genre = ((Genres)_random.Next(6)).ToString(),
+                    //FeaturedImage = IMAGE_PATH_PREFIX + "featured/hero3_nightfal.png",
+                    //MediaImage = IMAGE_PATH_PREFIX + "16-9movie/hero2.png",
+                    //SquareThumbnailImage = IMAGE_PATH_PREFIX + "1-1tv/odysseyteam.png",
+                    //LandscapeThumbnailImage = IMAGE_PATH_PREFIX + "2-1landscape/taxi.png",
+                    Description = SAMPLE_DESCRIPTION
+                };
+
+                switch (item.SeasonNumber)
+                {
+                    case 1:
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 41);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 42);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 43);
+                        break;
+                    case 2:
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 44);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 45);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 46);
+                        break;
+                    default:
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 47);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 48);
+                        CreateAndAddItemToList<TvEpisodeModel>(item.Episodes, 49);
+                        break;
+                }
+
+                return item as T;
+            }
+
+            return default(T);
+        }
+
+        public static void CreateAndAddItemToList<T>(ObservableCollection<T> list, int number) where T : class
         {
             var numberString = number.ToString();
             var imageNumber = number.ToString("00");
@@ -410,9 +561,9 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         public Task<IEnumerable<RatingModel>> GetRatings(string contentID, CancellationToken ct)
         {
-            return Task.FromResult<IEnumerable<RatingModel>>(this.GetRatings(contentID));
+            return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
         }
-        private IEnumerable<RatingModel> GetRatings(string contentID)
+        public static IEnumerable<RatingModel> GetRatings(string contentID)
         {
             return new ObservableCollection<RatingModel>
             {
@@ -445,9 +596,9 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         public Task<IEnumerable<ReviewModel>> GetReviews(string contentID, CancellationToken ct)
         {
-            return Task.FromResult<IEnumerable<ReviewModel>>(this.GetReviews(contentID));
+            return Task.FromResult<IEnumerable<ReviewModel>>(GetReviews(contentID));
         }
-        private IEnumerable<ReviewModel> GetReviews(string contentID)
+        public static IEnumerable<ReviewModel> GetReviews(string contentID)
         {
             return new ObservableCollection<ReviewModel>
             {
@@ -474,9 +625,9 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         public Task<IEnumerable<PersonModel>> GetCast(string contentID, CancellationToken ct)
         {
-            return Task.FromResult<IEnumerable<PersonModel>>(this.GetCast(contentID));
+            return Task.FromResult<IEnumerable<PersonModel>>(GetCast(contentID));
         }
-        private IEnumerable<PersonModel> GetCast(string contentID)
+        public static IEnumerable<PersonModel> GetCast(string contentID)
         {
             return new ObservableCollection<PersonModel>
             {
@@ -513,9 +664,9 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         public Task<IEnumerable<PersonModel>> GetCrew(string contentID, CancellationToken ct)
         {
-            return Task.FromResult<IEnumerable<PersonModel>>(this.GetCrew(contentID));
+            return Task.FromResult<IEnumerable<PersonModel>>(GetCrew(contentID));
         }
-        private IEnumerable<PersonModel> GetCrew(string contentID)
+        private static IEnumerable<PersonModel> GetCrew(string contentID)
         {
             return new ObservableCollection<PersonModel>
             {
