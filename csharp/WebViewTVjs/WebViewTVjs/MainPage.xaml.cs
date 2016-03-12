@@ -33,15 +33,9 @@ namespace WebViewTVjs
             LoadHTMLContent();
         }
 
-        private  async void LoadHTMLContent()
+        private void LoadHTMLContent()
         {
-            var task = LoadStringFromPackageFileAsync("BasicDirectionalNavigation.html");
-            // Ensure page loads before injecting the script
-            task.Wait(2500);
-            WebViewControl.NavigateToString(task.Result);
-            // Inject directional navigation script
-            string script = await LoadStringFromPackageFileAsync($"tvjs/DirectionalNavigation/directionalnavigation-1.0.0.0.js");
-            await WebViewControl.InvokeScriptAsync("eval", new string[] { script });
+            WebViewControl.Navigate(new Uri("ms-appx-web:///html/BasicDirectionalNavigation.html"));
 
             WebViewControl.Focus(FocusState.Programmatic);
             
