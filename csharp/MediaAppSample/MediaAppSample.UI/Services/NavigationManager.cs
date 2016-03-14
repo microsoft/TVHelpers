@@ -156,7 +156,9 @@ namespace MediaAppSample.UI.Services
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            if (model is ContentItemBase)
+            if (model is QueueModel)
+                this.Details((model as QueueModel).Item);
+            else if (model is ContentItemBase)
                 this.Details(model);
             else
                 throw new NotImplementedException("Navigation not implemented for type " + model.GetType().Name);
@@ -203,6 +205,9 @@ namespace MediaAppSample.UI.Services
         
         public override void Details(object parameter)
         {
+            if (parameter is ContentItemBase)
+                parameter = (parameter as ContentItemBase).ContentID;
+
             if (this.IsChildFramePresent)
                 this.Frame.Navigate(typeof(DetailsView), this.SerializeParameter(parameter));
             else

@@ -9,6 +9,7 @@
 //
 //*********************************************************
 
+using MediaAppSample.Core.Models;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -57,10 +58,10 @@ namespace MediaAppSample.UI.Behaviors
             {
                 var command = GetCommand(control);
 
-                if (command != null && command.CanExecute(e.ClickedItem))
-                {
-                    command.Execute(e.ClickedItem);
-                }
+                object parameter = e.ClickedItem is ItemBase ? (e.ClickedItem as ItemBase).ContentID : e.ClickedItem;
+
+                if (command != null && command.CanExecute(parameter))
+                    command.Execute(parameter);
             }
         }
     }

@@ -16,26 +16,19 @@
 
     <Page.Resources>
 
-        <DataTemplate x:Name="HeroImageDataTemplate" x:DataType="models:ContentItemBase">
-            <Grid>
-                <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
-                    <TextBlock Text="{x:Bind Flag}" Visibility="{x:Bind Flag, Mode=OneWay, Converter={StaticResource visConverter}}" />
-                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
-                    <TextBlock Text="{x:Bind Description}" />
-                    <ProgressBar Minimum="0" Maximum="100" Value="80" />
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Minimum" Value="0" />
+            <Setter Property="Maximum" Value="100" />
+            <Setter Property="Value" Value="60" />
+        </Style>
 
         <DataTemplate x:Name="FeaturedContentItemDataTemplate" x:DataType="models:ContentItemBase">
             <Grid>
                 <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
-                    <TextBlock Text="{x:Bind Flag}" Visibility="{x:Bind Flag, Mode=OneWay, Converter={StaticResource visConverter}}" />
-                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
-                    <TextBlock Text="{x:Bind Description}" />
-                    <ProgressBar Minimum="0" Maximum="100" Value="80" />
+                    <TextBlock Text="{x:Bind Flag, Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
+                    <ProgressBar Value="40" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -46,10 +39,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="controls:ContentItemListControl">
                         <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ListView ItemsSource="{TemplateBinding Items}">
+                            <ListView ItemsSource="{TemplateBinding Items}" 
+                                      IsItemClickEnabled="True"
+                                      SelectionMode="None"
+                                      behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" />
+                                        <ItemsStackPanel Orientation="Horizontal" />
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
@@ -87,10 +83,38 @@
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Margin="0">
-                        <Grid DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
-                            <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
-                        </Grid>
-                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                        <Image Source="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+                            <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
+                            <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
+                                             Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
+                                             CommandParameter="{x:Bind ViewModel.FeaturedHero.ContentID}" />
+                            <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
+                            <ProgressBar Value="80" />
+                        </StackPanel>
+                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" 
+                                  IsItemClickEnabled="True"
+                                  SelectionMode="None"
+                                  behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand}"
+                                  VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <ListView.Header>
+                                <Grid>
+                                    <TextBlock Text="My Queue" />
+                                    <HyperlinkButton Content="See all" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
+                                </Grid>
+                            </ListView.Header>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:QueueModel">
+                                    <Grid Margin="0" Height="200" Width="300">
+                                        <Image Source="{x:Bind Item.LandscapeImage, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" />
+                                        <Grid VerticalAlignment="Bottom">
+                                            <Rectangle Fill="{ThemeResource ThemeTitleBackground}" />
+                                            <TextBlock Text="{x:Bind Item.Title}" TextWrapping="WrapWholeWords"/>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </Grid>
                 </DataTemplate>
             </HubSection>
@@ -105,7 +129,9 @@
             <!-- New Released Movies -->
             <HubSection Header="New Released Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <controls:ContentItemListControl Items="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}" />
+                    <controls:ContentItemListControl 
+                        Items="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}"
+                        ItemCommand="{Binding ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                 </DataTemplate>
             </HubSection>
 
@@ -119,15 +145,18 @@
             <!-- New TV Episodes -->
             <HubSection Header="New Episodes">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <controls:ContentItemListControl Items="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}" />
+                    <controls:ContentItemListControl 
+                        Items="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}"
+                        ItemCommand="{Binding ViewModel.Platform.Navigation.NavigateToDetailsCommand}"  />
                 </DataTemplate>
             </HubSection>
 
             <!-- TV sneak peeks -->
             <HubSection Header="Sneak Peeks">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}"
-                              IsItemClickEnabled="True" />
+                    <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}" 
+                              behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand}"
+                              IsItemClickEnabled="True" SelectionMode="None" />
                 </DataTemplate>
             </HubSection>
 
