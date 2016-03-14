@@ -10,7 +10,6 @@
 //*********************************************************
 
 using System.Collections.Generic;
-using System.Windows.Input;
 
 namespace MediaAppSample.Core.Models
 {

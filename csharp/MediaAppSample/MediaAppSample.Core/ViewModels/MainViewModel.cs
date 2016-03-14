@@ -64,18 +64,18 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _tvNewReleases, value); }
         }
 
-        private ContentItemList _tvInline;
+        #endregion
+
+        private ContentItemList _sneakPeeks;
         /// <summary>
         /// Gets the list of the TV episodes for the Inline section
         /// </summary>
         public ContentItemList SneakPeeks
         {
-            get { return _tvInline; }
-            private set { this.SetProperty(ref _tvInline, value); }
+            get { return _sneakPeeks; }
+            private set { this.SetProperty(ref _sneakPeeks, value); }
         }
 
-        #endregion
-        
         #region ViewModels
 
         private GalleryViewModel _GalleryTvViewModel = new GalleryViewModel();
