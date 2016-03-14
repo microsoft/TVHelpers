@@ -33,18 +33,18 @@ namespace MediaAppSample.Core.Models
             set { this.SetProperty(ref _Title, value); }
         }
 
-        private string _TvEpisodeImage;
-        public string TvEpisodeImage
-        {
-            get { return _TvEpisodeImage; }
-            set { this.SetProperty(ref _TvEpisodeImage, value); }
-        }
-
         private string _ResumeImage;
         public string ResumeImage
         {
             get { return _ResumeImage; }
             set { this.SetProperty(ref _ResumeImage, value); }
+        }
+
+        private string _PosterImage;
+        public string PosterImage
+        {
+            get { return _PosterImage; }
+            set { this.SetProperty(ref _PosterImage, value); }
         }
 
         private string _InlineImage;
@@ -106,15 +106,15 @@ namespace MediaAppSample.Core.Models
         }
     }
 
-    public sealed class ContentItemCollection<T> : ModelList<T> where T : ContentItemBase
+    public sealed class ContentItemList : ModelList<ContentItemBase>
     {
         #region Constructors
 
-        public ContentItemCollection()
+        public ContentItemList()
         {
         }
 
-        public ContentItemCollection(IEnumerable<T> items)
+        public ContentItemList(IEnumerable<ContentItemBase> items)
         {
             this.AddRange(items);
         }

@@ -17,13 +17,6 @@ namespace MediaAppSample.Core.Models
     {
         #region Properties
 
-        private string _BoxArtThumbnailImage;
-        public string PosterImage
-        {
-            get { return _BoxArtThumbnailImage; }
-            set { this.SetProperty(ref _BoxArtThumbnailImage, value); }
-        }
-
         private DateTime _ReleaseDate;
         public DateTime ReleaseDate
         {
@@ -34,7 +27,6 @@ namespace MediaAppSample.Core.Models
                     this.NotifyPropertyChanged(() => this.Year);
             }
         }
-
 
         private string _MediaType;
         public string MediaType

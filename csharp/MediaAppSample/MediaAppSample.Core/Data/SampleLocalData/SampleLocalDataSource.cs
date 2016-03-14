@@ -12,6 +12,7 @@
 using MediaAppSample.Core.Models;
 using MediaAppSample.Core.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -154,30 +155,30 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         public IEnumerable<SeasonModel> GetSeasonsAsync(TvSeriesModel series, CancellationToken ct)
         {
             // curate seasons
-            var list = new ObservableCollection<SeasonModel>();
+            var list = new ModelList<SeasonModel>();
             CreateAndAddItemToList<SeasonModel>(list, 43);
             CreateAndAddItemToList<SeasonModel>(list, 44);
             CreateAndAddItemToList<SeasonModel>(list, 45);
             return list;
         }
 
-        public Task<IEnumerable<TvEpisodeModel>> GetSneakPeeksAsync(CancellationToken ct)
+        public Task<IEnumerable<ContentItemBase>> GetSneakPeeksAsync(CancellationToken ct)
         {
             // Curate inline content
-            var list = new ObservableCollection<TvEpisodeModel>();
+            var list = new ContentItemList();
             CreateAndAddItemToList<TvEpisodeModel>(list, 37);
             CreateAndAddItemToList<TvEpisodeModel>(list, 38);
             CreateAndAddItemToList<TvEpisodeModel>(list, 39);
             CreateAndAddItemToList<TvEpisodeModel>(list, 40);
             CreateAndAddItemToList<TvEpisodeModel>(list, 41);
             CreateAndAddItemToList<TvEpisodeModel>(list, 42);
-            return Task.FromResult<IEnumerable<TvEpisodeModel>>(list);
+            return Task.FromResult<IEnumerable<ContentItemBase>>(list.ToArray());
         }
 
         public Task<IEnumerable<TvEpisodeModel>> GetTvEpisodesAsync(CancellationToken ct)
         {
             // Curate inline content
-            var list = new ObservableCollection<TvEpisodeModel>();
+            var list = new ModelList<TvEpisodeModel>();
             CreateAndAddItemToList<TvEpisodeModel>(list, 56);
             CreateAndAddItemToList<TvEpisodeModel>(list, 57);
             CreateAndAddItemToList<TvEpisodeModel>(list, 58);
@@ -268,7 +269,6 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
                     Description = SAMPLE_DESCRIPTION,
                     Length = "120",
@@ -296,7 +296,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
                     MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
                     LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
@@ -328,7 +328,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
                     MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
                     LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
@@ -390,7 +390,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return default(T);
         }
 
-        public static void CreateAndAddItemToList<T>(ObservableCollection<T> list, int number) where T : class
+        public static void CreateAndAddItemToList<T>(IList list, int number) where T : class
         {
             var numberString = number.ToString();
             var imageNumber = number.ToString("00");
@@ -412,7 +412,6 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("PosterArt_2x3_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
                     Description = SAMPLE_DESCRIPTION,
                     Length = "120",
@@ -424,8 +423,10 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     //Flag = "Just Added",
                 };
                 //if (number == 1) item.Flag = "Featured";
-                list.Add(item as T);
+                list.Add(item);
             }
+
+            #region TV Series
 
             if (typeof(T) == typeof(TvSeriesModel))
             {
@@ -440,7 +441,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
                     MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
                     LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
@@ -455,8 +456,10 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     //Flag = "Most Popular",
                 };
                 //item.Seasons = new ObservableCollection<SeasonModel>(this.GetSeasons(item));
-                list.Add(item as T);
+                list.Add(item);
             }
+
+            #endregion
 
             if (typeof(T) == typeof(TvEpisodeModel))
             {
@@ -472,7 +475,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     FeaturedImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("FeaturedImage_2x1_Image{0}.jpg", imageNumber),
                     MediaImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("MediaTileTall_16x9_Image{0}.jpg", imageNumber),
                     LandscapeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("LandScape_2x1_Image{0}.jpg", imageNumber),
-                    TvEpisodeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
+                    PosterImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("TVArt_1x1_Image{0}.jpg", imageNumber),
                     ResumeImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("ResumeTile_16x9_Image{0}.jpg", imageNumber),
                     InlineImage = SAMPLE_IMAGE_PATH_ROOT + string.Format("Inline_16x9_Image{0}.jpg", imageNumber),
                     URL = SAMPLE_MEDIA_PATH_ROOT + SAMPLE_MEDIA_FILE,
@@ -488,7 +491,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                 };
 
 
-                list.Add(item as T);
+                list.Add(item);
             }
 
             if (typeof(T) == typeof(SeasonModel))
@@ -528,7 +531,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                         break;
                 }
 
-                list.Add(item as T);
+                list.Add(item);
             }
         }
 

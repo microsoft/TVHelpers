@@ -98,7 +98,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\HeaderLogo.png" />
+    <Content Include="Assets\HeaderLogo_Full.png" />
     <Content Include="Assets\MicrosoftLogo.png" />
     <None Include="App_StoreKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
@@ -121,7 +124,7 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\HeroContentItemControl.cs" />
+    <Compile Include="Controls\ContentItemListControl.cs" />
     <Compile Include="Controls\ImageControl.cs" />
     <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
     <Compile Include="Controls\RatingsControl.cs" />

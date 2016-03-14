@@ -41,7 +41,7 @@ namespace MediaAppSample.Core.Data
         Task<IEnumerable<TvSeriesModel>> GetTvFeaturedAsync(CancellationToken ct);
         Task<IEnumerable<TvSeriesModel>> GetTvNewReleasesAsync(CancellationToken ct);
 
-        Task<IEnumerable<TvEpisodeModel>> GetSneakPeeksAsync(CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetSneakPeeksAsync(CancellationToken ct);
 
         #endregion
 

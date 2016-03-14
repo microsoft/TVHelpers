@@ -17,7 +17,7 @@ namespace MediaAppSample.Core.Models
 
         public SeasonModel()
         {
-            this.Episodes = new ContentItemCollection<TvEpisodeModel>();
+            this.Episodes = new ContentItemList();
         }
 
         #endregion
@@ -30,7 +30,7 @@ namespace MediaAppSample.Core.Models
 
         public int SeasonNumber { get; set; }
 
-        public ContentItemCollection<TvEpisodeModel> Episodes { get; set; }
+        public ContentItemList Episodes { get; set; }
 
         #endregion
     }

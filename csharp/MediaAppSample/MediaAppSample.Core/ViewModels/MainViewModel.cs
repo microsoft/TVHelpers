@@ -20,21 +20,21 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Movie Properties
 
-        private ContentItemCollection<MovieModel> _moviesFeatured = new ContentItemCollection<MovieModel>();
+        private ContentItemList _moviesFeatured;
         /// <summary>
         /// Gets the list of featured movies.
         /// </summary>
-        public ContentItemCollection<MovieModel> MoviesFeatured
+        public ContentItemList MoviesFeatured
         {
             get { return _moviesFeatured; }
             private set { this.SetProperty(ref _moviesFeatured, value); }
         }
 
-        private ContentItemCollection<MovieModel> _movieNewReleases = new ContentItemCollection<MovieModel>();
+        private ContentItemList _movieNewReleases = new ContentItemList();
         /// <summary>
         /// Gets the list of new movie releases.
         /// </summary>
-        public ContentItemCollection<MovieModel> MovieNewReleases
+        public ContentItemList MovieNewReleases
         {
             get { return _movieNewReleases; }
             private set { this.SetProperty(ref _movieNewReleases, value); }
@@ -44,31 +44,31 @@ namespace MediaAppSample.Core.ViewModels
 
         #region TV Properties
 
-        private ContentItemCollection<TvSeriesModel> _tvFeatured = new ContentItemCollection<TvSeriesModel>();
+        private ContentItemList _tvFeatured;
         /// <summary>
         /// Gets the list of featured TV series
         /// </summary>
-        public ContentItemCollection<TvSeriesModel> TvFeatured
+        public ContentItemList TvFeatured
         {
             get { return _tvFeatured; }
             private set { this.SetProperty(ref _tvFeatured, value); }
         }
 
-        private ContentItemCollection<TvSeriesModel> _tvNewReleases = new ContentItemCollection<TvSeriesModel>();
+        private ContentItemList _tvNewReleases;
         /// <summary>
         /// Gets the list of new release TV series
         /// </summary>
-        public ContentItemCollection<TvSeriesModel> TvNewReleases
+        public ContentItemList TvNewReleases
         {
             get { return _tvNewReleases; }
             private set { this.SetProperty(ref _tvNewReleases, value); }
         }
 
-        private ContentItemCollection<TvEpisodeModel> _tvInline = new ContentItemCollection<TvEpisodeModel>();
+        private ContentItemList _tvInline;
         /// <summary>
         /// Gets the list of the TV episodes for the Inline section
         /// </summary>
-        public ContentItemCollection<TvEpisodeModel> SneakPeeks
+        public ContentItemList SneakPeeks
         {
             get { return _tvInline; }
             private set { this.SetProperty(ref _tvInline, value); }
@@ -200,7 +200,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadMoviesFeaturedAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesFeaturedAsync(ct));
+            var list = new ContentItemList(await DataSource.Current.GetMoviesFeaturedAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -210,7 +210,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadMoviesNewReleasesAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesNewReleasesAsync(ct));
+            var list = new ContentItemList(await DataSource.Current.GetMoviesNewReleasesAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -220,7 +220,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadTvFeaturedAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvFeaturedAsync(ct));
+            var list = new ContentItemList(await DataSource.Current.GetTvFeaturedAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -230,7 +230,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadTvNewReleasesAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvNewReleasesAsync(ct));
+            var list = new ContentItemList(await DataSource.Current.GetTvNewReleasesAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -240,7 +240,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadSneakPeeksAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<TvEpisodeModel>(await DataSource.Current.GetSneakPeeksAsync(ct));
+            var list = new ContentItemList(await DataSource.Current.GetSneakPeeksAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues

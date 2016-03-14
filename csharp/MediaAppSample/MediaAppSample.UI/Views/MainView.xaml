@@ -20,13 +20,39 @@
             <Grid>
                 <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
-                    <TextBlock Text="{x:Bind Flag}" />
-                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind Flag}" Visibility="{x:Bind Flag, Mode=OneWay, Converter={StaticResource visConverter}}" />
+                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
                     <TextBlock Text="{x:Bind Description}" />
                     <ProgressBar Minimum="0" Maximum="100" Value="80" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
+
+        <Style TargetType="controls:ContentItemListControl">
+            <Setter Property="Background" Value="#FF1F1F1F" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:ContentItemListControl">
+                        <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ListView ItemsSource="{TemplateBinding Items}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:ContentItemBase">
+                                        <Grid Height="300" Width="225">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding PosterImage, Mode=OneWay}" Stretch="UniformToFill" />
+                                            <TextBlock Text="{Binding Title}" Grid.Row="1" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Page.Resources>
 
@@ -36,12 +62,7 @@
 
             <Hub.Header>
                 <Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="/Assets/HeaderLogo.png" Height="40" Stretch="UniformToFill" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="MainHeaderTitle" x:Uid="SimplyEntertaining" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Center" />
+                    <Image Source="/Assets/HeaderLogo_Full.png" Height="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
             </Hub.Header>
 
@@ -67,9 +88,7 @@
             <!-- New Released Movies -->
             <HubSection Header="New Released Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <Grid Background="#FF1F1F1F">
-                        <ListView ItemsSource="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}" />
-                    </Grid>
+                    <controls:ContentItemListControl Items="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
 
@@ -83,9 +102,7 @@
             <!-- New TV Episodes -->
             <HubSection Header="New Episodes">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <Grid Background="#FF1F1F1F">
-                        <ListView ItemsSource="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}" />
-                    </Grid>
+                    <controls:ContentItemListControl Items="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
 
