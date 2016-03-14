@@ -28,6 +28,18 @@
             </Grid>
         </DataTemplate>
 
+        <DataTemplate x:Name="FeaturedContentItemDataTemplate" x:DataType="models:ContentItemBase">
+            <Grid>
+                <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+                    <TextBlock Text="{x:Bind Flag}" Visibility="{x:Bind Flag, Mode=OneWay, Converter={StaticResource visConverter}}" />
+                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
+                    <TextBlock Text="{x:Bind Description}" />
+                    <ProgressBar Minimum="0" Maximum="100" Value="80" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
         <Style TargetType="controls:ContentItemListControl">
             <Setter Property="Background" Value="#FF1F1F1F" />
             <Setter Property="Template">
@@ -35,6 +47,11 @@
                     <ControlTemplate TargetType="controls:ContentItemListControl">
                         <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <ListView ItemsSource="{TemplateBinding Items}">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:ContentItemBase">
                                         <Grid Height="300" Width="225">
@@ -81,7 +98,7 @@
             <!-- Movies Featured -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{x:Bind ViewModel.MoviesFeatured, Mode=OneWay}" />
+                    <FlipView ItemsSource="{x:Bind ViewModel.MoviesFeatured, Mode=OneWay}" ItemTemplate="{StaticResource FeaturedContentItemDataTemplate}" />
                 </DataTemplate>
             </HubSection>
 
@@ -95,7 +112,7 @@
             <!-- TV Featured -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="TV">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{x:Bind ViewModel.TvFeatured, Mode=OneWay}" />
+                    <FlipView ItemsSource="{x:Bind ViewModel.TvFeatured, Mode=OneWay}" ItemTemplate="{StaticResource FeaturedContentItemDataTemplate}" />
                 </DataTemplate>
             </HubSection>
 
