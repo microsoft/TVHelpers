@@ -1,11 +1,9 @@
 ﻿using MediaAppSample.Core;
 using MediaAppSample.Core.Models;
 using MediaAppSample.Core.Services;
-using MediaAppSample.Core.ViewModels;
 using MediaAppSample.UI.Views;
 using System;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Controls;
 
 namespace MediaAppSample.UI.Services
@@ -205,6 +203,8 @@ namespace MediaAppSample.UI.Services
         
         public override void Details(object parameter)
         {
+            if (parameter is QueueModel)
+                parameter = (parameter as QueueModel).Item;
             if (parameter is ContentItemBase)
                 parameter = (parameter as ContentItemBase).ContentID;
 
@@ -231,6 +231,11 @@ namespace MediaAppSample.UI.Services
 
         public override void Media(object parameter)
         {
+            if (parameter is QueueModel)
+                parameter = (parameter as QueueModel).Item;
+            if (parameter is ContentItemBase)
+                parameter = (parameter as ContentItemBase).ContentID;
+
             if (this.IsChildFramePresent)
                 this.Frame.Navigate(typeof(MediaView), this.SerializeParameter(parameter));
             else

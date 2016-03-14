@@ -1,11 +1,25 @@
 ﻿using MediaAppSample.Core.Models;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using System.Threading;
+using MediaAppSample.Core.Data;
+using System;
 
 namespace MediaAppSample.Core.ViewModels
 {
     public partial class MediaViewModel : ViewModelBase
     {
+        #region Properties
+
+        private ContentItemBase _Item;
+        public ContentItemBase Item
+        {
+            get { return _Item; }
+            private set { this.SetProperty(ref _Item, value); }
+        }
+
+        #endregion
+
         #region Constructors
 
         public MediaViewModel()
@@ -22,13 +36,32 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Methods
 
-        protected override Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
+        protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
             if (isFirstRun)
             {
+                if(this.ViewParameter is string && !this.ViewParameter.ToString().Equals(this.Item?.ContentID, StringComparison.CurrentCultureIgnoreCase))
+                    await this.RefreshAsync();
             }
 
-            return base.OnLoadStateAsync(e, isFirstRun);
+            await base.OnLoadStateAsync(e, isFirstRun);
+        }
+
+        protected override async Task OnRefreshAsync(CancellationToken ct)
+        {
+            try
+            {
+                this.ShowBusyStatus(Strings.Resources.TextLoading, true);
+                this.Item = await DataSource.Current.GetContentItemAsync(this.ViewParameter.ToString(), ct);
+                this.ClearStatus();
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Error while trying to load data for ID '{0}'", this.ViewParameter);
+                this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
+            }
+
+            await base.OnRefreshAsync(ct);
         }
 
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)

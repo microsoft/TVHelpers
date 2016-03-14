@@ -11,15 +11,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-
-        <Grid x:Name="ContentPanel">
-            <TextBlock>Coming soon!</TextBlock>
-        </Grid>
-
+        <MediaElement x:Name="MediaElement" 
+                Source="{Binding ViewModel.Item.URL, Mode=OneWay}" 
+                AreTransportControlsEnabled="True" 
+                AutoPlay="True" />
+        <controls:ViewHeaderStatus />
     </Grid>
 </views:MediaViewBase>

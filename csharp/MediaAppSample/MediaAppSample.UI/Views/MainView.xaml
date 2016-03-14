@@ -33,6 +33,10 @@
             </Grid>
         </DataTemplate>
 
+        <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
+            <ItemsStackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+
         <Style TargetType="controls:ContentItemListControl">
             <Setter Property="Background" Value="#FF1F1F1F" />
             <Setter Property="Template">
@@ -50,12 +54,8 @@
                                       ItemsSource="{TemplateBinding Items}" 
                                       IsItemClickEnabled="True"
                                       SelectionMode="None"
+                                      ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
                                       behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <ItemsStackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:ContentItemBase">
                                         <Grid Height="300" Width="225">
@@ -103,7 +103,7 @@
                         <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" 
                                   IsItemClickEnabled="True"
                                   SelectionMode="None"
-                                  behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand}"
+                                  behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
                                   VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <ListView.Header>
                                 <Grid>
@@ -164,9 +164,33 @@
             <!-- TV sneak peeks -->
             <HubSection Header="Sneak Peeks">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}" 
-                              behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToModelCommand}"
-                              IsItemClickEnabled="True" SelectionMode="None" />
+                    <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}"
+                              ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
+                              behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}"
+                              IsItemClickEnabled="True" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Width="600" Height="400">
+                                    <Grid>
+                                        <MediaElement x:Name="MediaElement" Source="{Binding URL}" Stretch="UniformToFill" AutoPlay="False" Visibility="Collapsed" AreTransportControlsEnabled="False">
+                                            <MediaElement.TransportControls>
+                                                <MediaTransportControls IsCompact="True"/>
+                                            </MediaElement.TransportControls>
+                                        </MediaElement>
+                                        <controls:ImageControl MaxWidth="600" MaxHeight="400" Source="{Binding InlineImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="&#x25B7;" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Symbol" FontSize="40" Foreground="White" />
+                                    </Grid>
+                                    <TextBlock>
+                                        <Run x:Uid="SneakPeek" Text="Sneak Peek - "/><Run Text="{Binding Title}"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run x:Uid="ReleaseDate" Text="Released date: "/>
+                                        <Run Text="{Binding Year}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </DataTemplate>
             </HubSection>
 
