@@ -84,7 +84,7 @@ namespace MediaAppSample.Core.ViewModels
 
                     // Call the API to perform the search
                     Platform.Current.Analytics.Event("Search", this.SearchText);
-                    var searchResults = await DataSource.Current.SearchItems(this.SearchText, ct);
+                    var searchResults = await DataSource.Current.SearchAsync(this.SearchText, ct);
                     this.Results.Clear();
                     this.Results.AddRange(searchResults);
 

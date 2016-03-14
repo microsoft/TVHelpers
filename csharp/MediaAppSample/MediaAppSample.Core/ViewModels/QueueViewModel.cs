@@ -105,7 +105,7 @@ namespace MediaAppSample.Core.ViewModels
 
                 // Load queue data
                 var list = new QueueCollection();
-                list.AddRange(await DataSource.Current.GetQueue(ct));
+                list.AddRange(await DataSource.Current.GetQueueItemsAsync(ct));
                 this.Queue = list;
                 await this.SaveToCacheAsync(() => this.Queue);
 
@@ -157,7 +157,7 @@ namespace MediaAppSample.Core.ViewModels
         {
             try
             {
-                await DataSource.Current.AddToQueue(item, CancellationToken.None);
+                await DataSource.Current.AddToQueueAsync(item, CancellationToken.None);
                 if(!this.Queue.ContainsItem(item))
                     this.Queue.Add(item);
             }
@@ -176,7 +176,7 @@ namespace MediaAppSample.Core.ViewModels
         {
             try
             {
-                await DataSource.Current.RemoveFromQueue(item, CancellationToken.None);
+                await DataSource.Current.RemoveFromQueueAsync(item, CancellationToken.None);
                 this.Queue.RemoveItem(item);
             }
             catch (Exception ex)

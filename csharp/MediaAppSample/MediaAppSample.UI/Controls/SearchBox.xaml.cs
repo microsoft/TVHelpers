@@ -43,7 +43,7 @@ namespace MediaAppSample.UI.Controls
 
                         try
                         {
-                            sender.ItemsSource = await DataSource.Current.SearchItems(sender.Text, _cts.Token);
+                            sender.ItemsSource = await DataSource.Current.SearchAsync(sender.Text, _cts.Token);
                         }
                         catch (OperationCanceledException)
                         {

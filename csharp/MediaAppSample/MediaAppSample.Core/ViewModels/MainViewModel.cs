@@ -20,16 +20,6 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Movie Properties
 
-        private MovieModel _movieHero = null;
-        /// <summary>
-        /// Gets MovieModel representing the hero movie.
-        /// </summary>
-        public MovieModel MovieHero
-        {
-            get { return _movieHero; }
-            private set { this.SetProperty(ref _movieHero, value); }
-        }
-
         private ContentItemCollection<MovieModel> _moviesFeatured = new ContentItemCollection<MovieModel>();
         /// <summary>
         /// Gets the list of featured movies.
@@ -50,29 +40,9 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _movieNewReleases, value); }
         }
 
-        private ContentItemCollection<MovieModel> _movieTrailers = new ContentItemCollection<MovieModel>();
-        /// <summary>
-        /// Gets the list of movie trailers.
-        /// </summary>
-        public ContentItemCollection<MovieModel> MovieTrailers
-        {
-            get { return _movieTrailers; }
-            private set { this.SetProperty(ref _movieTrailers, value); }
-        }
-
         #endregion
 
         #region TV Properties
-
-        private TvSeriesModel _tvHero = null;
-        /// <summary>
-        /// Gets tv series that is the TV hero
-        /// </summary>
-        public TvSeriesModel TvHero
-        {
-            get { return _tvHero; }
-            private set { this.SetProperty(ref _tvHero, value); }
-        }
 
         private ContentItemCollection<TvSeriesModel> _tvFeatured = new ContentItemCollection<TvSeriesModel>();
         /// <summary>
@@ -98,37 +68,15 @@ namespace MediaAppSample.Core.ViewModels
         /// <summary>
         /// Gets the list of the TV episodes for the Inline section
         /// </summary>
-        public ContentItemCollection<TvEpisodeModel> TvInline
+        public ContentItemCollection<TvEpisodeModel> SneakPeeks
         {
             get { return _tvInline; }
             private set { this.SetProperty(ref _tvInline, value); }
         }
 
-        private ContentItemCollection<TvEpisodeModel> _TvEpisodes = new ContentItemCollection<TvEpisodeModel>();
-        /// <summary>
-        /// Gets a list of all the TV epsisodes.
-        /// </summary>
-        public ContentItemCollection<TvEpisodeModel> TvEpisodes
-        {
-            get { return _TvEpisodes; }
-            private set { this.SetProperty(ref _TvEpisodes, value); }
-        }
-
         #endregion
         
-        private double _DeviceWindowHeight;
-        public double DeviceWindowHeight
-        {
-            get { return _DeviceWindowHeight; }
-            set { this.SetProperty(ref _DeviceWindowHeight, value); }
-        }
-        
-        private double _DeviceWindowWidth;
-        public double DeviceWindowWidth
-        {
-            get { return _DeviceWindowWidth; }
-            set { this.SetProperty(ref _DeviceWindowWidth, value); }
-        }
+        #region ViewModels
 
         private GalleryViewModel _GalleryTvViewModel = new GalleryViewModel();
         public GalleryViewModel GalleryTvViewModel
@@ -149,6 +97,22 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return _QueueViewModel; }
             protected set { this.SetProperty(ref _QueueViewModel, value); }
+        }
+
+        #endregion
+
+        private double _DeviceWindowHeight;
+        public double DeviceWindowHeight
+        {
+            get { return _DeviceWindowHeight; }
+            set { this.SetProperty(ref _DeviceWindowHeight, value); }
+        }
+        
+        private double _DeviceWindowWidth;
+        public double DeviceWindowWidth
+        {
+            get { return _DeviceWindowWidth; }
+            set { this.SetProperty(ref _DeviceWindowWidth, value); }
         }
 
         #endregion Properties
@@ -194,14 +158,11 @@ namespace MediaAppSample.Core.ViewModels
                 await this.WaitAllAsync(
                     ct,
                     this.LoadFeaturedHeroAsync(ct),
-                    this.LoadMovieHeroAsync(ct),
                     this.LoadMoviesFeaturedAsync(ct),
                     this.LoadMoviesNewReleasesAsync(ct),
-                    this.LoadMovieTrailersAsync(ct),
-                    this.LoadTvHeroAsync(ct),
                     this.LoadTvFeaturedAsync(ct),
                     this.LoadTvNewReleasesAsync(ct),
-                    this.LoadTvInline(ct),
+                    this.LoadSneakPeeksAsync(ct),
                     this.QueueViewModel.RefreshAsync()
                     );
 
@@ -240,7 +201,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private async Task LoadFeaturedHeroAsync(CancellationToken ct)
         {
-            var model = await DataSource.Current.GetFeaturedHero(ct);
+            var model = await DataSource.Current.GetFeaturedHeroAsync(ct);
             if (model != null)
             {
                 this.InvokeOnUIThread(() =>
@@ -251,33 +212,9 @@ namespace MediaAppSample.Core.ViewModels
             }
         }
 
-
-        private async Task LoadMovieTrailersAsync(CancellationToken ct)
-        {
-            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesTrailers(ct));
-            this.InvokeOnUIThread(() =>
-            {
-                // Set the data on the UI thread to avoid cross threading issues 
-                this.MovieTrailers = list;
-            });
-        }
-
-        private async Task LoadMovieHeroAsync(CancellationToken ct)
-        {
-            var model = await DataSource.Current.GetMovieHero(ct);
-            if (model != null)
-            {
-                this.InvokeOnUIThread(() =>
-                {
-                    // Set the data on the UI thread to avoid cross threading issues
-                    this.MovieHero = model;
-                });
-            }
-        }
-
         private async Task LoadMoviesFeaturedAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesFeatured(ct));
+            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesFeaturedAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -285,19 +222,9 @@ namespace MediaAppSample.Core.ViewModels
             });
         }
 
-        private async Task LoadTvFeaturedAsync(CancellationToken ct)
-        {
-            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvFeatured(ct));
-            this.InvokeOnUIThread(() =>
-            {
-                // Set the data on the UI thread to avoid cross threading issues
-                this.TvFeatured = list;
-            });
-        }
-
         private async Task LoadMoviesNewReleasesAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesNewReleases(ct));
+            var list = new ContentItemCollection<MovieModel>(await DataSource.Current.GetMoviesNewReleasesAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
@@ -305,33 +232,33 @@ namespace MediaAppSample.Core.ViewModels
             });
         }
 
-        private async Task LoadTvInline(CancellationToken ct)
+        private async Task LoadTvFeaturedAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<TvEpisodeModel>(await DataSource.Current.GetTvInline(ct));
+            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvFeaturedAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
-                this.TvInline = list;
-            });
-        }
-
-        private async Task LoadTvHeroAsync(CancellationToken ct)
-        {
-            var model = await DataSource.Current.GetTvHero(ct);
-            this.InvokeOnUIThread(() =>
-            {
-                // Set the data on the UI thread to avoid cross threading issues
-                this.TvHero = model;
+                this.TvFeatured = list;
             });
         }
 
         private async Task LoadTvNewReleasesAsync(CancellationToken ct)
         {
-            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvNewReleases(ct));
+            var list = new ContentItemCollection<TvSeriesModel>(await DataSource.Current.GetTvNewReleasesAsync(ct));
             this.InvokeOnUIThread(() =>
             {
                 // Set the data on the UI thread to avoid cross threading issues
                 this.TvNewReleases = list;
+            });
+        }
+
+        private async Task LoadSneakPeeksAsync(CancellationToken ct)
+        {
+            var list = new ContentItemCollection<TvEpisodeModel>(await DataSource.Current.GetSneakPeeksAsync(ct));
+            this.InvokeOnUIThread(() =>
+            {
+                // Set the data on the UI thread to avoid cross threading issues
+                this.SneakPeeks = list;
             });
         }
 

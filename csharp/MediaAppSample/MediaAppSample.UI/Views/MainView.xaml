@@ -55,8 +55,12 @@
                 </DataTemplate>
             </HubSection>
 
-            <!-- Movie Hero -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0" DataContext="{x:Bind ViewModel.MovieHero, Mode=OneWay}" Header="Movies" ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+            <!-- Movies Featured -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Movies">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <ListView ItemsSource="{Binding ViewModel.MoviesFeatured, Mode=OneWay}" />
+                </DataTemplate>
+            </HubSection>
 
             <!-- New Released Movies -->
             <HubSection Header="New Released Movies">
@@ -64,15 +68,19 @@
                     <ListView ItemsSource="{Binding ViewModel.MovieNewReleases, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
-            
-            <!-- TV Hero -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0" DataContext="{x:Bind ViewModel.TvHero, Mode=OneWay}" Header="TV" ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+
+            <!-- TV Featured -->
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <ListView ItemsSource="{Binding ViewModel.TvFeatured, Mode=OneWay}" />
+                </DataTemplate>
+            </HubSection>
 
             <!-- New TV Episodes -->
             <HubSection Header="New Episodes">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Background="#FF1F1F1F">
-                        <ListView ItemsSource="{Binding ViewModel.TvEpisodes, Mode=OneWay}" />
+                        <ListView ItemsSource="{Binding ViewModel.TvNewReleases, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </HubSection>

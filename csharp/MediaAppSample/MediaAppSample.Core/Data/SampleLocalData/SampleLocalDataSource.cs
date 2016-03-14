@@ -48,7 +48,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region Search
 
-        public Task<IEnumerable<ContentItemBase>> SearchItems(string searchText, CancellationToken ct)
+        public Task<IEnumerable<ContentItemBase>> SearchAsync(string searchText, CancellationToken ct)
         {
             throw new NotImplementedException();
         }
@@ -57,7 +57,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region Movies
 
-        public Task<IEnumerable<MovieModel>> GetMovies(CancellationToken ct)
+        public Task<IEnumerable<MovieModel>> GetMoviesAsync(CancellationToken ct)
         {
             // create movies list
             var list = new ObservableCollection<MovieModel>();
@@ -68,31 +68,18 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return Task.FromResult<IEnumerable<MovieModel>>(list);
         }
 
-        public async Task<MovieModel> GetFeaturedHero(CancellationToken ct)
+        public async Task<MovieModel> GetFeaturedHeroAsync(CancellationToken ct)
         {
             // curated featured hero
-            var results = await this.GetMovies(ct);
+            var results = await this.GetMoviesAsync(ct);
             return results.FirstOrDefault();
         }
 
-        public async Task<MovieModel> GetMovieHero(CancellationToken ct)
-        {
-            // curated movie hero
-            var results = await this.GetMovies(ct);
-            return results.Skip(1).FirstOrDefault();
-        }
-
-        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleases(CancellationToken ct)
-        {
-            // curated new release movies
-            return await this.GetMovies(ct);
-        }
-
-        public async Task<IEnumerable<MovieModel>> GetMoviesFeatured(CancellationToken ct)
+        public async Task<IEnumerable<MovieModel>> GetMoviesFeaturedAsync(CancellationToken ct)
         {
             // curated featured movies
             var list = new List<MovieModel>();
-            var results = await this.GetMovies(ct);
+            var results = await this.GetMoviesAsync(ct);
             list.Add(results.First(o => o.ContentID == "movie02"));
             list.Add(results.First(o => o.ContentID == "movie18"));
             list.Add(results.First(o => o.ContentID == "movie12"));
@@ -100,17 +87,23 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return list;
         }
 
-        public async Task<IEnumerable<MovieModel>> GetMoviesTrailers(CancellationToken ct)
+        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleasesAsync(CancellationToken ct)
+        {
+            // curated new release movies
+            return await this.GetMoviesAsync(ct);
+        }
+
+        public async Task<IEnumerable<MovieModel>> GetMoviesTrailersAsync(CancellationToken ct)
         {
             // curate movie trailers
-            var results = await this.GetMovies(ct);
+            var results = await this.GetMoviesAsync(ct);
             return results.OrderByDescending(o => o.Title);
         }
 
-        public async Task<IEnumerable<ContentItemBase>> GetTrailers(string contentID, CancellationToken ct)
+        public async Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string contentID, CancellationToken ct)
         {
             // curate movie trailers
-            var results = await this.GetMovies(ct);
+            var results = await this.GetMoviesAsync(ct);
             return results.OrderByDescending(o => o.Title);
         }
 
@@ -118,7 +111,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region TV
 
-        public Task<IEnumerable<TvSeriesModel>> GetTvSeries(CancellationToken ct)
+        public Task<IEnumerable<TvSeriesModel>> GetTvSeriesAsync(CancellationToken ct)
         {
             // create TV series
             var list = new ObservableCollection<TvSeriesModel>();
@@ -129,23 +122,16 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return Task.FromResult<IEnumerable<TvSeriesModel>>(list);
         }
 
-        public async Task<TvSeriesModel> GetTvHero(CancellationToken ct)
-        {
-            // curate TV hero
-            var results = await this.GetTvNewReleases(ct);
-            return results.FirstOrDefault();
-        }
-
-        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleases(CancellationToken ct)
+        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleasesAsync(CancellationToken ct)
         {
             // curate new TV releases
-            return await this.GetTvSeries(ct);
+            return await this.GetTvSeriesAsync(ct);
         }
 
-        public async Task<IEnumerable<TvSeriesModel>> GetTvFeatured(CancellationToken ct)
+        public async Task<IEnumerable<TvSeriesModel>> GetTvFeaturedAsync(CancellationToken ct)
         {
             // curate featured TV
-            var results = await this.GetTvSeries(ct);
+            var results = await this.GetTvSeriesAsync(ct);
             var tvSeriesModels = results as IList<TvSeriesModel> ?? results.ToList();
 
             return new List<TvSeriesModel>
@@ -165,7 +151,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             //};
         }
 
-        public IEnumerable<SeasonModel> GetSeasons(TvSeriesModel series, CancellationToken ct)
+        public IEnumerable<SeasonModel> GetSeasonsAsync(TvSeriesModel series, CancellationToken ct)
         {
             // curate seasons
             var list = new ObservableCollection<SeasonModel>();
@@ -175,7 +161,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return list;
         }
 
-        public Task<IEnumerable<TvEpisodeModel>> GetTvInline(CancellationToken ct)
+        public Task<IEnumerable<TvEpisodeModel>> GetSneakPeeksAsync(CancellationToken ct)
         {
             // Curate inline content
             var list = new ObservableCollection<TvEpisodeModel>();
@@ -188,7 +174,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return Task.FromResult<IEnumerable<TvEpisodeModel>>(list);
         }
 
-        public Task<IEnumerable<TvEpisodeModel>> GetTvEpisodes(CancellationToken ct)
+        public Task<IEnumerable<TvEpisodeModel>> GetTvEpisodesAsync(CancellationToken ct)
         {
             // Curate inline content
             var list = new ObservableCollection<TvEpisodeModel>();
@@ -201,20 +187,15 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return Task.FromResult<IEnumerable<TvEpisodeModel>>(list);
         }
 
-        //public Task LoadEpisodes(SeasonModel season, CancellationToken ct)
-        //{
-        //    return Task.FromResult<object>(null);
-        //}
-
         #endregion
 
         #region Queue
 
-        public async Task<IEnumerable<QueueModel>> GetQueue(CancellationToken ct)
+        public async Task<IEnumerable<QueueModel>> GetQueueItemsAsync(CancellationToken ct)
         {
-            var movies = (await this.GetMovies(ct)).ToArray();
-            var tv = (await this.GetTvSeries(ct)).ToArray();
-            var episodes = (await GetTvEpisodes(ct)).ToArray();
+            var movies = (await this.GetMoviesAsync(ct)).ToArray();
+            var tv = (await this.GetTvSeriesAsync(ct)).ToArray();
+            var episodes = (await GetTvEpisodesAsync(ct)).ToArray();
             return new List<QueueModel>
             {
                 new QueueModel() {Item = movies[9]},
@@ -229,12 +210,12 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             };
         }
 
-        public Task AddToQueue(ContentItemBase item, CancellationToken ct)
+        public Task AddToQueueAsync(ContentItemBase item, CancellationToken ct)
         {
             return Task.FromResult<object>(null);
         }
 
-        public Task RemoveFromQueue(ContentItemBase item, CancellationToken ct)
+        public Task RemoveFromQueueAsync(ContentItemBase item, CancellationToken ct)
         {
             return Task.FromResult<object>(null);
         }
@@ -243,25 +224,25 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region ContentItemBase
 
-        public async Task<IEnumerable<ContentItemBase>> GetRelated(string id, CancellationToken ct)
+        public async Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string id, CancellationToken ct)
         {
             // get some Content to populate Related
 
             if (id.Contains("series"))
             {
-                var results = await this.GetTvSeries(ct);
+                var results = await this.GetTvSeriesAsync(ct);
                 return results.OrderBy(o => o.Title);
             }
             else
             {
-                var results = await this.GetMovies(ct);
+                var results = await this.GetMoviesAsync(ct);
                 return results.OrderBy(o => o.Title);
             }
         }
 
-        public async Task<ContentItemBase> GetContentItem(string contentId, CancellationToken ct)
+        public async Task<ContentItemBase> GetContentItemAsync(string contentId, CancellationToken ct)
         {
-            var results = await this.GetMovies(ct);
+            var results = await this.GetMoviesAsync(ct);
             return results.FirstOrDefault(s => s.ContentID == contentId);
         }
 
@@ -552,14 +533,10 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         }
 
         #endregion ContentItemBase
-
         
-
-
-
         #region Ratings/Reviews/Casts
 
-        public Task<IEnumerable<RatingModel>> GetRatings(string contentID, CancellationToken ct)
+        public Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
         }
@@ -594,7 +571,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             };
         }
 
-        public Task<IEnumerable<ReviewModel>> GetReviews(string contentID, CancellationToken ct)
+        public Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<ReviewModel>>(GetReviews(contentID));
         }
@@ -623,7 +600,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             };
         }
 
-        public Task<IEnumerable<PersonModel>> GetCast(string contentID, CancellationToken ct)
+        public Task<IEnumerable<PersonModel>> GetCastAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<PersonModel>>(GetCast(contentID));
         }
@@ -662,7 +639,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             };
         }
 
-        public Task<IEnumerable<PersonModel>> GetCrew(string contentID, CancellationToken ct)
+        public Task<IEnumerable<PersonModel>> GetCrewAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<PersonModel>>(GetCrew(contentID));
         }
