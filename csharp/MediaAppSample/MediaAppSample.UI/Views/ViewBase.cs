@@ -43,6 +43,13 @@ namespace MediaAppSample.UI.Views
             private set { this.SetProperty(ref _IsInView, value); }
         }
 
+        private double _DeviceWindowHeight;
+        public double DeviceWindowHeight
+        {
+            get { return _DeviceWindowHeight; }
+            private set { this.SetProperty(ref _DeviceWindowHeight, value); }
+        }
+
         /// <summary>
         /// Event for knowing when page properties change.
         /// </summary>
@@ -55,6 +62,7 @@ namespace MediaAppSample.UI.Views
         public ViewBase()
         {
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.DeviceWindowHeight = 800;
 
             if (DesignMode.DesignModeEnabled)
                 return;
@@ -62,9 +70,15 @@ namespace MediaAppSample.UI.Views
             // Logging and analytics
             Platform.Current.Logger.Log(LogLevels.Debug, "New View Instance: {0}", this.GetType().Name);
             Platform.Current.Analytics.NewPageView(this.GetType());
-
+            
             // Wire up events
             this.Loaded += ViewBase_Loaded;
+            this.SizeChanged += ViewBase_SizeChanged;
+        }
+
+        private void ViewBase_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        {
+            this.DeviceWindowHeight = e.NewSize.Height - 50;
         }
 
         #endregion

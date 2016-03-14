@@ -114,7 +114,6 @@
     <Compile Include="ApplicationFrame.xaml.cs">
       <DependentUpon>ApplicationFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviors\DynamicStyleBehavior.cs" />
     <Compile Include="Behaviors\PivotCollectionViewModelBehavior.cs" />
     <Compile Include="Behaviors\FocusOnLoadBehavior.cs" />
     <Compile Include="Behaviors\EnterKeyBehavior.cs" />

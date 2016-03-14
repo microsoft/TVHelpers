@@ -46,7 +46,7 @@
             </Hub.Header>
 
             <!-- Featured Hero -->
-            <HubSection Height="{x:Bind ViewModel.DeviceWindowHeight, Mode=OneWay}" DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
+            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Margin="0">
                         <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
@@ -56,7 +56,7 @@
             </HubSection>
 
             <!-- Movies Featured -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Movies">
+            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <ListView ItemsSource="{Binding ViewModel.MoviesFeatured, Mode=OneWay}" />
                 </DataTemplate>
@@ -70,7 +70,7 @@
             </HubSection>
 
             <!-- TV Featured -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV">
+            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="TV">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <ListView ItemsSource="{Binding ViewModel.TvFeatured, Mode=OneWay}" />
                 </DataTemplate>

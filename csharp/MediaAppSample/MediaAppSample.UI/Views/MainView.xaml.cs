@@ -14,7 +14,6 @@ namespace MediaAppSample.UI.Views
         public MainView()
         {
             this.InitializeComponent();
-            this.SizeChanged += MainView_SizeChanged;
         }
 
         protected override Task OnLoadStateAsync(LoadStateEventArgs e)
@@ -23,11 +22,6 @@ namespace MediaAppSample.UI.Views
                 this.SetViewModel(Platform.Current.ViewModel);
 
             return base.OnLoadStateAsync(e);
-        }
-
-        private void MainView_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
-        {
-            Platform.Current.ViewModel.DeviceWindowHeight = e.NewSize.Height - 50;
         }
     }
 }
