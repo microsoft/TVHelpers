@@ -16,12 +16,14 @@
 
     <Page.Resources>
 
-        <DataTemplate x:Name="HeroImageDataTemplate">
+        <DataTemplate x:Name="HeroImageDataTemplate" x:DataType="models:ContentItemBase">
             <Grid>
-                <Image Source="{Binding FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
-                <StackPanel>
-                    <TextBlock Text="{Binding FeaturedHero.Title}" />
-                    <TextBlock Text="{Binding FeaturedHero.Description}" />
+                <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+                    <TextBlock Text="{Binding Flag}" />
+                    <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind Description}" />
+                    <ProgressBar Minimum="0" Maximum="100" Value="80" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -44,117 +46,43 @@
             </Hub.Header>
 
             <!-- Featured Hero -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}">
+            <HubSection Height="{x:Bind ViewModel.DeviceWindowHeight, Mode=OneWay}" DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <Grid DataContext="{Binding ViewModel.FeaturedHero}" Margin="0">
+                    <Grid Margin="0">
                         <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
-                        <ListView ItemsSource="{Binding ViewModel.QueueViewModel.QueuePreview}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                        <ListView ItemsSource="{Binding ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
                     </Grid>
                 </DataTemplate>
             </HubSection>
-
 
             <!-- Movie Hero -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0">
-                <DataTemplate>
-                    <Grid DataContext="{Binding ViewModel.MovieHero}">
-                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
-                    </Grid>
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0" DataContext="{x:Bind ViewModel.MovieHero, Mode=OneWay}" Header="Movies" ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+
+            <!-- New Released Movies -->
+            <HubSection Header="New Released Movies">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <ListView ItemsSource="{Binding ViewModel.MovieNewReleases, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
-
-
+            
             <!-- TV Hero -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0">
-                <DataTemplate>
-                    <Grid DataContext="{Binding ViewModel.TvHero}">
-                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Margin="0" DataContext="{x:Bind ViewModel.TvHero, Mode=OneWay}" Header="TV" ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+
+            <!-- New TV Episodes -->
+            <HubSection Header="New Episodes">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <Grid Background="#FF1F1F1F">
+                        <ListView ItemsSource="{Binding ViewModel.TvEpisodes, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
-            </HubSection>
-
-            
-            
-            
-            
-            
-            <!-- Movies featured -->
-            <HubSection Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="Featured">
-                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <ContentPresenter ContentTemplate="{StaticResource HeroControlItemControlDataTemplate}" />
-                        -->
-                <!--<Grid>
-                            <controls:ImageControl Source="{x:Bind ViewModel.MovieHero.FeaturedImage}" Stretch="Fill" HorizontalAlignment="Center"/>
-                            <Rectangle Fill="{ThemeResource ThemeImageOverlay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        </Grid>-->
-                <!--
-                    </DataTemplate>-->
-            </HubSection>
-
-            <!-- Movies new releases -->
-            <HubSection x:Name="NewReleases" x:Uid="NewReleases_Header" Header="New Releases">
-                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <Grid Background="#FF1F1F1F">
-                            -->
-                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                                <Button x:Uid="SeeAllMovies"
-                                    Command="{Binding NavigateGalleryCommand}" CommandParameter="Movies"
-                                    Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}"/>
-                                <ListView x:Name="movieRelease"
-                                    IsItemClickEnabled="True"
-                                    ItemClick="{Binding NavigateDetails_Click}"
-                                    ItemsSource="{Binding MovieNewReleases, Mode=OneWay}"
-                                    ItemContainerStyle="{StaticResource PaddedListViewItem}"
-                                    behaviors:DynamicStyleBehavior.TemplateName="PosterDataTemplate"/>
-                            </Grid>-->
-                <!--
-                        </Grid>
-                    </DataTemplate>-->
-            </HubSection>
-
-            <!-- TV Featured -->
-            <HubSection x:Uid="TV_Header" Height="{Binding ViewModel.DeviceWindowHeight, Mode=OneWay}" Header="TV Featured">
-                <!--<DataTemplate>
-                        -->
-                <!--<controls:CarouselControl DataContext="{Binding TvFeatured, Mode=OneWay}"/>-->
-                <!--
-                    </DataTemplate>-->
-            </HubSection>
-
-            <!-- TV new releases -->
-            <HubSection x:Name="TvReleaseHs" x:Uid="NewEpisodes_Header" Header="TV New Releases">
-                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        <Grid Background="#FF1F1F1F">
-                            -->
-                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                                <Button x:Uid="SeeAllTV" Command="{Binding NavigateGalleryCommand}" CommandParameter="TV"
-                                    Style="{StaticResource SeeAllButtonStyle}" Margin="{StaticResource SeeAllMargin}" />
-                                <ListView x:Name="TvRelease"
-                                    IsItemClickEnabled="True"
-                                    ItemClick="{Binding NavigateDetails_Click}"
-                                    ItemContainerStyle="{StaticResource PaddedListViewItem}"
-                                    ItemsSource="{Binding TvNewReleases, Mode=OneWay}"
-                                    behaviors:DynamicStyleBehavior.TemplateName="TvSeriesDataTemplate"/>
-                            </Grid>-->
-                <!--
-                        </Grid>
-                    </DataTemplate>-->
             </HubSection>
 
             <!-- TV sneak peeks -->
-            <HubSection x:Uid="SneakPeeks_Header" Header="TV Sneak Peeks">
-                <!--<DataTemplate x:DataType="viewmodels:MainViewModel">
-                        -->
-                <!--<Grid Margin="{StaticResource TitleSafeThicknessWidthOnly}">
-                            <ListView x:Name="inlineRelease"
-                                ItemsSource="{Binding TvInline, Mode=OneWay}"
-                                IsItemClickEnabled="True"      
-                                ItemClick="InlineClick"
-                                ItemContainerStyle="{StaticResource PaddedListViewItem}"
-                                behaviors:DynamicStyleBehavior.TemplateName="InlineDataTemplate" />
-                        </Grid>-->
-                <!--
-                    </DataTemplate>-->
+            <HubSection Header="Sneak Peeks">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <ListView ItemsSource="{Binding ViewModel.TvInline, Mode=OneWay}"
+                              IsItemClickEnabled="True" />
+                </DataTemplate>
             </HubSection>
 
         </Hub>
