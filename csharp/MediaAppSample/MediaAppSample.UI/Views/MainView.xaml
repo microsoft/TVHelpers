@@ -20,7 +20,7 @@
             <Grid>
                 <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
-                    <TextBlock Text="{Binding Flag}" />
+                    <TextBlock Text="{x:Bind Flag}" />
                     <TextBlock Text="{x:Bind Title}" Style="{StaticResource TitleTextBlockStyle}" />
                     <TextBlock Text="{x:Bind Description}" />
                     <ProgressBar Minimum="0" Maximum="100" Value="80" />
@@ -46,11 +46,13 @@
             </Hub.Header>
 
             <!-- Featured Hero -->
-            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
+            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Margin="0">
-                        <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
-                        <ListView ItemsSource="{Binding ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                        <Grid DataContext="{x:Bind ViewModel.FeaturedHero, Mode=OneWay}">
+                            <ContentPresenter ContentTemplate="{StaticResource HeroImageDataTemplate}" />
+                        </Grid>
+                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
                     </Grid>
                 </DataTemplate>
             </HubSection>
@@ -58,21 +60,23 @@
             <!-- Movies Featured -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{Binding ViewModel.MoviesFeatured, Mode=OneWay}" />
+                    <ListView ItemsSource="{x:Bind ViewModel.MoviesFeatured, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
 
             <!-- New Released Movies -->
             <HubSection Header="New Released Movies">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{Binding ViewModel.MovieNewReleases, Mode=OneWay}" />
+                    <Grid Background="#FF1F1F1F">
+                        <ListView ItemsSource="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}" />
+                    </Grid>
                 </DataTemplate>
             </HubSection>
 
             <!-- TV Featured -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}" Header="TV">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{Binding ViewModel.TvFeatured, Mode=OneWay}" />
+                    <ListView ItemsSource="{x:Bind ViewModel.TvFeatured, Mode=OneWay}" />
                 </DataTemplate>
             </HubSection>
 
@@ -80,7 +84,7 @@
             <HubSection Header="New Episodes">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Background="#FF1F1F1F">
-                        <ListView ItemsSource="{Binding ViewModel.TvNewReleases, Mode=OneWay}" />
+                        <ListView ItemsSource="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </HubSection>
@@ -88,7 +92,7 @@
             <!-- TV sneak peeks -->
             <HubSection Header="Sneak Peeks">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <ListView ItemsSource="{Binding ViewModel.TvInline, Mode=OneWay}"
+                    <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}"
                               IsItemClickEnabled="True" />
                 </DataTemplate>
             </HubSection>
