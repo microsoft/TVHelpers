@@ -39,7 +39,15 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="controls:ContentItemListControl">
                         <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ListView ItemsSource="{TemplateBinding Items}" 
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <HyperlinkButton Content="{TemplateBinding SeeMoreText}" 
+                                                         Command="{TemplateBinding SeeMoreCommand}" 
+                                                         HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                            <ListView Grid.Row="1" 
+                                      ItemsSource="{TemplateBinding Items}" 
                                       IsItemClickEnabled="True"
                                       SelectionMode="None"
                                       behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
@@ -131,7 +139,8 @@
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <controls:ContentItemListControl 
                         Items="{x:Bind ViewModel.MovieNewReleases, Mode=OneWay}"
-                        ItemCommand="{Binding ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
+                        ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}"
+                        SeeMoreCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToMoviesCommand}"  />
                 </DataTemplate>
             </HubSection>
 
@@ -147,7 +156,8 @@
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <controls:ContentItemListControl 
                         Items="{x:Bind ViewModel.TvNewReleases, Mode=OneWay}"
-                        ItemCommand="{Binding ViewModel.Platform.Navigation.NavigateToDetailsCommand}"  />
+                        ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}"
+                        SeeMoreCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToTVCommand}" />
                 </DataTemplate>
             </HubSection>
 

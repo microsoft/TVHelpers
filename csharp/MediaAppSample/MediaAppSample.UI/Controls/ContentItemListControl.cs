@@ -31,7 +31,20 @@ namespace MediaAppSample.UI.Controls
         // Using a DependencyProperty as the backing store for ItemCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemCommandProperty =
             DependencyProperty.Register("ItemCommand", typeof(ICommand), typeof(ContentItemListControl), new PropertyMetadata(null));
+
         
+        public string SeeMoreText
+        {
+            get { return (string)GetValue(SeeMoreTextProperty); }
+            set { SetValue(SeeMoreTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SeeMoreText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SeeMoreTextProperty =
+            DependencyProperty.Register("SeeMoreText", typeof(string), typeof(ContentItemListControl), new PropertyMetadata("See more"));
+
+
+
         public ICommand SeeMoreCommand
         {
             get { return (ICommand)GetValue(SeeMoreCommandProperty); }
