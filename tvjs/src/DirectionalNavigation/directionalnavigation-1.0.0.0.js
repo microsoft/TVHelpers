@@ -70,9 +70,6 @@
 (function () {
     "use strict";
 
-    var ClassNames = {
-        xboxPlatform: "tv-xbox",
-    };
     var CrossDomainMessageConstants = {
         messageDataProperty: "msWinJSXYFocusControlMessage",
         register: "register",
@@ -148,13 +145,6 @@
             });
         });
         return o;
-    };
-    var _deviceFamily = "unknown";
-    function _getDeviceFamily() {
-        if (!_deviceFamily) {
-            _deviceFamily = Windows.ApplicationModel.Resources.Core.ResourceContext.getForCurrentView().qualifierValues.DeviceFamily;
-        }
-        return _deviceFamily;
     };
     function _createEventProperty(name) {
         var eventPropStateName = "_on" + name + "state";
@@ -744,10 +734,6 @@
             }
         });
         document.addEventListener("DOMContentLoaded", function () {
-            // TODO - This should be split out into another JS file
-            if (_getDeviceFamily() === "xbox") {
-                document.body.classList.add(ClassNames.xboxPlatform);
-            }
             // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
             document.addEventListener("keydown", _handleKeyDownEvent);
             document.addEventListener("keyup", _handleKeyUpEvent);
