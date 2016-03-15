@@ -96,7 +96,8 @@
         "IFRAME",
         "INPUT",
         "SELECT",
-        "TEXTAREA"
+        "TEXTAREA",
+        "X-MS-WEBVIEW"
     ];
     var FocusableSelectors = [];
 
@@ -241,25 +242,35 @@
                     targetIframe.contentWindow.postMessage(message, "*");
                 }
             }
+            else if (typeof result.target.navigateFocus === "function") {
+                // No need to adjust coordinate space of result.referenceRect. navigateFocus/departFocus and corresponding
+                // events handle the coordinate space translation.
+                result.target.navigateFocus(direction, WebViewHelper.refRectToNavigateFocusRect(result.referenceRect));
+            }
             eventSrc.dispatchEvent(EventNames.focusChanged, { previousFocusElement: activeElement, keyCode: keyCode });
             return true;
         }
         else {
-            // No focus target was found; if we are inside an IFRAME and focus is allowed to propagate out, notify the parent that focus is exiting this IFRAME
+            // No focus target was found; if we are inside an IFRAME or webview and focus is allowed to propagate out, notify the parent that focus is exiting
             // Note on coordinates: When signaling exit, do NOT transform the coordinates into the parent's coordinate system.
-            if (!dontExit && top !== window) {
+            if ((!dontExit && top !== window) || typeof window.departFocus === "function") {
                 var refRect = referenceRect;
                 if (!refRect) {
                     refRect = document.activeElement ? _toIRect(document.activeElement.getBoundingClientRect()) : _defaultRect();
                 }
-                var message = {};
-                message[CrossDomainMessageConstants.messageDataProperty] = {
-                    type: CrossDomainMessageConstants.dFocusExit,
-                    direction: direction,
-                    referenceRect: refRect
-                };
-                // postMessage API is safe even in cross-domain scenarios.
-                parent.postMessage(message, "*");
+                if (top === window && typeof window.departFocus === "function") {
+                    departFocus(direction, WebViewHelper.refRectToNavigateFocusRect(refRect));
+                }
+                else {
+                    var message = {};
+                    message[CrossDomainMessageConstants.messageDataProperty] = {
+                        type: CrossDomainMessageConstants.dFocusExit,
+                        direction: direction,
+                        referenceRect: refRect
+                    };
+                    // postMessage API is safe even in cross-domain scenarios.
+                    parent.postMessage(message, "*");
+                }
                 return true;
             }
         }
@@ -586,6 +597,30 @@
             e.srcElement.click();
         }
     };
+
+    var WebViewHelper;
+    (function (WebViewHelper) {
+        function refRectToNavigateFocusRect(refRect) {
+            return {
+                originLeft: refRect.left,
+                originTop: refRect.top,
+                originWidth: refRect.width,
+                originHeight: refRect.height
+            };
+        }
+        WebViewHelper.refRectToNavigateFocusRect = refRectToNavigateFocusRect;
+
+        function navigateFocusRectToRefRect(navigateFocusRect) {
+            return _toIRect({
+                left: navigateFocusRect.originLeft,
+                top: navigateFocusRect.originTop,
+                width: navigateFocusRect.originWidth,
+                height: navigateFocusRect.originHeight
+            });
+        }
+        WebViewHelper.navigateFocusRectToRefRect = navigateFocusRectToRefRect;
+    })(WebViewHelper || (WebViewHelper = {}));
+
     var IFrameHelper;
     (function (IFrameHelper) {
         // XYFocus caches registered iframes and iterates over the cache for its focus navigation implementation.
@@ -743,6 +778,37 @@
                     break;
             }
         });
+
+        // Receiving departingFocus event in the app as a result of any child webview calling
+        // window.departFocus from within the webview. Indicates focus transitioning into the app
+        // from the webview. The navigatingfocus event handles transforming the 
+        // coordinate space so we just pass the values along.
+        document.addEventListener("departingfocus", function(eventArg) {
+            var focusChanged = _xyfocus(
+                eventArg.navigationReason,
+                -1,
+                WebViewHelper.navigateFocusRectToRefRect(eventArg));
+
+            if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
+                eventArg.focus();
+            }
+        });
+
+        // Receiving a navigatingfocus event in the webview as a result of the host app calling
+        // webview.navigateFocus on our containing webview element indicating focus transitioning
+        // into the webview from the app. The navigatingfocus event handles transforming the 
+        // coordinate space so we just pass the values along.
+        window.addEventListener("navigatingfocus", function(eventArg) {
+            var focusChanged = _xyfocus(
+                eventArg.navigationReason,
+                -1,
+                WebViewHelper.navigateFocusRectToRefRect(eventArg));
+
+            if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
+                eventArg.focus();
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
             // TODO - This should be split out into another JS file
             if (_getDeviceFamily() === "xbox") {
