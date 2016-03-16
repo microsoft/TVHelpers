@@ -57,7 +57,7 @@ namespace MediaAppSample.Core
         WalkingDirections
     }
 
-    public enum GalleryViews
+    public enum GalleryTypes
     {
         Movies,
         TV

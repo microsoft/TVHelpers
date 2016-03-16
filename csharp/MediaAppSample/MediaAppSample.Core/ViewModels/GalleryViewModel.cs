@@ -1,9 +1,10 @@
-﻿using MediaAppSample.Core.Models;
+﻿using MediaAppSample.Core.Data;
+using MediaAppSample.Core.Models;
+using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.UI.Xaml.Navigation;
-using System.Threading;
-using System;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -15,26 +16,75 @@ namespace MediaAppSample.Core.ViewModels
         {
             get
             {
-                switch (this.GalleryView)
+                switch (this.GalleryType)
                 {
-                    case GalleryViews.Movies:
+                    case GalleryTypes.Movies:
                         return "Movies"; // TODO localize
-                    case GalleryViews.TV:
+                    case GalleryTypes.TV:
                         return "TV"; // TODO localize
                     default:
-                        return this.GalleryView.ToString();
+                        return this.GalleryType.ToString();
                 }
             }
         }
 
-        private GalleryViews _GalleryView;
-        public GalleryViews GalleryView
+        private GalleryTypes _GalleryType;
+        public GalleryTypes GalleryType
         {
-            get { return _GalleryView; }
+            get { return _GalleryType; }
             private set
             {
-                if(this.SetProperty(ref _GalleryView, value))
+                if(this.SetProperty(ref _GalleryType, value))
                     this.NotifyPropertyChanged(() => this.Title);
+            }
+        }
+
+        private ContentItemList _Items = new ContentItemList();
+        public ContentItemList Items
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.SelectedGenre))
+                    return new ContentItemList(_Items.Where(w => w.Genre.Equals(this.SelectedGenre, StringComparison.CurrentCultureIgnoreCase)));
+                else
+                    return _Items;
+            }
+            private set { this.SetProperty(ref _Items, value); }
+        }
+
+        private string[] _SortOptions;
+        public string[] SortOptions
+        {
+            get { return _SortOptions; }
+            private set { this.SetProperty(ref _SortOptions, value); }
+        }
+
+        private string[] _GenreOptions;
+        public string[] GenreOptions
+        {
+            get { return _GenreOptions; }
+            private set { this.SetProperty(ref _GenreOptions, value); }
+        }
+
+        private string _SelectedGenre;
+        public string SelectedGenre
+        {
+            get { return _SelectedGenre; }
+            set
+            {
+                if (this.SetProperty(ref _SelectedGenre, value))
+                    this.NotifyPropertyChanged(() => this.Items);
+            }
+        }
+
+        private string _SelectedSort;
+        public string SelectedSort
+        {
+            get { return _SelectedSort; }
+            set
+            {
+                if (this.SetProperty(ref _SelectedSort, value))
+                    this.SortItems();
             }
         }
 
@@ -42,13 +92,15 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Constructors
 
-        public GalleryViewModel(GalleryViews galleryView = GalleryViews.Movies)
+        public GalleryViewModel(GalleryTypes galleryView = GalleryTypes.Movies)
         {
             if (DesignMode.DesignModeEnabled)
                 return;
 
             this.IsRefreshVisible = true;
-            this.GalleryView = galleryView;
+            this.GalleryType = galleryView;
+
+            this.SortOptions = new string[] { "A-Z", "Year" };
         }
 
         #endregion Constructors
@@ -70,9 +122,11 @@ namespace MediaAppSample.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-
-                // DO WORK HERE
-                await Task.CompletedTask;
+                
+                var data = await DataSource.Current.GetMoviesAsync(ct);
+                this.Items.Clear();
+                this.Items.AddRange(data);
+                this.GenreOptions = this.Items.Select(s => s.Genre).Distinct().ToArray();
 
                 ct.ThrowIfCancellationRequested();
                 this.ClearStatus();
@@ -91,6 +145,23 @@ namespace MediaAppSample.Core.ViewModels
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)
         {
             return base.OnSaveStateAsync(e);
+        }
+
+        private async void SortItems()
+        {
+            try
+            {
+                this.ShowBusyStatus(Strings.Resources.TextSorting);
+                await this.Items.SortAsync("Year");
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Failed to sort gallery.");
+            }
+            finally
+            {
+                this.ClearStatus();
+            }
         }
 
         #endregion
