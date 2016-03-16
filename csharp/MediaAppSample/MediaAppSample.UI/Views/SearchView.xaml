@@ -12,23 +12,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
+    <Grid x:Name="ContentPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <controls:ViewHeader />
 
-        <Grid x:Name="ContentPanel">
-
-            <!--<ListView ItemsSource="{Binding ViewModel.Results, Mode=OneWay}"
-                      SelectionMode="None"
-                      IsSwipeEnabled="false"
-                      IsItemClickEnabled="True" 
-                      ItemTemplate="{StaticResource ItemModelListDataTemplate}"
-                      behaviors:ListViewCommandBehavior.Command="{Binding ViewModel.Platform.Navigation.NavigateToModelCommand, Mode=OneWay}" />-->
-
-        </Grid>
-
+        <ScrollViewer Grid.Row="1">
+            <GridView ItemsSource="{Binding ViewModel.Results, Mode=OneWay}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ContentItemBase">
+                        <Grid Height="200" Width="300" >
+                            <Image Source="{x:Bind MediaImage, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" />
+                            <Grid VerticalAlignment="Bottom">
+                                <Rectangle Fill="{ThemeResource ThemeTitleBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <TextBlock Text="{x:Bind Title}" Margin="10,8" Style="{StaticResource BodyTextBlockStyle}" VerticalAlignment="Bottom" TextWrapping="WrapWholeWords"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </ScrollViewer>
     </Grid>
 </views:SearchViewBase>
