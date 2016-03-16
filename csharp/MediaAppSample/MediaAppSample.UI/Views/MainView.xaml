@@ -82,9 +82,10 @@
         <Hub Orientation="Vertical">
 
             <Hub.Header>
-                <Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
+                <!--<Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
                     <Image Source="/Assets/HeaderLogo_Full.png" Height="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
+                </Grid>-->
+                <controls:ViewHeader />
             </Hub.Header>
 
             <!-- Featured Hero -->
@@ -96,7 +97,7 @@
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
                             <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
                                              Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
-                                             CommandParameter="{x:Bind ViewModel.FeaturedHero.ContentID}" />
+                                             CommandParameter="{x:Bind ViewModel.FeaturedHero.ID}" />
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
                             <ProgressBar Value="80" />
                         </StackPanel>

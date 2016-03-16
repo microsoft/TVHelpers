@@ -5,6 +5,7 @@
     xmlns:views="using:MediaAppSample.UI.Views"
     xmlns:models="using:MediaAppSample.Core.Models"
     xmlns:controls="using:MediaAppSample.UI.Controls"
+    xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
     d:DataContext="{d:DesignInstance designTime:GalleryViewModel, IsDesignTimeCreatable=True}"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,16 +23,19 @@
         <controls:ViewHeader />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <ComboBox PlaceholderText="Genre" ItemsSource="{Binding ViewModel.GenreOptions}" SelectedItem="{Binding ViewModel.SelectedGenre, Mode=TwoWay}" />
-            <ComboBox PlaceholderText="Sort" ItemsSource="{Binding ViewModel.SortOptions}" SelectedItem="{Binding ViewModel.SelectedSort, Mode=TwoWay}" />
+            <ComboBox PlaceholderText="Genre" ItemsSource="{x:Bind ViewModel.GenreOptions}" SelectedItem="{x:Bind ViewModel.SelectedGenre, Mode=TwoWay}" />
+            <ComboBox PlaceholderText="Sort" ItemsSource="{x:Bind ViewModel.SortOptions}" SelectedItem="{x:Bind ViewModel.SelectedSort, Mode=TwoWay}" />
         </StackPanel>
 
         <TextBlock Grid.Row="2">
-                    <Run Text="{Binding ViewModel.Items.Count, Mode=OneWay}"/><Run Text=" Results"/>
+            <Run Text="{x:Bind ViewModel.Items.Count, Mode=OneWay}"/><Run Text=" Results"/>
         </TextBlock>
 
         <ScrollViewer Grid.Row="3">
-            <GridView ItemsSource="{Binding ViewModel.Items, Mode=OneWay}">
+            <GridView ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                      IsItemClickEnabled="True"
+                      SelectionMode="None"
+                      behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:ContentItemBase">
                         <Grid Height="200" Width="300" >

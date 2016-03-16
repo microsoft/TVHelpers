@@ -107,8 +107,6 @@ namespace MediaAppSample.Core.ViewModels
 
         public MainViewModel()
         {
-            this.Title = Strings.Resources.ViewTitleWelcome;
-
             if (DesignMode.DesignModeEnabled)
                 return;
 
