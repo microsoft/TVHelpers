@@ -80,10 +80,10 @@ namespace MediaAppSample.UI.Views
                 btnSearch.IsChecked = true;
             else if (view is QueueView)
                 btnQueue.IsChecked = true;
-            else if (view is GalleryMoviesView)
-                btnMovies.IsChecked = true;
-            else if (view is GalleryTvView)
-                btnTV.IsChecked = true;
+            else if (view is GalleryView)
+            {
+                //btnMovies.IsChecked = true;
+            }
             else if (view is MainView || view is DetailsView || view is MediaView)
                 btnHome.IsChecked = true;
         }

@@ -56,55 +56,69 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #endregion
 
-        #region Movies
-
-        public Task<IEnumerable<MovieModel>> GetMoviesAsync(CancellationToken ct)
+        public Task<IEnumerable<ContentItemBase>> GetItemsAsync(ItemTypes type, CancellationToken ct)
         {
-            // create movies list
-            var list = new ObservableCollection<MovieModel>();
-            for (var x = 1; x <= 18; x++)
+            switch (type)
             {
-                CreateAndAddItemToList<MovieModel>(list, x);
+                case ItemTypes.Movie:
+                    {
+                        var list = new ObservableCollection<MovieModel>();
+                        for (var x = 1; x <= 18; x++)
+                            CreateAndAddItemToList<MovieModel>(list, x);
+                        return Task.FromResult<IEnumerable<ContentItemBase>>(list);
+                    }
+
+                case ItemTypes.TvSeries:
+                    {
+                        var list = new ObservableCollection<TvSeriesModel>();
+                        for (var x = 19; x <= 36; x++)
+                            CreateAndAddItemToList<TvSeriesModel>(list, x);
+                        return Task.FromResult<IEnumerable<ContentItemBase>>(list);
+                    }
+
+                default:
+                    throw new NotImplementedException("GetItemsAsync for " + type);
             }
-            return Task.FromResult<IEnumerable<MovieModel>>(list);
         }
+
+        #region Movies
 
         public async Task<MovieModel> GetFeaturedHeroAsync(CancellationToken ct)
         {
             // curated featured hero
-            var results = await this.GetMoviesAsync(ct);
-            return results.FirstOrDefault();
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            return (MovieModel)results.FirstOrDefault();
         }
 
         public async Task<IEnumerable<MovieModel>> GetMoviesFeaturedAsync(CancellationToken ct)
         {
             // curated featured movies
             var list = new List<MovieModel>();
-            var results = await this.GetMoviesAsync(ct);
-            list.Add(results.First(o => o.ContentID == "movie02"));
-            list.Add(results.First(o => o.ContentID == "movie18"));
-            list.Add(results.First(o => o.ContentID == "movie12"));
-            list.Add(results.First(o => o.ContentID == "movie13"));
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            list.Add((MovieModel)results.First(o => o.ID == "movie02"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie18"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie12"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie13"));
             return list;
         }
 
         public async Task<IEnumerable<MovieModel>> GetMoviesNewReleasesAsync(CancellationToken ct)
         {
             // curated new release movies
-            return await this.GetMoviesAsync(ct);
+            return (await this.GetItemsAsync(ItemTypes.Movie, ct)).ConvertToArray<ContentItemBase, MovieModel>();
         }
 
         public async Task<IEnumerable<MovieModel>> GetMoviesTrailersAsync(CancellationToken ct)
         {
             // curate movie trailers
-            var results = await this.GetMoviesAsync(ct);
-            return results.OrderByDescending(o => o.Title);
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            return (results.OrderByDescending(o => o.Title)).ConvertToArray<ContentItemBase, MovieModel>();
         }
 
         public async Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string contentID, CancellationToken ct)
         {
             // curate movie trailers
-            var results = await this.GetMoviesAsync(ct);
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
             return results.OrderByDescending(o => o.Title);
         }
 
@@ -112,35 +126,22 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region TV
 
-        public Task<IEnumerable<TvSeriesModel>> GetTvSeriesAsync(CancellationToken ct)
-        {
-            // create TV series
-            var list = new ObservableCollection<TvSeriesModel>();
-            for (var x = 19; x <= 36; x++)
-            {
-                CreateAndAddItemToList<TvSeriesModel>(list, x);
-            }
-            return Task.FromResult<IEnumerable<TvSeriesModel>>(list);
-        }
-
         public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleasesAsync(CancellationToken ct)
         {
             // curate new TV releases
-            return await this.GetTvSeriesAsync(ct);
+            return (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ConvertToArray<ContentItemBase, TvSeriesModel>();
         }
 
         public async Task<IEnumerable<TvSeriesModel>> GetTvFeaturedAsync(CancellationToken ct)
         {
             // curate featured TV
-            var results = await this.GetTvSeriesAsync(ct);
-            var tvSeriesModels = results as IList<TvSeriesModel> ?? results.ToList();
-
+            var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
             return new List<TvSeriesModel>
             {
-                tvSeriesModels.First(o => o.ContentID == "series19"),
-                tvSeriesModels.First(o => o.ContentID == "series20"),
-                tvSeriesModels.First(o => o.ContentID == "series21"),
-                tvSeriesModels.First(o => o.ContentID == "series22")
+                (TvSeriesModel)results.First(o => o.ID == "series19"),
+                (TvSeriesModel)results.First(o => o.ID == "series20"),
+                (TvSeriesModel)results.First(o => o.ID == "series21"),
+                (TvSeriesModel)results.First(o => o.ID == "series22")
             };
 
             //return new List<TvSeriesModel>
@@ -152,7 +153,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             //};
         }
 
-        public IEnumerable<SeasonModel> GetSeasonsAsync(TvSeriesModel series, CancellationToken ct)
+        public IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct)
         {
             // curate seasons
             var list = new ModelList<SeasonModel>();
@@ -194,8 +195,8 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         public async Task<IEnumerable<QueueModel>> GetQueueItemsAsync(CancellationToken ct)
         {
-            var movies = (await this.GetMoviesAsync(ct)).ToArray();
-            var tv = (await this.GetTvSeriesAsync(ct)).ToArray();
+            var movies = (await this.GetItemsAsync(ItemTypes.Movie, ct)).ToArray();
+            var tv = (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ToArray();
             var episodes = (await GetTvEpisodesAsync(ct)).ToArray();
             return new List<QueueModel>
             {
@@ -231,20 +232,28 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
             if (id.Contains("series"))
             {
-                var results = await this.GetTvSeriesAsync(ct);
+                var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
                 return results.OrderBy(o => o.Title);
             }
             else
             {
-                var results = await this.GetMoviesAsync(ct);
+                var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
                 return results.OrderBy(o => o.Title);
             }
         }
 
-        public async Task<ContentItemBase> GetContentItemAsync(string contentId, CancellationToken ct)
+        public async Task<ContentItemBase> GetItemAsync(string id, CancellationToken ct)
         {
-            var results = await this.GetMoviesAsync(ct);
-            return results.FirstOrDefault(s => s.ContentID == contentId);
+            if (id.Contains("series"))
+            {
+                var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+                return results.FirstOrDefault(s => s.ID == id);
+            }
+            else
+            {
+                var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
+                return results.FirstOrDefault(s => s.ID == id);
+            }
         }
 
         public static T CreateAndAddItemToList<T>(int number) where T : class
@@ -256,7 +265,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new MovieModel()
                 {
-                    ContentID = "movie" + imageNumber,
+                    ID = "movie" + imageNumber,
                     ContentRating = "G",
                     ItemType = ItemTypes.Movie,
                     Title = "Movie " + numberString,
@@ -287,7 +296,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new TvSeriesModel()
                 {
-                    ContentID = "series" + imageNumber,
+                    ID = "series" + imageNumber,
                     ItemType = ItemTypes.TvSeries,
                     Title = "TV Series " + number.ToString(),
                     UserRating = 0,
@@ -318,7 +327,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new TvEpisodeModel()
                 {
-                    ContentID = "episode" + imageNumber,
+                    ID = "episode" + imageNumber,
                     ContentRating = "TV-G",
                     ItemType = ItemTypes.TvEpisode,
                     Title = "Episode " + number.ToString() + " Title",
@@ -351,7 +360,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new SeasonModel()
                 {
-                    ContentID = "season" + imageNumber,
+                    ID = "season" + imageNumber,
                     ContentRating = "TV-G",
                     ItemType = ItemTypes.TvSeries,
                     SeasonNumber = number,
@@ -390,7 +399,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             return default(T);
         }
 
-        public static void CreateAndAddItemToList<T>(IList list, int number) where T : class
+        private static void CreateAndAddItemToList<T>(IList list, int number) where T : class
         {
             var numberString = number.ToString();
             var imageNumber = number.ToString("00");
@@ -399,7 +408,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new MovieModel()
                 {
-                    ContentID = "movie" + imageNumber,
+                    ID = "movie" + imageNumber,
                     ContentRating = "G",
                     ItemType = ItemTypes.Movie,
                     Title = "Movie " + numberString,
@@ -432,7 +441,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new TvSeriesModel()
                 {
-                    ContentID = "series" + imageNumber,
+                    ID = "series" + imageNumber,
                     ItemType = ItemTypes.TvSeries,
                     Title = "TV Series " + (list.Count + 1).ToString(),
                     UserRating = 0,
@@ -465,7 +474,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new TvEpisodeModel()
                 {
-                    ContentID = "episode" + imageNumber,
+                    ID = "episode" + imageNumber,
                     ContentRating = "TV-G",
                     ItemType = ItemTypes.TvEpisode,
                     Title = "Episode " + (list.Count + 1).ToString() + " Title",
@@ -498,7 +507,7 @@ namespace MediaAppSample.Core.Data.SampleLocalData
             {
                 var item = new SeasonModel()
                 {
-                    ContentID = "season" + imageNumber,
+                    ID = "season" + imageNumber,
                     ContentRating = "TV-G",
                     ItemType = ItemTypes.TvSeries,
                     SeasonNumber = (list.Count + 1),

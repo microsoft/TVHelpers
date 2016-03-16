@@ -45,25 +45,23 @@ namespace MediaAppSample.Core.Data
 
         #endregion
 
-        Task<ContentItemBase> GetContentItemAsync(string contentId, CancellationToken ct);
-        Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string contentID, CancellationToken ct);
-        Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string contentID, CancellationToken ct);
 
-        Task<IEnumerable<MovieModel>> GetMoviesAsync(CancellationToken ct);
-        Task<IEnumerable<MovieModel>> GetMoviesTrailersAsync(CancellationToken ct);
-        IEnumerable<SeasonModel> GetSeasonsAsync(TvSeriesModel series, CancellationToken ct);
-        Task<IEnumerable<TvEpisodeModel>> GetTvEpisodesAsync(CancellationToken ct);
-        Task<IEnumerable<TvSeriesModel>> GetTvSeriesAsync(CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetItemsAsync(ItemTypes type, CancellationToken ct);
+        Task<ContentItemBase> GetItemAsync(string itemID, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string itemID, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string itemID, CancellationToken ct);
+        
+        IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct);
 
         #region People/Reviews
 
-        Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct);
+        Task<IEnumerable<ReviewModel>> GetReviewsAsync(string itemID, CancellationToken ct);
 
-        Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct);
+        Task<IEnumerable<RatingModel>> GetRatingsAsync(string itemID, CancellationToken ct);
 
-        Task<IEnumerable<PersonModel>> GetCastAsync(string contentID, CancellationToken ct);
+        Task<IEnumerable<PersonModel>> GetCastAsync(string itemID, CancellationToken ct);
 
-        Task<IEnumerable<PersonModel>> GetCrewAsync(string contentID, CancellationToken ct);
+        Task<IEnumerable<PersonModel>> GetCrewAsync(string itemID, CancellationToken ct);
 
         #endregion
 

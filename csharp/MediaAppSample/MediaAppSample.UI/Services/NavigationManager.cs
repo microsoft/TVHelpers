@@ -206,7 +206,7 @@ namespace MediaAppSample.UI.Services
             if (parameter is QueueModel)
                 parameter = (parameter as QueueModel).Item;
             if (parameter is ContentItemBase)
-                parameter = (parameter as ContentItemBase).ContentID;
+                parameter = (parameter as ContentItemBase).ID;
 
             if (this.IsChildFramePresent)
                 this.Frame.Navigate(typeof(DetailsView), this.SerializeParameter(parameter));
@@ -221,12 +221,12 @@ namespace MediaAppSample.UI.Services
 
         public override void Movies()
         {
-            this.Frame.Navigate(typeof(GalleryMoviesView));
+            this.Frame.Navigate(typeof(GalleryView), ItemTypes.Movie.ToString());
         }
 
         public override void TV()
         {
-            this.Frame.Navigate(typeof(GalleryTvView));
+            this.Frame.Navigate(typeof(GalleryView), ItemTypes.TvSeries.ToString());
         }
 
         public override void Media(object parameter)
@@ -234,7 +234,7 @@ namespace MediaAppSample.UI.Services
             if (parameter is QueueModel)
                 parameter = (parameter as QueueModel).Item;
             if (parameter is ContentItemBase)
-                parameter = (parameter as ContentItemBase).ContentID;
+                parameter = (parameter as ContentItemBase).ID;
 
             if (this.IsChildFramePresent)
                 this.Frame.Navigate(typeof(MediaView), this.SerializeParameter(parameter));

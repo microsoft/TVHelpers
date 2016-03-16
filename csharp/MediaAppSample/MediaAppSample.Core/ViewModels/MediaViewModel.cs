@@ -40,7 +40,7 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (isFirstRun)
             {
-                if(this.ViewParameter is string && !this.ViewParameter.ToString().Equals(this.Item?.ContentID, StringComparison.CurrentCultureIgnoreCase))
+                if(this.ViewParameter is string && !this.ViewParameter.ToString().Equals(this.Item?.ID, StringComparison.CurrentCultureIgnoreCase))
                     await this.RefreshAsync();
             }
 
@@ -52,7 +52,7 @@ namespace MediaAppSample.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                this.Item = await DataSource.Current.GetContentItemAsync(this.ViewParameter.ToString(), ct);
+                this.Item = await DataSource.Current.GetItemAsync(this.ViewParameter.ToString(), ct);
                 this.ClearStatus();
             }
             catch(Exception ex)

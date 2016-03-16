@@ -233,7 +233,7 @@ namespace MediaAppSample.Core
             if (model is ContentItemBase)
             {
                 var item = model as ContentItemBase;
-                dic.Add("ID", item.ContentID.ToString());
+                dic.Add("ID", item.ID.ToString());
             }
             else
             {
@@ -259,7 +259,7 @@ namespace MediaAppSample.Core
             else if (model is ContentItemBase)
             {
                 var item = model as ContentItemBase;
-                return "ContentItemBase_" + item.ContentID;
+                return "ContentItemBase_" + item.ID;
             }
             else
                 return null;

@@ -101,7 +101,7 @@ namespace MediaAppSample.Core.Models
 
         public override string ToString()
         {
-            return "[ContentItemBase]:Title = " + this.Title + ", ContentId: " + this.ContentID;
+            return "[ContentItemBase]:Title = " + this.Title + ", ContentId: " + this.ID;
         }
     }
 
@@ -126,7 +126,7 @@ namespace MediaAppSample.Core.Models
                 throw new System.ArgumentNullException("Item parameter cannot be null.");
 
             foreach (var qi in this)
-                if (qi.ContentID == item.ContentID)
+                if (qi.ID == item.ID)
                     return true;
 
             return false;

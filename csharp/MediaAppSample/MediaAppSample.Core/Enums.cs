@@ -57,11 +57,5 @@ namespace MediaAppSample.Core
         WalkingDirections
     }
 
-    public enum GalleryTypes
-    {
-        Movies,
-        TV
-    }
-
     #endregion
 }

@@ -58,7 +58,7 @@ namespace MediaAppSample.UI.Behaviors
             {
                 var command = GetCommand(control);
 
-                object parameter = e.ClickedItem is ItemBase ? (e.ClickedItem as ItemBase).ContentID : e.ClickedItem;
+                object parameter = e.ClickedItem is ItemBase ? (e.ClickedItem as ItemBase).ID : e.ClickedItem;
 
                 if (command != null && command.CanExecute(parameter))
                     command.Execute(parameter);

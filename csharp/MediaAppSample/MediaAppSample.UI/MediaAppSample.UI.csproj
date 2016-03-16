@@ -170,11 +170,8 @@
     <Compile Include="Triggers\ContinuumMobileAvailableTrigger.cs" />
     <Compile Include="Triggers\ContinuumMobileExecutingTrigger.cs" />
     <Compile Include="Triggers\TabletModeTrigger.cs" />
-    <Compile Include="Views\GalleryMoviesView.xaml.cs">
-      <DependentUpon>GalleryMoviesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GalleryTvView.xaml.cs">
-      <DependentUpon>GalleryTvView.xaml</DependentUpon>
+    <Compile Include="Views\GalleryView.xaml.cs">
+      <DependentUpon>GalleryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MediaView.xaml.cs">
       <DependentUpon>MediaView.xaml</DependentUpon>
@@ -302,11 +299,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\GalleryMoviesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GalleryTvView.xaml">
+    <Page Include="Views\GalleryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -78,14 +78,14 @@ namespace MediaAppSample.Core.ViewModels
 
         #region ViewModels
 
-        private GalleryViewModel _GalleryTvViewModel = new GalleryViewModel();
+        private GalleryViewModel _GalleryTvViewModel = new GalleryViewModel(ItemTypes.TvSeries);
         public GalleryViewModel GalleryTvViewModel
         {
             get { return _GalleryTvViewModel; }
             protected set { this.SetProperty(ref _GalleryTvViewModel, value); }
         }
 
-        private GalleryViewModel _GalleryMoviesViewModel = new GalleryViewModel();
+        private GalleryViewModel _GalleryMoviesViewModel = new GalleryViewModel(ItemTypes.Movie);
         public GalleryViewModel GalleryMoviesViewModel
         {
             get { return _GalleryMoviesViewModel; }

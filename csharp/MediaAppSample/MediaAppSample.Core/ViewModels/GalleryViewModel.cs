@@ -18,9 +18,10 @@ namespace MediaAppSample.Core.ViewModels
             {
                 switch (this.GalleryType)
                 {
-                    case GalleryTypes.Movies:
+                    case ItemTypes.Movie:
                         return "Movies"; // TODO localize
-                    case GalleryTypes.TV:
+                    case ItemTypes.TvSeries:
+                    case ItemTypes.TvEpisode:
                         return "TV"; // TODO localize
                     default:
                         return this.GalleryType.ToString();
@@ -28,8 +29,8 @@ namespace MediaAppSample.Core.ViewModels
             }
         }
 
-        private GalleryTypes _GalleryType;
-        public GalleryTypes GalleryType
+        private ItemTypes _GalleryType;
+        public ItemTypes GalleryType
         {
             get { return _GalleryType; }
             private set
@@ -92,13 +93,13 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Constructors
 
-        public GalleryViewModel(GalleryTypes galleryView = GalleryTypes.Movies)
+        public GalleryViewModel(ItemTypes galleryType = ItemTypes.Movie)
         {
             if (DesignMode.DesignModeEnabled)
                 return;
 
             this.IsRefreshVisible = true;
-            this.GalleryType = galleryView;
+            this.GalleryType = galleryType;
 
             this.SortOptions = new string[] { "A-Z", "Year" };
         }
@@ -123,7 +124,7 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
                 
-                var data = await DataSource.Current.GetMoviesAsync(ct);
+                var data = await DataSource.Current.GetItemsAsync(this.GalleryType, ct);
                 this.Items.Clear();
                 this.Items.AddRange(data);
                 this.GenreOptions = this.Items.Select(s => s.Genre).Distinct().ToArray();

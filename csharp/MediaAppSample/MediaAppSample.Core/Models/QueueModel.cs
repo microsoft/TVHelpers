@@ -38,7 +38,7 @@ namespace MediaAppSample.Core.Models
                 return false;
 
             foreach (var qi in this)
-                if (qi.Item.ContentID == item.ContentID)
+                if (qi.Item.ID == item.ID)
                     return true;
 
             return false;
@@ -51,7 +51,7 @@ namespace MediaAppSample.Core.Models
 
             foreach (var qi in this)
             {
-                if (qi.Item.ContentID == item.ContentID)
+                if (qi.Item.ID == item.ID)
                 {
                     this.Remove(qi);
                     return true;

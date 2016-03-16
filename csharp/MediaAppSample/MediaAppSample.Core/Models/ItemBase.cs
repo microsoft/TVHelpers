@@ -38,7 +38,7 @@ namespace MediaAppSample.Core.Models
         #region Properties
 
         private string _ID;
-        public virtual string ContentID
+        public virtual string ID
         {
             get { return _ID; }
             set { this.SetProperty(ref _ID, value); }
