@@ -1,3 +1,5 @@
+using MediaAppSample.Core.Data;
+using MediaAppSample.Core.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,14 +11,19 @@ namespace MediaAppSample.Core.ViewModels
     {
         #region Properties
 
+        private ContentItemBase _Item;
+        public ContentItemBase Item
+        {
+            get { return _Item; }
+            private set { this.SetProperty(ref _Item, value); }
+        }
+
         #endregion
 
         #region Constructors
 
         public DetailsViewModel()
         {
-            this.Title = Strings.Resources.ApplicationName;
-
             if (DesignMode.DesignModeEnabled)
                 return;
 
@@ -31,7 +38,8 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (isFirstRun)
             {
-                await this.RefreshAsync();
+                if (this.ViewParameter is string && !this.ViewParameter.ToString().Equals(this.Item?.ID, StringComparison.CurrentCultureIgnoreCase))
+                    await this.RefreshAsync();
             }
 
             await base.OnLoadStateAsync(e, isFirstRun);
@@ -42,22 +50,17 @@ namespace MediaAppSample.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-
-                // DO WORK HERE
-                await Task.CompletedTask;
-
-                ct.ThrowIfCancellationRequested();
+                this.Item = await DataSource.Current.GetItemAsync(this.ViewParameter.ToString(), ct);
+                this.Title = this.Item?.Title;
                 this.ClearStatus();
-            }
-            catch (OperationCanceledException)
-            {
-                this.ShowTimedStatus(Strings.Resources.TextCancellationRequested, 3000);
             }
             catch (Exception ex)
             {
+                Platform.Current.Logger.LogError(ex, "Error while trying to load data for ID '{0}'", this.ViewParameter);
                 this.ShowTimedStatus(Strings.Resources.TextErrorGeneric);
-                Platform.Current.Logger.LogError(ex, "Error during RefreshAsync");
             }
+
+            await base.OnRefreshAsync(ct);
         }
 
         protected override Task OnSaveStateAsync(SaveStateEventArgs e)
@@ -65,7 +68,7 @@ namespace MediaAppSample.Core.ViewModels
             return base.OnSaveStateAsync(e);
         }
 
-        #endregion
+        #endregion Methods
     }
 
 

@@ -111,12 +111,12 @@ namespace MediaAppSample.Core.Data.SampleLocalData
         {
             if (id.Contains("series"))
             {
-                var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+                var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
                 return results.FirstOrDefault(s => s.ID == id);
             }
             else
             {
-                var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
+                var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
                 return results.FirstOrDefault(s => s.ID == id);
             }
         }

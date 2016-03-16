@@ -13,6 +13,7 @@ namespace MediaAppSample.UI.Views
         public DetailsView()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
         }
 
         protected override async Task OnLoadStateAsync(LoadStateEventArgs e)

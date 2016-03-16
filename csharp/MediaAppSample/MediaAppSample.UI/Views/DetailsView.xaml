@@ -16,16 +16,15 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+
+        <Image Source="{x:Bind ViewModel.Item.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+            <TextBlock Text="{x:Bind ViewModel.Item.Flag, Mode=OneWay}" />
+            <TextBlock Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
+            <ProgressBar Value="66" />
+        </StackPanel>
 
         <controls:ViewHeader />
-
-        <Grid Grid.Row="1" x:Name="ContentPanel">
-            <TextBlock>Coming soon!</TextBlock>
-        </Grid>
 
     </Grid>
 </views:DetailsViewBase>

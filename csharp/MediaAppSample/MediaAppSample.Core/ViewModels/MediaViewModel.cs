@@ -53,6 +53,7 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
                 this.Item = await DataSource.Current.GetItemAsync(this.ViewParameter.ToString(), ct);
+                this.Title = this.Item?.Title;
                 this.ClearStatus();
             }
             catch(Exception ex)

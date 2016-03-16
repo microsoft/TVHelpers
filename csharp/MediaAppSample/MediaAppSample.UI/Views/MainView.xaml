@@ -47,9 +47,9 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <HyperlinkButton Content="{TemplateBinding SeeMoreText}" 
-                                                         Command="{TemplateBinding SeeMoreCommand}" 
-                                                         HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                            <HyperlinkButton Content="{TemplateBinding SeeMoreText}"
+                                             Command="{TemplateBinding SeeMoreCommand}" 
+                                             HorizontalAlignment="Right" VerticalAlignment="Bottom" />
                             <ListView Grid.Row="1" 
                                       ItemsSource="{TemplateBinding Items}" 
                                       IsItemClickEnabled="True"
@@ -97,7 +97,7 @@
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
                             <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
                                              Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
-                                             CommandParameter="{x:Bind ViewModel.FeaturedHero.ID}" />
+                                             CommandParameter="{x:Bind ViewModel.FeaturedHero}" />
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
                             <ProgressBar Value="80" />
                         </StackPanel>
