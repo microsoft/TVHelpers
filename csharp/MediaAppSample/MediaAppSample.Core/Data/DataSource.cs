@@ -21,7 +21,6 @@ namespace MediaAppSample.Core.Data
         static DataSource()
         {
             Current = new SampleLocalData.SampleLocalDataSource();
-            //Current = new Channel9Data.Channel9DataSource();
         }
     }
 }

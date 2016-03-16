@@ -47,14 +47,24 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region Methods
 
-        #region Search
+        #region Content
 
-        public Task<IEnumerable<ContentItemBase>> SearchAsync(string searchText, CancellationToken ct)
+        public IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            // curate seasons
+            var list = new ModelList<SeasonModel>();
+            CreateAndAddItemToList<SeasonModel>(list, 43);
+            CreateAndAddItemToList<SeasonModel>(list, 44);
+            CreateAndAddItemToList<SeasonModel>(list, 45);
+            return list;
         }
 
-        #endregion
+        public async Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string contentID, CancellationToken ct)
+        {
+            // curate movie trailers
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            return results.OrderByDescending(o => o.Title);
+        }
 
         public Task<IEnumerable<ContentItemBase>> GetItemsAsync(ItemTypes type, CancellationToken ct)
         {
@@ -80,151 +90,6 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                     throw new NotImplementedException("GetItemsAsync for " + type);
             }
         }
-
-        #region Movies
-
-        public async Task<MovieModel> GetFeaturedHeroAsync(CancellationToken ct)
-        {
-            // curated featured hero
-            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
-            return (MovieModel)results.FirstOrDefault();
-        }
-
-        public async Task<IEnumerable<MovieModel>> GetMoviesFeaturedAsync(CancellationToken ct)
-        {
-            // curated featured movies
-            var list = new List<MovieModel>();
-            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
-            list.Add((MovieModel)results.First(o => o.ID == "movie02"));
-            list.Add((MovieModel)results.First(o => o.ID == "movie18"));
-            list.Add((MovieModel)results.First(o => o.ID == "movie12"));
-            list.Add((MovieModel)results.First(o => o.ID == "movie13"));
-            return list;
-        }
-
-        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleasesAsync(CancellationToken ct)
-        {
-            // curated new release movies
-            return (await this.GetItemsAsync(ItemTypes.Movie, ct)).ConvertToArray<ContentItemBase, MovieModel>();
-        }
-
-        public async Task<IEnumerable<MovieModel>> GetMoviesTrailersAsync(CancellationToken ct)
-        {
-            // curate movie trailers
-            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
-            return (results.OrderByDescending(o => o.Title)).ConvertToArray<ContentItemBase, MovieModel>();
-        }
-
-        public async Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string contentID, CancellationToken ct)
-        {
-            // curate movie trailers
-            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
-            return results.OrderByDescending(o => o.Title);
-        }
-
-        #endregion
-
-        #region TV
-
-        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleasesAsync(CancellationToken ct)
-        {
-            // curate new TV releases
-            return (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ConvertToArray<ContentItemBase, TvSeriesModel>();
-        }
-
-        public async Task<IEnumerable<TvSeriesModel>> GetTvFeaturedAsync(CancellationToken ct)
-        {
-            // curate featured TV
-            var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
-            return new List<TvSeriesModel>
-            {
-                (TvSeriesModel)results.First(o => o.ID == "series19"),
-                (TvSeriesModel)results.First(o => o.ID == "series20"),
-                (TvSeriesModel)results.First(o => o.ID == "series21"),
-                (TvSeriesModel)results.First(o => o.ID == "series22")
-            };
-
-            //return new List<TvSeriesModel>
-            //{
-            //    tvSeriesModels.First(o => o.ContentID == "series03"),
-            //    tvSeriesModels.First(o => o.ContentID == "series44"),
-            //    tvSeriesModels.First(o => o.ContentID == "series31"),
-            //    tvSeriesModels.First(o => o.ContentID == "series32")
-            //};
-        }
-
-        public IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct)
-        {
-            // curate seasons
-            var list = new ModelList<SeasonModel>();
-            CreateAndAddItemToList<SeasonModel>(list, 43);
-            CreateAndAddItemToList<SeasonModel>(list, 44);
-            CreateAndAddItemToList<SeasonModel>(list, 45);
-            return list;
-        }
-
-        public Task<IEnumerable<ContentItemBase>> GetSneakPeeksAsync(CancellationToken ct)
-        {
-            // Curate inline content
-            var list = new ContentItemList();
-            CreateAndAddItemToList<TvEpisodeModel>(list, 37);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 38);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 39);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 40);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 41);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 42);
-            return Task.FromResult<IEnumerable<ContentItemBase>>(list.ToArray());
-        }
-
-        public Task<IEnumerable<TvEpisodeModel>> GetTvEpisodesAsync(CancellationToken ct)
-        {
-            // Curate inline content
-            var list = new ModelList<TvEpisodeModel>();
-            CreateAndAddItemToList<TvEpisodeModel>(list, 56);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 57);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 58);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 59);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 60);
-            CreateAndAddItemToList<TvEpisodeModel>(list, 61);
-            return Task.FromResult<IEnumerable<TvEpisodeModel>>(list);
-        }
-
-        #endregion
-
-        #region Queue
-
-        public async Task<IEnumerable<QueueModel>> GetQueueItemsAsync(CancellationToken ct)
-        {
-            var movies = (await this.GetItemsAsync(ItemTypes.Movie, ct)).ToArray();
-            var tv = (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ToArray();
-            var episodes = (await GetTvEpisodesAsync(ct)).ToArray();
-            return new List<QueueModel>
-            {
-                new QueueModel() {Item = movies[9]},
-                new QueueModel() {Item = movies[8]},
-                new QueueModel() {Item = tv[5]},
-                new QueueModel() {Item = movies[10]},
-                new QueueModel() {Item = tv[9]},
-                new QueueModel() {Item = movies[12]},
-                new QueueModel() {Item = tv[11]},
-                new QueueModel() {Item = movies[14]},
-                new QueueModel() {Item = tv[15]}
-            };
-        }
-
-        public Task AddToQueueAsync(ContentItemBase item, CancellationToken ct)
-        {
-            return Task.FromResult<object>(null);
-        }
-
-        public Task RemoveFromQueueAsync(ContentItemBase item, CancellationToken ct)
-        {
-            return Task.FromResult<object>(null);
-        }
-
-        #endregion
-
-        #region ContentItemBase
 
         public async Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string id, CancellationToken ct)
         {
@@ -255,6 +120,379 @@ namespace MediaAppSample.Core.Data.SampleLocalData
                 return results.FirstOrDefault(s => s.ID == id);
             }
         }
+
+        #endregion
+
+        #region Home
+
+        public async Task<ContentItemBase> GetFeaturedHeroAsync(CancellationToken ct)
+        {
+            // curated featured hero
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            return results.FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<MovieModel>> GetMoviesFeaturedAsync(CancellationToken ct)
+        {
+            // curated featured movies
+            var list = new List<MovieModel>();
+            var results = await this.GetItemsAsync(ItemTypes.Movie, ct);
+            list.Add((MovieModel)results.First(o => o.ID == "movie02"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie18"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie12"));
+            list.Add((MovieModel)results.First(o => o.ID == "movie13"));
+            return list;
+        }
+
+        public async Task<IEnumerable<MovieModel>> GetMoviesNewReleasesAsync(CancellationToken ct)
+        {
+            // curated new release movies
+            return (await this.GetItemsAsync(ItemTypes.Movie, ct)).ConvertToArray<ContentItemBase, MovieModel>();
+        }
+
+        public async Task<IEnumerable<TvSeriesModel>> GetTvFeaturedAsync(CancellationToken ct)
+        {
+            // curate featured TV
+            var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
+            return new List<TvSeriesModel>
+            {
+                (TvSeriesModel)results.First(o => o.ID == "series19"),
+                (TvSeriesModel)results.First(o => o.ID == "series20"),
+                (TvSeriesModel)results.First(o => o.ID == "series21"),
+                (TvSeriesModel)results.First(o => o.ID == "series22")
+            };
+
+            //return new List<TvSeriesModel>
+            //{
+            //    tvSeriesModels.First(o => o.ContentID == "series03"),
+            //    tvSeriesModels.First(o => o.ContentID == "series44"),
+            //    tvSeriesModels.First(o => o.ContentID == "series31"),
+            //    tvSeriesModels.First(o => o.ContentID == "series32")
+            //};
+        }
+
+        public async Task<IEnumerable<TvSeriesModel>> GetTvNewReleasesAsync(CancellationToken ct)
+        {
+            // curate new TV releases
+            return (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ConvertToArray<ContentItemBase, TvSeriesModel>();
+        }
+
+        public Task<IEnumerable<ContentItemBase>> GetSneakPeeksAsync(CancellationToken ct)
+        {
+            // Curate inline content
+            var list = new ContentItemList();
+            CreateAndAddItemToList<TvEpisodeModel>(list, 37);
+            CreateAndAddItemToList<TvEpisodeModel>(list, 38);
+            CreateAndAddItemToList<TvEpisodeModel>(list, 39);
+            CreateAndAddItemToList<TvEpisodeModel>(list, 40);
+            CreateAndAddItemToList<TvEpisodeModel>(list, 41);
+            CreateAndAddItemToList<TvEpisodeModel>(list, 42);
+            return Task.FromResult<IEnumerable<ContentItemBase>>(list.ToArray());
+        }
+
+        #endregion
+
+        #region Queue
+
+        public async Task<IEnumerable<QueueModel>> GetQueueItemsAsync(CancellationToken ct)
+        {
+            var movies = (await this.GetItemsAsync(ItemTypes.Movie, ct)).ToArray();
+            var tv = (await this.GetItemsAsync(ItemTypes.TvSeries, ct)).ToArray();
+            return new List<QueueModel>
+            {
+                new QueueModel() {Item = movies[9]},
+                new QueueModel() {Item = movies[8]},
+                new QueueModel() {Item = tv[5]},
+                new QueueModel() {Item = movies[10]},
+                new QueueModel() {Item = tv[9]},
+                new QueueModel() {Item = movies[12]},
+                new QueueModel() {Item = tv[11]},
+                new QueueModel() {Item = movies[14]},
+                new QueueModel() {Item = tv[15]}
+            };
+        }
+
+        public Task AddToQueueAsync(ContentItemBase item, CancellationToken ct)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        public Task RemoveFromQueueAsync(ContentItemBase item, CancellationToken ct)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        #endregion
+
+        #region Ratings/Reviews/Casts
+
+        public Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
+        }
+        public static IEnumerable<RatingModel> GetRatings(string contentID)
+        {
+            return new ObservableCollection<RatingModel>
+            {
+                new RatingModel()
+                {
+                    ID = "rating1",
+                    RatingSource = "Rating Source 1",
+                    RatingDetails = "Rating Source 1 critics",
+                    RatingScore = 89,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating2",
+                    RatingSource = "Rating Source 2",
+                    RatingDetails = "Based on 35 critic reviews",
+                    RatingScore = 74,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating3",
+                    RatingSource = "Rating Source 3",
+                    RatingDetails = "From 15,242 user reviews",
+                    RatingScore = 8.1,
+                    RatingScale = 10
+                }
+            };
+        }
+
+        public Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<ReviewModel>>(GetReviews(contentID));
+        }
+        public static IEnumerable<ReviewModel> GetReviews(string contentID)
+        {
+            return new ObservableCollection<ReviewModel>
+            {
+                new ReviewModel()
+                {
+                    ID = "review1",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review2",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review3",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+            };
+        }
+
+        public Task<IEnumerable<PersonModel>> GetCastAsync(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<PersonModel>>(GetCast(contentID));
+        }
+        public static IEnumerable<PersonModel> GetCast(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "cast1",
+                    Name = "Ryan Porter",
+                    Role = "Hiro",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast2",
+                    Name = "Scott Adsit",
+                    Role = "Baymax",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast3",
+                    Name = "Jenny Chung",
+                    Role = "Go Go",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast4",
+                    Name = "Daniel Henry",
+                    Role = "Tadeshi",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
+                },
+            };
+        }
+
+        public Task<IEnumerable<PersonModel>> GetCrewAsync(string contentID, CancellationToken ct)
+        {
+            return Task.FromResult<IEnumerable<PersonModel>>(GetCrew(contentID));
+        }
+        private static IEnumerable<PersonModel> GetCrew(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "crew1",
+                    Name = "Don Hall",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "crew2",
+                    Name = "Chris Williams",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
+                },
+            };
+        }
+
+        #endregion
+
+        #region Account
+
+        /// <summary>
+        /// Performs authentication for the application.
+        /// </summary>
+        /// <param name="vm">Sign in view model instance that contains the user's login information.</param>
+        /// <returns>Login reponse with authorization details.</returns>
+        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct)
+        {
+            var response = new UserResponse() { AccessToken = "1234567890", RefreshToken = "abcdefghijklmnop", ID = vm.Username, Email = vm.Username, FirstName = "John", LastName = "Doe" };
+            await Task.Delay(2000, ct);
+            return response;
+
+            //this.Client.DefaultRequestHeaders.Add("Authorization", "Basic YzExNGEzM2U4YjNhNDdmY2E3NzBhYmJiMGNlOWE0YjE6NDFjOTcxYTU3NzlhNGZhMGI4NGZmN2EzNTA4NTQ5M2U=");
+
+            //var dic = new Dictionary<string, string>();
+            //dic.Add("grant_type", "password");
+            //dic.Add("username", vm.Username);
+            //dic.Add("password", vm.Password);
+            //dic.Add("scope", "streaming");
+            //var contents = new HttpFormUrlEncodedContent(dic);
+
+            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
+
+            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNIN, contents, SerializerTypes.Json);
+        }
+
+        /// <summary>
+        /// Performs account creation for the application.
+        /// </summary>
+        /// <param name="vm">Sign up view model instance containing all the user's registration information.</param>
+        /// <returns>Login response and authorization information if the account creation process was successful.</returns>
+        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct)
+        {
+            var response = new UserResponse() { AccessToken = "0987654321", RefreshToken = "qrstuvwxwyz", ID = vm.Username, Email = vm.Username, FirstName = vm.FirstName, LastName = vm.LastName };
+            await Task.Delay(2000, ct);
+            return response;
+
+            //var dic = new Dictionary<string, string>();
+            //dic.Add("grant_type", "password");
+            //dic.Add("username", vm.Username);
+            //dic.Add("password", vm.Password1);
+            //dic.Add("scope", "streaming");
+            //var contents = new HttpFormUrlEncodedContent(dic);
+
+            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
+
+            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNUP, contents);
+        }
+
+        /// <summary>
+        /// Requests forgotten account information when a user cannot rememeber their authentication details.
+        /// </summary>
+        /// <param name="vm">Account forgot view model instance contain partial account details.</param>
+        /// <returns>Response information indicating whether the call was successful or not.</returns>
+        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct)
+        {
+            var response = new ForgotPasswordResponse() { IsValid = true, Message = "Your password has been sent to your e-mail!" };
+            await Task.Delay(2000, ct);
+            return response;
+        }
+
+        /// <summary>
+        /// Authenticates a user account returned from the Web Account Manager service.
+        /// </summary>
+        /// <param name="wi">Web account info object instance representing an authenticated WAM user.</param>
+        /// <param name="ct">Cancellation token.</param>
+        /// <returns>Response object from the server.</returns>
+        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
+        {
+            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if MediaAppSample account exists else register new account.
+
+            switch (wi.Type)
+            {
+                case Services.WebAccountManager.WebAccountTypes.Microsoft:
+                    {
+                        // Retrieve MSA profile data
+                        MicrosoftAccountDetails msa = null;
+                        using (var api = new MicrosoftApi())
+                        {
+                            msa = await api.GetUserProfile(wi.Token, ct);
+                        }
+
+                        if (msa == null)
+                            throw new Exception("Could not retrieve Microsoft account profile data!");
+
+                        var response = await this.IsMicrosoftAccountRegistered(msa.id, ct);
+                        if (response != null)
+                        {
+                            // User account exists, return response
+                            return response;
+                        }
+                        else
+                        {
+                            // No account exists, use MSA profile to register user
+                            AccountSignUpViewModel vm = new AccountSignUpViewModel();
+
+                            // Set all the MSA data to the ViewModel
+                            vm.Populate(msa);
+
+                            // Call the registration API to create a new account and return
+                            return await this.RegisterAsync(vm, ct);
+                        }
+                    }
+
+                default:
+                    throw new NotImplementedException(wi.Type.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Checks to see if a MSA account ID is an existing user of this app service or not.
+        /// </summary>
+        /// <param name="id">Unique MSA account ID.</param>
+        /// <param name="ct">Cancelation token.</param>
+        /// <returns>Response object from the server.</returns>
+        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken ct)
+        {
+            // TODO server side logic to check if MSA user is existing or not as a user of this application. Returns "false" in this sample.
+            return Task.FromResult<UserResponse>(null);
+        }
+
+        #endregion
+
+        #region Search
+
+        public async Task<IEnumerable<ContentItemBase>> SearchAsync(string searchText, CancellationToken ct)
+        {
+            var list = new ContentItemList();
+            list.AddRange(await this.GetItemsAsync(ItemTypes.Movie, ct));
+            list.AddRange(await this.GetItemsAsync(ItemTypes.TvSeries, ct));
+            return list.Where(w => w.Title.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0 || w.Description.IndexOf(searchText, StringComparison.CurrentCultureIgnoreCase) >= 0);
+        }
+
+        #endregion
+
+        #region Generate Methods
 
         public static T CreateAndAddItemToList<T>(int number) where T : class
         {
@@ -542,262 +780,6 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
                 list.Add(item);
             }
-        }
-
-        #endregion ContentItemBase
-        
-        #region Ratings/Reviews/Casts
-
-        public Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
-        {
-            return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
-        }
-        public static IEnumerable<RatingModel> GetRatings(string contentID)
-        {
-            return new ObservableCollection<RatingModel>
-            {
-                new RatingModel()
-                {
-                    ID = "rating1",
-                    RatingSource = "Rating Source 1",
-                    RatingDetails = "Rating Source 1 critics",
-                    RatingScore = 89,
-                    RatingScale = 100
-                },
-                new RatingModel()
-                {
-                    ID = "rating2",
-                    RatingSource = "Rating Source 2",
-                    RatingDetails = "Based on 35 critic reviews",
-                    RatingScore = 74,
-                    RatingScale = 100
-                },
-                new RatingModel()
-                {
-                    ID = "rating3",
-                    RatingSource = "Rating Source 3",
-                    RatingDetails = "From 15,242 user reviews",
-                    RatingScore = 8.1,
-                    RatingScale = 10
-                }
-            };
-        }
-
-        public Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct)
-        {
-            return Task.FromResult<IEnumerable<ReviewModel>>(GetReviews(contentID));
-        }
-        public static IEnumerable<ReviewModel> GetReviews(string contentID)
-        {
-            return new ObservableCollection<ReviewModel>
-            {
-                new ReviewModel()
-                {
-                    ID = "review1",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-                new ReviewModel()
-                {
-                    ID = "review2",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-                new ReviewModel()
-                {
-                    ID = "review3",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-            };
-        }
-
-        public Task<IEnumerable<PersonModel>> GetCastAsync(string contentID, CancellationToken ct)
-        {
-            return Task.FromResult<IEnumerable<PersonModel>>(GetCast(contentID));
-        }
-        public static IEnumerable<PersonModel> GetCast(string contentID)
-        {
-            return new ObservableCollection<PersonModel>
-            {
-                new PersonModel()
-                {
-                    ID = "cast1",
-                    Name = "Ryan Porter",
-                    Role = "Hiro",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast2",
-                    Name = "Scott Adsit",
-                    Role = "Baymax",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast3",
-                    Name = "Jenny Chung",
-                    Role = "Go Go",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast4",
-                    Name = "Daniel Henry",
-                    Role = "Tadeshi",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
-                },
-            };
-        }
-
-        public Task<IEnumerable<PersonModel>> GetCrewAsync(string contentID, CancellationToken ct)
-        {
-            return Task.FromResult<IEnumerable<PersonModel>>(GetCrew(contentID));
-        }
-        private static IEnumerable<PersonModel> GetCrew(string contentID)
-        {
-            return new ObservableCollection<PersonModel>
-            {
-                new PersonModel()
-                {
-                    ID = "crew1",
-                    Name = "Don Hall",
-                    Role = "Director / Writer",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "crew2",
-                    Name = "Chris Williams",
-                    Role = "Director / Writer",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
-                },
-            };
-        }
-
-        #endregion
-
-        #region Account
-
-        /// <summary>
-        /// Performs authentication for the application.
-        /// </summary>
-        /// <param name="vm">Sign in view model instance that contains the user's login information.</param>
-        /// <returns>Login reponse with authorization details.</returns>
-        public async Task<UserResponse> AuthenticateAsync(AccountSignInViewModel vm, CancellationToken ct)
-        {
-            var response = new UserResponse() { AccessToken = "1234567890", RefreshToken = "abcdefghijklmnop", ID = vm.Username, Email = vm.Username, FirstName = "John", LastName = "Doe" };
-            await Task.Delay(2000, ct);
-            return response;
-
-            //this.Client.DefaultRequestHeaders.Add("Authorization", "Basic YzExNGEzM2U4YjNhNDdmY2E3NzBhYmJiMGNlOWE0YjE6NDFjOTcxYTU3NzlhNGZhMGI4NGZmN2EzNTA4NTQ5M2U=");
-
-            //var dic = new Dictionary<string, string>();
-            //dic.Add("grant_type", "password");
-            //dic.Add("username", vm.Username);
-            //dic.Add("password", vm.Password);
-            //dic.Add("scope", "streaming");
-            //var contents = new HttpFormUrlEncodedContent(dic);
-
-            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
-
-            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNIN, contents, SerializerTypes.Json);
-        }
-
-        /// <summary>
-        /// Performs account creation for the application.
-        /// </summary>
-        /// <param name="vm">Sign up view model instance containing all the user's registration information.</param>
-        /// <returns>Login response and authorization information if the account creation process was successful.</returns>
-        public async Task<UserResponse> RegisterAsync(AccountSignUpViewModel vm, CancellationToken ct)
-        {
-            var response = new UserResponse() { AccessToken = "0987654321", RefreshToken = "qrstuvwxwyz", ID = vm.Username, Email = vm.Username, FirstName = vm.FirstName, LastName = vm.LastName };
-            await Task.Delay(2000, ct);
-            return response;
-
-            //var dic = new Dictionary<string, string>();
-            //dic.Add("grant_type", "password");
-            //dic.Add("username", vm.Username);
-            //dic.Add("password", vm.Password1);
-            //dic.Add("scope", "streaming");
-            //var contents = new HttpFormUrlEncodedContent(dic);
-
-            //HttpStringContent content = new HttpStringContent(message.Stringify(), UnicodeEncoding.Utf8, "application/json");
-
-            //return await this.PostAsync<UserResponse, HttpFormUrlEncodedContent>(URL_ACCOUNT_SIGNUP, contents);
-        }
-
-        /// <summary>
-        /// Requests forgotten account information when a user cannot rememeber their authentication details.
-        /// </summary>
-        /// <param name="vm">Account forgot view model instance contain partial account details.</param>
-        /// <returns>Response information indicating whether the call was successful or not.</returns>
-        public async Task<ForgotPasswordResponse> ForgotPasswordAsync(AccountForgotViewModel vm, CancellationToken ct)
-        {
-            var response = new ForgotPasswordResponse() { IsValid = true, Message = "Your password has been sent to your e-mail!" };
-            await Task.Delay(2000, ct);
-            return response;
-        }
-
-        /// <summary>
-        /// Authenticates a user account returned from the Web Account Manager service.
-        /// </summary>
-        /// <param name="wi">Web account info object instance representing an authenticated WAM user.</param>
-        /// <param name="ct">Cancellation token.</param>
-        /// <returns>Response object from the server.</returns>
-        public async Task<UserResponse> AuthenticateAsync(Services.WebAccountManager.WebAccountInfo wi, CancellationToken ct)
-        {
-            // This logic below should be server side. Token should be used to retrieve MSA and then check to see if MediaAppSample account exists else register new account.
-
-            switch (wi.Type)
-            {
-                case Services.WebAccountManager.WebAccountTypes.Microsoft:
-                    {
-                        // Retrieve MSA profile data
-                        MicrosoftAccountDetails msa = null;
-                        using (var api = new MicrosoftApi())
-                        {
-                            msa = await api.GetUserProfile(wi.Token, ct);
-                        }
-
-                        if (msa == null)
-                            throw new Exception("Could not retrieve Microsoft account profile data!");
-
-                        var response = await this.IsMicrosoftAccountRegistered(msa.id, ct);
-                        if (response != null)
-                        {
-                            // User account exists, return response
-                            return response;
-                        }
-                        else
-                        {
-                            // No account exists, use MSA profile to register user
-                            AccountSignUpViewModel vm = new AccountSignUpViewModel();
-
-                            // Set all the MSA data to the ViewModel
-                            vm.Populate(msa);
-
-                            // Call the registration API to create a new account and return
-                            return await this.RegisterAsync(vm, ct);
-                        }
-                    }
-
-                default:
-                    throw new NotImplementedException(wi.Type.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Checks to see if a MSA account ID is an existing user of this app service or not.
-        /// </summary>
-        /// <param name="id">Unique MSA account ID.</param>
-        /// <param name="ct">Cancelation token.</param>
-        /// <returns>Response object from the server.</returns>
-        private Task<UserResponse> IsMicrosoftAccountRegistered(string id, CancellationToken ct)
-        {
-            // TODO server side logic to check if MSA user is existing or not as a user of this application. Returns "false" in this sample.
-            return Task.FromResult<UserResponse>(null);
         }
 
         #endregion

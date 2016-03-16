@@ -33,7 +33,18 @@ namespace MediaAppSample.Core.Data
 
         #region Content
 
-        Task<MovieModel> GetFeaturedHeroAsync(CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetItemsAsync(ItemTypes type, CancellationToken ct);
+        Task<ContentItemBase> GetItemAsync(string itemID, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string id, CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string id, CancellationToken ct);
+
+        IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct);
+
+        #endregion
+
+        #region Home 
+
+        Task<ContentItemBase> GetFeaturedHeroAsync(CancellationToken ct);
 
         Task<IEnumerable<MovieModel>> GetMoviesFeaturedAsync(CancellationToken ct);
         Task<IEnumerable<MovieModel>> GetMoviesNewReleasesAsync(CancellationToken ct);
@@ -44,14 +55,6 @@ namespace MediaAppSample.Core.Data
         Task<IEnumerable<ContentItemBase>> GetSneakPeeksAsync(CancellationToken ct);
 
         #endregion
-
-
-        Task<IEnumerable<ContentItemBase>> GetItemsAsync(ItemTypes type, CancellationToken ct);
-        Task<ContentItemBase> GetItemAsync(string itemID, CancellationToken ct);
-        Task<IEnumerable<ContentItemBase>> GetRelatedAsync(string itemID, CancellationToken ct);
-        Task<IEnumerable<ContentItemBase>> GetTrailersAsync(string itemID, CancellationToken ct);
-        
-        IEnumerable<SeasonModel> GetItemsAsync(TvSeriesModel series, CancellationToken ct);
 
         #region People/Reviews
 
