@@ -77,7 +77,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <Hub Orientation="Vertical">
+        <Hub>
 
             <Hub.Header>
                 <!--<Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">

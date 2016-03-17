@@ -226,132 +226,25 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region Ratings/Reviews/Casts
 
-        public Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
+        public async Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
         {
-            return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
-        }
-        public static IEnumerable<RatingModel> GetRatings(string contentID)
-        {
-            return new ObservableCollection<RatingModel>
-            {
-                new RatingModel()
-                {
-                    ID = "rating1",
-                    RatingSource = "Rating Source 1",
-                    RatingDetails = "Rating Source 1 critics",
-                    RatingScore = 89,
-                    RatingScale = 100
-                },
-                new RatingModel()
-                {
-                    ID = "rating2",
-                    RatingSource = "Rating Source 2",
-                    RatingDetails = "Based on 35 critic reviews",
-                    RatingScore = 74,
-                    RatingScale = 100
-                },
-                new RatingModel()
-                {
-                    ID = "rating3",
-                    RatingSource = "Rating Source 3",
-                    RatingDetails = "From 15,242 user reviews",
-                    RatingScore = 8.1,
-                    RatingScale = 10
-                }
-            };
+            await Task.Delay(3000);
+            return GetRatings(contentID);
         }
 
         public Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<ReviewModel>>(GetReviews(contentID));
         }
-        public static IEnumerable<ReviewModel> GetReviews(string contentID)
-        {
-            return new ObservableCollection<ReviewModel>
-            {
-                new ReviewModel()
-                {
-                    ID = "review1",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-                new ReviewModel()
-                {
-                    ID = "review2",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-                new ReviewModel()
-                {
-                    ID = "review3",
-                    FullName = SAMPLE_NAME,
-                    Review = SAMPLE_DESCRIPTION
-                },
-            };
-        }
 
         public Task<IEnumerable<PersonModel>> GetCastAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<PersonModel>>(GetCast(contentID));
         }
-        public static IEnumerable<PersonModel> GetCast(string contentID)
-        {
-            return new ObservableCollection<PersonModel>
-            {
-                new PersonModel()
-                {
-                    ID = "cast1",
-                    Name = "Ryan Porter",
-                    Role = "Hiro",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast2",
-                    Name = "Scott Adsit",
-                    Role = "Baymax",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast3",
-                    Name = "Jenny Chung",
-                    Role = "Go Go",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "cast4",
-                    Name = "Daniel Henry",
-                    Role = "Tadeshi",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
-                },
-            };
-        }
 
         public Task<IEnumerable<PersonModel>> GetCrewAsync(string contentID, CancellationToken ct)
         {
             return Task.FromResult<IEnumerable<PersonModel>>(GetCrew(contentID));
-        }
-        private static IEnumerable<PersonModel> GetCrew(string contentID)
-        {
-            return new ObservableCollection<PersonModel>
-            {
-                new PersonModel()
-                {
-                    ID = "crew1",
-                    Name = "Don Hall",
-                    Role = "Director / Writer",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
-                },
-                new PersonModel()
-                {
-                    ID = "crew2",
-                    Name = "Chris Williams",
-                    Role = "Director / Writer",
-                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
-                },
-            };
         }
 
         #endregion
@@ -780,6 +673,114 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
                 list.Add(item);
             }
+        }
+        private static IEnumerable<PersonModel> GetCrew(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "crew1",
+                    Name = "Don Hall",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_01.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "crew2",
+                    Name = "Chris Williams",
+                    Role = "Director / Writer",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_02.jpg",
+                },
+            };
+        }
+        private static IEnumerable<PersonModel> GetCast(string contentID)
+        {
+            return new ObservableCollection<PersonModel>
+            {
+                new PersonModel()
+                {
+                    ID = "cast1",
+                    Name = "Ryan Porter",
+                    Role = "Hiro",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_06.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast2",
+                    Name = "Scott Adsit",
+                    Role = "Baymax",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_05.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast3",
+                    Name = "Jenny Chung",
+                    Role = "Go Go",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_04.jpg",
+                },
+                new PersonModel()
+                {
+                    ID = "cast4",
+                    Name = "Daniel Henry",
+                    Role = "Tadeshi",
+                    Image = SAMPLE_CAST_PATH_ROOT + "CastImage_03.jpg",
+                },
+            };
+        }
+        private static IEnumerable<ReviewModel> GetReviews(string contentID)
+        {
+            return new ObservableCollection<ReviewModel>
+            {
+                new ReviewModel()
+                {
+                    ID = "review1",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review2",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+                new ReviewModel()
+                {
+                    ID = "review3",
+                    FullName = SAMPLE_NAME,
+                    Review = SAMPLE_DESCRIPTION
+                },
+            };
+        }
+        private static IEnumerable<RatingModel> GetRatings(string contentID)
+        {
+            return new ObservableCollection<RatingModel>
+            {
+                new RatingModel()
+                {
+                    ID = "rating1",
+                    RatingSource = "Rating Source 1",
+                    RatingDetails = "Rating Source 1 critics",
+                    RatingScore = 89,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating2",
+                    RatingSource = "Rating Source 2",
+                    RatingDetails = "Based on 35 critic reviews",
+                    RatingScore = 74,
+                    RatingScale = 100
+                },
+                new RatingModel()
+                {
+                    ID = "rating3",
+                    RatingSource = "Rating Source 3",
+                    RatingDetails = "From 15,242 user reviews",
+                    RatingScore = 8.1,
+                    RatingScale = 10
+                }
+            };
         }
 
         #endregion

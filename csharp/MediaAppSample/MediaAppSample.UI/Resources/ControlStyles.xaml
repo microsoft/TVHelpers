@@ -262,8 +262,14 @@
     </Style>
 
     <Style TargetType="Hub">
+        <Setter Property="Orientation" Value="Vertical" />
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Header">
+            <Setter.Value>
+                <controls:ViewHeader />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Hub">
@@ -359,5 +365,13 @@
         <Setter Property="SelectionMode" Value="None" />
         <Setter Property="IsItemClickEnabled" Value="True" />
     </Style>
+
+    <Style TargetType="ProgressRing">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    
 
 </ResourceDictionary>

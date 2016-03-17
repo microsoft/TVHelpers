@@ -1,6 +1,7 @@
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -16,6 +17,48 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return _Item; }
             private set { this.SetProperty(ref _Item, value); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<ContentItemBase>> _RelatedItemsTask;
+        public NotifyTaskCompletion<IEnumerable<ContentItemBase>> RelatedItemsTask
+        {
+            get { return _RelatedItemsTask; }
+            private set { this.SetProperty(ref _RelatedItemsTask, value); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<ContentItemBase>> _TrailerItemsTask;
+        public NotifyTaskCompletion<IEnumerable<ContentItemBase>> TrailerItemsTask
+        {
+            get { return _TrailerItemsTask; }
+            private set { this.SetProperty(ref _TrailerItemsTask, value); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<RatingModel>> _RatingsTask;
+        public NotifyTaskCompletion<IEnumerable<RatingModel>> RatingsTask
+        {
+            get { return _RatingsTask; }
+            private set { this.SetProperty(ref _RatingsTask, value); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<ReviewModel>> _ReviewsTask;
+        public NotifyTaskCompletion<IEnumerable<ReviewModel>> ReviewsTask
+        {
+            get { return _ReviewsTask; }
+            private set { this.SetProperty(ref _ReviewsTask, value); }
+        }
+        
+        private NotifyTaskCompletion<IEnumerable<PersonModel>> _CastsTask;
+        public NotifyTaskCompletion<IEnumerable<PersonModel>> CastsTask
+        {
+            get { return _CastsTask; }
+            private set { this.SetProperty(ref _CastsTask, value); }
+        }
+        
+        private NotifyTaskCompletion<IEnumerable<PersonModel>> _CreatorsTask;
+        public NotifyTaskCompletion<IEnumerable<PersonModel>> CreatorsTask
+        {
+            get { return _CreatorsTask; }
+            private set { this.SetProperty(ref _CreatorsTask, value); }
         }
 
         #endregion
@@ -50,8 +93,19 @@ namespace MediaAppSample.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
-                this.Item = await DataSource.Current.GetItemAsync(this.ViewParameter.ToString(), ct);
+
+                string id = this.ViewParameter.ToString();
+
+                this.RelatedItemsTask = new NotifyTaskCompletion<IEnumerable<ContentItemBase>>(DataSource.Current.GetRelatedAsync(id, ct));
+                this.TrailerItemsTask = new NotifyTaskCompletion<IEnumerable<ContentItemBase>>(DataSource.Current.GetTrailersAsync(id, ct));
+                this.CreatorsTask = new NotifyTaskCompletion<IEnumerable<PersonModel>>(DataSource.Current.GetCrewAsync(id, ct));
+                this.CastsTask = new NotifyTaskCompletion<IEnumerable<PersonModel>>(DataSource.Current.GetCastAsync(id, ct));
+                this.RatingsTask = new NotifyTaskCompletion<IEnumerable<RatingModel>>(DataSource.Current.GetRatingsAsync(id, ct));
+                this.ReviewsTask = new NotifyTaskCompletion<IEnumerable<ReviewModel>>(DataSource.Current.GetReviewsAsync(id, ct));
+
+                this.Item = await DataSource.Current.GetItemAsync(id, ct);
                 this.Title = this.Item?.Title;
+                
                 this.ClearStatus();
             }
             catch (Exception ex)

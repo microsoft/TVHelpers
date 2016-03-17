@@ -14,8 +14,7 @@
     <Grid>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity=".85" />
         <StackPanel VerticalAlignment="Center" Margin="0,0,0,50">
-            <ProgressRing Width="50" Height="50" 
-                          IsEnabled="{Binding ViewModel.StatusIsBusy, Mode=OneWay}" 
+            <ProgressRing IsEnabled="{Binding ViewModel.StatusIsBusy, Mode=OneWay}" 
                           IsActive="{Binding ViewModel.StatusIsBusy, Mode=OneWay}" />
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Margin="12,0" Text="{Binding ViewModel.StatusText, Mode=OneWay}" Style="{StaticResource BodyTextBlockStyle}" />
         </StackPanel>
