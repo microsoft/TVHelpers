@@ -350,4 +350,14 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ListView">
+        <Setter Property="SelectionMode" Value="None" />
+        <Setter Property="IsItemClickEnabled" Value="True" />
+    </Style>
+
+    <Style TargetType="GridView">
+        <Setter Property="SelectionMode" Value="None" />
+        <Setter Property="IsItemClickEnabled" Value="True" />
+    </Style>
+
 </ResourceDictionary>

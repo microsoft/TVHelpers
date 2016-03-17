@@ -51,9 +51,7 @@
                                              Command="{TemplateBinding SeeMoreCommand}" 
                                              HorizontalAlignment="Right" VerticalAlignment="Bottom" />
                             <ListView Grid.Row="1" 
-                                      ItemsSource="{TemplateBinding Items}" 
-                                      IsItemClickEnabled="True"
-                                      SelectionMode="None"
+                                      ItemsSource="{TemplateBinding Items}"
                                       ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
                                       behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
                                 <ListView.ItemTemplate>
@@ -101,9 +99,7 @@
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
                             <ProgressBar Value="80" />
                         </StackPanel>
-                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}" 
-                                  IsItemClickEnabled="True"
-                                  SelectionMode="None"
+                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
                                   behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
                                   VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <ListView.Header>

@@ -22,8 +22,6 @@
 
         <ScrollViewer Grid.Row="1">
             <GridView ItemsSource="{x:Bind ViewModel.Queue, Mode=OneWay}"
-                      IsItemClickEnabled="True"
-                      SelectionMode="None"
                       behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:QueueModel">

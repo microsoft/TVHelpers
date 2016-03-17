@@ -33,8 +33,6 @@
 
         <ScrollViewer Grid.Row="3">
             <GridView ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-                      IsItemClickEnabled="True"
-                      SelectionMode="None"
                       behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="models:ContentItemBase">
