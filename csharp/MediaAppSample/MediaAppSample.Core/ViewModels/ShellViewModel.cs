@@ -25,8 +25,6 @@ namespace MediaAppSample.Core.ViewModels
 
             if (DesignMode.DesignModeEnabled)
                 return;
-
-            this.RequiresAuthorization = true;
         }
 
         #endregion Constructors

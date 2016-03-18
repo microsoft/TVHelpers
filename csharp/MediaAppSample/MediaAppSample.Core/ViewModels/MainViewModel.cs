@@ -110,7 +110,6 @@ namespace MediaAppSample.Core.ViewModels
             if (DesignMode.DesignModeEnabled)
                 return;
 
-            this.RequiresAuthorization = true;
             this.IsRefreshVisible = true;
         }
 

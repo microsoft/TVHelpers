@@ -24,13 +24,13 @@
         <controls:ViewHeader />
 
         <StackPanel Grid.Row="1" x:Name="ContentPanel" VerticalAlignment="Center">
-            <Button Width="208" Margin="4" HorizontalAlignment="Center" Command="{Binding ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}">
+            <Button Width="208" Margin="4" HorizontalAlignment="Center" Command="{x:Bind ViewModel.LaunchWebAccountManagerCommand, Mode=OneWay}" CommandParameter="{x:Bind ViewModel.ViewParameter, Mode=OneWay}" >
                 <Image Height="24" Source="ms-appx:///Assets/MicrosoftLogo.png" />
             </Button>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="480">
-                <Button Width="100" Margin="4" Content="Sign in" Command="{Binding ViewModel.Platform.Navigation.NavigateToAccountSignInCommand}" />
-                <Button Width="100" Margin="4" Content="Register" Command="{Binding ViewModel.Platform.Navigation.NavigateToAccountSignUpCommand}" />
+                <Button Width="100" Margin="4" Content="Sign in" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountSignInCommand}" CommandParameter="{x:Bind ViewModel.ViewParameter, Mode=OneWay}" />
+                <Button Width="100" Margin="4" Content="Register" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToAccountSignUpCommand}" CommandParameter="{x:Bind ViewModel.ViewParameter, Mode=OneWay}" />
             </StackPanel>            
         </StackPanel>
 

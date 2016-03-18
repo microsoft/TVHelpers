@@ -128,24 +128,16 @@ namespace MediaAppSample.UI.Services
 
         public override void Home(object parameter = null)
         {
-            if(Platform.Current.AuthManager.IsAuthenticated() == false)
+            // User is authenticated
+            if (this.ParentFrame.Content == null || !(this.ParentFrame.Content is ShellView))
             {
-                this.ParentFrame.Navigate(typeof(WelcomeView), this.SerializeParameter(parameter));
+                NavigationRequest navParam = parameter as NavigationRequest ?? new NavigationRequest(typeof(MainView), parameter);
+                this.ParentFrame.Navigate(typeof(ShellView), this.SerializeParameter(navParam));
                 this.ClearBackstack();
             }
             else
             {
-                // User is authenticated
-                if (this.ParentFrame.Content == null || !(this.ParentFrame.Content is ShellView))
-                {
-                    NavigationRequest navParam = parameter as NavigationRequest ?? new NavigationRequest(typeof(MainView), parameter);
-                    this.ParentFrame.Navigate(typeof(ShellView), this.SerializeParameter(navParam));
-                    this.ClearBackstack();
-                }
-                else
-                {
-                    this.Frame.Navigate(typeof(MainView), this.SerializeParameter(parameter));
-                }
+                this.Frame.Navigate(typeof(MainView), this.SerializeParameter(parameter));
             }
         }
 
@@ -184,6 +176,11 @@ namespace MediaAppSample.UI.Services
 
             if (removePrevious)
                 this.RemovePreviousPage();
+        }
+
+        public override void Welcome(object parameter = null)
+        {
+            this.ParentFrame.Navigate(typeof(WelcomeView), this.SerializeParameter(parameter));
         }
 
         public override void AccountSignin(object parameter = null)

@@ -266,9 +266,11 @@ namespace MediaAppSample.Core.ViewModels
             // Check if user is authorized to view this page
             if (this.RequiresAuthorization && !this.IsUserAuthenticated)
             {
-                await this.Dispatcher.RunAsync(CoreDispatcherPriority.High, async () =>
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
-                    await this.SignoutAsync(true);
+                    // This page navigation isn't allowed so go back, then forward navigate to Welcome page instead
+                    Platform.Current.Navigation.GoBack();
+                    Platform.Current.Navigation.Welcome(e.Parameter);
                 });
                 return;
             }

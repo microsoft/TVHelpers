@@ -253,6 +253,8 @@ namespace MediaAppSample.Core.Services
 
         protected abstract void WebView(object parameter);
 
+        public abstract void Welcome(object parameter = null);
+
         public abstract void AccountSignin(object parameter = null);
 
         public abstract void AccountSignup(object parameter = null);

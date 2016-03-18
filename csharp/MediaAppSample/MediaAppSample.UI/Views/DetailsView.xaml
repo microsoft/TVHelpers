@@ -68,7 +68,7 @@
                             <ProgressBar Value="80" />
                             <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item.ID, Mode=OneWay}" Background="{ThemeResource SystemAccentColor}" />
+                                <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Background="{ThemeResource SystemAccentColor}" />
                                 <Button Content="Add to queue" Command="{Binding ViewModel.Platform.ViewModel.QueueViewModel.AddToQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
                                 <Button Content="More" />
                             </StackPanel>
