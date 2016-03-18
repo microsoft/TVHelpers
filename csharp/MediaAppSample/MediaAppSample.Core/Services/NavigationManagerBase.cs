@@ -120,6 +120,12 @@ namespace MediaAppSample.Core.Services
         {
             get { return _navigateToDetailsCommand ?? (_navigateToDetailsCommand = new NavigationCommand("NavigateToDetailsCommand", Platform.Current.Navigation.Details)); }
         }
+        
+        private CommandBase _navigateToWelcomeCommand = null;
+        public CommandBase NavigateToWelcomeCommand
+        {
+            get { return _navigateToWelcomeCommand ?? (_navigateToWelcomeCommand = new NavigationCommand("NavigateToWelcomeCommand", Platform.Current.Navigation.Welcome)); }
+        }
 
         #endregion
 

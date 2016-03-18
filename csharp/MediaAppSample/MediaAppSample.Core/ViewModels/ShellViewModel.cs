@@ -1,4 +1,6 @@
+using MediaAppSample.Core.Commands;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 
@@ -13,6 +15,12 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return _IsMenuOpen; }
             set { this.SetProperty(ref _IsMenuOpen, value); }
+        }
+
+        private ICommand _ToggleMenuCommand = null;
+        public ICommand ToggleMenuCommand
+        {
+            get { return _ToggleMenuCommand ?? (_ToggleMenuCommand = new GenericCommand("ToggleMenuCommand", () => this.IsMenuOpen = !this.IsMenuOpen)); }
         }
 
         #endregion Properties

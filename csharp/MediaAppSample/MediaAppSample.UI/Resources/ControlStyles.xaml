@@ -346,7 +346,7 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" >
                         <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
                             <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-                            <Grid Margin="48,0" Height="{StaticResource HeaderHeight}" VerticalAlignment="Top">
+                            <Grid Margin="{StaticResource StandardGutterLeftRight}" Height="{StaticResource StandardElementPixels}" VerticalAlignment="Top">
                                 <TextBlock Text="{TemplateBinding Header}" Style="{StaticResource HubSectionHeaderTextBlockStyle}" />
                             </Grid>
                         </Grid>

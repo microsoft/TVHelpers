@@ -20,7 +20,7 @@
     <Page.Resources>
        
         <Style TargetType="controls:SplitViewButton">
-            <Setter Property="Height" Value="48" />
+            <Setter Property="Height" Value="{StaticResource StandardElementPixels}" />
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
             <Setter Property="Margin" Value="0"/>
@@ -40,7 +40,7 @@
                     <ControlTemplate TargetType="controls:SplitViewButton">
                         <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="{StaticResource StandardElementGridLength}"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -94,8 +94,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         
         <SplitView x:Name="svMain"
-                   DisplayMode="CompactOverlay"
-                   OpenPaneLength="200"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="240"
                    IsPaneOpen="{x:Bind ViewModel.IsMenuOpen, Mode=OneWay}">
             <SplitView.Pane>
                 <Grid>
@@ -133,16 +133,11 @@
 
         </SplitView>
         
-        <ToggleButton x:Name="togMenu" 
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      IsChecked="{x:Bind ViewModel.IsMenuOpen, Mode=TwoWay, Converter={StaticResource boolConverter}}"
-                      Width="48" 
-                      Height="48"
-                      Foreground="{ThemeResource SystemAltHighColor}"
-                      Background="{ThemeResource SystemAccentColor}">
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource TransparentButtonStyle}"
+                Command="{x:Bind ViewModel.ToggleMenuCommand}"
+                Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}">
             <FontIcon FontSize="20" Glyph="&#xE700;" />
-        </ToggleButton>
+        </Button>
         
     </Grid>
 </views:ShellViewBase>

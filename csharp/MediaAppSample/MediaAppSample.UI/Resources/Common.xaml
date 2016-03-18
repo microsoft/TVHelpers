@@ -49,8 +49,10 @@
     <converters:ValueToOpacityConverter x:Key="opacityConverter" />
     <converters:ValueToDoubleConverter x:Key="doubleConverter" />
 
-    <x:Double  x:Key="HeaderHeight">48</x:Double>
-    <Thickness x:Key="HubHeaderMargin">0,0,0,0</Thickness>
-    <Thickness x:Key="HubSectionHeaderMargin">0,30,0,0</Thickness>
-    
+    <x:Double x:Key="StandardElementPixels">48</x:Double>
+    <GridLength x:Key="StandardElementGridLength">48</GridLength>
+    <Thickness x:Key="StandardGutterLeftRight">48,0</Thickness>
+    <Thickness x:Key="StandardGutterLeft">48,0,0,0</Thickness>
+    <Thickness x:Key="StandardGutterAll">48</Thickness>
+
 </ResourceDictionary>

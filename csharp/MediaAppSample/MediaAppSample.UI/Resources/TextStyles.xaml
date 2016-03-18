@@ -10,7 +10,7 @@
     
     <Style x:Key="HubSectionHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="{StaticResource HubSectionHeaderMargin}"/>
+        <Setter Property="Margin" Value="0,24,0,0"/>
         <Setter Property="Foreground" Value="#99FFFFFF"/>
     </Style>
     

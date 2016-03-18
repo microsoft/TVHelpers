@@ -24,8 +24,8 @@
 
         <DataTemplate x:Name="FeaturedContentItemDataTemplate" x:DataType="models:ContentItemBase">
             <Grid>
-                <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+                <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
                     <TextBlock Text="{x:Bind Flag, Mode=OneWay}" />
                     <TextBlock Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
                     <ProgressBar Value="40" />
@@ -42,9 +42,6 @@
         <Hub>
 
             <Hub.Header>
-                <!--<Grid Height="48" Background="{ThemeResource ThemeHubHeaderBackground}">
-                    <Image Source="/Assets/HeaderLogo_Full.png" Height="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>-->
                 <controls:ViewHeader />
             </Hub.Header>
 
@@ -52,8 +49,8 @@
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <Grid Margin="0">
-                        <Image Source="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
-                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
+                        <Image Source="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
                             <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
                                              Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
@@ -62,6 +59,7 @@
                             <ProgressBar Value="80" />
                         </StackPanel>
                         <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
+                                  Margin="{StaticResource StandardGutterAll}" 
                                   behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
                                   VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <ListView.Header>
