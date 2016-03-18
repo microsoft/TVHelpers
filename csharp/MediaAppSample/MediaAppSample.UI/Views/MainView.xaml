@@ -33,45 +33,7 @@
             </Grid>
         </DataTemplate>
 
-        <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
-            <ItemsStackPanel Orientation="Horizontal" />
-        </ItemsPanelTemplate>
 
-        <Style TargetType="controls:ContentItemListControl">
-            <Setter Property="Background" Value="#FF1F1F1F" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:ContentItemListControl">
-                        <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <HyperlinkButton Content="{TemplateBinding SeeMoreText}"
-                                             Command="{TemplateBinding SeeMoreCommand}" 
-                                             HorizontalAlignment="Right" VerticalAlignment="Bottom" />
-                            <ListView Grid.Row="1" 
-                                      ItemsSource="{TemplateBinding Items}"
-                                      ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
-                                      behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:ContentItemBase">
-                                        <Grid Height="300" Width="225">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Source="{Binding PosterImage, Mode=OneWay}" Stretch="UniformToFill" />
-                                            <TextBlock Text="{Binding Title}" Grid.Row="1" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
     </Page.Resources>
 

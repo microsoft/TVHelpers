@@ -226,10 +226,9 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #region Ratings/Reviews/Casts
 
-        public async Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
+        public Task<IEnumerable<RatingModel>> GetRatingsAsync(string contentID, CancellationToken ct)
         {
-            await Task.Delay(3000);
-            return GetRatings(contentID);
+            return Task.FromResult<IEnumerable<RatingModel>>(GetRatings(contentID));
         }
 
         public Task<IEnumerable<ReviewModel>> GetReviewsAsync(string contentID, CancellationToken ct)

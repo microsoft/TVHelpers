@@ -15,5 +15,9 @@
     <DataTemplate x:Key="WebBrowserDataTemplate">
         <controls:WebViewPanel />
     </DataTemplate>
-    
+
+    <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
+        <ItemsStackPanel Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+
 </ResourceDictionary>

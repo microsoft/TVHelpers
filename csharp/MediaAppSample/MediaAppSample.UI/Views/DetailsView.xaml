@@ -13,6 +13,45 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+
+        <DataTemplate x:Name="PersonDataTemplate" x:DataType="models:PersonModel">
+            <StackPanel Orientation="Horizontal">
+                <Image Width="48" Height="48" Source="{x:Bind Image}" />
+                <TextBlock VerticalAlignment="Center">
+                    <Run Text="{x:Bind Name}" />
+                    <LineBreak />
+                    <Run Text="{x:Bind Role}" />
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Name="RatingsDataTemplate" x:DataType="models:RatingModel">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock><Run Text="{x:Bind RatingPercent}" />%</TextBlock>
+                <TextBlock Grid.Column="1"><Run Text="{x:Bind RatingSource}" /><LineBreak/><Run Text="{x:Bind RatingDetails}" /></TextBlock>
+                <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Name="ReviewsDataTemplate" x:DataType="models:ReviewModel">
+            <TextBlock TextWrapping="Wrap">
+                <Run Text="{x:Bind Review}" />
+                <LineBreak />
+                - <Run Text="{x:Bind FullName}" />
+            </TextBlock>
+        </DataTemplate>
+
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <Hub>
@@ -24,64 +63,64 @@
                         <Image Source="{x:Bind ViewModel.Item.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" Opacity=".3" />
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxWidth="400">
                             <TextBlock Text="{x:Bind ViewModel.Item.Flag, Mode=OneWay}" />
-                            <HyperlinkButton Content="{x:Bind ViewModel.Item.Title, Mode=OneWay}" 
-                                             Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
-                                             CommandParameter="{x:Bind ViewModel.Item}" />
-                            <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Genre, Mode=OneWay}" />
                             <ProgressBar Value="80" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item.ID, Mode=OneWay}" Background="{ThemeResource SystemAccentColor}" />
+                                <Button Content="Add to queue" Command="{Binding ViewModel.Platform.ViewModel.QueueViewModel.AddToQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
+                                <Button Content="More" />
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </HubSection>
 
             <!-- Creators/Casts/Critics/Ratings -->
-            <HubSection Header="Creators/Casts/Critics/Ratings">
+            <HubSection>
                 <DataTemplate x:DataType="viewmodels:DetailsViewModel">
-                    <RelativePanel>
-
-                        <Grid x:Name="grdCreators">
-                            <ListView ItemsSource="{x:Bind ViewModel.CreatorsTask.Result, Mode=OneWay}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid Grid.Column="0" x:Name="grdCreators">
+                            <ListView Style="{StaticResource ReadOnlyListViewStyle}" 
+                                      ItemsSource="{x:Bind ViewModel.CreatorsTask.Result, Mode=OneWay}" Header="Creators"
+                                      ItemTemplate="{StaticResource PersonDataTemplate}" />
                             <ProgressRing Visibility="{x:Bind ViewModel.CreatorsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
-                                      IsActive="{x:Bind ViewModel.CreatorsTask.IsNotCompleted}" />
+                                          IsActive="{x:Bind ViewModel.CreatorsTask.IsNotCompleted}" />
                         </Grid>
 
-                        <Grid x:Name="grdCasts" RelativePanel.RightOf="grdCreators">
-                            <ListView ItemsSource="{x:Bind ViewModel.CastsTask.Result, Mode=OneWay}" />
+                        <Grid Grid.Column="1" x:Name="grdCasts" RelativePanel.RightOf="grdCreators">
+                            <ListView Style="{StaticResource ReadOnlyListViewStyle}" Header="Cast"
+                                      ItemsSource="{x:Bind ViewModel.CastsTask.Result, Mode=OneWay}" 
+                                      ItemTemplate="{StaticResource PersonDataTemplate}" />
                             <ProgressRing Visibility="{x:Bind ViewModel.CastsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
-                                      IsActive="{x:Bind ViewModel.CastsTask.IsNotCompleted}" />
+                                          IsActive="{x:Bind ViewModel.CastsTask.IsNotCompleted}" />
                         </Grid>
 
-                        <Grid x:Name="grdReviews" RelativePanel.RightOf="grdCasts">
-                            <ListView ItemsSource="{x:Bind ViewModel.ReviewsTask.Result, Mode=OneWay}" />
+                        <Grid Grid.Column="2" x:Name="grdReviews" RelativePanel.RightOf="grdCasts">
+                            <ListView Style="{StaticResource ReadOnlyListViewStyle}" Header="Critic Reviews"
+                                      ItemsSource="{x:Bind ViewModel.ReviewsTask.Result, Mode=OneWay}" 
+                                      ItemTemplate="{StaticResource ReviewsDataTemplate}" />
                             <ProgressRing Visibility="{x:Bind ViewModel.ReviewsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
-                                      IsActive="{x:Bind ViewModel.ReviewsTask.IsNotCompleted}" />
+                                          IsActive="{x:Bind ViewModel.ReviewsTask.IsNotCompleted}" />
                         </Grid>
 
-                        <Grid x:Name="grdRatings" RelativePanel.RightOf="grdReviews">
-                            <ListView ItemsSource="{x:Bind ViewModel.RatingsTask.Result, Mode=OneWay}">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:RatingModel">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock><Run Text="{x:Bind RatingPercent}" />%</TextBlock>
-                                            <TextBlock Grid.Column="1"><Run Text="{x:Bind RatingSource}" /><LineBreak/><Run Text="{x:Bind RatingDetails}" /></TextBlock>
-                                            <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                        <Grid Grid.Column="3" x:Name="grdRatings" RelativePanel.RightOf="grdReviews">
+                            <ListView Style="{StaticResource ReadOnlyListViewStyle}" Header="Ratings"
+                                      ItemsSource="{x:Bind ViewModel.RatingsTask.Result, Mode=OneWay}"
+                                      ItemTemplate="{StaticResource RatingsDataTemplate}" />
                             <ProgressRing Visibility="{x:Bind ViewModel.RatingsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
                                       IsActive="{x:Bind ViewModel.RatingsTask.IsNotCompleted}" />
                         </Grid>
                         
-                    </RelativePanel>
+                    </Grid>
                 </DataTemplate>
             </HubSection>
 
@@ -103,6 +142,7 @@
                 <DataTemplate x:DataType="viewmodels:DetailsViewModel">
                     <Grid>
                         <controls:ContentItemListControl
+                            Background="{ThemeResource SystemAccentColor}"
                             Items="{Binding ViewModel.RelatedItemsTask.Result, Mode=OneWay}"
                             ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.CreatorsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}"

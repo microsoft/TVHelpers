@@ -20,11 +20,7 @@
             <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99000000" />
             <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33000000" />
             <SolidColorBrush x:Key="ThemeTitleBackground" Color="#99000000" />
-            <!-- 
-                The AccentColorBrush can be set to the built-in system user color using {ThemeResource SystemAccentColor}
-                or a custom-defined branding color (in this case #FFDA4757 as shown.)
-            -->
-            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
+            <Color x:Key="SystemAccentColor">#FFE54757</Color>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="ThemeBackground" Color="White" />
@@ -32,7 +28,6 @@
             <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99FFFFFF" />
             <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
             <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
-            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <SolidColorBrush x:Key="ThemeBackground" Color="White" />
@@ -40,7 +35,6 @@
             <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#FFFFFFFF" />
             <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
             <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
-            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFE54757" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
