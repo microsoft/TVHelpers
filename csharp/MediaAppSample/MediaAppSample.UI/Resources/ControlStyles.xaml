@@ -356,6 +356,13 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ProgressRing">
+        <Setter Property="Width" Value="48" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="SelectionMode" Value="None" />
         <Setter Property="IsItemClickEnabled" Value="True" />
@@ -367,11 +374,9 @@
         <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
 
-    <Style TargetType="ProgressRing">
-        <Setter Property="Width" Value="50" />
-        <Setter Property="Height" Value="50" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
+    <Style TargetType="GridView">
+        <Setter Property="SelectionMode" Value="None" />
+        <Setter Property="IsItemClickEnabled" Value="True" />
     </Style>
 
     <Style TargetType="GridView" x:Key="ReadOnlyGridViewStyle">

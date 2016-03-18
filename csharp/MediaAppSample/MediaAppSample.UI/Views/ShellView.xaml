@@ -113,7 +113,12 @@
                     <StackPanel Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,2,0,0">
                         <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
                         <controls:SplitViewButton GroupName="ShellNav" Content="Sign in" Symbol="Contact" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWelcomeCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
-                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}" />
+                        <controls:SplitViewButton GroupName="ShellNav" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}">
+                            <StackPanel>
+                                <TextBlock Foreground="{ThemeResource SystemAccentColor}" Style="{StaticResource CaptionTextBlockStyle}">Welcome <Run Text="{x:Bind ViewModel.Platform.AuthManager.User.FirstName, Mode=OneWay}" />!</TextBlock>
+                                <TextBlock Text="Sign out" />
+                            </StackPanel>                           
+                        </controls:SplitViewButton>
                         <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
                     </StackPanel>
                 </Grid>
@@ -134,7 +139,7 @@
         </SplitView>
         
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource TransparentButtonStyle}"
-                Command="{x:Bind ViewModel.ToggleMenuCommand}"
+                Command="{x:Bind ViewModel.ToggleMenuCommand, Mode=OneWay}"
                 Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}">
             <FontIcon FontSize="20" Glyph="&#xE700;" />
         </Button>
