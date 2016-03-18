@@ -1,5 +1,7 @@
 using MediaAppSample.Core;
 using System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -49,6 +51,12 @@ namespace MediaAppSample.UI
             {
                 // Update the theme when the app settings property changes
                 this.RequestedTheme = (ElementTheme)Platform.Current.AppSettingsRoaming.ApplicationTheme;
+                
+                // TODO set title bar colors here
+                //var tb = ApplicationView.GetForCurrentView().TitleBar;
+                //tb.BackgroundColor = Colors.Black;
+                //tb.ForegroundColor = Colors.White;
+                //tb.ButtonBackgroundColor = Colors.Green;
             }
             catch { }
         }

@@ -96,7 +96,7 @@
         <SplitView x:Name="svMain"
                    DisplayMode="Overlay"
                    OpenPaneLength="240"
-                   IsPaneOpen="{x:Bind ViewModel.IsMenuOpen, Mode=OneWay}">
+                   IsPaneOpen="{x:Bind ViewModel.IsMenuOpen, Mode=TwoWay}">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
