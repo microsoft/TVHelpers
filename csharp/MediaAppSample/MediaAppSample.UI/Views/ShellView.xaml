@@ -112,7 +112,8 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,2,0,0">
                         <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign in" Symbol="Contact" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWelcomeCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign out" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}" />
                         <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
                     </StackPanel>
                 </Grid>
