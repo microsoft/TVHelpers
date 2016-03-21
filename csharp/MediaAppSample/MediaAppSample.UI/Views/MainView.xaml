@@ -17,7 +17,7 @@
 
     <Page.Resources>
 
-        <Style TargetType="ProgressBar">
+        <Style TargetType="controls:RatingsControl">
             <Setter Property="Minimum" Value="0" />
             <Setter Property="Maximum" Value="100" />
             <Setter Property="Value" Value="60" />
@@ -29,12 +29,10 @@
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
                     <TextBlock Text="{x:Bind Flag, Mode=OneWay}" />
                     <TextBlock Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
-                    <ProgressBar Value="40" />
+                    <controls:RatingsControl Value="40" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
-
-
 
     </Page.Resources>
 
@@ -57,7 +55,7 @@
                                              Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
                                              CommandParameter="{x:Bind ViewModel.FeaturedHero}" />
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
-                            <ProgressBar Value="80" />
+                            <controls:RatingsControl Value="80" />
                         </StackPanel>
                         <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
                                   Margin="{StaticResource StandardGutterAll}" 

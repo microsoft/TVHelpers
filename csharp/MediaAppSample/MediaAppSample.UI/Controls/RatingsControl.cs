@@ -2,11 +2,10 @@
 
 namespace MediaAppSample.UI.Controls
 {
-    public class RatingsControl : ContentControl
+    public class RatingsControl : ProgressBar
     {
         public RatingsControl()
         {
-            this.DefaultStyleKey = typeof(RatingsControl);
         }
     }
 }

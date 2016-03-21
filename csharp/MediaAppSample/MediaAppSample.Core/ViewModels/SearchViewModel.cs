@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.UI.Xaml.Controls;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -28,7 +29,7 @@ namespace MediaAppSample.Core.ViewModels
         public string SearchText
         {
             get { return _SearchText; }
-            private set { this.SetProperty(ref _SearchText, value); }
+            set { this.SetProperty(ref _SearchText, value); }
         }
 
         #endregion Properties
@@ -43,6 +44,7 @@ namespace MediaAppSample.Core.ViewModels
                 return;
 
             this.IsRefreshVisible = true;
+            this.PreservePropertyState(() => this.SearchText);
         }
 
         #endregion Constructors
@@ -51,17 +53,20 @@ namespace MediaAppSample.Core.ViewModels
 
         protected override async Task OnLoadStateAsync(LoadStateEventArgs e, bool isFirstRun)
         {
-            string param = null;
-
-            // Use any page parameters as the initial search query
-            if (e.NavigationEventArgs.Parameter is string)
-                param = e.NavigationEventArgs.Parameter.ToString().Trim();
-
-            if (this.SearchText != param)
+            if (e.NavigationEventArgs.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.New)
             {
-                // Perform the search if there is a new search to perform
-                this.SearchText = param;
-                await this.RefreshAsync();
+                string param = null;
+
+                // Use any page parameters as the initial search query
+                if (e.NavigationEventArgs.Parameter is string)
+                    param = e.NavigationEventArgs.Parameter.ToString().Trim();
+
+                if (this.SearchText != param)
+                {
+                    // Perform the search if there is a new search to perform
+                    this.SearchText = param;
+                    await this.RefreshAsync();
+                }
             }
 
             await base.OnLoadStateAsync(e, isFirstRun);
@@ -115,6 +120,77 @@ namespace MediaAppSample.Core.ViewModels
         protected internal override bool OnBackNavigationRequested()
         {
             return base.OnBackNavigationRequested();
+        }
+        
+        private CancellationTokenSource _cts;
+        public async void searchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            try
+            {
+                if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+                {
+                    if (!string.IsNullOrWhiteSpace(sender.Text))
+                    {
+                        if (_cts != null)
+                        {
+                            _cts.Cancel();
+                            _cts.Dispose();
+                            _cts = null;
+                        }
+
+                        _cts = new CancellationTokenSource();
+
+                        try
+                        {
+                            sender.ItemsSource = await DataSource.Current.SearchAsync(sender.Text, _cts.Token);
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // Do nothing if cancellation was requested
+                        }
+                        finally
+                        {
+                            if (_cts != null)
+                                _cts.Dispose();
+                            _cts = null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Could not perform search with '{0}'", sender.Text);
+            }
+        }
+
+        public async void searchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            try
+            {
+                if (args.ChosenSuggestion != null)
+                {
+                    var item = args.ChosenSuggestion as ContentItemBase;
+                    sender.Text = item.Title;
+                    Platform.Current.Navigation.NavigateTo(args.ChosenSuggestion as ContentItemBase);
+                }
+                else
+                {
+                    this.SearchText = args.QueryText;
+                    await this.RefreshAsync();
+                    sender.Text = string.Empty;
+                }
+            }
+            catch(Exception ex)
+            {
+                Platform.Current.Logger.LogError(ex, "Could not submit query with '{0}'", args.QueryText);
+            }
+        }
+
+        public void searchBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            var item = args.SelectedItem as ContentItemBase;
+            if (item != null)
+                sender.Text = item.Title;
         }
 
         #endregion Methods

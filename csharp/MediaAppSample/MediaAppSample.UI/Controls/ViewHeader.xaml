@@ -10,63 +10,32 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="userControl"
     VerticalAlignment="Top"
-    d:DesignHeight="600"
+    d:DesignHeight="48"
     d:DesignWidth="600"
     mc:Ignorable="d">
 
     <Grid Background="Transparent">
-        
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="MobileLayout">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="btnSearch.Visibility" Value="Collapsed" />
-                        <Setter Target="btnSearchCompact.Visibility" Value="Visible" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="WideLayout">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="btnSearch.Visibility" Value="Visible" />
-                        <Setter Target="btnSearchCompact.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="{StaticResource StandardElementGridLength}" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3" Background="{ThemeResource ThemeHubHeaderBackground}" />
+        <Grid Grid.ColumnSpan="2" Background="{ThemeResource ThemeHubHeaderBackground}" />
 
         <TextBlock Margin="{StaticResource StandardGutterLeft}" Text="{Binding ViewModel.Title, Mode=OneWay, FallbackValue='N/A'}" VerticalAlignment="Center" />
-        <Image Margin="{StaticResource StandardGutterLeft}" Source="/Assets/HeaderLogo_Full.png" Height="{StaticResource StandardElementPixels}" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ViewModel.Title, Converter={StaticResource visInvertedConverter}}"/>
+        <Image Margin="{StaticResource StandardGutterLeft}" 
+               Source="/Assets/HeaderLogo_Full.png" 
+               Height="{StaticResource StandardElementPixels}" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center" 
+               Visibility="{Binding ViewModel.Title, Converter={StaticResource visInvertedConverter}}"/>
 
         <AppBarButton Grid.Column="1" Icon="Refresh" Command="{Binding ViewModel.RefreshCommand, Mode=OneWay}" Visibility="{Binding ViewModel.IsRefreshVisible, Mode=OneWay, Converter={StaticResource visConverter}}" />
-
-        <Grid Grid.Column="2" Visibility="{Binding ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}">
-            <controls:SearchBox x:Name="btnSearch" VerticalAlignment="Center" Width="200" Height="{StaticResource StandardElementPixels}" Margin="0,0,12,0"  />
-            <AppBarButton x:Name="btnSearchCompact" Icon="Find" Margin="0" Width="{StaticResource StandardElementPixels}" Background="{ThemeResource ThemeHubHeaderBackground}">
-                <AppBarButton.Flyout>
-                    <Flyout>
-                        <controls:SearchBox MinWidth="250" />
-                    </Flyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-        </Grid>
         
-        <controls:ViewHeaderStatus Grid.ColumnSpan="3" VerticalAlignment="Top" />
+        <controls:ViewHeaderStatus Grid.ColumnSpan="2" VerticalAlignment="Top" />
 
     </Grid>
 

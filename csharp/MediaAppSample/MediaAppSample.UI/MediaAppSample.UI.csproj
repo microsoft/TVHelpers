@@ -123,16 +123,11 @@
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ContentItemListControl.cs" />
-    <Compile Include="Controls\ImageControl.cs" />
-    <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
     <Compile Include="Controls\RatingsControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">
       <DependentUpon>ViewHeader.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SearchBox.xaml.cs">
-      <DependentUpon>SearchBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ViewHeaderStatus.xaml.cs">
       <DependentUpon>ViewHeaderStatus.xaml</DependentUpon>
@@ -256,10 +251,6 @@
     <Page Include="Controls\ViewHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\SearchBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ViewHeaderStatus.xaml">
       <SubType>Designer</SubType>

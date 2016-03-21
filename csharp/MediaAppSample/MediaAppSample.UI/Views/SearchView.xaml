@@ -15,12 +15,31 @@
     <Grid x:Name="ContentPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <controls:ViewHeader />
 
-        <ScrollViewer Grid.Row="1">
+        <AutoSuggestBox Grid.Row="1" 
+                        Width="320"
+                        HorizontalAlignment="Left"
+                        QueryIcon="Find" Margin="0"
+                        PlaceholderText="Search..."
+                        TextChanged="{x:Bind ViewModel.searchBox_TextChanged, Mode=OneWay}" 
+                        QuerySubmitted="{x:Bind ViewModel.searchBox_QuerySubmitted, Mode=OneWay}" 
+                        SuggestionChosen="{x:Bind ViewModel.searchBox_SuggestionChosen, Mode=OneWay}">
+            <AutoSuggestBox.ItemTemplate>
+                <DataTemplate x:DataType="models:ContentItemBase">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind Title}" FontWeight="Bold" />
+                        <TextBlock Text="{x:Bind Description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </AutoSuggestBox.ItemTemplate>
+        </AutoSuggestBox>
+
+        <ScrollViewer Grid.Row="2">
             <GridView ItemsSource="{x:Bind ViewModel.Results, Mode=OneWay}" Margin="{StaticResource StandardGutterLeftRight}"
                       behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
                 <GridView.ItemTemplate>
