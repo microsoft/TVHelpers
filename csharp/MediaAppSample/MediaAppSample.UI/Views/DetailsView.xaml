@@ -69,7 +69,8 @@
                             <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Background="{ThemeResource SystemAccentColorBrush}" />
-                                <Button Content="Add to queue" Command="{Binding ViewModel.Platform.ViewModel.QueueViewModel.AddToQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
+                                <Button Content="Add to queue" Command="{x:Bind ViewModel.Platform.ViewModel.QueueViewModel.AddToQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource visConverter}}" />
+                                <Button Content="Remove from queue" Command="{x:Bind ViewModel.Platform.ViewModel.QueueViewModel.RemoveFromQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource visConverter}}" />
                                 <Button Content="More" />
                             </StackPanel>
                         </StackPanel>

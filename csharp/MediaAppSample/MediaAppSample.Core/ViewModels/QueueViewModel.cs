@@ -159,7 +159,7 @@ namespace MediaAppSample.Core.ViewModels
             {
                 await DataSource.Current.AddToQueueAsync(item, CancellationToken.None);
                 if(!this.Queue.ContainsItem(item))
-                    this.Queue.Add(item);
+                    this.Queue.Insert(0, new QueueModel() { Item = item });
             }
             catch(Exception ex)
             {
