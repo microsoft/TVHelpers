@@ -112,7 +112,6 @@ namespace MediaAppSample.Core.ViewModels
         {
             if (isFirstRun)
             {
-                this.Queue = await this.LoadFromCacheAsync(() => this.Queue) ?? new QueueCollection();
                 await this.RefreshAsync();
             }
 
@@ -132,7 +131,6 @@ namespace MediaAppSample.Core.ViewModels
                 var list = new QueueCollection();
                 list.AddRange(await DataSource.Current.GetQueueItemsAsync(ct));
                 this.Queue = list;
-                await this.SaveToCacheAsync(() => this.Queue);
 
                 ct.ThrowIfCancellationRequested();
                 this.ClearStatus();
