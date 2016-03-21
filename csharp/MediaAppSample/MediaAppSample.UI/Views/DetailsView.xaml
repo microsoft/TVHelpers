@@ -130,7 +130,7 @@
                 <DataTemplate x:DataType="viewmodels:DetailsViewModel">
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl 
-                        Items="{Binding ViewModel.TrailerItemsTask.Result, Mode=OneWay}"
+                        Items="{x:Bind ViewModel.TrailerItemsTask.Result, Mode=OneWay}"
                         ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.TrailerItemsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
                                       IsActive="{x:Bind ViewModel.TrailerItemsTask.IsNotCompleted}" />
@@ -144,7 +144,7 @@
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl
                             Background="{ThemeResource SystemAccentColorBrush}"
-                            Items="{Binding ViewModel.RelatedItemsTask.Result, Mode=OneWay}"
+                            Items="{x:Bind ViewModel.RelatedItemsTask.Result, Mode=OneWay}"
                             ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.CreatorsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}"
                                       IsActive="{x:Bind ViewModel.CreatorsTask.IsNotCompleted}" />

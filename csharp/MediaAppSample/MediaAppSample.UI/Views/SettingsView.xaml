@@ -37,10 +37,10 @@
 
                         <TextBlock Text="Manage" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="Rate application" Command="{Binding ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                            <Button Content="Clear Jumplist" Command="{Binding ViewModel.Platform.Jumplist.ClearCommand}" />
-                            <Button Content="Clear Cache" Command="{Binding ViewModel.ClearAppDataCacheCommand}" />
-                            <TextBlock Text="{Binding ViewModel.AppCacheTask.Result, Mode=OneWay}" VerticalAlignment="Center" />
+                            <Button Content="Rate application" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
+                            <Button Content="Clear Jumplist" Command="{x:Bind ViewModel.Platform.Jumplist.ClearCommand}" />
+                            <Button Content="Clear Cache" Command="{x:Bind ViewModel.ClearAppDataCacheCommand}" />
+                            <TextBlock Text="{x:Bind ViewModel.AppCacheTask.Result, Mode=OneWay}" VerticalAlignment="Center" />
                         </StackPanel>
 
                         <Border Height="{StaticResource SpacerHeight}" />
@@ -55,11 +55,11 @@
                         <TextBlock Text="Background Tasks" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock 
                             Style="{StaticResource ErrorTextBlockStyle}" 
-                            Visibility="{Binding ViewModel.BackgroundTasksStatus, Mode=OneWay, Converter={StaticResource visConverter}}" 
-                            Text="{Binding ViewModel.BackgroundTasksStatus, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.BackgroundTasksStatus, Mode=OneWay, Converter={StaticResource visConverter}}" 
+                            Text="{x:Bind ViewModel.BackgroundTasksStatus, Mode=OneWay}" />
                         <Button 
                             Content="Manage"
-                            Command="{Binding ViewModel.Platform.BackgroundTasks.ManageBackgroundTasksCommand}" />
+                            Command="{x:Bind ViewModel.Platform.BackgroundTasks.ManageBackgroundTasksCommand}" />
 
                     </StackPanel>
                 </ScrollViewer>
@@ -75,16 +75,16 @@
                 </Grid.ChildrenTransitions>
                 <StackPanel>
                     <TextBlock Text="Version" Style="{StaticResource SubtitleTextBlockStyle}" />
-                    <TextBlock Text="{Binding ViewModel.Platform.AppInfo.VersionNumber}" />
+                    <TextBlock Text="{x:Bind ViewModel.Platform.AppInfo.VersionNumber}" />
 
                     <TextBlock Text="Support" Style="{StaticResource SubtitleTextBlockStyle}" />
                     <HyperlinkButton 
-                        Command="{Binding ViewModel.Platform.Logger.SendSupportEmailCommand}" 
+                        Command="{x:Bind ViewModel.Platform.Logger.SendSupportEmailCommand}" 
                         Content="Send us an e-mail" />
                     <HyperlinkButton 
-                        Command="{Binding ViewModel.Platform.Navigation.NavigateToWebViewCommand}"
-                        CommandParameter="{Binding ViewModel.TwitterAddress, Mode=OneTime}"
-                        Content="{Binding ViewModel.TwitterAddress, Mode=OneTime}" />
+                        Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWebViewCommand}"
+                        CommandParameter="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}"
+                        Content="{x:Bind ViewModel.TwitterAddress, Mode=OneTime}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>

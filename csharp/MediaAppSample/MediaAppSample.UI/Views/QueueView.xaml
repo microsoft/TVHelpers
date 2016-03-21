@@ -81,7 +81,7 @@
                 <DataTemplate x:DataType="viewmodels:QueueViewModel">
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl 
-                            Items="{Binding ViewModel.RecommendedItemsTask.Result, Mode=OneWay}"
+                            Items="{x:Bind ViewModel.RecommendedItemsTask.Result, Mode=OneWay}"
                             ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.RecommendedItemsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
                                       IsActive="{x:Bind ViewModel.RecommendedItemsTask.IsNotCompleted}" />
@@ -94,7 +94,7 @@
                 <DataTemplate x:DataType="viewmodels:QueueViewModel">
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl
-                            Items="{Binding ViewModel.FriendsWatchedItemsTask.Result, Mode=OneWay}"
+                            Items="{x:Bind ViewModel.FriendsWatchedItemsTask.Result, Mode=OneWay}"
                             ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.FriendsWatchedItemsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}"
                                       IsActive="{x:Bind ViewModel.FriendsWatchedItemsTask.IsNotCompleted}" />

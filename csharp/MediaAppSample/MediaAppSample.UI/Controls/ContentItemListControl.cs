@@ -1,5 +1,4 @@
-﻿using MediaAppSample.Core.Models;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -12,15 +11,15 @@ namespace MediaAppSample.UI.Controls
             this.DefaultStyleKey = typeof(ContentItemListControl);
         }
         
-        public ContentItemList Items
+        public object Items
         {
-            get { return (ContentItemList)GetValue(ItemsProperty); }
+            get { return (object)GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Items.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemsProperty =
-            DependencyProperty.Register("Items", typeof(ContentItemList), typeof(ContentItemListControl), new PropertyMetadata(null));
+            DependencyProperty.Register("Items", typeof(object), typeof(ContentItemListControl), new PropertyMetadata(null));
         
         public ICommand ItemCommand
         {
@@ -74,8 +73,5 @@ namespace MediaAppSample.UI.Controls
         // Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register("ItemWidth", typeof(double), typeof(ContentItemListControl), new PropertyMetadata(300));
-
-
-
     }
 }
