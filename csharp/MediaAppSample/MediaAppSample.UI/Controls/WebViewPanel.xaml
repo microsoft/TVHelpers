@@ -21,19 +21,21 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <WebView x:Name="webView" Visibility="{Binding ViewModel.ShowBrowser, Mode=OneWay, Converter={StaticResource visConverter}}" />
+        <WebView x:Name="webView" Visibility="{x:Bind ViewModel.ShowBrowser, Mode=OneWay, Converter={StaticResource visConverter}}" />
+        <ProgressRing Visibility="{x:Bind ViewModel.ShowBrowser, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
+                      IsActive="{x:Bind ViewModel.ShowBrowser, Mode=OneWay, Converter={StaticResource boolInvertedConverter}}" />
         <TextBlock x:Name="tbError"
-                       Visibility="{Binding ViewModel.BrowseErrorMessage, Mode=OneWay, Converter={StaticResource visConverter}}"
-                       Text="{Binding ViewModel.BrowseErrorMessage, Mode=OneWay}"
+                       Visibility="{x:Bind ViewModel.BrowseErrorMessage, Mode=OneWay, Converter={StaticResource visConverter}}"
+                       Text="{x:Bind ViewModel.BrowseErrorMessage, Mode=OneWay}"
                        TextAlignment="Center"
                        VerticalAlignment="Center" />
 
-        <CommandBar Grid.Row="2" Visibility="{Binding ViewModel.ShowNavigation, Mode=OneWay, Converter={StaticResource visConverter}}">
+        <CommandBar Grid.Row="1" Visibility="{x:Bind ViewModel.ShowNavigation, Mode=OneWay, Converter={StaticResource visConverter}}">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Label="Go back" Icon="Back" Command="{Binding ViewModel.Platform.Navigation.NavigateGoBackCommand}" />
-                <AppBarButton Label="Home" Icon="Home" Command="{Binding ViewModel.BrowserHomeCommand}" />
-                <AppBarButton Label="Refresh" Icon="Refresh" Command="{Binding ViewModel.BrowserRefreshCommand}" />
-                <AppBarButton Label="Go forward" Icon="Forward" Command="{Binding ViewModel.Platform.Navigation.NavigateGoForwardCommand}" />
+                <AppBarButton Label="Go back" Icon="Back" Command="{x:Bind ViewModel.Platform.Navigation.NavigateGoBackCommand}" />
+                <AppBarButton Label="Home" Icon="Home" Command="{x:Bind ViewModel.BrowserHomeCommand}" />
+                <AppBarButton Label="Refresh" Icon="Refresh" Command="{x:Bind ViewModel.BrowserRefreshCommand}" />
+                <AppBarButton Label="Go forward" Icon="Forward" Command="{x:Bind ViewModel.Platform.Navigation.NavigateGoForwardCommand}" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Grid>
