@@ -202,19 +202,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <controls:ViewHeader Visibility="{Binding ViewModel.IsViewInChildFrame, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
+        <controls:ViewHeader />
 
-        <Pivot Grid.Row="1" x:Name="pivot">
-            <interactivity:Interaction.Behaviors>
-                <behaviors:PivotCollectionViewModelBehavior />
-            </interactivity:Interaction.Behaviors>
-            <PivotItem DataContext="{Binding ViewModel.GeneralVM, Mode=OneWay}" Header="{Binding ViewModel.GeneralVM.Title}" ContentTemplate="{StaticResource GeneralSettingsDataTemplate}" />
+        <Pivot x:Name="pivot" Grid.Row="1">
+            <PivotItem DataContext="{x:Bind ViewModel.GeneralVM, Mode=OneWay}" Header="{x:Bind ViewModel.GeneralVM.Title}" ContentTemplate="{StaticResource GeneralSettingsDataTemplate}" />
             <PivotItem Header="Cortana" ContentTemplate="{StaticResource CortanaDataTemplate}" />
-            <PivotItem DataContext="{Binding ViewModel.PrivacyVM}" Header="{Binding ViewModel.PrivacyVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
-            <PivotItem DataContext="{Binding ViewModel.TosVM}" Header="{Binding ViewModel.TosVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
-            <PivotItem DataContext="{Binding ViewModel.AboutVM}" Header="{Binding ViewModel.AboutVM.Title}" ContentTemplate="{StaticResource AboutDataTemplate}" />
-            <PivotItem x:Name="piDebug" DataContext="{Binding ViewModel.DebugVM}" Header="{Binding ViewModel.DebugVM.Title}" ContentTemplate="{StaticResource DebuggingDataTemplate}" />
+            <PivotItem DataContext="{x:Bind ViewModel.PrivacyVM}" Header="{x:Bind ViewModel.PrivacyVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
+            <PivotItem DataContext="{x:Bind ViewModel.TosVM}" Header="{x:Bind ViewModel.TosVM.Title}" ContentTemplate="{StaticResource WebBrowserDataTemplate}" Margin="0" />
+            <PivotItem DataContext="{x:Bind ViewModel.AboutVM}" Header="{x:Bind ViewModel.AboutVM.Title}" ContentTemplate="{StaticResource AboutDataTemplate}" />
+            <PivotItem x:Name="piDebug" DataContext="{x:Bind ViewModel.DebugVM}" Header="{x:Bind ViewModel.DebugVM.Title}" ContentTemplate="{StaticResource DebuggingDataTemplate}" />
         </Pivot>
-
+        
     </Grid>
 </views:SettingsViewBase>
