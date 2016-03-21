@@ -19,10 +19,10 @@ namespace MediaAppSample.Core.ViewModels
                 switch (this.GalleryType)
                 {
                     case ItemTypes.Movie:
-                        return "Movies"; // TODO localize
+                        return Strings.Resources.TextMovies;
                     case ItemTypes.TvSeries:
                     case ItemTypes.TvEpisode:
-                        return "TV"; // TODO localize
+                        return Strings.Resources.TextTV;
                     default:
                         return this.GalleryType.ToString();
                 }

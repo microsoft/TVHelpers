@@ -215,6 +215,9 @@
   <data name="TextMaybeLater" xml:space="preserve">
     <value>Not right now</value>
   </data>
+  <data name="TextMovies" xml:space="preserve">
+    <value>Movies</value>
+  </data>
   <data name="TextNo" xml:space="preserve">
     <value>No</value>
   </data>
@@ -242,6 +245,12 @@
   <data name="TextRefresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="TextRelatedMovies" xml:space="preserve">
+    <value>Related Movies</value>
+  </data>
+  <data name="TextRelatedTV" xml:space="preserve">
+    <value>Related TV</value>
+  </data>
   <data name="TextSettings" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -259,6 +268,9 @@
   </data>
   <data name="TextTitleGeneral" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="TextTV" xml:space="preserve">
+    <value>TV</value>
   </data>
   <data name="TextUnpinFromStart" xml:space="preserve">
     <value>Unpin from Start</value>

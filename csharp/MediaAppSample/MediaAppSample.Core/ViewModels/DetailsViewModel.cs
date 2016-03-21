@@ -16,7 +16,11 @@ namespace MediaAppSample.Core.ViewModels
         public ContentItemBase Item
         {
             get { return _Item; }
-            private set { this.SetProperty(ref _Item, value); }
+            private set
+            {
+                if (this.SetProperty(ref _Item, value))
+                    this.NotifyPropertyChanged(() => this.RelatedTitle);
+            }
         }
 
         private NotifyTaskCompletion<IEnumerable<ContentItemBase>> _RelatedItemsTask;
@@ -59,6 +63,29 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return _CreatorsTask; }
             private set { this.SetProperty(ref _CreatorsTask, value); }
+        }
+
+        
+        public string RelatedTitle
+        {
+            get
+            {
+                if (this.Item == null)
+                    return Strings.Resources.TextLoading;
+
+                switch (this.Item.ItemType)
+                {
+                    case ItemTypes.Movie:
+                        return Strings.Resources.TextRelatedMovies;
+
+                    case ItemTypes.TvSeries:
+                    case ItemTypes.TvEpisode:
+                        return Strings.Resources.TextRelatedTV;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
         }
 
         #endregion

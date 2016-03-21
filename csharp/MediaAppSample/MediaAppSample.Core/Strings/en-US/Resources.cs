@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 03/11/2016 14:46:21
+// 	Generated: 03/21/2016 00:43:22
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace MediaAppSample.Core.Strings
@@ -373,6 +373,17 @@ namespace MediaAppSample.Core.Strings
         }
         
         /// <summary>
+        /// Localized resource similar to "Movies"
+        /// </summary>
+        public static string TextMovies
+        {
+            get
+            {
+                return resourceLoader.GetString("TextMovies");
+            }
+        }
+        
+        /// <summary>
         /// Localized resource similar to "No"
         /// </summary>
         public static string TextNo
@@ -472,6 +483,28 @@ namespace MediaAppSample.Core.Strings
         }
         
         /// <summary>
+        /// Localized resource similar to "Related Movies"
+        /// </summary>
+        public static string TextRelatedMovies
+        {
+            get
+            {
+                return resourceLoader.GetString("TextRelatedMovies");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Related TV"
+        /// </summary>
+        public static string TextRelatedTV
+        {
+            get
+            {
+                return resourceLoader.GetString("TextRelatedTV");
+            }
+        }
+        
+        /// <summary>
         /// Localized resource similar to "Settings"
         /// </summary>
         public static string TextSettings
@@ -534,6 +567,17 @@ namespace MediaAppSample.Core.Strings
             get
             {
                 return resourceLoader.GetString("TextTitleGeneral");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "TV"
+        /// </summary>
+        public static string TextTV
+        {
+            get
+            {
+                return resourceLoader.GetString("TextTV");
             }
         }
         

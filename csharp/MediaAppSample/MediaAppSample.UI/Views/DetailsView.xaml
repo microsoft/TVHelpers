@@ -139,7 +139,7 @@
             </HubSection>
 
             <!-- TV Featured -->
-            <HubSection Header="Related">
+            <HubSection Header="{x:Bind ViewModel.RelatedTitle, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:DetailsViewModel">
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl
