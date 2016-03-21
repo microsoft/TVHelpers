@@ -145,10 +145,11 @@
 
         </SplitView>
         
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource TransparentButtonStyle}"
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Style="{StaticResource TransparentButtonStyle}"
                 Command="{x:Bind ViewModel.ToggleMenuCommand, Mode=OneWay}"
                 Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}">
-            <FontIcon FontSize="20" Glyph="&#xE700;" />
+            <FontIcon FontSize="20" Glyph="&#xE700;" Foreground="{ThemeResource ThemeTextForeground}" />
         </Button>
         
     </Grid>

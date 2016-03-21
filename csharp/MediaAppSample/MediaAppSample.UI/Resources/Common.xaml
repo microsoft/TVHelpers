@@ -29,6 +29,8 @@
             <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#99FFFFFF" />
             <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
             <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <Color x:Key="SystemAccentColor">#FFE54757</Color>
+            <SolidColorBrush x:Key="SystemAccentColorBrush" Color="#FFE54757" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <SolidColorBrush x:Key="ThemeBackground" Color="White" />
@@ -36,6 +38,8 @@
             <SolidColorBrush x:Key="ThemeHubHeaderBackground" Color="#FFFFFFFF" />
             <SolidColorBrush x:Key="ThemeImageOverlay" Color="#33FFFFFF" />
             <SolidColorBrush x:Key="ThemeTitleBackground" Color="#66FFFFFF" />
+            <Color x:Key="SystemAccentColor">#FFE54757</Color>
+            <SolidColorBrush x:Key="SystemAccentColorBrush" Color="#FFE54757" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
