@@ -63,24 +63,6 @@ namespace MediaAppSample.Core.Services
         [Conditional("RELEASE")]
         public abstract void SetUsername(string username);
 
-        /// <summary>
-        /// Sets the current location to the analytics service.
-        /// </summary>
-        /// <param name="loc">Location value to log</param>
-        [Conditional("RELEASE")]
-        public virtual void SetCurrentLocation(ILocationModel loc)
-        {
-            if (loc != null)
-            {
-                var metrics = new Dictionary<string, string>();
-                metrics.Add("LocationDisplayName", loc.LocationDisplayName);
-                metrics.Add("Latitude", loc.Latitude.ToString());
-                metrics.Add("Longitude", loc.Longitude.ToString());
-
-                this.Event("CurrentLocation", metrics);
-            }
-        }
-
         #endregion Methods
     }
 

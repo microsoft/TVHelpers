@@ -52,8 +52,6 @@ namespace MediaAppSample.Core
             this.AppInfo = new AppInfoProvider();
             this.AuthManager = new AuthorizationManager();
             this.Cryptography = new CryptographyProvider();
-            this.Geocode = new GeocodingService();
-            this.Geolocation = new GeolocationService();
             this.Notifications = new NotificationsService();
             this.Ratings = new RatingsManager();
             this.VoiceCommandManager = new VoiceCommandManager();

@@ -151,37 +151,6 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Map Commands
-
-        private CommandBase _navigateToMapExternalCommand = null;
-        /// <summary>
-        /// Command to access the external maps view.
-        /// </summary>
-        public CommandBase NavigateToMapExternalCommand
-        {
-            get { return _navigateToMapExternalCommand ?? (_navigateToMapExternalCommand = new MapExternalCommand()); }
-        }
-
-        private CommandBase _navigateToMapExternalDrivingCommand = null;
-        /// <summary>
-        /// Command to access the device's map driving directions view.
-        /// </summary>
-        public CommandBase NavigateToMapExternalDrivingCommand
-        {
-            get { return _navigateToMapExternalDrivingCommand ?? (_navigateToMapExternalDrivingCommand = new MapExternalCommand(MapExternalOptions.DrivingDirections)); }
-        }
-
-        private CommandBase _navigateToMapExternalWalkingCommand = null;
-        /// <summary>
-        /// Command to access the device's map walking directions view.
-        /// </summary>
-        public CommandBase NavigateToMapExternalWalkingCommand
-        {
-            get { return _navigateToMapExternalWalkingCommand ?? (_navigateToMapExternalWalkingCommand = new MapExternalCommand(MapExternalOptions.WalkingDirections)); }
-        }
-
-        #endregion
-
         #region Search Commands
 
         private CommandBase _navigateToSearchCommand = null;

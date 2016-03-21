@@ -52,17 +52,6 @@
 
                         <Border Height="{StaticResource SpacerHeight}" />
 
-                        <TextBlock Text="Location Services" Style="{StaticResource SubtitleTextBlockStyle}" />
-                        <TextBlock 
-                            Style="{StaticResource ErrorTextBlockStyle}" 
-                            Visibility="{Binding ViewModel.LocationServicesStatus, Mode=OneWay, Converter={StaticResource visConverter}}"
-                            Text="{Binding ViewModel.LocationServicesStatus, Mode=OneWay}" />
-                        <Button 
-                            Content="Manage"
-                            Command="{Binding ViewModel.Platform.Geolocation.ManageLocationServicesCommand}" />
-
-                        <Border Height="{StaticResource SpacerHeight}" />
-
                         <TextBlock Text="Background Tasks" Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock 
                             Style="{StaticResource ErrorTextBlockStyle}" 

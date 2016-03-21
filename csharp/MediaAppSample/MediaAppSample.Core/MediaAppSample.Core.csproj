@@ -124,11 +124,6 @@
       <Generator>ReswFileCodeGenerator</Generator>
       <LastGenOutput>Search.cs</LastGenOutput>
     </PRIResource>
-    <PRIResource Include="Strings\en-US\Location.resw">
-      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Location.cs</LastGenOutput>
-    </PRIResource>
     <PRIResource Include="Strings\en-US\Resources.resw">
       <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
       <Generator>ReswFileCodeGenerator</Generator>
@@ -145,7 +140,6 @@
     <Compile Include="Data\ClientApiBase.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\GenericCommand.cs" />
-    <Compile Include="Commands\MapCommands.cs" />
     <Compile Include="Commands\NavigationCommand.cs" />
     <Compile Include="Commands\PinTileCommand.cs" />
     <Compile Include="Commands\ShareCommand.cs" />
@@ -157,7 +151,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Extensions\FrameExtensions.cs" />
-    <Compile Include="Extensions\GeocoordinateExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\PackageVersionExtensions.cs" />
@@ -168,7 +161,6 @@
     <Compile Include="Models\ClientApiModels.cs" />
     <Compile Include="Models\ContentItemBase.cs" />
     <Compile Include="Models\ItemBase.cs" />
-    <Compile Include="Models\LocationModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\ModelList.cs" />
     <Compile Include="Models\MovieModel.cs" />
@@ -188,8 +180,6 @@
     <Compile Include="Services\AppInfoProvider.cs" />
     <Compile Include="Services\AuthorizationManager.cs" />
     <Compile Include="Services\CryptographyProvider.cs" />
-    <Compile Include="Services\GeocodingService.cs" />
-    <Compile Include="Services\GeolocationService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\NavigationManagerBase.Core.cs" />
     <Compile Include="Services\NavigationManagerBase.cs" />
@@ -212,11 +202,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BackgroundTasks.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\en-US\Location.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Location.resw</DependentUpon>
     </Compile>
     <Compile Include="Strings\en-US\Resources.cs">
       <AutoGen>True</AutoGen>

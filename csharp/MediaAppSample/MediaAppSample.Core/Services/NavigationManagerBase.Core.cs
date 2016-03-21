@@ -382,37 +382,6 @@ namespace MediaAppSample.Core.Services
 
         #endregion
 
-        #region Maps
-
-        public void MapExternal(ILocationModel loc, string label = null, MapExternalOptions mapOption = MapExternalOptions.Normal, double zoomLevel = 10)
-        {
-            if (loc == null)
-                throw new ArgumentNullException(nameof(loc));
-
-            Platform.Current.Analytics.Event("MapExternal-" + mapOption.ToString());
-            label = System.Net.WebUtility.HtmlEncode(label ?? loc.LocationDisplayName);
-
-            switch (mapOption)
-            {
-                case MapExternalOptions.DrivingDirections:
-                    string urlDriving = string.Format("ms-drive-to:?destination.latitude={0}&destination.longitude={1}&destination.name={2}", loc.Latitude.ToString(CultureInfo.InvariantCulture), loc.Longitude.ToString(CultureInfo.InvariantCulture), label);
-                    var tDriving = Launcher.LaunchUriAsync(new Uri(urlDriving));
-                    break;
-
-                case MapExternalOptions.WalkingDirections:
-                    string urlWalking = string.Format("ms-walk-to:?destination.latitude={0}&destination.longitude={1}&destination.name={2}", loc.Latitude.ToString(CultureInfo.InvariantCulture), loc.Longitude.ToString(CultureInfo.InvariantCulture), label);
-                    var tWalking = Launcher.LaunchUriAsync(new Uri(urlWalking));
-                    break;
-
-                default:
-                    string url = string.Format("bingmaps:?collection=point.{0}_{1}_{2}&lvl={3}", loc.Latitude.ToString(CultureInfo.InvariantCulture), loc.Longitude.ToString(CultureInfo.InvariantCulture), label, zoomLevel.ToString(CultureInfo.InvariantCulture));
-                    var tDefault = Launcher.LaunchUriAsync(new Uri(url));
-                    break;
-            }
-        }
-
-        #endregion
-
         #region Email
 
         /// <summary>

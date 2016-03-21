@@ -3,7 +3,6 @@ using MediaAppSample.Core.Models;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Devices.Geolocation;
 
 namespace MediaAppSample.Core.ViewModels
 {
@@ -16,13 +15,6 @@ namespace MediaAppSample.Core.ViewModels
         {
             get { return _BackgroundTasksStatus; }
             private set { this.SetProperty(ref _BackgroundTasksStatus, value); }
-        }
-
-        private string _LocationServicesStatus;
-        public string LocationServicesStatus
-        {
-            get { return _LocationServicesStatus; }
-            private set { this.SetProperty(ref _LocationServicesStatus, value); }
         }
         
         private CommandBase _ClearAppDataCacheCommand = null;
@@ -72,21 +64,7 @@ namespace MediaAppSample.Core.ViewModels
 
         private void View_GotFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var t1 = this.UpdateRefreshLocationStatus();
-            var t2 = this.UpdateBackgroundTasksStatus();
-        }
-
-        private async Task UpdateRefreshLocationStatus()
-        {
-            try
-            {
-                var accessStatus = await Geolocator.RequestAccessAsync();
-                this.LocationServicesStatus = accessStatus == GeolocationAccessStatus.Denied ? Strings.Location.TextLocationServicesDisabledStatus : string.Empty;
-            }
-            catch (Exception ex)
-            {
-                Platform.Current.Logger.LogError(ex, "Error during UpdateRefreshLocationStatus()");
-            }
+            var t = this.UpdateBackgroundTasksStatus();
         }
 
         private async Task UpdateBackgroundTasksStatus()

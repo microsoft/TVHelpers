@@ -7,16 +7,6 @@ namespace MediaAppSample.Core.Models
     {
         #region Properties
 
-        private LocationModel _LocationLastKnown;
-        /// <summary>
-        /// Gets or sets the last known location for the user.
-        /// </summary>
-        public LocationModel LocationLastKnown
-        {
-            get { return _LocationLastKnown; }
-            set { this.SetProperty(ref _LocationLastKnown, value); }
-        }
-
         #endregion
     }
 
