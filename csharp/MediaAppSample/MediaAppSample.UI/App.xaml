@@ -2,15 +2,15 @@
     x:Class="MediaAppSample.UI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MediaAppSample.UI">
+    xmlns:resources="using:MediaAppSample.UI.Resources">
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Common.xaml"/>
-                <ResourceDictionary Source="/Resources/TextStyles.xaml"/>
-                <ResourceDictionary Source="/Resources/ControlStyles.xaml"/>
-                <ResourceDictionary Source="/Resources/Templates.xaml"/>
+                <resources:Common />
+                <resources:TextStyles />
+                <resources:Templates />
+                <resources:ControlStyles />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

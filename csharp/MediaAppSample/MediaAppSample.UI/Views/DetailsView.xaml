@@ -7,6 +7,7 @@
     xmlns:models="using:MediaAppSample.Core.Models"
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
+    xmlns:resources="using:MediaAppSample.UI.Resources"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
     d:DataContext="{d:DesignInstance designTime:DetailsViewModel, IsDesignTimeCreatable=True}"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,42 +15,47 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+        <ResourceDictionary>
 
-        <DataTemplate x:Name="PersonDataTemplate" x:DataType="models:PersonModel">
-            <StackPanel Orientation="Horizontal">
-                <Image Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}" Source="{x:Bind Image}" />
-                <TextBlock VerticalAlignment="Center">
+            <DataTemplate x:Name="PersonDataTemplate" x:DataType="models:PersonModel">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}" Source="{x:Bind Image}" />
+                    <TextBlock VerticalAlignment="Center">
                     <Run Text="{x:Bind Name}" />
                     <LineBreak />
                     <Run Text="{x:Bind Role}" />
-                </TextBlock>
-            </StackPanel>
-        </DataTemplate>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
 
-        <DataTemplate x:Name="RatingsDataTemplate" x:DataType="models:RatingModel">
-            <Grid HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <TextBlock><Run Text="{x:Bind RatingPercent}" />%</TextBlock>
-                <TextBlock Grid.Column="1"><Run Text="{x:Bind RatingSource}" /><LineBreak/><Run Text="{x:Bind RatingDetails}" /></TextBlock>
-                <controls:RatingsControl Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
-            </Grid>
-        </DataTemplate>
+            <DataTemplate x:Name="RatingsDataTemplate" x:DataType="models:RatingModel">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock><Run Text="{x:Bind RatingPercent}" />%</TextBlock>
+                    <TextBlock Grid.Column="1"><Run Text="{x:Bind RatingSource}" /><LineBreak/><Run Text="{x:Bind RatingDetails}" /></TextBlock>
+                    <controls:RatingsControl Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
+                </Grid>
+            </DataTemplate>
 
-        <DataTemplate x:Name="ReviewsDataTemplate" x:DataType="models:ReviewModel">
-            <TextBlock TextWrapping="Wrap">
+            <DataTemplate x:Name="ReviewsDataTemplate" x:DataType="models:ReviewModel">
+                <TextBlock TextWrapping="Wrap">
                 <Run Text="{x:Bind Review}" />
                 <LineBreak />
                 - <Run Text="{x:Bind FullName}" />
-            </TextBlock>
-        </DataTemplate>
-
+                </TextBlock>
+            </DataTemplate>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Templates />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

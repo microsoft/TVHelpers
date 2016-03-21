@@ -20,4 +20,30 @@
         <ItemsStackPanel Orientation="Horizontal" />
     </ItemsPanelTemplate>
 
+    <DataTemplate x:Key="MovieItemDataTemplate" x:DataType="models:ContentItemBase">
+        <Grid Height="300" Width="225">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Source="{x:Bind PosterImage, Mode=OneWay}" Stretch="UniformToFill" />
+            <TextBlock Text="{x:Bind Title, Mode=OneWay}" Grid.Row="1" />
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="TvEpisodeItemDataTemplate" x:DataType="models:ContentItemBase">
+        <Grid Height="225" Width="225">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Source="{x:Bind PosterImage, Mode=OneWay}" Stretch="UniformToFill" />
+            <TextBlock Text="{x:Bind Title, Mode=OneWay}" Grid.Row="1" />
+        </Grid>
+    </DataTemplate>
+
+    <controls:ItemTypeTemplateSelector x:Key="ItemTypeTemplateSelector" 
+                                       MovieTemplate="{StaticResource MovieItemDataTemplate}" 
+                                       TvEpisodeTemplate="{StaticResource TvEpisodeItemDataTemplate}" 
+                                       TvSeriesTemplate="{StaticResource TvEpisodeItemDataTemplate}" />
+
 </ResourceDictionary>

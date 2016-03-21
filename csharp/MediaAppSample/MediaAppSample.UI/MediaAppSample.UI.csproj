@@ -123,6 +123,7 @@
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ContentItemListControl.cs" />
+    <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
     <Compile Include="Controls\RatingsControl.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
@@ -155,6 +156,9 @@
     </Compile>
     <Compile Include="Resources\Templates.xaml.cs">
       <DependentUpon>Templates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\TextStyles.xaml.cs">
+      <DependentUpon>TextStyles.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\FlurryAnalyticsService.cs" />
     <Compile Include="Services\HockeyAppService.cs" />

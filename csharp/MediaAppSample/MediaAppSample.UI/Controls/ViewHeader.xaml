@@ -30,6 +30,7 @@
                Source="/Assets/HeaderLogo_Full.png" 
                Height="{StaticResource StandardElementPixels}" 
                HorizontalAlignment="Left"
+               Stretch="None"
                VerticalAlignment="Center" 
                Visibility="{Binding ViewModel.Title, Converter={StaticResource visInvertedConverter}}"/>
 

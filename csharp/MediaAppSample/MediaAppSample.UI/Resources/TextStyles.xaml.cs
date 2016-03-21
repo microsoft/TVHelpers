@@ -1,8 +1,8 @@
 ﻿namespace MediaAppSample.UI.Resources
 {
-    public partial class Templates
+    public partial class TextStyles
     {
-        public Templates()
+        public TextStyles()
         {
             this.InitializeComponent();
         }

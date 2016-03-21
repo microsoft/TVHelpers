@@ -100,6 +100,12 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Image">
+        <Setter Property="Stretch" Value="UniformToFill" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
     <Style x:Key="ScrollViewerStyle" TargetType="ScrollViewer">
         <Setter Property="HorizontalScrollMode" Value="Auto" />
         <Setter Property="VerticalScrollMode" Value="Auto" />
@@ -385,17 +391,6 @@
         <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
 
-    <DataTemplate x:Key="ContentItemListControlItemDataTemplate" x:DataType="models:ContentItemBase">
-        <Grid Height="300" Width="225">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Image Source="{Binding PosterImage, Mode=OneWay}" Stretch="UniformToFill" />
-            <TextBlock Text="{Binding Title, Mode=OneWay}" Grid.Row="1" />
-        </Grid>
-    </DataTemplate>
-
     <Style TargetType="controls:ContentItemListControl">
         <Setter Property="Background" Value="#FF1F1F1F" />
         <Setter Property="Template">
@@ -412,7 +407,7 @@
                         <ListView Grid.Row="1" 
                                   ItemsSource="{TemplateBinding Items}"
                                   ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
-                                  ItemTemplate="{StaticResource ContentItemListControlItemDataTemplate}"
+                                  ItemTemplateSelector="{StaticResource ItemTypeTemplateSelector}"
                                   behaviors:ListViewBaseCommandBehavior.Command="{TemplateBinding ItemCommand}">
                         </ListView>
                     </Grid>
