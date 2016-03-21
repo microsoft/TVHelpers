@@ -9,6 +9,7 @@
     xmlns:controls="using:MediaAppSample.UI.Controls"
     xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
     d:DataContext="{d:DesignInstance designTime:MainViewModel, IsDesignTimeCreatable=True}"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -125,28 +126,43 @@
                               behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:ContentItemBase">
-                                <StackPanel Width="600" Height="400">
-                                    <Grid>
-                                        <Image MaxWidth="600" MaxHeight="400" Source="{x:Bind InlineImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
-                                        <MediaElement x:Name="MediaElement" Source="{x:Bind URL}" Stretch="UniformToFill" Visibility="Collapsed" AutoPlay="False" AreTransportControlsEnabled="False">
+                                <StackPanel>
+                                    <Grid Width="600" Height="400">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Image Source="{x:Bind InlineImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+                                        <Button x:Name="btnPlay" Style="{StaticResource TransparentButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <interactivity:Interaction.Behaviors>
+                                                <interactions:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=btnPlay}">
+                                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=MediaElement}" PropertyName="Visibility" Value="Visible" />
+                                                    <interactions:CallMethodAction TargetObject="{Binding ElementName=MediaElement}" MethodName="Play" />
+                                                </interactions:EventTriggerBehavior>
+                                            </interactivity:Interaction.Behaviors>
+                                            <TextBlock Text="&#x25B7;" FontFamily="Segoe UI Symbol" FontSize="40" Foreground="White" />
+                                        </Button>
+                                        <MediaElement x:Name="MediaElement" Source="{x:Bind URL}" Stretch="UniformToFill" Visibility="Collapsed" AutoPlay="False" AreTransportControlsEnabled="True">
                                             <MediaElement.TransportControls>
                                                 <MediaTransportControls IsCompact="True"/>
                                             </MediaElement.TransportControls>
+                                            <interactivity:Interaction.Behaviors>
+                                                <interactions:EventTriggerBehavior EventName="MediaEnded" SourceObject="{Binding ElementName=MediaElement}">
+                                                    <interactions:ChangePropertyAction TargetObject="{Binding ElementName=MediaElement}" PropertyName="Visibility" Value="Collapsed" />
+                                                </interactions:EventTriggerBehavior>
+                                            </interactivity:Interaction.Behaviors>
                                         </MediaElement>
-                                        <Button Style="{StaticResource TransparentButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <!--<interactivity:Interaction.Behaviors>
-                                                <behaviors:EnterKeyBehavior Command="{x:Bind ViewModel.SubmitCommand, Mode=OneWay}" />
-                                            </interactivity:Interaction.Behaviors>-->
-                                            <TextBlock Text="&#x25B7;" FontFamily="Segoe UI Symbol" FontSize="40" Foreground="White" />
-                                        </Button>
+
+                                        <TextBlock Grid.Row="1">
+                                            <Run x:Uid="SneakPeek" Text="Sneak Peek - "/><Run Text="{x:Bind Title, Mode=OneWay}"/>
+                                        </TextBlock>
+                                        <TextBlock Grid.Row="2">
+                                            <Run x:Uid="ReleaseDate" Text="Released date: "/>
+                                            <Run Text="{x:Bind Year, Mode=OneWay}"/>
+                                        </TextBlock>
                                     </Grid>
-                                    <TextBlock>
-                                        <Run x:Uid="SneakPeek" Text="Sneak Peek - "/><Run Text="{Binding Title}"/>
-                                    </TextBlock>
-                                    <TextBlock>
-                                        <Run x:Uid="ReleaseDate" Text="Released date: "/>
-                                        <Run Text="{Binding Year}"/>
-                                    </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
