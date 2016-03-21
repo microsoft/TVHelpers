@@ -122,8 +122,7 @@
             <HubSection Header="Sneak Peeks">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
                     <ListView ItemsSource="{x:Bind ViewModel.SneakPeeks, Mode=OneWay}"
-                              ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
-                              behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}">
+                              ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:ContentItemBase">
                                 <StackPanel>

@@ -2,6 +2,7 @@
 using MediaAppSample.Core.Data;
 using MediaAppSample.Core.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,6 +45,13 @@ namespace MediaAppSample.Core.ViewModels
             private set { this.SetProperty(ref _QueuePreview, value); }
         }
 
+        private ContentItemBase _ResumeItem;
+        public ContentItemBase ResumeItem
+        {
+            get { return _ResumeItem; }
+            private set { this.SetProperty(ref _ResumeItem, value); }
+        }
+
         private QueueModel _NextQueueItem;
         /// <summary>
         /// Gets the first item in the queue or null
@@ -64,6 +72,20 @@ namespace MediaAppSample.Core.ViewModels
         public CommandBase RemoveFromQueueCommand
         {
             get { return _RemoveFromQueueCommand ?? (_RemoveFromQueueCommand = new GenericCommand<ContentItemBase>("RemoveFromQueueCommand", async (m) => await this.RemoveFromQueueAsync(m), this.CanRemoveFromQueue)); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<ContentItemBase>> _RecommendedItemsTask;
+        public NotifyTaskCompletion<IEnumerable<ContentItemBase>> RecommendedItemsTask
+        {
+            get { return _RecommendedItemsTask; }
+            private set { this.SetProperty(ref _RecommendedItemsTask, value); }
+        }
+
+        private NotifyTaskCompletion<IEnumerable<ContentItemBase>> _FriendsWatchedItemsTask;
+        public NotifyTaskCompletion<IEnumerable<ContentItemBase>> FriendsWatchedItemsTask
+        {
+            get { return _FriendsWatchedItemsTask; }
+            private set { this.SetProperty(ref _FriendsWatchedItemsTask, value); }
         }
 
         #endregion Properties
@@ -103,6 +125,9 @@ namespace MediaAppSample.Core.ViewModels
             {
                 this.ShowBusyStatus(Strings.Resources.TextLoading, true);
 
+                this.RecommendedItemsTask = new NotifyTaskCompletion<IEnumerable<ContentItemBase>>(DataSource.Current.GetRecommendedItemsAsync(ct));
+                this.FriendsWatchedItemsTask = new NotifyTaskCompletion<IEnumerable<ContentItemBase>>(DataSource.Current.GetFriendsWatchedItemsAsync(ct));
+
                 // Load queue data
                 var list = new QueueCollection();
                 list.AddRange(await DataSource.Current.GetQueueItemsAsync(ct));
@@ -135,6 +160,7 @@ namespace MediaAppSample.Core.ViewModels
                 this.QueuePreview = new QueueCollection();
                 this.QueuePreview.AddRange(this.Queue.Take(3));
                 this.NextQueueItem = this.Queue.FirstOrDefault();
+                this.ResumeItem = this.Queue.LastOrDefault()?.Item;
             }
             else
             {

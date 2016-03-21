@@ -81,5 +81,12 @@ namespace MediaAppSample.Core.Data
         Task<IEnumerable<ContentItemBase>> SearchAsync(string searchText, CancellationToken ct);
 
         #endregion
+
+        #region Recommended
+
+        Task<IEnumerable<ContentItemBase>> GetRecommendedItemsAsync(CancellationToken ct);
+        Task<IEnumerable<ContentItemBase>> GetFriendsWatchedItemsAsync(CancellationToken ct);
+
+        #endregion
     }
 }

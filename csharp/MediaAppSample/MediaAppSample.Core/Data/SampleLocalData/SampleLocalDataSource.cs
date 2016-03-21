@@ -384,6 +384,22 @@ namespace MediaAppSample.Core.Data.SampleLocalData
 
         #endregion
 
+        #region Recommended
+
+        public async Task<IEnumerable<ContentItemBase>> GetRecommendedItemsAsync(CancellationToken ct)
+        {
+            var results = await this.GetQueueItemsAsync(ct);
+            return results.Select(s => s.Item).OrderByDescending(o => o.Title);
+        }
+
+        public async Task<IEnumerable<ContentItemBase>> GetFriendsWatchedItemsAsync(CancellationToken ct)
+        {
+            var results = await this.GetItemsAsync(ItemTypes.TvSeries, ct);
+            return results.OrderBy(o => o.Title);
+        }
+
+        #endregion
+
         #region Generate Methods
 
         public static T CreateAndAddItemToList<T>(int number) where T : class
