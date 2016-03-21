@@ -52,11 +52,13 @@ namespace MediaAppSample.UI
                 // Update the theme when the app settings property changes
                 this.RequestedTheme = (ElementTheme)Platform.Current.AppSettingsRoaming.ApplicationTheme;
                 
-                // TODO set title bar colors here
-                //var tb = ApplicationView.GetForCurrentView().TitleBar;
-                //tb.BackgroundColor = Colors.Black;
-                //tb.ForegroundColor = Colors.White;
-                //tb.ButtonBackgroundColor = Colors.Green;
+                var tb = ApplicationView.GetForCurrentView().TitleBar;
+                if (tb != null)
+                {
+                    Color titleBarColor = (Color)App.Current.Resources["SystemChromeMediumColor"];
+                    tb.BackgroundColor = titleBarColor;
+                    tb.ButtonBackgroundColor = titleBarColor;
+                }
             }
             catch { }
         }

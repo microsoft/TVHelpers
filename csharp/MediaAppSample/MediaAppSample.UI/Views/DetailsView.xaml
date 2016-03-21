@@ -68,7 +68,7 @@
                             <ProgressBar Value="80" />
                             <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Background="{ThemeResource SystemAccentColor}" />
+                                <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Background="{ThemeResource SystemAccentColorBrush}" />
                                 <Button Content="Add to queue" Command="{Binding ViewModel.Platform.ViewModel.QueueViewModel.AddToQueueCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" />
                                 <Button Content="More" />
                             </StackPanel>
@@ -142,7 +142,7 @@
                 <DataTemplate x:DataType="viewmodels:DetailsViewModel">
                     <Grid Margin="{StaticResource StandardGutterAll}">
                         <controls:ContentItemListControl
-                            Background="{ThemeResource SystemAccentColor}"
+                            Background="{ThemeResource SystemAccentColorBrush}"
                             Items="{Binding ViewModel.RelatedItemsTask.Result, Mode=OneWay}"
                             ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
                         <ProgressRing Visibility="{x:Bind ViewModel.CreatorsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}"

@@ -65,6 +65,9 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
                                             </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Symbol">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -81,7 +84,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Rectangle x:Name="bg" Grid.ColumnSpan="2" />
-                            <SymbolIcon Symbol="{TemplateBinding Symbol}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <SymbolIcon x:Name="Symbol" Symbol="{TemplateBinding Symbol}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                     </ControlTemplate>
@@ -104,22 +107,22 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <StackPanel Margin="0,48,0,0">
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="Queue" Symbol="Directions" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMoviesCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTVCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" AutomationProperties.Name="Home" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" AutomationProperties.Name="Search" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnQueue" Content="My Queue" Symbol="Favorite" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" AutomationProperties.Name="My Queue" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMoviesCommand}" AutomationProperties.Name="Movies" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToTVCommand}" AutomationProperties.Name="TV" />
                     </StackPanel>
                     <StackPanel Grid.Row="1" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,2,0,0">
-                        <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" />
-                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign in" Symbol="Contact" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWelcomeCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" />
-                        <controls:SplitViewButton GroupName="ShellNav" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}">
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" AutomationProperties.Name="Rate Application" />
+                        <controls:SplitViewButton GroupName="ShellNav" Content="Sign in" Symbol="Contact" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWelcomeCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" AutomationProperties.Name="Sign in" />
+                        <controls:SplitViewButton GroupName="ShellNav" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}" AutomationProperties.Name="Sign out">
                             <StackPanel>
-                                <TextBlock Foreground="{ThemeResource SystemAccentColor}" Style="{StaticResource CaptionTextBlockStyle}">Welcome <Run Text="{x:Bind ViewModel.Platform.AuthManager.User.FirstName, Mode=OneWay}" />!</TextBlock>
+                                <TextBlock Foreground="{ThemeResource SystemAccentColorBrush}" Style="{StaticResource CaptionTextBlockStyle}">Welcome <Run Text="{x:Bind ViewModel.Platform.AuthManager.User.FirstName, Mode=OneWay}" />!</TextBlock>
                                 <TextBlock Text="Sign out" />
                             </StackPanel>                           
                         </controls:SplitViewButton>
-                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" />
+                        <controls:SplitViewButton GroupName="ShellNav" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" AutomationProperties.Name="Settings" />
                     </StackPanel>
                 </Grid>
             </SplitView.Pane>
@@ -128,7 +131,11 @@
                 <ui:ApplicationFrame x:Name="bodyFrame">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
-                            <NavigationThemeTransition/>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <EntranceNavigationTransitionInfo/>
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
                         </TransitionCollection>
                     </Frame.ContentTransitions>
                 </ui:ApplicationFrame>

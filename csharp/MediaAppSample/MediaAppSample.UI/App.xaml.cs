@@ -4,6 +4,9 @@ using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -160,6 +163,8 @@ namespace MediaAppSample.UI
                     
                     // Ensure the current window is active
                     Window.Current.Activate();
+
+                    ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(320, 200));
                 }
             }
             catch (Exception ex)
