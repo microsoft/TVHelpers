@@ -17562,8 +17562,7 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 _inputHandlerMouseOut: function (ev) {
-                    if (this._isPointerDown &&
-                        !_Global.document.hasFocus()) {
+                    if (this._isThumbGrabbed) {
                         // get original event
                         ev = ev.detail.originalEvent;
                         this._isPointerDown = false;
@@ -17978,14 +17977,6 @@ define('WinJS/Controls/MediaPlayer', [
                     // the current X coordinate of the pointer.
                     var newX = ev.x;
                     var transformName = _BaseUtils._browserStyleEquivalents["transform"].scriptName;
-                    // Need to account for the Window offset
-                    var seekbarRect = this._seekBar.getBoundingClientRect();
-                    if (newX < seekbarRect.left) {
-                        newX = seekbarRect.left;
-                    } else if (newX > seekbarRect.right) {
-                        newX = seekbarRect.right;
-                    }
-
                     var seekBarOffset = newX;
                     var progress = newX / this._totalSeekBarWidth;
 
@@ -19428,7 +19419,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._addGestureEventHandler(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
                     this._addGestureEventHandler(this._progressContainer, "pointerup", this._inputHandlerPointerUpCallback);
 
-                    document.addEventListener("pointerout", this._inputHandlerMouseOutCallback, false);
+                    document.body.addEventListener("mouseleave", this._inputHandlerMouseOutCallback, false);
 
                     // Set the enabled and visible states for all buttons
 
@@ -21115,7 +21106,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._handleSystemTransportControlsPropertyChangedBind = null;
                     this._smtControls = null;
 
-                    document.removeEventListener(this.element, "pointerout", this._inputHandlerMouseOutCallback);
+                    document.body.removeEventListener(this.element, "pointerout", this._inputHandlerMouseOutCallback);
                     window.removeEventListener(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
                     window.removeEventListener(this.element, "pointerup", this._inputHandlerMouseUpCallback);
 
