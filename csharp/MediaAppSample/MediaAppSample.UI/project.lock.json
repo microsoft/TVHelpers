@@ -11420,7 +11420,7 @@
   },
   "libraries": {
     "HockeySDK.UWP/3.1.1-build36794": {
-      "sha512": "639TNs5rFh3MIJ7tP6F3WxKNo2rt7By5IlFh6UruJssFxGOwQ5wvOt1nxEXeXMVRIZ+8a8YBEYY6rM1RMloWoA==",
+      "sha512": "349sdyW5uE8PTXZKHFqR8AkbCcWdA9Bj37n2Q8sSc63JgiFQJIfIdEyR811Fg5VOqysgBhEhMwX+UmsDWxjcgQ==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
