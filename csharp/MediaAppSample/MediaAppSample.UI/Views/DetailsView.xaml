@@ -40,7 +40,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock><Run Text="{x:Bind RatingPercent}" />%</TextBlock>
                     <TextBlock Grid.Column="1"><Run Text="{x:Bind RatingSource}" /><LineBreak/><Run Text="{x:Bind RatingDetails}" /></TextBlock>
-                    <controls:RatingsControl Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
+                    <ProgressBar Grid.Row="1" Grid.ColumnSpan="2"  Minimum="0" Maximum="{x:Bind RatingScale}" Value="{x:Bind RatingPercent}" />
                 </Grid>
             </DataTemplate>
 
@@ -71,7 +71,7 @@
                             <TextBlock Text="{x:Bind ViewModel.Item.Flag, Mode=OneWay}" />
                             <TextBlock Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
                             <TextBlock Text="{x:Bind ViewModel.Item.Genre, Mode=OneWay}" />
-                            <controls:RatingsControl Value="80" />
+                            <controls:Rating Value="4" />
                             <TextBlock Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="Play" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" CommandParameter="{x:Bind ViewModel.Item, Mode=OneWay}" Background="{ThemeResource SystemAccentColorBrush}" />

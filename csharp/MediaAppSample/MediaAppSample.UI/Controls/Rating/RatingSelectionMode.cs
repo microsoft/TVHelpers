@@ -9,22 +9,23 @@
 //
 //*********************************************************
 
-using MediaAppSample.Core;
-using Windows.UI.Xaml;
-
-namespace MediaAppSample.UI.Triggers
+namespace MediaAppSample.UI.Controls
 {
     /// <summary>
-    /// Trigger for when you need do perform specific customizations NOT on the specified device family.
+    /// This type is used to determine the state of the item selected and the
+    /// previous items.
     /// </summary>
-    public class NotDeviceFamilyTrigger : StateTriggerBase
+    /// <QualityBand>Preview</QualityBand>
+    public enum RatingSelectionMode
     {
-        public DeviceFamily TargetDeviceFamily
-        {
-            set
-            {
-                this.SetActive(Platform.DeviceFamily != value);
-            }
-        }
+        /// <summary>
+        /// All items before the selected ones are selected.
+        /// </summary>
+        Continuous,
+
+        /// <summary>
+        /// Only the item selected is visually distinguished.
+        /// </summary>
+        Individual
     }
 }

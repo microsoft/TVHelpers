@@ -122,9 +122,21 @@
     <Compile Include="Controls\BusyPanel.xaml.cs">
       <DependentUpon>BusyPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Common\Clipper.cs" />
+    <Compile Include="Controls\Common\EnumerableFunctions.cs" />
+    <Compile Include="Controls\Common\ExpandDirection.cs" />
+    <Compile Include="Controls\Common\InteractionHelper.cs" />
+    <Compile Include="Controls\Common\ItemsControlHelper.cs" />
+    <Compile Include="Controls\Common\IUpdateVisualState.cs" />
+    <Compile Include="Controls\Common\LinearClipper.cs" />
+    <Compile Include="Controls\Common\VisualStates.cs" />
     <Compile Include="Controls\ContentItemListControl.cs" />
     <Compile Include="Controls\ItemTypeTemplateSelector.cs" />
-    <Compile Include="Controls\RatingsControl.cs" />
+    <Compile Include="Controls\Rating\Rating.cs" />
+    <Compile Include="Controls\Rating\RatingItem.cs" />
+    <Compile Include="Controls\Rating\RatingSelectionMode.cs" />
+    <Compile Include="Controls\Rating\ValueChangedEventArgs.cs" />
+    <Compile Include="Controls\Rating\ValueChangedEventHandler.cs" />
     <Compile Include="Controls\SplitViewButton.cs" />
     <Compile Include="Controls\ViewControlBase.cs" />
     <Compile Include="Controls\ViewHeader.xaml.cs">
@@ -160,7 +172,6 @@
     <Compile Include="Resources\TextStyles.xaml.cs">
       <DependentUpon>TextStyles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\FlurryAnalyticsService.cs" />
     <Compile Include="Services\HockeyAppService.cs" />
     <Compile Include="Services\NavigationManager.cs" />
     <Compile Include="SuspensionManager.cs" />
@@ -263,6 +274,12 @@
     <Page Include="Controls\WebViewPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Properties\DesignTimeResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
     <Page Include="Resources\Common.xaml">
       <SubType>Designer</SubType>

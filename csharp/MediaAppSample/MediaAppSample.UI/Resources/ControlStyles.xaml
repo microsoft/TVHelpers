@@ -22,6 +22,7 @@
     xmlns:models="using:MediaAppSample.Core.Models"
     xmlns:triggers="using:MediaAppSample.UI.Triggers"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels"
+    xmlns:primitives="using:MediaAppSample.UI.Controls.Primitives"
     mc:Ignorable="d">
 
     <Style x:Key="TransparentButtonStyle" TargetType="Button">
@@ -416,5 +417,134 @@
         </Setter>
     </Style>
 
+    <SolidColorBrush x:Key="RatingItemForegroundThemeBrush">#FF5B2EC5</SolidColorBrush>
+    <SolidColorBrush x:Key="RatingItemPointerOverThemeBrush">#FF8152EF</SolidColorBrush>
+    <SolidColorBrush x:Key="RatingItemPointerPressedThemeBrush">#FF8152EF</SolidColorBrush>
+    <SolidColorBrush x:Key="RatingItemBackgroundThemeBrush">#59FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="RatingItemDisabledForegroundThemeBrush">#FFFFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="RatingItemBorderThemeBrush">Transparent</SolidColorBrush>
+
+    <Style TargetType="controls:RatingItem">
+        <Setter Property="BorderBrush" Value="{ThemeResource RatingItemBorderThemeBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+        <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+        <Setter Property="ReadOnlyFill" Value="{ThemeResource RatingItemDisabledForegroundThemeBrush}"/>
+        <Setter Property="Margin" Value="6,0,6,0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:RatingItem">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PointerOverRatingItem" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerPressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PointerPressedRatingItem" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerExited">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PointerPressedRatingItem" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledRatingItem" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DisabledRatingItemBackground" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused" />
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FillStates">
+                                <VisualState x:Name="Empty"/>
+                                <VisualState x:Name="Partial"/>
+                                <VisualState x:Name="Filled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock x:Name="DefaultRatingItem" Text="{TemplateBinding Tag}" Foreground="{ThemeResource RatingItemBackgroundThemeBrush}"  FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" />
+                        <primitives:LinearClipper RatioVisible="{TemplateBinding DisplayValue}" ExpandDirection="Right">
+                            <TextBlock Text="{TemplateBinding Tag}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}" />
+                        </primitives:LinearClipper>
+                        <TextBlock x:Name="PointerOverRatingItem" Opacity="0" Text="{TemplateBinding Tag}" Foreground="{TemplateBinding PointerOverFill}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" />
+                        <TextBlock x:Name="PointerPressedRatingItem" Opacity="0" Text="{TemplateBinding Tag}" Foreground="{TemplateBinding PointerPressedFill}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" />
+                        <TextBlock x:Name="DisabledRatingItemBackground" Text="{TemplateBinding Tag}" Foreground="{ThemeResource RatingItemBackgroundThemeBrush}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" Opacity="0" />
+                        <primitives:LinearClipper x:Name="DisabledRatingItem" RatioVisible="{TemplateBinding DisplayValue}" ExpandDirection="Right" Opacity="0">
+                            <TextBlock Text="{TemplateBinding Tag}" Foreground="{TemplateBinding ReadOnlyFill}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" />
+                        </primitives:LinearClipper>
+                        <ContentPresenter x:Name="Content" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}" Grid.RowSpan="2" Grid.Row="1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:Rating">
+        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource RatingItemForegroundThemeBrush}" />
+        <Setter Property="PointerOverFill" Value="{ThemeResource RatingItemPointerOverThemeBrush}" />
+        <Setter Property="PointerPressedFill" Value="{ThemeResource RatingItemPointerPressedThemeBrush}" />
+        <Setter Property="ReadOnlyFill"
+                Value="{ThemeResource RatingItemDisabledForegroundThemeBrush}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Tag" Value="&#xE082;" />
+        <Setter Property="Margin" Value="12,0,0,0" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:Rating">
+                    <Grid x:Name="Root">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver"/>
+                                <VisualState x:Name="PointerPressed"/>
+                                <VisualState x:Name="PointerExited"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Margin}"  BorderThickness="{TemplateBinding BorderThickness}">
+                            <ItemsPresenter/>
+                        </Border>
+                        <Border x:Name="ReadOnlyVisualElement" IsHitTestVisible="False" Opacity="0" Background="#83FFFFFF" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Border x:Name="DisabledVisualElement" IsHitTestVisible="False" Opacity="0" Background="#FF4D4D4D" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Rectangle x:Name="FocusVisualElement" StrokeThickness="1" RadiusX="1" RadiusY="1" IsHitTestVisible="false" Visibility="Collapsed"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
