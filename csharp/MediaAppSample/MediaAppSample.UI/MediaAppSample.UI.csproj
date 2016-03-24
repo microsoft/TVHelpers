@@ -102,7 +102,6 @@
     <Content Include="Assets\HeaderLogo_Full.png" />
     <Content Include="Assets\MicrosoftLogo.png" />
     <None Include="App_StoreKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Resources\VCD.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
