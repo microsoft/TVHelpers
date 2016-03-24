@@ -19396,7 +19396,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._addButtonEventHandler(this._audioTracksButton, "click", this._onAudioTracksCommandInvoked);
                     this._addButtonEventHandler(this._closedCaptionsButton, "click", this._onClosedCaptionsCommandInvoked);
                     this._addButtonEventHandler(this._goToLiveButton, "click", this._onGoToLiveCommandInvoked);
-                    this._addButtonEventHandler(this._toggleFullScreenButton, "click", this._onToggleFullScreenCommandInvoked);
+                    this._addButtonEventHandler(this._toggleFullScreenButton, "click", this._onToggleFullscreenCommandInvoked);
                     this._addButtonEventHandler(this._castButton, "click", this._onCastCommandInvoked);
                     this._addButtonEventHandler(this._volumeButton, "click", this._onVolumeCommandInvoked);
                     this._addButtonEventHandler(this._zoomButton, "click", this._onZoomCommandInvoked);
@@ -19900,10 +19900,9 @@ define('WinJS/Controls/MediaPlayer', [
                             this._element.removeEventListener("keyup", this._keyupInputHandler);
                             document.addEventListener("keydown", this._keydownInputHandler, false);
                             document.addEventListener("keyup", this._keyupInputHandler, false);
-                            // TODO: The icon for fullscreen that toggles back and forth is broken
                             if (this._fullscreenButtonIcon) {
-                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
-                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
+                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
+                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
                             }
 
                             // Go into full screen
@@ -19951,8 +19950,8 @@ define('WinJS/Controls/MediaPlayer', [
                             this._element.addEventListener("keyup", this._keyupInputHandler, false);
 
                             if (this._fullscreenButtonIcon) {
-                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
-                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
+                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
+                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
                             }
 
                             // Exit full screen
