@@ -425,7 +425,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ContentItemListControl">
-                    <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <Grid BorderBrush="{TemplateBinding BorderBrush}"  Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -433,7 +433,7 @@
                         <HyperlinkButton Content="{TemplateBinding SeeMoreText}"
                                          Command="{TemplateBinding SeeMoreCommand}" 
                                          HorizontalAlignment="Right" VerticalAlignment="Bottom" />
-                        <ListView Grid.Row="1" 
+                        <ListView Grid.Row="1" BorderThickness="{TemplateBinding BorderThickness}"
                                   ItemsSource="{TemplateBinding Items}"
                                   ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"
                                   ItemTemplateSelector="{StaticResource ItemTypeTemplateSelector}"

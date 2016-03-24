@@ -10,6 +10,7 @@
 //*********************************************************
 
 using System.Windows.Input;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,9 +18,12 @@ namespace MediaAppSample.UI.Controls
 {
     public class ContentItemListControl : ContentControl
     {
+        private static ResourceLoader resourceLoader = new ResourceLoader("MediaAppSample.Core/Resources");
+
         public ContentItemListControl()
         {
             this.DefaultStyleKey = typeof(ContentItemListControl);
+           
         }
         
         public object Items
@@ -51,7 +55,7 @@ namespace MediaAppSample.UI.Controls
 
         // Using a DependencyProperty as the backing store for SeeMoreText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SeeMoreTextProperty =
-            DependencyProperty.Register("SeeMoreText", typeof(string), typeof(ContentItemListControl), new PropertyMetadata("See more"));
+            DependencyProperty.Register("SeeMoreText", typeof(string), typeof(ContentItemListControl), new PropertyMetadata(resourceLoader.GetString("TextSeeMore"))); 
 
 
 

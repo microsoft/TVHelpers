@@ -49,13 +49,10 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
         <Hub>
-
             <Hub.Header>
                 <controls:ViewHeader />
             </Hub.Header>
-
             <!-- Featured Hero -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">

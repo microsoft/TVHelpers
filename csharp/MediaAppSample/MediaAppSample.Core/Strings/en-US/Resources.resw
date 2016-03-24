@@ -293,4 +293,7 @@
   <data name="ViewTitleWelcome" xml:space="preserve">
     <value>Welcome!</value>
   </data>
+  <data name="TextSeeMore" xml:space="preserve">
+    <value>See more</value>
+  </data>
 </root>
