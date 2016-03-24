@@ -52,10 +52,21 @@
             <TextBlock Text="{x:Bind Title, Mode=OneWay}" Grid.Row="1" />
         </Grid>
     </DataTemplate>
+    <DataTemplate x:Key="QueueModelItemDataTemplate" x:DataType="models:QueueModel">
+        <Grid Height="225" Width="225">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Source="{x:Bind Item.LandscapeImage, Mode=OneWay}" Stretch="UniformToFill" />
+            <TextBlock Text="{x:Bind Item.Title, Mode=OneWay}" Grid.Row="1" />
+        </Grid>
+    </DataTemplate>
 
     <controls:ItemTypeTemplateSelector x:Key="ItemTypeTemplateSelector" 
-                                       MovieTemplate="{StaticResource MovieItemDataTemplate}" 
-                                       TvEpisodeTemplate="{StaticResource TvEpisodeItemDataTemplate}" 
-                                       TvSeriesTemplate="{StaticResource TvEpisodeItemDataTemplate}" />
+        MovieTemplate="{StaticResource MovieItemDataTemplate}" 
+        TvEpisodeTemplate="{StaticResource TvEpisodeItemDataTemplate}" 
+        TvSeriesTemplate="{StaticResource TvEpisodeItemDataTemplate}" 
+        QueueModelTemplate="{StaticResource QueueModelItemDataTemplate}"  />
 
 </ResourceDictionary>

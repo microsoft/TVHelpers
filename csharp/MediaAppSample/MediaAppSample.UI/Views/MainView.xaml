@@ -56,39 +56,94 @@
             <!-- Featured Hero -->
             <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
                 <DataTemplate x:DataType="viewmodels:MainViewModel">
-                    <Grid Margin="0">
-                        <Image Source="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
-                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
-                            <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
-                            <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
-                                             Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
-                                             CommandParameter="{x:Bind ViewModel.FeaturedHero}" />
-                            <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
-                            <controls:Rating Value="{x:Bind ViewModel.FeaturedHero.UserRating, Mode=OneWay}"  />
-                        </StackPanel>
-                        <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
-                                  Margin="{StaticResource StandardGutterAll}" 
-                                  behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
-                                  VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <ListView.Header>
-                                <Grid>
-                                    <TextBlock Text="My Queue" />
-                                    <HyperlinkButton Content="See all" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
-                                </Grid>
-                            </ListView.Header>
-                            <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="models:QueueModel">
-                                    <Grid Margin="0" Height="200" Width="300">
-                                        <Image Source="{x:Bind Item.LandscapeImage, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" />
-                                        <Grid VerticalAlignment="Bottom">
-                                            <Rectangle Fill="{ThemeResource ThemeTitleBackground}" />
-                                            <TextBlock Text="{x:Bind Item.Title}" TextWrapping="WrapWholeWords"/>
-                                        </Grid>
+                    <!-- Use of UserControl = Hack for AdaptiveTrigger -->
+                    <UserControl>
+                        <Grid Margin="0">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
+                            </Grid.Background>
+                            <!--<Image Source="{x:Bind ViewModel.FeaturedHero.FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />-->
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" 
+                                MaxWidth="400"
+                                Grid.Row="0">
+                                <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Flag, Mode=OneWay}" />
+                                <HyperlinkButton Content="{x:Bind ViewModel.FeaturedHero.Title, Mode=OneWay}" 
+                                                 Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
+                                                 CommandParameter="{x:Bind ViewModel.FeaturedHero}" />
+                                <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
+                                <controls:Rating Value="{x:Bind ViewModel.FeaturedHero.UserRating, Mode=OneWay}"  />
+                            </StackPanel>
+                            <ListView x:Name="MyQueueVertical" ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
+                                    Margin="{StaticResource StandardGutterAll}" 
+                                    behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                    Visibility="Visible">
+                                <ListView.Header>
+                                    <Grid>
+                                        <TextBlock Text="My Queue" />
+                                        <HyperlinkButton Content="See all" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" />
                                     </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                                </ListView.Header>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:QueueModel">
+                                        <Grid Margin="0" Height="200" Width="300">
+                                            <Image Source="{x:Bind Item.LandscapeImage, Mode=OneWay}" Stretch="UniformToFill" HorizontalAlignment="Center" />
+                                            <Grid VerticalAlignment="Bottom">
+                                                <Rectangle Fill="{ThemeResource ThemeTitleBackground}" />
+                                                <TextBlock Text="{x:Bind Item.Title}" TextWrapping="WrapWholeWords"/>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <!-- Responsive VisualStates -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <!-- VisualState to be triggered when window width is >=1024 effective pixels, 13" + -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1024" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <!-- Widest possible layout moves some elements around to optimize for more available width -->
+                                            <Setter Target="MyQueueVertical.Visibility" Value="Visible" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <!-- VisualState to be triggered when window width is >=720 and <1024 effective pixels, 6 - 12" -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="720" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <!-- For intermediate window widths as well as most phones on landscape orientation -->
+                                            <Setter Target="MyQueueVertical.Visibility" Value="Collapsed" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <!-- VisualState to be triggered when window width is >=0 and <720 effective pixels, 4 - 6" -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <!-- For the most narrow windows and phones in portrait orientation -->
+                                            <Setter Target="MyQueueVertical.Visibility" Value="Collapsed" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </HubSection>
+            
+            <!-- My Queue - Horizontal -->
+            <HubSection x:Name="MyQueueHorizontal" Header="My Queue" Visibility="Collapsed">
+                <DataTemplate x:DataType="viewmodels:MainViewModel">
+                    <controls:ContentItemListControl
+                        Items="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
+                        ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}"
+                        SeeMoreCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" 
+                        SeeMoreText="See all"/>
                 </DataTemplate>
             </HubSection>
 
@@ -140,7 +195,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <Image Source="{x:Bind InlineImage}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
                                         <Button x:Name="btnPlay" Style="{StaticResource TransparentButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <interactivity:Interaction.Behaviors>
@@ -176,9 +231,42 @@
                     </ListView>
                 </DataTemplate>
             </HubSection>
-
         </Hub>
-        
+
+        <!-- Responsive VisualStates -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=1024 effective pixels, 13" + -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- Widest possible layout moves some elements around to optimize for more available width -->
+                        <Setter Target="MyQueueHorizontal.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=720 and <1024 effective pixels, 6 - 12" -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- For intermediate window widths as well as most phones on landscape orientation -->
+                        <Setter Target="MyQueueHorizontal.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <!-- VisualState to be triggered when window width is >=0 and <720 effective pixels, 4 - 6" -->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!-- For the most narrow windows and phones in portrait orientation -->
+                        <Setter Target="MyQueueHorizontal.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
-    
 </views:MainViewBase>

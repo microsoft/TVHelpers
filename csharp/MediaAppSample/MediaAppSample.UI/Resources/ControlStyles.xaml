@@ -432,7 +432,7 @@
                         </Grid.RowDefinitions>
                         <HyperlinkButton Content="{TemplateBinding SeeMoreText}"
                                          Command="{TemplateBinding SeeMoreCommand}" 
-                                         HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                                         HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="{StaticResource StandardGutterRight}"/>
                         <ListView Grid.Row="1" BorderThickness="{TemplateBinding BorderThickness}"
                                   ItemsSource="{TemplateBinding Items}"
                                   ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"

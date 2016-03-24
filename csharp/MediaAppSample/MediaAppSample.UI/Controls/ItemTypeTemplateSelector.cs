@@ -21,6 +21,7 @@ namespace MediaAppSample.UI.Controls
         public DataTemplate MovieTemplate { get; set; }
         public DataTemplate TvEpisodeTemplate { get; set; }
         public DataTemplate TvSeriesTemplate { get; set; }
+        public DataTemplate QueueModelTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
@@ -34,6 +35,10 @@ namespace MediaAppSample.UI.Controls
                     return this.TvEpisodeTemplate;
                 else
                     throw new NotImplementedException();
+            }
+            else if(item is QueueModel)
+            {
+                return this.QueueModelTemplate;
             }
             else
                 throw new InvalidOperationException("Item is not of type ItemBase. This template selector expects all items to be of type ItemBase.");

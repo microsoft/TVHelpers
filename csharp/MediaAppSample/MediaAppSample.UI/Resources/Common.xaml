@@ -70,6 +70,7 @@
     <GridLength x:Key="StandardElementGridLength">48</GridLength>
     <Thickness x:Key="StandardGutterLeftRight">48,0</Thickness>
     <Thickness x:Key="StandardGutterLeft">48,0,0,0</Thickness>
+    <Thickness x:Key="StandardGutterRight">0,0,48,0</Thickness>
     <Thickness x:Key="StandardGutterAll">48</Thickness>
 
     <!-- window width adaptive snap points-->
