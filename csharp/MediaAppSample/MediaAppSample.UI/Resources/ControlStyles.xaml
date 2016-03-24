@@ -26,6 +26,33 @@
     xmlns:primitives="using:MediaAppSample.UI.Controls.Primitives"
     mc:Ignorable="d">
 
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="RatingItemForegroundThemeBrush">#FF5B2EC5</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemPointerOverThemeBrush">#FF8152EF</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemPointerPressedThemeBrush">#FF8152EF</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemBackgroundThemeBrush">#59FFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemDisabledForegroundThemeBrush">#FFFFFFFF</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemBorderThemeBrush">Transparent</SolidColorBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="RatingItemForegroundThemeBrush">#FF4617B4</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemPointerOverThemeBrush">#FF7241E4</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemPointerPressedThemeBrush">#FF7241E4</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemBackgroundThemeBrush">#59000000</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemDisabledForegroundThemeBrush">#FF000000</SolidColorBrush>
+            <SolidColorBrush x:Key="RatingItemBorderThemeBrush">Transparent</SolidColorBrush>         
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="RatingItemForegroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+            <SolidColorBrush x:Key="RatingItemPointerOverThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+            <SolidColorBrush x:Key="RatingItemPointerPressedThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+            <SolidColorBrush x:Key="RatingItemBackgroundThemeBrush" Color="{ThemeResource SystemColorButtonFaceColor}" />
+            <SolidColorBrush x:Key="RatingItemDisabledForegroundThemeBrush" Color="{ThemeResource SystemColorButtonFaceColor}" />
+            <SolidColorBrush x:Key="RatingItemBorderThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
     <Style x:Key="TransparentButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -418,12 +445,52 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="RatingItemForegroundThemeBrush">#FF5B2EC5</SolidColorBrush>
-    <SolidColorBrush x:Key="RatingItemPointerOverThemeBrush">#FF8152EF</SolidColorBrush>
-    <SolidColorBrush x:Key="RatingItemPointerPressedThemeBrush">#FF8152EF</SolidColorBrush>
-    <SolidColorBrush x:Key="RatingItemBackgroundThemeBrush">#59FFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="RatingItemDisabledForegroundThemeBrush">#FFFFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="RatingItemBorderThemeBrush">Transparent</SolidColorBrush>
+    <Style TargetType="controls:Rating">
+        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource RatingItemForegroundThemeBrush}" />
+        <Setter Property="PointerOverFill" Value="{ThemeResource RatingItemPointerOverThemeBrush}" />
+        <Setter Property="PointerPressedFill" Value="{ThemeResource RatingItemPointerPressedThemeBrush}" />
+        <Setter Property="ReadOnlyFill"
+                Value="{ThemeResource RatingItemDisabledForegroundThemeBrush}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Tag" Value="&#xE082;" />
+        <Setter Property="Margin" Value="12,0,0,0" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:Rating">
+                    <Grid x:Name="Root">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver"/>
+                                <VisualState x:Name="PointerPressed"/>
+                                <VisualState x:Name="PointerExited"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Margin}"  BorderThickness="{TemplateBinding BorderThickness}">
+                            <ItemsPresenter/>
+                        </Border>
+                        <Border x:Name="ReadOnlyVisualElement" IsHitTestVisible="False" Opacity="0" Background="#83FFFFFF" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Border x:Name="DisabledVisualElement" IsHitTestVisible="False" Opacity="0" Background="#FF4D4D4D" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Rectangle x:Name="FocusVisualElement" StrokeThickness="1" RadiusX="1" RadiusY="1" IsHitTestVisible="false" Visibility="Collapsed"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="controls:RatingItem">
         <Setter Property="BorderBrush" Value="{ThemeResource RatingItemBorderThemeBrush}"/>
@@ -500,52 +567,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="controls:Rating">
-        <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
-        <Setter Property="Foreground" Value="{ThemeResource RatingItemForegroundThemeBrush}" />
-        <Setter Property="PointerOverFill" Value="{ThemeResource RatingItemPointerOverThemeBrush}" />
-        <Setter Property="PointerPressedFill" Value="{ThemeResource RatingItemPointerPressedThemeBrush}" />
-        <Setter Property="ReadOnlyFill"
-                Value="{ThemeResource RatingItemDisabledForegroundThemeBrush}" />
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontSize" Value="28" />
-        <Setter Property="Tag" Value="&#xE082;" />
-        <Setter Property="Margin" Value="12,0,0,0" />
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="controls:Rating">
-                    <Grid x:Name="Root">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="PointerOver"/>
-                                <VisualState x:Name="PointerPressed"/>
-                                <VisualState x:Name="PointerExited"/>
-                                <VisualState x:Name="Disabled"/>
-                            </VisualStateGroup>
-                            <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused"/>
-                                <VisualState x:Name="Unfocused"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Margin}"  BorderThickness="{TemplateBinding BorderThickness}">
-                            <ItemsPresenter/>
-                        </Border>
-                        <Border x:Name="ReadOnlyVisualElement" IsHitTestVisible="False" Opacity="0" Background="#83FFFFFF" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
-                        <Border x:Name="DisabledVisualElement" IsHitTestVisible="False" Opacity="0" Background="#FF4D4D4D" BorderBrush="#A5F7F7F7" BorderThickness="{TemplateBinding BorderThickness}"/>
-                        <Rectangle x:Name="FocusVisualElement" StrokeThickness="1" RadiusX="1" RadiusY="1" IsHitTestVisible="false" Visibility="Collapsed"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
+    
 </ResourceDictionary>

@@ -31,18 +31,13 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <Style TargetType="controls:Rating">
-                <Setter Property="ItemCount" Value="5" />
-                <!--<Setter Property="Margin.Left" Value="0" />-->
-            </Style>
-
             <DataTemplate x:Name="FeaturedContentItemDataTemplate" x:DataType="models:ContentItemBase">
                 <Grid>
                     <Image Source="{x:Bind FeaturedImage, Mode=OneWay}" Stretch="UniformToFill" />
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
                         <TextBlock Text="{x:Bind Flag, Mode=OneWay}" />
                         <TextBlock Text="{x:Bind Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" />
-                        <controls:Rating Value="4"  />
+                        <controls:Rating Value="{x:Bind UserRating, Mode=OneWay}"  />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -72,7 +67,7 @@
                                              Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" 
                                              CommandParameter="{x:Bind ViewModel.FeaturedHero}" />
                             <TextBlock Text="{x:Bind ViewModel.FeaturedHero.Description, Mode=OneWay}" />
-                            <controls:Rating Value="4" />
+                            <controls:Rating Value="{x:Bind ViewModel.FeaturedHero.UserRating, Mode=OneWay}"  />
                         </StackPanel>
                         <ListView ItemsSource="{x:Bind ViewModel.QueueViewModel.QueuePreview, Mode=OneWay}"
                                   Margin="{StaticResource StandardGutterAll}" 
