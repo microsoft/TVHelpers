@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="ContosoEntertainmentMediaAppSample" Publisher="CN=Microsoft" Version="1.0.0.0" />
+  <Identity Name="ContosoEntertainmentMediaAppSample" Publisher="CN=0AD28CBD-CF15-42A7-BD5E-76122D7C8E25" Version="1.0.1.0" />
   <mp:PhoneIdentity PhoneProductId="b699b99c-fbca-4f8d-a8cf-9ac157086b74" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Contoso Entertainment</DisplayName>
@@ -27,17 +27,17 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
       </uap:VisualElements>
       <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="MediaAppSample.BackgroundTasks.TimedWorkerTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="contosoent">
             <uap:Logo>Assets\Square44x44Logo.png</uap:Logo>
             <uap:DisplayName>Contoso Entertainment</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="MediaAppSample.BackgroundTasks.TimedWorkerTask">
-          <BackgroundTasks>
-            <Task Type="timer" />
-          </BackgroundTasks>
-        </Extension>
       </Extensions>
     </Application>
   </Applications>
