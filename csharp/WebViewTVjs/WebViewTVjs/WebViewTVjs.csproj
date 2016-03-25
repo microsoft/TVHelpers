@@ -92,7 +92,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="html\tvjs\MediaPlayer\SegoeSymbol.1.17.woff" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -112,14 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="html\BasicDirectionalNavigation.html" />
-    <Content Include="html\tvjs\DirectionalNavigation\directionalnavigation-1.0.0.0.js" />
-    <Content Include="html\tvjs\GamepadToVK\gamepadtokey-1.0.0.0.js" />
-    <Content Include="html\tvjs\MediaPlayer\mediaplayer-1.0.0.0.css" />
-    <Content Include="html\tvjs\MediaPlayer\mediaplayer-1.0.0.0.js" />
-    <Content Include="html\tvjs\ScrollViewer\scrollviewer-1.0.0.0.css" />
-    <Content Include="html\tvjs\ScrollViewer\scrollviewer-1.0.0.0.js" />
-    <Content Include="html\tvjs\SearchBox\searchbox-1.0.0.0.css" />
-    <Content Include="html\tvjs\SearchBox\searchbox-1.0.0.0.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -128,6 +119,11 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\tvjs\src\DirectionalNavigation\**\*.*">
+      <Link>html\DirectionalNavigation\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
