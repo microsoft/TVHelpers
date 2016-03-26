@@ -18938,8 +18938,8 @@ define('WinJS/Controls/MediaPlayer', [
 
                 // Turns the playpause toggle button into a pause button
                 _showPauseButton: function () {
-                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-pauseicon");
-                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-playicon");
+                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-playicon");
+                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-pauseicon");
                     if (this._smtControls) {
                         this._smtControls.isPauseEnabled = true;
                         this._smtControls.isPlayEnabled = false;
@@ -18948,8 +18948,8 @@ define('WinJS/Controls/MediaPlayer', [
 
                 // Turns the playpause toggle button into a play button
                 _showPlayButton: function () {
-                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-playicon");
-                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-pauseicon");
+                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-pauseicon");
+                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-playicon");
                     if (this._smtControls) {
                         this._smtControls.isPauseEnabled = false;
                         this._smtControls.isPlayEnabled = true;
