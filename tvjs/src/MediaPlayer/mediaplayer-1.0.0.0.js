@@ -17782,7 +17782,11 @@ define('WinJS/Controls/MediaPlayer', [
                         this.playPauseButtonEnabled &&
                         this.playPauseButtonVisible) {
 
-                        if (this._mediaElementAdapter.mediaElement.paused) {
+                        if (this._mediaElementAdapter.mediaElement.paused ||
+                            this._mediaElementAdapter.mediaElement.playbackRate === 0) {
+                            if (this._mediaElementAdapter.mediaElement.playbackRate === 0) {
+                                this._mediaElementAdapter.mediaElement.playbackRate = this._mediaElementAdapter.mediaElement.defaultPlaybackRate;
+                            }
                             this._showPauseButton();
                             this.play();
                         } else {
