@@ -17584,8 +17584,7 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 _inputHandlerMouseOut: function (ev) {
-                    if (this._isPointerDown &&
-                        !_Global.document.hasFocus()) {
+                    if (this._isThumbGrabbed) {
                         // get original event
                         ev = ev.detail.originalEvent;
                         this._isPointerDown = false;
@@ -17805,7 +17804,11 @@ define('WinJS/Controls/MediaPlayer', [
                         this.playPauseButtonEnabled &&
                         this.playPauseButtonVisible) {
 
-                        if (this._mediaElementAdapter.mediaElement.paused) {
+                        if (this._mediaElementAdapter.mediaElement.paused ||
+                            this._mediaElementAdapter.mediaElement.playbackRate === 0) {
+                            if (this._mediaElementAdapter.mediaElement.playbackRate === 0) {
+                                this._mediaElementAdapter.mediaElement.playbackRate = this._mediaElementAdapter.mediaElement.defaultPlaybackRate;
+                            }
                             this._showPauseButton();
                             this.play();
                         } else {
@@ -18000,14 +18003,6 @@ define('WinJS/Controls/MediaPlayer', [
                     // the current X coordinate of the pointer.
                     var newX = ev.x;
                     var transformName = _BaseUtils._browserStyleEquivalents["transform"].scriptName;
-                    // Need to account for the Window offset
-                    var seekbarRect = this._seekBar.getBoundingClientRect();
-                    if (newX < seekbarRect.left) {
-                        newX = seekbarRect.left;
-                    } else if (newX > seekbarRect.right) {
-                        newX = seekbarRect.right;
-                    }
-
                     var seekBarOffset = newX;
                     var progress = newX / this._totalSeekBarWidth;
 
@@ -18311,6 +18306,8 @@ define('WinJS/Controls/MediaPlayer', [
                         this._volumeFlyout.addEventListener("afterhide", this._handleFlyoutCloseCallbackBind, false);
                         this._volumeSlider.addEventListener("change", this._handleVolumeSliderChangeCallback, false);
                         this._addButtonEventHandler(this._muteButton, "click", this._onMuteCommandInvoked);
+
+                        this._volumeSlider.value = this._mediaElementAdapter.mediaElement.volume * 100;
                     }
 
                     // Show the flyout
@@ -18969,8 +18966,8 @@ define('WinJS/Controls/MediaPlayer', [
 
                 // Turns the playpause toggle button into a pause button
                 _showPauseButton: function () {
-                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-pauseicon");
-                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-playicon");
+                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-playicon");
+                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-pauseicon");
                     if (this._smtControls) {
                         this._smtControls.isPauseEnabled = true;
                         this._smtControls.isPlayEnabled = false;
@@ -18979,8 +18976,8 @@ define('WinJS/Controls/MediaPlayer', [
 
                 // Turns the playpause toggle button into a play button
                 _showPlayButton: function () {
-                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-playicon");
-                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-pauseicon");
+                    this._playPauseButtonIcon.classList.remove("tv-mediaplayer-pauseicon");
+                    this._playPauseButtonIcon.classList.add("tv-mediaplayer-playicon");
                     if (this._smtControls) {
                         this._smtControls.isPauseEnabled = false;
                         this._smtControls.isPlayEnabled = true;
@@ -19427,7 +19424,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._addButtonEventHandler(this._audioTracksButton, "click", this._onAudioTracksCommandInvoked);
                     this._addButtonEventHandler(this._closedCaptionsButton, "click", this._onClosedCaptionsCommandInvoked);
                     this._addButtonEventHandler(this._goToLiveButton, "click", this._onGoToLiveCommandInvoked);
-                    this._addButtonEventHandler(this._toggleFullScreenButton, "click", this._onToggleFullScreenCommandInvoked);
+                    this._addButtonEventHandler(this._toggleFullScreenButton, "click", this._onToggleFullscreenCommandInvoked);
                     this._addButtonEventHandler(this._castButton, "click", this._onCastCommandInvoked);
                     this._addButtonEventHandler(this._volumeButton, "click", this._onVolumeCommandInvoked);
                     this._addButtonEventHandler(this._zoomButton, "click", this._onZoomCommandInvoked);
@@ -19450,7 +19447,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._addGestureEventHandler(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
                     this._addGestureEventHandler(this._progressContainer, "pointerup", this._inputHandlerPointerUpCallback);
 
-                    document.addEventListener("pointerout", this._inputHandlerMouseOutCallback, false);
+                    document.body.addEventListener("mouseleave", this._inputHandlerMouseOutCallback, false);
 
                     // Set the enabled and visible states for all buttons
 
@@ -19931,10 +19928,9 @@ define('WinJS/Controls/MediaPlayer', [
                             this._element.removeEventListener("keyup", this._keyupInputHandler);
                             document.addEventListener("keydown", this._keydownInputHandler, false);
                             document.addEventListener("keyup", this._keyupInputHandler, false);
-                            // TODO: The icon for fullscreen that toggles back and forth is broken
                             if (this._fullscreenButtonIcon) {
-                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
-                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
+                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
+                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
                             }
 
                             // Go into full screen
@@ -19982,8 +19978,8 @@ define('WinJS/Controls/MediaPlayer', [
                             this._element.addEventListener("keyup", this._keyupInputHandler, false);
 
                             if (this._fullscreenButtonIcon) {
-                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
-                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
+                                addClass(this._fullscreenButtonIcon, "tv-mediaplayer-fullscreenicon");
+                                removeClass(this._fullscreenButtonIcon, "tv-mediaplayer-backtowindowicon");
                             }
 
                             // Exit full screen
@@ -21137,7 +21133,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._handleSystemTransportControlsPropertyChangedBind = null;
                     this._smtControls = null;
 
-                    document.removeEventListener(this.element, "pointerout", this._inputHandlerMouseOutCallback);
+                    document.body.removeEventListener(this.element, "pointerout", this._inputHandlerMouseOutCallback);
                     window.removeEventListener(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
                     window.removeEventListener(this.element, "pointerup", this._inputHandlerMouseUpCallback);
 

@@ -37,25 +37,39 @@
             color: rgb(235, 235, 235);
         }
 
-        /* Red theme */
-        .overlay {
+        .overlay1 {
             background-color: rgb(58, 58, 58);
             padding: 16px 24px;
             position: fixed;
-            top: 20%;
-            left: 30%;
+            top: 10%;
+            left: 10%;
+        }
+
+        .overlay2 {
+            background-color: rgb(58, 58, 58);
+            padding: 16px 24px;
+            position: fixed;
+            top: 40%;
+            left: 20%;
+        }
+
+        section {
+            height: 100vh;
+            width: 100vw;
         }
 
     </style>
 
 </head>
 <body>
-    <div id="mediaPlayer">
-        <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
-        <button id="launchOverlay">Launch overlay</button>
-    </div>
+    <section>
+        <div id="mediaPlayer">
+            <video src="http://www.w3schools.com/HTML/mov_bbb.mp4" autoplay="autoplay"></video>
+            <button id="launchOverlay">Launch overlay</button>
+        </div>
+    </section>
 
-    <div id="overlay" class="overlay" style="display:none;">
+    <div id="overlay" class="overlay1" style="display:none;">
         <p>This is an overlay.</p>
         <button id="close">Close</button>
     </div>
@@ -78,7 +92,7 @@
         // An easy way to have a custom overlay show every time the transport controls
         // are opened it so attach your overlay to the Transport Controls DOM.
         var overlay2 = document.createElement("div");
-        overlay2.className = "overlay";
+        overlay2.className = "overlay2";
         overlay2.textContent = "Here's an overlay that opens when the transport controls open";
         mediaPlayer.element.querySelector(".tv-mediaplayer-controls").appendChild(overlay2);
 
