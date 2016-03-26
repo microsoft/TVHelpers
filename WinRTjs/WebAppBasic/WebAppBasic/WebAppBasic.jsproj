@@ -37,6 +37,11 @@
       <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\tvjs\src\**\*.*">
+      <Link>scriptlibrary\tvjs\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>86c25d12-ecb4-4ac0-8942-2874e9f0c235</ProjectGuid>
   </PropertyGroup>
@@ -69,10 +74,8 @@
     <Content Include="css\default.css" />
     <Content Include="js\default.js" />
     <Content Include="README.md" />
+    <Content Include="scriptlibrary\README.md" />
     <None Include="MediaAppSampleJS_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scriptlibrary\css\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
