@@ -23,10 +23,10 @@
 #      THE SOFTWARE.
 -->
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="WebAppBasicSample" Version="1.0.0.0" Publisher="CN=Microsoft" />
+  <Identity Name="TVHelpersWebAppBasicSample" Version="1.0.0.0" Publisher="CN=Microsoft" />
   <mp:PhoneIdentity PhoneProductId="86c25d12-ecb4-4ac0-8942-2874e9f0c235" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Web App Basic</DisplayName>
+    <DisplayName>Web App Basic with WinRT</DisplayName>
     <PublisherDisplayName>Microsoft</PublisherDisplayName>
     <Logo>images\storelogo.png</Logo>
   </Properties>
@@ -44,6 +44,7 @@
         <uap:SplashScreen Image="images\splashscreen.png" />
       </uap:VisualElements>
       <uap:ApplicationContentUriRules>
+        <!-- This rule includes all WinRT apis.  Trim down to to just the APIs needed for your application when publishing -->
         <uap:Rule Match="ms-appx-web:///" Type="include" WindowsRuntimeAccess="all" />
       </uap:ApplicationContentUriRules>
     </Application>
