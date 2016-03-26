@@ -66,20 +66,13 @@
     <Content Include="images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="images\StoreLogo.png" />
     <Content Include="images\Wide310x150Logo.scale-200.png" />
-    <Content Include="index.html" />
     <Content Include="css\default.css" />
     <Content Include="js\default.js" />
-    <Content Include="scriptlibrary\css\base.css" />
-    <Content Include="scriptlibrary\react-dom-server.js" />
-    <Content Include="scriptlibrary\react-dom-server.min.js" />
-    <Content Include="scriptlibrary\react-dom.js" />
-    <Content Include="scriptlibrary\react-dom.min.js" />
-    <Content Include="scriptlibrary\react-with-addons.js" />
-    <Content Include="scriptlibrary\react-with-addons.min.js" />
-    <Content Include="scriptlibrary\react.js" />
-    <Content Include="scriptlibrary\react.min.js" />
-    <Content Include="scriptlibrary\ReadMe.txt" />
+    <Content Include="README.md" />
     <None Include="MediaAppSampleJS_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scriptlibrary\css\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
