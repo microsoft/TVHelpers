@@ -18284,6 +18284,8 @@ define('WinJS/Controls/MediaPlayer', [
                         this._volumeFlyout.addEventListener("afterhide", this._handleFlyoutCloseCallbackBind, false);
                         this._volumeSlider.addEventListener("change", this._handleVolumeSliderChangeCallback, false);
                         this._addButtonEventHandler(this._muteButton, "click", this._onMuteCommandInvoked);
+
+                        this._volumeSlider.value = this._mediaElementAdapter.mediaElement.volume * 100;
                     }
 
                     // Show the flyout
