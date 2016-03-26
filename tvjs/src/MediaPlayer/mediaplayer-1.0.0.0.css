@@ -105,7 +105,6 @@ input[type=range]::-ms-thumb {
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  margin-top: -4px;
   width: 24px;
   height: 8px;
   border-radius: 4px;
