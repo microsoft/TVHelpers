@@ -29,15 +29,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="08222286-62a3-4938-91ef-497ed14e87e8"
-    Publisher="CN=robcamer"
+    Name="TVHelpersWebViewTVjs"
+    Publisher="CN=Microsoft"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="08222286-62a3-4938-91ef-497ed14e87e8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WebViewTVjs</DisplayName>
-    <PublisherDisplayName>robcamer</PublisherDisplayName>
+    <DisplayName>TVHelpers WebView with TVjs</DisplayName>
+    <PublisherDisplayName>Microsoft</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
