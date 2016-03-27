@@ -57,7 +57,8 @@
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>$(VersionNumberMajor).$(VersionNumberMinor)</MinimumVisualStudioVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>MediaAppSampleJS_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>WebAppBasic_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>AC52530F7A74B7AB2DE3B9411E50EAB2E02E4B8B</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -75,7 +76,7 @@
     <Content Include="js\default.js" />
     <Content Include="README.md" />
     <Content Include="scriptlibrary\README.md" />
-    <None Include="MediaAppSampleJS_TemporaryKey.pfx" />
+    <None Include="WebAppBasic_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
   <!-- To modify your build process, add your task inside one of the targets below then uncomment
