@@ -696,304 +696,302 @@
             }
         };
     })(IFrameHelper || (IFrameHelper = {}));
-    if (document) {
-        // Note: This module is not supported in WebWorker
-        // Default mappings
-        _keyCodeMap.left.push(
-            37, // LeftArrow
-            214, // GamepadLeftThumbstickLeft
-            205, // GamepadDPadLeft
-            140); // NavigationLeft
-        _keyCodeMap.right.push(
-            39, // RightArrow
-            213, // GamepadLeftThumbstickRight
-            206, // GamepadDPadRight
-            141); // NavigationRight
-        _keyCodeMap.up.push(
-            38, // UpArrow
-            211, // GamepadLeftThumbstickUp
-            203, // GamepadDPadUp
-            138); // NavigationUp
-        _keyCodeMap.down.push(
-            40, // UpArrow
-            212, // GamepadLeftThumbstickDown
-            204, // GamepadDPadDown
-            139); // NavigationDown
-        _keyCodeMap.accept.push(
-            142, // NavigationAccept
-            195); // GamepadA
-        window.addEventListener("message", function (e) {
-            // Note: e.source is the Window object of an iframe which could be hosting content
-            // from a different domain. No properties on e.source should be accessed or we may
-            // run into a cross-domain access violation exception.
-            var sourceWindow = null;
-            try {
-                // Since messages are async, by the time we get this message, the iframe could've
-                // been removed from the DOM and e.source is null or throws an exception on access.
-                sourceWindow = e.source;
-                if (!sourceWindow) {
+
+    // Default mappings
+    _keyCodeMap.left.push(
+        37, // LeftArrow
+        214, // GamepadLeftThumbstickLeft
+        205, // GamepadDPadLeft
+        140); // NavigationLeft
+    _keyCodeMap.right.push(
+        39, // RightArrow
+        213, // GamepadLeftThumbstickRight
+        206, // GamepadDPadRight
+        141); // NavigationRight
+    _keyCodeMap.up.push(
+        38, // UpArrow
+        211, // GamepadLeftThumbstickUp
+        203, // GamepadDPadUp
+        138); // NavigationUp
+    _keyCodeMap.down.push(
+        40, // UpArrow
+        212, // GamepadLeftThumbstickDown
+        204, // GamepadDPadDown
+        139); // NavigationDown
+    _keyCodeMap.accept.push(
+        142, // NavigationAccept
+        195); // GamepadA
+    window.addEventListener("message", function (e) {
+        // Note: e.source is the Window object of an iframe which could be hosting content
+        // from a different domain. No properties on e.source should be accessed or we may
+        // run into a cross-domain access violation exception.
+        var sourceWindow = null;
+        try {
+            // Since messages are async, by the time we get this message, the iframe could've
+            // been removed from the DOM and e.source is null or throws an exception on access.
+            sourceWindow = e.source;
+            if (!sourceWindow) {
+                return;
+            }
+        }
+        catch (e) {
+            return;
+        }
+        if (!e.data || !e.data[CrossDomainMessageConstants.messageDataProperty]) {
+            return;
+        }
+        var data = e.data[CrossDomainMessageConstants.messageDataProperty];
+        switch (data.type) {
+            case CrossDomainMessageConstants.register:
+                var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
+                iframe && IFrameHelper.registerIFrame(iframe);
+                break;
+            case CrossDomainMessageConstants.unregister:
+                var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
+                iframe && IFrameHelper.unregisterIFrame(iframe);
+                break;
+            case CrossDomainMessageConstants.dFocusEnter:
+                // The coordinates stored in data.refRect are already in this frame's coordinate system.
+                // First try to focus anything within this iframe without leaving the current frame.
+                var focused = _xyFocus(data.direction, -1, data.referenceRect, true);
+                if (!focused) {
+                    // No focusable element was found, we'll focus document.body if it is focusable.
+                    if (_isFocusable(document.body)) {
+                        document.body.focus();
+                    }
+                    else {
+                        // Nothing within this iframe is focusable, we call _xyFocus again without a refRect
+                        // and allow the request to propagate to the parent.
+                        _xyFocus(data.direction, -1);
+                    }
+                }
+                break;
+            case CrossDomainMessageConstants.dFocusExit:
+                var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
+                if (document.activeElement !== iframe) {
+                    break;
+                }
+                // The coordinates stored in data.refRect are in the IFRAME's coordinate system,
+                // so we must first transform them into this frame's coordinate system.
+                var refRect = data.referenceRect;
+                var iframeRect = iframe.getBoundingClientRect();
+                refRect.left += iframeRect.left;
+                refRect.top += iframeRect.top;
+                if (typeof refRect.right === "number") {
+                    refRect.right += iframeRect.left;
+                }
+                if (typeof refRect.bottom === "number") {
+                    refRect.bottom += iframeRect.top;
+                }
+                _xyFocus(data.direction, -1, refRect);
+                break;
+        }
+    });
+
+    // Receiving departingFocus event in the app as a result of any child webview calling
+    // window.departFocus from within the webview. Indicates focus transitioning into the app
+    // from the webview. The navigatingfocus event handles transforming the 
+    // coordinate space so we just pass the values along.
+    document.addEventListener("departingfocus", function(eventArg) {
+        var focusChanged = _xyfocus(
+            eventArg.navigationReason,
+            -1,
+            WebViewHelper.navigateFocusRectToRefRect(eventArg));
+
+        if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
+            eventArg.focus();
+        }
+    });
+
+    // Receiving a navigatingfocus event in the webview as a result of the host app calling
+    // webview.navigateFocus on our containing webview element indicating focus transitioning
+    // into the webview from the app. The navigatingfocus event handles transforming the 
+    // coordinate space so we just pass the values along.
+    window.addEventListener("navigatingfocus", function(eventArg) {
+        var focusChanged = _xyfocus(
+            eventArg.navigationReason,
+            -1,
+            WebViewHelper.navigateFocusRectToRefRect(eventArg));
+
+        if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
+            eventArg.focus();
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
+        document.addEventListener("keydown", _handleKeyDownEvent);
+        document.addEventListener("keyup", _handleKeyUpEvent);
+        // If we are running within an iframe, we send a registration message to the parent window
+        if (window.top !== window.window) {
+            var message = {};
+            message[CrossDomainMessageConstants.messageDataProperty] = {
+                type: CrossDomainMessageConstants.register,
+                version: 1.0
+            };
+            window.parent.postMessage(message, "*");
+        }
+    });
+
+    var EventMixinEvent = (function () {
+        function EventMixinEvent(type, detail, target) {
+            this.detail = detail;
+            this.target = target;
+            this.timeStamp = Date.now();
+            this.type = type;
+            this.bubbles = { value: false, writable: false };
+            this.cancelable = { value: false, writable: false };
+            this.trusted = { value: false, writable: false };
+            this.eventPhase = { value: 0, writable: false };
+            this.supportedForProcessing = true;
+        };
+        Object.defineProperty(EventMixinEvent.prototype, "currentTarget", {
+            get: function () { return this.target; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(EventMixinEvent.prototype, "defaultPrevented", {
+            get: function () { return this._preventDefaultCalled; },
+            enumerable: true,
+            configurable: true
+        });
+        EventMixinEvent.prototype.preventDefault = function () {
+            this._preventDefaultCalled = true;
+        };
+        EventMixinEvent.prototype.stopImmediatePropagation = function () {
+            this._stopImmediatePropagationCalled = true;
+        };
+        EventMixinEvent.prototype.stopPropagation = function () {
+        };
+        return EventMixinEvent;
+    })();
+
+    var eventMixin = {
+        _listeners: null,
+
+        addEventListener: function (type, listener, useCapture) {
+            /// <signature helpKeyword="WinJS.Utilities.eventMixin.addEventListener">
+            /// <summary locid="WinJS.Utilities.eventMixin.addEventListener">
+            /// Adds an event listener to the control.
+            /// </summary>
+            /// <param name="type" locid="WinJS.Utilities.eventMixin.addEventListener_p:type">
+            /// The type (name) of the event.
+            /// </param>
+            /// <param name="listener" locid="WinJS.Utilities.eventMixin.addEventListener_p:listener">
+            /// The listener to invoke when the event is raised.
+            /// </param>
+            /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.addEventListener_p:useCapture">
+            /// if true initiates capture, otherwise false.
+            /// </param>
+            /// </signature>
+            useCapture = useCapture || false;
+            this._listeners = this._listeners || {};
+            var eventListeners = (this._listeners[type] = this._listeners[type] || []);
+            for (var i = 0, len = eventListeners.length; i < len; i++) {
+                var l = eventListeners[i];
+                if (l.useCapture === useCapture && l.listener === listener) {
                     return;
                 }
             }
-            catch (e) {
-                return;
+            eventListeners.push({ listener: listener, useCapture: useCapture });
+        },
+        dispatchEvent: function (type, details) {
+            /// <signature helpKeyword="WinJS.Utilities.eventMixin.dispatchEvent">
+            /// <summary locid="WinJS.Utilities.eventMixin.dispatchEvent">
+            /// Raises an event of the specified type and with the specified additional properties.
+            /// </summary>
+            /// <param name="type" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:type">
+            /// The type (name) of the event.
+            /// </param>
+            /// <param name="details" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:details">
+            /// The set of additional properties to be attached to the event object when the event is raised.
+            /// </param>
+            /// <returns type="Boolean" locid="WinJS.Utilities.eventMixin.dispatchEvent_returnValue">
+            /// true if preventDefault was called on the event.
+            /// </returns>
+            /// </signature>
+            var listeners = this._listeners && this._listeners[type];
+            if (listeners) {
+                var eventValue = new EventMixinEvent(type, details, this);
+                // Need to copy the array to protect against people unregistering while we are dispatching
+                listeners = listeners.slice(0, listeners.length);
+                for (var i = 0, len = listeners.length; i < len && !eventValue._stopImmediatePropagationCalled; i++) {
+                    listeners[i].listener(eventValue);
+                }
+                return eventValue.defaultPrevented || false;
             }
-            if (!e.data || !e.data[CrossDomainMessageConstants.messageDataProperty]) {
-                return;
-            }
-            var data = e.data[CrossDomainMessageConstants.messageDataProperty];
-            switch (data.type) {
-                case CrossDomainMessageConstants.register:
-                    var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
-                    iframe && IFrameHelper.registerIFrame(iframe);
-                    break;
-                case CrossDomainMessageConstants.unregister:
-                    var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
-                    iframe && IFrameHelper.unregisterIFrame(iframe);
-                    break;
-                case CrossDomainMessageConstants.dFocusEnter:
-                    // The coordinates stored in data.refRect are already in this frame's coordinate system.
-                    // First try to focus anything within this iframe without leaving the current frame.
-                    var focused = _xyFocus(data.direction, -1, data.referenceRect, true);
-                    if (!focused) {
-                        // No focusable element was found, we'll focus document.body if it is focusable.
-                        if (_isFocusable(document.body)) {
-                            document.body.focus();
+            return false;
+        },
+        removeEventListener: function (type, listener, useCapture) {
+            /// <signature helpKeyword="WinJS.Utilities.eventMixin.removeEventListener">
+            /// <summary locid="WinJS.Utilities.eventMixin.removeEventListener">
+            /// Removes an event listener from the control.
+            /// </summary>
+            /// <param name="type" locid="WinJS.Utilities.eventMixin.removeEventListener_p:type">
+            /// The type (name) of the event.
+            /// </param>
+            /// <param name="listener" locid="WinJS.Utilities.eventMixin.removeEventListener_p:listener">
+            /// The listener to remove.
+            /// </param>
+            /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.removeEventListener_p:useCapture">
+            /// Specifies whether to initiate capture.
+            /// </param>
+            /// </signature>
+            useCapture = useCapture || false;
+            var listeners = this._listeners && this._listeners[type];
+            if (listeners) {
+                for (var i = 0, len = listeners.length; i < len; i++) {
+                    var l = listeners[i];
+                    if (l.listener === listener && l.useCapture === useCapture) {
+                        listeners.splice(i, 1);
+                        if (listeners.length === 0) {
+                            delete this._listeners[type];
                         }
-                        else {
-                            // Nothing within this iframe is focusable, we call _xyFocus again without a refRect
-                            // and allow the request to propagate to the parent.
-                            _xyFocus(data.direction, -1);
-                        }
-                    }
-                    break;
-                case CrossDomainMessageConstants.dFocusExit:
-                    var iframe = IFrameHelper.getIFrameFromWindow(sourceWindow);
-                    if (document.activeElement !== iframe) {
+                        // Only want to remove one element for each call to removeEventListener
                         break;
                     }
-                    // The coordinates stored in data.refRect are in the IFRAME's coordinate system,
-                    // so we must first transform them into this frame's coordinate system.
-                    var refRect = data.referenceRect;
-                    var iframeRect = iframe.getBoundingClientRect();
-                    refRect.left += iframeRect.left;
-                    refRect.top += iframeRect.top;
-                    if (typeof refRect.right === "number") {
-                        refRect.right += iframeRect.left;
-                    }
-                    if (typeof refRect.bottom === "number") {
-                        refRect.bottom += iframeRect.top;
-                    }
-                    _xyFocus(data.direction, -1, refRect);
-                    break;
-            }
-        });
-
-        // Receiving departingFocus event in the app as a result of any child webview calling
-        // window.departFocus from within the webview. Indicates focus transitioning into the app
-        // from the webview. The navigatingfocus event handles transforming the 
-        // coordinate space so we just pass the values along.
-        document.addEventListener("departingfocus", function(eventArg) {
-            var focusChanged = _xyfocus(
-                eventArg.navigationReason,
-                -1,
-                WebViewHelper.navigateFocusRectToRefRect(eventArg));
-
-            if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
-                eventArg.focus();
-            }
-        });
-
-        // Receiving a navigatingfocus event in the webview as a result of the host app calling
-        // webview.navigateFocus on our containing webview element indicating focus transitioning
-        // into the webview from the app. The navigatingfocus event handles transforming the 
-        // coordinate space so we just pass the values along.
-        window.addEventListener("navigatingfocus", function(eventArg) {
-            var focusChanged = _xyfocus(
-                eventArg.navigationReason,
-                -1,
-                WebViewHelper.navigateFocusRectToRefRect(eventArg));
-
-            if (focusChanged && eventArg && (typeof eventArg.focus === "function")) {
-                eventArg.focus();
-            }
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
-            document.addEventListener("keydown", _handleKeyDownEvent);
-            document.addEventListener("keyup", _handleKeyUpEvent);
-            // If we are running within an iframe, we send a registration message to the parent window
-            if (window.top !== window.window) {
-                var message = {};
-                message[CrossDomainMessageConstants.messageDataProperty] = {
-                    type: CrossDomainMessageConstants.register,
-                    version: 1.0
-                };
-                window.parent.postMessage(message, "*");
-            }
-        });
-
-        var EventMixinEvent = (function () {
-            function EventMixinEvent(type, detail, target) {
-                this.detail = detail;
-                this.target = target;
-                this.timeStamp = Date.now();
-                this.type = type;
-                this.bubbles = { value: false, writable: false };
-                this.cancelable = { value: false, writable: false };
-                this.trusted = { value: false, writable: false };
-                this.eventPhase = { value: 0, writable: false };
-                this.supportedForProcessing = true;
-            };
-            Object.defineProperty(EventMixinEvent.prototype, "currentTarget", {
-                get: function () { return this.target; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(EventMixinEvent.prototype, "defaultPrevented", {
-                get: function () { return this._preventDefaultCalled; },
-                enumerable: true,
-                configurable: true
-            });
-            EventMixinEvent.prototype.preventDefault = function () {
-                this._preventDefaultCalled = true;
-            };
-            EventMixinEvent.prototype.stopImmediatePropagation = function () {
-                this._stopImmediatePropagationCalled = true;
-            };
-            EventMixinEvent.prototype.stopPropagation = function () {
-            };
-            return EventMixinEvent;
-        })();
-
-        var eventMixin = {
-            _listeners: null,
-
-            addEventListener: function (type, listener, useCapture) {
-                /// <signature helpKeyword="WinJS.Utilities.eventMixin.addEventListener">
-                /// <summary locid="WinJS.Utilities.eventMixin.addEventListener">
-                /// Adds an event listener to the control.
-                /// </summary>
-                /// <param name="type" locid="WinJS.Utilities.eventMixin.addEventListener_p:type">
-                /// The type (name) of the event.
-                /// </param>
-                /// <param name="listener" locid="WinJS.Utilities.eventMixin.addEventListener_p:listener">
-                /// The listener to invoke when the event is raised.
-                /// </param>
-                /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.addEventListener_p:useCapture">
-                /// if true initiates capture, otherwise false.
-                /// </param>
-                /// </signature>
-                useCapture = useCapture || false;
-                this._listeners = this._listeners || {};
-                var eventListeners = (this._listeners[type] = this._listeners[type] || []);
-                for (var i = 0, len = eventListeners.length; i < len; i++) {
-                    var l = eventListeners[i];
-                    if (l.useCapture === useCapture && l.listener === listener) {
-                        return;
-                    }
-                }
-                eventListeners.push({ listener: listener, useCapture: useCapture });
-            },
-            dispatchEvent: function (type, details) {
-                /// <signature helpKeyword="WinJS.Utilities.eventMixin.dispatchEvent">
-                /// <summary locid="WinJS.Utilities.eventMixin.dispatchEvent">
-                /// Raises an event of the specified type and with the specified additional properties.
-                /// </summary>
-                /// <param name="type" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:type">
-                /// The type (name) of the event.
-                /// </param>
-                /// <param name="details" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:details">
-                /// The set of additional properties to be attached to the event object when the event is raised.
-                /// </param>
-                /// <returns type="Boolean" locid="WinJS.Utilities.eventMixin.dispatchEvent_returnValue">
-                /// true if preventDefault was called on the event.
-                /// </returns>
-                /// </signature>
-                var listeners = this._listeners && this._listeners[type];
-                if (listeners) {
-                    var eventValue = new EventMixinEvent(type, details, this);
-                    // Need to copy the array to protect against people unregistering while we are dispatching
-                    listeners = listeners.slice(0, listeners.length);
-                    for (var i = 0, len = listeners.length; i < len && !eventValue._stopImmediatePropagationCalled; i++) {
-                        listeners[i].listener(eventValue);
-                    }
-                    return eventValue.defaultPrevented || false;
-                }
-                return false;
-            },
-            removeEventListener: function (type, listener, useCapture) {
-                /// <signature helpKeyword="WinJS.Utilities.eventMixin.removeEventListener">
-                /// <summary locid="WinJS.Utilities.eventMixin.removeEventListener">
-                /// Removes an event listener from the control.
-                /// </summary>
-                /// <param name="type" locid="WinJS.Utilities.eventMixin.removeEventListener_p:type">
-                /// The type (name) of the event.
-                /// </param>
-                /// <param name="listener" locid="WinJS.Utilities.eventMixin.removeEventListener_p:listener">
-                /// The listener to remove.
-                /// </param>
-                /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.removeEventListener_p:useCapture">
-                /// Specifies whether to initiate capture.
-                /// </param>
-                /// </signature>
-                useCapture = useCapture || false;
-                var listeners = this._listeners && this._listeners[type];
-                if (listeners) {
-                    for (var i = 0, len = listeners.length; i < len; i++) {
-                        var l = listeners[i];
-                        if (l.listener === listener && l.useCapture === useCapture) {
-                            listeners.splice(i, 1);
-                            if (listeners.length === 0) {
-                                delete this._listeners[type];
-                            }
-                            // Only want to remove one element for each call to removeEventListener
-                            break;
-                        }
-                    }
                 }
             }
-        };
-        // Publish to WinJS namespace
-        var toPublish = {
-            findNextFocusElement: _findNextFocusElement,
-            keyCodeMap: _keyCodeMap,
-            focusableSelectors: FocusableSelectors,
-            moveFocus: _moveFocus,
-            onfocuschanged: _createEventProperty(EventNames.focusChanged),
-            onfocuschanging: _createEventProperty(EventNames.focusChanging),
-            _xyFocus: _xyFocus,
-            _handleKeyDownEvent: _handleKeyDownEvent,
-            _handleKeyUpEvent: _handleKeyUpEvent,
-            _iframeHelper: IFrameHelper
-        };
-        toPublish = _mergeAll([toPublish, eventMixin]);
-        toPublish["_listeners"] = {};
-        var eventSrc = toPublish;
-        window.TVJS = window.TVJS || {};
-        TVJS.DirectionalNavigation = toPublish;
-        Object.defineProperty(window.TVJS.DirectionalNavigation, "enabled", {
-            get: function () {
-                return _enabled;
-            },
-            set: function (value) {
-                _enabled = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(window.TVJS.DirectionalNavigation, "focusRoot", {
-            get: function () {
-                return _focusRoot;
-            },
-            set: function (value) {
-                _focusRoot = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-    }
+        }
+    };
+    // Publish to WinJS namespace
+    var toPublish = {
+        findNextFocusElement: _findNextFocusElement,
+        keyCodeMap: _keyCodeMap,
+        focusableSelectors: FocusableSelectors,
+        moveFocus: _moveFocus,
+        onfocuschanged: _createEventProperty(EventNames.focusChanged),
+        onfocuschanging: _createEventProperty(EventNames.focusChanging),
+        _xyFocus: _xyFocus,
+        _handleKeyDownEvent: _handleKeyDownEvent,
+        _handleKeyUpEvent: _handleKeyUpEvent,
+        _iframeHelper: IFrameHelper
+    };
+    toPublish = _mergeAll([toPublish, eventMixin]);
+    toPublish["_listeners"] = {};
+    var eventSrc = toPublish;
+    window.TVJS = window.TVJS || {};
+    TVJS.DirectionalNavigation = toPublish;
+    Object.defineProperty(window.TVJS.DirectionalNavigation, "enabled", {
+        get: function () {
+            return _enabled;
+        },
+        set: function (value) {
+            _enabled = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(window.TVJS.DirectionalNavigation, "focusRoot", {
+        get: function () {
+            return _focusRoot;
+        },
+        set: function (value) {
+            _focusRoot = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
 
     // The gamepadInputEmulation is a string property that exists in JavaScript UWAs and in WebViews in UWAs.
     // It won't exist in Win8.1 style apps or browsers.
