@@ -19842,13 +19842,51 @@ define('WinJS/Controls/MediaPlayer', [
                                 return returnValue;
                             },
                             sort: that._commandsInternal.sort,
-                            splice: function (index, howManyToRemove, command) {
-                                var returnValue = that._commandsInternal.splice(index, howManyToRemove, command);
+                            splice: function (index, howManyToRemove, command1, command2, command3, command4, command5, command6, command7, command8, command9) {
+                                var returnValue;
+                                if (command1 && command2 && command3 && command4 && command5 && command6 && command7 && command8 && command9) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4, command5, command6, command7, command8, command9);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6 && command7 && command8) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4, command5, command6, command7, command8);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6 && command7) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4, command5, command6, command7);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4, command5, command6);
+                                } else if (command1 && command2 && command3 && command4 && command5) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4, command5);
+                                } else if (command1 && command2 && command3 && command4) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3, command4);
+                                } else if (command1 && command2 && command3) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2, command3);
+                                } else if (command1 && command2) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1, command2);
+                                } else if (command1) {
+                                    returnValue = that._commandsInternal.splice(index, howManyToRemove, command1);
+                                }
                                 that._refreshTransportBarButtons();
                                 return returnValue;
                             },
-                            unshift: function (command) {
-                                var returnValue = that._commandsInternal.unshift();
+                            unshift: function (command1, command2, command3, command4, command5, command6, command7, command8, command9) {
+                                var returnValue;
+                                if (command1 && command2 && command3 && command4 && command5 && command6 && command7 && command8 && command9) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4, command5, command6, command7, command8, command9);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6 && command7 && command8) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4, command5, command6, command7, command8);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6 && command7) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4, command5, command6, command7);
+                                } else if (command1 && command2 && command3 && command4 && command5 && command6) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4, command5, command6);
+                                } else if (command1 && command2 && command3 && command4 && command5) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4, command5);
+                                } else if (command1 && command2 && command3 && command4) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3, command4);
+                                } else if (command1 && command2 && command3) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2, command3);
+                                } else if (command1 && command2) {
+                                    returnValue = that._commandsInternal.unshift(command1, command2);
+                                } else if (command1) {
+                                    returnValue = that._commandsInternal.unshift(command1);
+                                }
                                 that._refreshTransportBarButtons();
                                 return returnValue;
                             },
