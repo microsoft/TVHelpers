@@ -19842,8 +19842,8 @@ define('WinJS/Controls/MediaPlayer', [
                                 return returnValue;
                             },
                             sort: that._commandsInternal.sort,
-                            splice: function (command) {
-                                var returnValue = that._commandsInternal.splice();
+                            splice: function (index, howManyToRemove, command) {
+                                var returnValue = that._commandsInternal.splice(index, howManyToRemove, command);
                                 that._refreshTransportBarButtons();
                                 return returnValue;
                             },
