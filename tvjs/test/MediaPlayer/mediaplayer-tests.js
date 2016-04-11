@@ -247,11 +247,11 @@ function runPlayPauseToggleIconTest(mediaCommand, icon, isPausedInitially, asser
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
     mediaPlayer[mediaCommand].call(mediaPlayer);
     if (icon === "pauseicon") {
-        assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-playicon"));
-        assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
-    } else {
-        assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
         assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-playicon"));
+        assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
+    } else {
+        assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
+        assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-playicon"));
     }
     safeDispose(mediaPlayer);
 };
@@ -389,20 +389,20 @@ QUnit.test("When set compact to false then compact updates", function (assert) {
 QUnit.test("When set compact to true then mediaPlayer has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.compact = true;
-    assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
-    assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
+    assert.ok(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
+    assert.notOk(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
     if (document.body.querySelector(".tv-toolbar-overflowarea")) {
-        assert.notOk(WinJS.Utilities.hasClass(document.body.querySelector(".tv-toolbar-overflowarea"), "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
+        assert.notOk(TVJS.Utilities.hasClass(document.body.querySelector(".tv-toolbar-overflowarea"), "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
     }
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set compact to false then mediaPlayer has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.compact = false;
-    assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
-    assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
+    assert.notOk(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-singlerow"), "MediaPlayer does not have the 'tv-mediaplayer-singlerow' class.");
+    assert.ok(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
     if (document.body.querySelector(".tv-toolbar-overflowarea")) {
-        assert.ok(WinJS.Utilities.hasClass(document.body.querySelector(".tv-toolbar-overflowarea"), "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
+        assert.ok(TVJS.Utilities.hasClass(document.body.querySelector(".tv-toolbar-overflowarea"), "tv-mediaplayer-doublerow"), "MediaPlayer does not have the 'tv-mediaplayer-doublerow' class.");
     }
     safeDispose(mediaPlayer);
 });
@@ -425,26 +425,26 @@ QUnit.test("When set is fullscreenLegacy property name then current property nam
 QUnit.test("When set fullscreen to true then has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = true;
-    assert.ok(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer does not have the 'tv-mediaplayer-fullscreen' class.");
-    assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-focusable"), "MediaPlayer does not have the 'tv-focusable' class.");
+    assert.ok(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer does not have the 'tv-mediaplayer-fullscreen' class.");
+    assert.notOk(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-focusable"), "MediaPlayer does not have the 'tv-focusable' class.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to false then has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = false;
-    assert.notOk(WinJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer has the 'tv-mediaplayer-fullscreen' class.");
+    assert.notOk(TVJS.Utilities.hasClass(mediaPlayer.element, "tv-mediaplayer-fullscreen"), "MediaPlayer has the 'tv-mediaplayer-fullscreen' class.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to true then toggle fullscreen Icon updates", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = true;
-    assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
+    assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set fullscreen to false then toggle fullscreen Icon updates", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.fullScreen = false;
-    assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
+    assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-fullscreenbutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-fullscreenicon"), "fullscreen toggle button icon is incorrect.");
     safeDispose(mediaPlayer);
 });
 
@@ -458,13 +458,13 @@ QUnit.test("When set thumbnailEnabled to false then property updates", function 
 QUnit.test("When set thumbnailEnabled to true then has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.thumbnailEnabled = true;
-    assert.ok(WinJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
+    assert.ok(TVJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
     safeDispose(mediaPlayer);
 });
 QUnit.test("When set thumbnailEnabled to false then has correct classes", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.thumbnailEnabled = false;
-    assert.notOk(WinJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
+    assert.notOk(TVJS.Utilities.hasClass(mediaPlayer._timeline, "tv-mediaplayer-thumbnailmode"), "Does not have the correct classes.");
     safeDispose(mediaPlayer);
 });
 
@@ -1316,7 +1316,7 @@ QUnit.test("Given mediaElement is set to video 1 when mediaElement is set to nul
     var videoTag = document.createElement("video");
     mediaPlayer.mediaElementAdapter.mediaElement = videoTag;
     mediaPlayer.mediaElementAdapter.mediaElement = null;
-    assert.notOk(WinJS.Utilities.hasClass(videoTag, "tv-mediaplayer-video"), "CSS classes added by the mediaPlayer are still present on the video tag even though it was swapped out for a new one.");
+    assert.notOk(TVJS.Utilities.hasClass(videoTag, "tv-mediaplayer-video"), "CSS classes added by the mediaPlayer are still present on the video tag even though it was swapped out for a new one.");
     safeDispose(mediaPlayer);
 });
 
@@ -1332,7 +1332,7 @@ QUnit.test("When mediaElement is set to new mediaElement then new mediaElement h
     var mediaPlayer = new TVJS.MediaPlayer();
     var video = document.createElement("video");
     mediaPlayer.mediaElementAdapter.mediaElement = video;
-    assert.ok(WinJS.Utilities.hasClass(video, "tv-mediaplayer-video"), "CSS class that was added by the mediaPlayer is not present.");
+    assert.ok(TVJS.Utilities.hasClass(video, "tv-mediaplayer-video"), "CSS class that was added by the mediaPlayer is not present.");
     safeDispose(mediaPlayer);
 });
 
@@ -1782,7 +1782,7 @@ QUnit.test("When audioTracks then mediacommandexecuted event fires with correct 
 });
 
 QUnit.test("When Cast then mediacommandexecuted event fires with correct event arguments", function (assert) {
-    if (WinJS.Utilities.hasWinRT) {
+    if (TVJS.Utilities.hasWinRT) {
         runVerifyMediaCommandExecutedEventTest(TVJS.MediaCommand.cast, "_onCastCommandInvoked", assert);
     } else {
         var done = assert.async();
@@ -2389,7 +2389,7 @@ QUnit.test("Given paused when playbackRate is increased to greater than the defa
     mockMediaElement.autoplay = true;
     mockMediaElement.src = "notnull";
     mockMediaElement.playbackRate = 2;
-    assert.ok(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
+    assert.notOk(mediaPlayer.element.querySelector(".tv-mediaplayer-playpausebutton .tv-mediaplayer-icon").classList.contains("tv-mediaplayer-pauseicon"));
     safeDispose(mediaPlayer);
 });
 
@@ -3240,13 +3240,13 @@ QUnit.test("When window resize then does not throw exception", function (assert)
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with no video then default values For mediaPlayer properties are correct", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer is instantiated programatically with no video then default values For mediaPlayer properties are correct", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     assert.ok(mediaPlayer.mediaElementAdapter, "MediaPlayer.mediaElementAdapter was null.");
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with video with valid source then default values For mediaPlayer properties are correct", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer is instantiated programatically with video with valid source then default values For mediaPlayer properties are correct", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     var video = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = video;
@@ -3261,7 +3261,7 @@ QUnit.test("Given Winjs when mediaPlayer is instantiated programatically with vi
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer constructor is called with a null element then a mediaPlayer control is created", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer constructor is called with a null element then a mediaPlayer control is created", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer(null);
     assert.ok(mediaPlayer.mediaElementAdapter, "MediaPlayer.mediaElementAdapter was null.");
     assert.equal(true, mediaPlayer.thumbnailEnabled, "mediaPlayer.thumbnailEnabled was not 'true'.");
@@ -3270,14 +3270,14 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with a null eleme
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer constructor is called with an element that is not in the DOM then a mediaPlayer control is created", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer constructor is called with an element that is not in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("div");
     var mediaPlayer = new TVJS.MediaPlayer(element);
     assert.equal(element, mediaPlayer.element, "MediaPlayer.element was not the element we used to instantiate it with.");
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer constructor is called with an element that is in the DOM then a mediaPlayer control is created", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer constructor is called with an element that is in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("div");
     document.body.appendChild(element);
     var mediaPlayer = new TVJS.MediaPlayer(element);
@@ -3287,7 +3287,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with an element t
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer constructor is called with a non Div element that is in the DOM then a mediaPlayer control is created", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer constructor is called with a non Div element that is in the DOM then a mediaPlayer control is created", function (assert) {
     var element = document.createElement("img");
     document.body.appendChild(element);
     var mediaPlayer = new TVJS.MediaPlayer(element);
@@ -3297,13 +3297,13 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called with a non Div el
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when media player constructor is called with options then options are set", function (assert) {
+QUnit.test("Given TVJS when media player constructor is called with options then options are set", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer(null, { foo: "bar" });
     assert.equal("bar", mediaPlayer.foo, "We were able to set the options on the element.");
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer constructor is called then expected DOM methods are added", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer constructor is called then expected DOM methods are added", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     assert.ok(mediaPlayer.addEventListener, "The mediaPlayer control does not have all the expected DOM methods.");
     assert.ok(mediaPlayer.dispatchEvent, "The mediaPlayer control does not have all the expected DOM methods.");
@@ -3311,7 +3311,7 @@ QUnit.test("Given WinJS when mediaPlayer constructor is called then expected DOM
     safeDispose(mediaPlayer);
 });
 
-QUnit.test("Given WinJS when mediaPlayer dispose is called twice then no exception is thrown", function (assert) {
+QUnit.test("Given TVJS when mediaPlayer dispose is called twice then no exception is thrown", function (assert) {
     var wasExceptionThrown = false;
     var mediaPlayer = new TVJS.MediaPlayer();
     mediaPlayer.dispose();
@@ -3325,7 +3325,7 @@ QUnit.test("Given WinJS when mediaPlayer dispose is called twice then no excepti
 });
 
 QUnit.module("Thumbnail events");
-QUnit.test("Given WinJS when fast fowarding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
+QUnit.test("Given TVJS when fast fowarding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
     var done = assert.async();
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
@@ -3344,7 +3344,7 @@ QUnit.test("Given WinJS when fast fowarding and thumbnail enabled then raise thu
     mediaPlayer._onFastForwardRewindTimerTick();
 });
 
-QUnit.test("Given WinJS when rewinding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
+QUnit.test("Given TVJS when rewinding and thumbnail enabled then raise thumbnailRequest event", function (assert) {
     var done = assert.async();
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
@@ -3362,7 +3362,7 @@ QUnit.test("Given WinJS when rewinding and thumbnail enabled then raise thumbnai
     mediaPlayer._onFastForwardRewindTimerTick();
 });
 
-QUnit.test("Given WinJS when fast fowarding and not thumbnailEnabled then not thumbnailRequest event", function (assert) {
+QUnit.test("Given TVJS when fast fowarding and not thumbnailEnabled then not thumbnailRequest event", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -3380,7 +3380,7 @@ QUnit.test("Given WinJS when fast fowarding and not thumbnailEnabled then not th
     assert.ok(true);
 });
 
-QUnit.test("Given WinJS when rewinding and not thumbnailEnabled then no thumbnailRequest event", function (assert) {
+QUnit.test("Given TVJS when rewinding and not thumbnailEnabled then no thumbnailRequest event", function (assert) {
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
@@ -3398,7 +3398,7 @@ QUnit.test("Given WinJS when rewinding and not thumbnailEnabled then no thumbnai
     assert.ok(true);
 });
 
-QUnit.test("Given WinJS when fast forward then targetRatechanged event", function (assert) {
+QUnit.test("Given TVJS when fast forward then targetRatechanged event", function (assert) {
     var done = assert.async();
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
@@ -3416,7 +3416,7 @@ QUnit.test("Given WinJS when fast forward then targetRatechanged event", functio
     mediaPlayer.fastForward();
 });
 
-QUnit.test("Given WinJS when fastForward then targetTimeupdate event", function (assert) {
+QUnit.test("Given TVJS when fastForward then targetTimeupdate event", function (assert) {
     var done = assert.async();
     var mediaPlayer = new TVJS.MediaPlayer();
     var mockMediaElement = new Test.MockMediaElement();
@@ -3468,11 +3468,11 @@ QUnit.test("When focus in overlay and space or GamepadA then controls don't show
     mockMediaElement.autoplay = true;
     mockMediaElement.src = "notnull";
     mediaPlayer.mediaElementAdapter.mediaElement = mockMediaElement;
-    WinJS.Utilities.addClass(overlay, ".tv-overlay");
+    TVJS.Utilities.addClass(overlay, ".tv-overlay");
     document.body.appendChild(overlay);
     overlay.focus();
-    mediaPlayer._onInputHandlerKeyDown({ keyCode: WinJS.Utilities.space });
-    mediaPlayer._onInputHandlerKeyDown({ keyCode: WinJS.Utilities.gamepadA });
+    mediaPlayer._onInputHandlerKeyDown({ keyCode: TVJS.Utilities.space });
+    mediaPlayer._onInputHandlerKeyDown({ keyCode: TVJS.Utilities.gamepadA });
     assert.notOk(mediaPlayer.controlsVisible);
     document.body.removeChild(overlay);
     safeDispose(mediaPlayer);

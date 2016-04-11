@@ -18,8 +18,8 @@ var MediaPlayerTests;
         //   but very difficult to do with a real video or audio element.
         // * Tests are more resilient. A true video or audio tag can fail intermittently for reason unrelated to WinJS
         //   or the test being run. This fake video or audio tag is unlikely to.
-        WinJS.Namespace.define("Test", {
-            MockMediaElement: WinJS.Class.define(function _ctor() {
+        TVJS.Namespace.define("Test", {
+            MockMediaElement: TVJS.Class.define(function _ctor() {
                 this._src = null;
                 this._duration = 0;
                 this._mockMediaElement = true;
@@ -159,7 +159,7 @@ var MediaPlayerTests;
         });
 
         Test.prototype = Test.MockMediaElement;
-        WinJS.Class.mix(Test.MockMediaElement, WinJS.UI.DOMEventMixin);
+        TVJS.Class.mix(Test.MockMediaElement, TVJS.UI.DOMEventMixin);
 
     })(Utilities = MediaPlayerTests.Utilities || (MediaPlayerTests.Utilities = {}));
 })(MediaPlayerTests || (MediaPlayerTests = {}));

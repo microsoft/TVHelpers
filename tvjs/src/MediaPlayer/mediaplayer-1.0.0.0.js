@@ -40,10 +40,10 @@
                 factory();
             } else {
                 // No module system
-                factory(globalObject.WinJS);
+                factory(globalObject.TVJS);
             }
         }
-    }(function (WinJS) {
+    }(function (TVJS) {
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 /*jshint ignore:start */
@@ -73,8 +73,8 @@ var define;
         defined[id] = mod;
     };
 
-    // WinJS/Core depends on ./Core/_Base
-    // should return WinJS/Core/_Base
+    // TVJS/Core depends on ./Core/_Base
+    // should return TVJS/Core/_Base
     function normalize(id, dependencies) {
         id = id || "";
         var parent = id.split('/');
@@ -145,10 +145,10 @@ var define;
 define("amd", function(){});
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_WinJS',{});
+define('TVJS/Core/_TVJS',{});
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Global',[], function () {
+define('TVJS/Core/_Global',[], function () {
     "use strict";
     
     // Appease jshint
@@ -163,7 +163,7 @@ define('WinJS/Core/_Global',[], function () {
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_BaseCoreUtils',[
+define('TVJS/Core/_BaseCoreUtils',[
     './_Global'
     ], function baseCoreUtilsInit(_Global) {
     "use strict";
@@ -171,15 +171,15 @@ define('WinJS/Core/_BaseCoreUtils',[
     var hasWinRT = !!_Global.Windows;
 
     function markSupportedForProcessing(func) {
-        /// <signature helpKeyword="WinJS.Utilities.markSupportedForProcessing">
-        /// <summary locid="WinJS.Utilities.markSupportedForProcessing">
-        /// Marks a function as being compatible with declarative processing, such as WinJS.UI.processAll
-        /// or WinJS.Binding.processAll.
+        /// <signature helpKeyword="TVJS.Utilities.markSupportedForProcessing">
+        /// <summary locid="TVJS.Utilities.markSupportedForProcessing">
+        /// Marks a function as being compatible with declarative processing, such as TVJS.UI.processAll
+        /// or TVJS.Binding.processAll.
         /// </summary>
-        /// <param name="func" type="Function" locid="WinJS.Utilities.markSupportedForProcessing_p:func">
+        /// <param name="func" type="Function" locid="TVJS.Utilities.markSupportedForProcessing_p:func">
         /// The function to be marked as compatible with declarative processing.
         /// </param>
-        /// <returns type="Function" locid="WinJS.Utilities.markSupportedForProcessing_returnValue">
+        /// <returns type="Function" locid="TVJS.Utilities.markSupportedForProcessing_returnValue">
         /// The input function.
         /// </returns>
         /// </signature>
@@ -196,11 +196,11 @@ define('WinJS/Core/_BaseCoreUtils',[
     };
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Base',[
-    './_WinJS',
+define('TVJS/Core/_Base',[
+    './_TVJS',
     './_Global',
     './_BaseCoreUtils'
-    ], function baseInit(_WinJS, _Global, _BaseCoreUtils) {
+    ], function baseInit(_TVJS, _Global, _BaseCoreUtils) {
     "use strict";
 
     function initializeProperties(target, members, prefix) {
@@ -251,7 +251,7 @@ define('WinJS/Core/_Base',[
 
     (function () {
 
-        var _rootNamespace = _WinJS;
+        var _rootNamespace = _TVJS;
         if (!_rootNamespace.Namespace) {
             _rootNamespace.Namespace = Object.create(Object.prototype);
         }
@@ -260,8 +260,8 @@ define('WinJS/Core/_Base',[
             var currentNamespace = parentNamespace || {};
             if (name) {
                 var namespaceFragments = name.split(".");
-                if (currentNamespace === _Global && namespaceFragments[0] === "WinJS") {
-                    currentNamespace = _WinJS;
+                if (currentNamespace === _Global && namespaceFragments[0] === "TVJS") {
+                    currentNamespace = _TVJS;
                     namespaceFragments.splice(0, 1);
                 }
                 for (var i = 0, len = namespaceFragments.length; i < len; i++) {
@@ -278,20 +278,20 @@ define('WinJS/Core/_Base',[
         }
 
         function defineWithParent(parentNamespace, name, members) {
-            /// <signature helpKeyword="WinJS.Namespace.defineWithParent">
-            /// <summary locid="WinJS.Namespace.defineWithParent">
+            /// <signature helpKeyword="TVJS.Namespace.defineWithParent">
+            /// <summary locid="TVJS.Namespace.defineWithParent">
             /// Defines a new namespace with the specified name under the specified parent namespace.
             /// </summary>
-            /// <param name="parentNamespace" type="Object" locid="WinJS.Namespace.defineWithParent_p:parentNamespace">
+            /// <param name="parentNamespace" type="Object" locid="TVJS.Namespace.defineWithParent_p:parentNamespace">
             /// The parent namespace.
             /// </param>
-            /// <param name="name" type="String" locid="WinJS.Namespace.defineWithParent_p:name">
+            /// <param name="name" type="String" locid="TVJS.Namespace.defineWithParent_p:name">
             /// The name of the new namespace.
             /// </param>
-            /// <param name="members" type="Object" locid="WinJS.Namespace.defineWithParent_p:members">
+            /// <param name="members" type="Object" locid="TVJS.Namespace.defineWithParent_p:members">
             /// The members of the new namespace.
             /// </param>
-            /// <returns type="Object" locid="WinJS.Namespace.defineWithParent_returnValue">
+            /// <returns type="Object" locid="TVJS.Namespace.defineWithParent_returnValue">
             /// The newly-defined namespace.
             /// </returns>
             /// </signature>
@@ -305,17 +305,17 @@ define('WinJS/Core/_Base',[
         }
 
         function define(name, members) {
-            /// <signature helpKeyword="WinJS.Namespace.define">
-            /// <summary locid="WinJS.Namespace.define">
+            /// <signature helpKeyword="TVJS.Namespace.define">
+            /// <summary locid="TVJS.Namespace.define">
             /// Defines a new namespace with the specified name.
             /// </summary>
-            /// <param name="name" type="String" locid="WinJS.Namespace.define_p:name">
+            /// <param name="name" type="String" locid="TVJS.Namespace.define_p:name">
             /// The name of the namespace. This could be a dot-separated name for nested namespaces.
             /// </param>
-            /// <param name="members" type="Object" locid="WinJS.Namespace.define_p:members">
+            /// <param name="members" type="Object" locid="TVJS.Namespace.define_p:members">
             /// The members of the new namespace.
             /// </param>
-            /// <returns type="Object" locid="WinJS.Namespace.define_returnValue">
+            /// <returns type="Object" locid="TVJS.Namespace.define_returnValue">
             /// The newly-defined namespace.
             /// </returns>
             /// </signature>
@@ -387,7 +387,7 @@ define('WinJS/Core/_Base',[
             return publicNS;
         }
 
-        // Establish members of the "WinJS.Namespace" namespace
+        // Establish members of the "TVJS.Namespace" namespace
         Object.defineProperties(_rootNamespace.Namespace, {
 
             defineWithParent: { value: defineWithParent, writable: true, enumerable: true, configurable: true },
@@ -405,20 +405,20 @@ define('WinJS/Core/_Base',[
     (function () {
 
         function define(constructor, instanceMembers, staticMembers) {
-            /// <signature helpKeyword="WinJS.Class.define">
-            /// <summary locid="WinJS.Class.define">
+            /// <signature helpKeyword="TVJS.Class.define">
+            /// <summary locid="TVJS.Class.define">
             /// Defines a class using the given constructor and the specified instance members.
             /// </summary>
-            /// <param name="constructor" type="Function" locid="WinJS.Class.define_p:constructor">
+            /// <param name="constructor" type="Function" locid="TVJS.Class.define_p:constructor">
             /// A constructor function that is used to instantiate this class.
             /// </param>
-            /// <param name="instanceMembers" type="Object" locid="WinJS.Class.define_p:instanceMembers">
+            /// <param name="instanceMembers" type="Object" locid="TVJS.Class.define_p:instanceMembers">
             /// The set of instance fields, properties, and methods made available on the class.
             /// </param>
-            /// <param name="staticMembers" type="Object" locid="WinJS.Class.define_p:staticMembers">
+            /// <param name="staticMembers" type="Object" locid="TVJS.Class.define_p:staticMembers">
             /// The set of static fields, properties, and methods made available on the class.
             /// </param>
-            /// <returns type="Function" locid="WinJS.Class.define_returnValue">
+            /// <returns type="Function" locid="TVJS.Class.define_returnValue">
             /// The newly-defined class.
             /// </returns>
             /// </signature>
@@ -434,23 +434,23 @@ define('WinJS/Core/_Base',[
         }
 
         function derive(baseClass, constructor, instanceMembers, staticMembers) {
-            /// <signature helpKeyword="WinJS.Class.derive">
-            /// <summary locid="WinJS.Class.derive">
+            /// <signature helpKeyword="TVJS.Class.derive">
+            /// <summary locid="TVJS.Class.derive">
             /// Creates a sub-class based on the supplied baseClass parameter, using prototypal inheritance.
             /// </summary>
-            /// <param name="baseClass" type="Function" locid="WinJS.Class.derive_p:baseClass">
+            /// <param name="baseClass" type="Function" locid="TVJS.Class.derive_p:baseClass">
             /// The class to inherit from.
             /// </param>
-            /// <param name="constructor" type="Function" locid="WinJS.Class.derive_p:constructor">
+            /// <param name="constructor" type="Function" locid="TVJS.Class.derive_p:constructor">
             /// A constructor function that is used to instantiate this class.
             /// </param>
-            /// <param name="instanceMembers" type="Object" locid="WinJS.Class.derive_p:instanceMembers">
+            /// <param name="instanceMembers" type="Object" locid="TVJS.Class.derive_p:instanceMembers">
             /// The set of instance fields, properties, and methods to be made available on the class.
             /// </param>
-            /// <param name="staticMembers" type="Object" locid="WinJS.Class.derive_p:staticMembers">
+            /// <param name="staticMembers" type="Object" locid="TVJS.Class.derive_p:staticMembers">
             /// The set of static fields, properties, and methods to be made available on the class.
             /// </param>
-            /// <returns type="Function" locid="WinJS.Class.derive_returnValue">
+            /// <returns type="Function" locid="TVJS.Class.derive_returnValue">
             /// The newly-defined class.
             /// </returns>
             /// </signature>
@@ -473,15 +473,15 @@ define('WinJS/Core/_Base',[
         }
 
         function mix(constructor) {
-            /// <signature helpKeyword="WinJS.Class.mix">
-            /// <summary locid="WinJS.Class.mix">
+            /// <signature helpKeyword="TVJS.Class.mix">
+            /// <summary locid="TVJS.Class.mix">
             /// Defines a class using the given constructor and the union of the set of instance members
             /// specified by all the mixin objects. The mixin parameter list is of variable length.
             /// </summary>
-            /// <param name="constructor" locid="WinJS.Class.mix_p:constructor">
+            /// <param name="constructor" locid="TVJS.Class.mix_p:constructor">
             /// A constructor function that is used to instantiate this class.
             /// </param>
-            /// <returns type="Function" locid="WinJS.Class.mix_returnValue">
+            /// <returns type="Function" locid="TVJS.Class.mix_returnValue">
             /// The newly-defined class.
             /// </returns>
             /// </signature>
@@ -493,8 +493,8 @@ define('WinJS/Core/_Base',[
             return constructor;
         }
 
-        // Establish members of "WinJS.Class" namespace
-        _WinJS.Namespace.define("WinJS.Class", {
+        // Establish members of "TVJS.Class" namespace
+        _TVJS.Namespace.define("TVJS.Class", {
             define: define,
             derive: derive,
             mix: mix
@@ -503,24 +503,24 @@ define('WinJS/Core/_Base',[
     })();
 
     return {
-        Namespace: _WinJS.Namespace,
-        Class: _WinJS.Class
+        Namespace: _TVJS.Namespace,
+        Class: _TVJS.Class
     };
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_ErrorFromName',[
+define('TVJS/Core/_ErrorFromName',[
     './_Base'
     ], function errorsInit(_Base) {
     "use strict";
 
     var ErrorFromName = _Base.Class.derive(Error, function (name, message) {
-        /// <signature helpKeyword="WinJS.ErrorFromName">
-        /// <summary locid="WinJS.ErrorFromName">
+        /// <signature helpKeyword="TVJS.ErrorFromName">
+        /// <summary locid="TVJS.ErrorFromName">
         /// Creates an Error object with the specified name and message properties.
         /// </summary>
-        /// <param name="name" type="String" locid="WinJS.ErrorFromName_p:name">The name of this error. The name is meant to be consumed programmatically and should not be localized.</param>
-        /// <param name="message" type="String" optional="true" locid="WinJS.ErrorFromName_p:message">The message for this error. The message is meant to be consumed by humans and should be localized.</param>
-        /// <returns type="Error" locid="WinJS.ErrorFromName_returnValue">Error instance with .name and .message properties populated</returns>
+        /// <param name="name" type="String" locid="TVJS.ErrorFromName_p:name">The name of this error. The name is meant to be consumed programmatically and should not be localized.</param>
+        /// <param name="message" type="String" optional="true" locid="TVJS.ErrorFromName_p:message">The message for this error. The message is meant to be consumed by humans and should be localized.</param>
+        /// <returns type="Error" locid="TVJS.ErrorFromName_returnValue">Error instance with .name and .message properties populated</returns>
         /// </signature>
         this.name = name;
         this.message = message || name;
@@ -530,7 +530,7 @@ define('WinJS/Core/_ErrorFromName',[
         supportedForProcessing: false,
     });
 
-    _Base.Namespace.define("WinJS", {
+    _Base.Namespace.define("TVJS", {
         // ErrorFromName establishes a simple pattern for returning error codes.
         //
         ErrorFromName: ErrorFromName
@@ -542,7 +542,7 @@ define('WinJS/Core/_ErrorFromName',[
 
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_WinRT',[
+define('TVJS/Core/_WinRT',[
     'exports',
     './_Global',
     './_Base',
@@ -625,7 +625,7 @@ define('WinJS/Core/_WinRT',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Events',[
+define('TVJS/Core/_Events',[
     'exports',
     './_Base'
     ], function eventsInit(exports, _Base) {
@@ -659,14 +659,14 @@ define('WinJS/Core/_Events',[
     }
 
     function createEventProperties() {
-        /// <signature helpKeyword="WinJS.Utilities.createEventProperties">
-        /// <summary locid="WinJS.Utilities.createEventProperties">
+        /// <signature helpKeyword="TVJS.Utilities.createEventProperties">
+        /// <summary locid="TVJS.Utilities.createEventProperties">
         /// Creates an object that has one property for each name passed to the function.
         /// </summary>
-        /// <param name="events" locid="WinJS.Utilities.createEventProperties_p:events">
+        /// <param name="events" locid="TVJS.Utilities.createEventProperties_p:events">
         /// A variable list of property names.
         /// </param>
-        /// <returns type="Object" locid="WinJS.Utilities.createEventProperties_returnValue">
+        /// <returns type="Object" locid="TVJS.Utilities.createEventProperties_returnValue">
         /// The object with the specified properties. The names of the properties are prefixed with 'on'.
         /// </returns>
         /// </signature>
@@ -717,17 +717,17 @@ define('WinJS/Core/_Events',[
         _listeners: null,
 
         addEventListener: function (type, listener, useCapture) {
-            /// <signature helpKeyword="WinJS.Utilities.eventMixin.addEventListener">
-            /// <summary locid="WinJS.Utilities.eventMixin.addEventListener">
+            /// <signature helpKeyword="TVJS.Utilities.eventMixin.addEventListener">
+            /// <summary locid="TVJS.Utilities.eventMixin.addEventListener">
             /// Adds an event listener to the control.
             /// </summary>
-            /// <param name="type" locid="WinJS.Utilities.eventMixin.addEventListener_p:type">
+            /// <param name="type" locid="TVJS.Utilities.eventMixin.addEventListener_p:type">
             /// The type (name) of the event.
             /// </param>
-            /// <param name="listener" locid="WinJS.Utilities.eventMixin.addEventListener_p:listener">
+            /// <param name="listener" locid="TVJS.Utilities.eventMixin.addEventListener_p:listener">
             /// The listener to invoke when the event is raised.
             /// </param>
-            /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.addEventListener_p:useCapture">
+            /// <param name="useCapture" locid="TVJS.Utilities.eventMixin.addEventListener_p:useCapture">
             /// if true initiates capture, otherwise false.
             /// </param>
             /// </signature>
@@ -743,17 +743,17 @@ define('WinJS/Core/_Events',[
             eventListeners.push({ listener: listener, useCapture: useCapture });
         },
         dispatchEvent: function (type, details) {
-            /// <signature helpKeyword="WinJS.Utilities.eventMixin.dispatchEvent">
-            /// <summary locid="WinJS.Utilities.eventMixin.dispatchEvent">
+            /// <signature helpKeyword="TVJS.Utilities.eventMixin.dispatchEvent">
+            /// <summary locid="TVJS.Utilities.eventMixin.dispatchEvent">
             /// Raises an event of the specified type and with the specified additional properties.
             /// </summary>
-            /// <param name="type" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:type">
+            /// <param name="type" locid="TVJS.Utilities.eventMixin.dispatchEvent_p:type">
             /// The type (name) of the event.
             /// </param>
-            /// <param name="details" locid="WinJS.Utilities.eventMixin.dispatchEvent_p:details">
+            /// <param name="details" locid="TVJS.Utilities.eventMixin.dispatchEvent_p:details">
             /// The set of additional properties to be attached to the event object when the event is raised.
             /// </param>
-            /// <returns type="Boolean" locid="WinJS.Utilities.eventMixin.dispatchEvent_returnValue">
+            /// <returns type="Boolean" locid="TVJS.Utilities.eventMixin.dispatchEvent_returnValue">
             /// true if preventDefault was called on the event.
             /// </returns>
             /// </signature>
@@ -770,17 +770,17 @@ define('WinJS/Core/_Events',[
             return false;
         },
         removeEventListener: function (type, listener, useCapture) {
-            /// <signature helpKeyword="WinJS.Utilities.eventMixin.removeEventListener">
-            /// <summary locid="WinJS.Utilities.eventMixin.removeEventListener">
+            /// <signature helpKeyword="TVJS.Utilities.eventMixin.removeEventListener">
+            /// <summary locid="TVJS.Utilities.eventMixin.removeEventListener">
             /// Removes an event listener from the control.
             /// </summary>
-            /// <param name="type" locid="WinJS.Utilities.eventMixin.removeEventListener_p:type">
+            /// <param name="type" locid="TVJS.Utilities.eventMixin.removeEventListener_p:type">
             /// The type (name) of the event.
             /// </param>
-            /// <param name="listener" locid="WinJS.Utilities.eventMixin.removeEventListener_p:listener">
+            /// <param name="listener" locid="TVJS.Utilities.eventMixin.removeEventListener_p:listener">
             /// The listener to remove.
             /// </param>
-            /// <param name="useCapture" locid="WinJS.Utilities.eventMixin.removeEventListener_p:useCapture">
+            /// <param name="useCapture" locid="TVJS.Utilities.eventMixin.removeEventListener_p:useCapture">
             /// Specifies whether to initiate capture.
             /// </param>
             /// </signature>
@@ -802,7 +802,7 @@ define('WinJS/Core/_Events',[
         }
     };
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         _createEventProperty: createEventProperty,
         createEventProperties: createEventProperties,
         eventMixin: eventMixin
@@ -813,7 +813,7 @@ define('WinJS/Core/_Events',[
 
 define('require-json',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
 
-define('require-json!strings/en-us/Microsoft.WinJS.resjson',{
+define('require-json!strings/en-us/Microsoft.TVJS.resjson',{
     "ui/appBarAriaLabel": "App Bar",
     "ui/appBarCommandAriaLabel": "App Bar Item",
     "ui/appBarOverflowButtonAriaLabel": "View more",
@@ -1315,18 +1315,18 @@ define('require-json!strings/en-us/Microsoft.WinJS.resjson',{
 }
 );
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Resources',[
+define('TVJS/Core/_Resources',[
     'exports',
     './_Global',
     './_WinRT',
     './_Base',
     './_Events',
-    'require-json!strings/en-us/Microsoft.WinJS.resjson',
+    'require-json!strings/en-us/Microsoft.TVJS.resjson',
     ], function resourcesInit(exports, _Global, _WinRT, _Base, _Events, defaultStrings) {
     "use strict";
 
-    function _getWinJSString(id) {
-        var result = getString("ms-resource:///Microsoft.WinJS/" + id);
+    function _getTVJSString(id) {
+        var result = getString("ms-resource:///Microsoft.TVJS/" + id);
 
         if (result.empty) {
             result = _getStringBuiltIn(id);
@@ -1358,8 +1358,8 @@ define('WinJS/Core/_Resources',[
         get malformedFormatStringInput() { return "Malformed, did you mean to escape your '{0}'?"; },
     };
 
-    _Base.Namespace.define("WinJS.Resources", {
-        _getWinJSString: _getWinJSString
+    _Base.Namespace.define("TVJS.Resources", {
+        _getTVJSString: _getTVJSString
     });
 
     function formatString(string) {
@@ -1373,19 +1373,19 @@ define('WinJS/Core/_Resources',[
         return string;
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Resources", {
         addEventListener: function (type, listener, useCapture) {
-            /// <signature helpKeyword="WinJS.Resources.addEventListener">
-            /// <summary locid="WinJS.Resources.addEventListener">
+            /// <signature helpKeyword="TVJS.Resources.addEventListener">
+            /// <summary locid="TVJS.Resources.addEventListener">
             /// Registers an event handler for the specified event.
             /// </summary>
-            /// <param name='type' type="String" locid='WinJS.Resources.addEventListener_p:type'>
+            /// <param name='type' type="String" locid='TVJS.Resources.addEventListener_p:type'>
             /// The name of the event to handle.
             /// </param>
-            /// <param name='listener' type="Function" locid='WinJS.Resources.addEventListener_p:listener'>
+            /// <param name='listener' type="Function" locid='TVJS.Resources.addEventListener_p:listener'>
             /// The listener to invoke when the event gets raised.
             /// </param>
-            /// <param name='useCapture' type="Boolean" locid='WinJS.Resources.addEventListener_p:useCapture'>
+            /// <param name='useCapture' type="Boolean" locid='TVJS.Resources.addEventListener_p:useCapture'>
             /// Set to true to register the event handler for the capturing phase; set to false to register for the bubbling phase.
             /// </param>
             /// </signature>
@@ -1493,14 +1493,14 @@ define('WinJS/Core/_Resources',[
     var getStringImpl = _WinRT.Windows.ApplicationModel.Resources.Core.ResourceManager ? exports._getStringWinRT : exports._getStringJS;
 
     var getString = function (resourceId) {
-        /// <signature helpKeyword="WinJS.Resources.getString">
-        /// <summary locid='WinJS.Resources.getString'>
+        /// <signature helpKeyword="TVJS.Resources.getString">
+        /// <summary locid='TVJS.Resources.getString'>
         /// Retrieves the resource string that has the specified resource id.
         /// </summary>
-        /// <param name='resourceId' type="Number" locid='WinJS.Resources.getString._p:resourceId'>
+        /// <param name='resourceId' type="Number" locid='TVJS.Resources.getString._p:resourceId'>
         /// The resource id of the string to retrieve.
         /// </param>
-        /// <returns type='Object' locid='WinJS.Resources.getString_returnValue'>
+        /// <returns type='Object' locid='TVJS.Resources.getString_returnValue'>
         /// An object that can contain these properties:
         ///
         /// value:
@@ -1523,10 +1523,10 @@ define('WinJS/Core/_Resources',[
 
     _Base.Namespace._moduleDefine(exports, null, {
         _formatString: formatString,
-        _getWinJSString: _getWinJSString
+        _getTVJSString: _getTVJSString
     });
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Resources", {
         getString: {
             get: function () {
                 return getString;
@@ -1540,7 +1540,7 @@ define('WinJS/Core/_Resources',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Trace',[
+define('TVJS/Core/_Trace',[
     './_Global'
     ], function traceInit(_Global) {
     "use strict";
@@ -1557,7 +1557,7 @@ define('WinJS/Core/_Trace',[
     };
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Promise/_StateMachine',[
+define('TVJS/Promise/_StateMachine',[
     '../Core/_Global',
     '../Core/_BaseCoreUtils',
     '../Core/_Base',
@@ -1589,7 +1589,7 @@ define('WinJS/Promise/_StateMachine',[
     // Global error counter, for each error which enters the system we increment this once and then
     // the error number travels with the error as it traverses the tree of potential handlers.
     //
-    // When someone has registered to be told about errors (WinJS.Promise.callonerror) promises
+    // When someone has registered to be told about errors (TVJS.Promise.callonerror) promises
     // which are in error will get tagged with a ._errorId field. This tagged field is the
     // contract by which nested promises with errors will be identified as chaining for the
     // purposes of the callonerror semantics. If a nested promise in error is encountered without
@@ -1902,8 +1902,8 @@ define('WinJS/Promise/_StateMachine',[
         _value: null,
 
         cancel: function () {
-            /// <signature helpKeyword="WinJS.PromiseStateMachine.cancel">
-            /// <summary locid="WinJS.PromiseStateMachine.cancel">
+            /// <signature helpKeyword="TVJS.PromiseStateMachine.cancel">
+            /// <summary locid="TVJS.PromiseStateMachine.cancel">
             /// Attempts to cancel the fulfillment of a promised value. If the promise hasn't
             /// already been fulfilled and cancellation is supported, the promise enters
             /// the error state with a value of Error("Canceled").
@@ -1913,8 +1913,8 @@ define('WinJS/Promise/_StateMachine',[
             this._run();
         },
         done: function Promise_done(onComplete, onError, onProgress) {
-            /// <signature helpKeyword="WinJS.PromiseStateMachine.done">
-            /// <summary locid="WinJS.PromiseStateMachine.done">
+            /// <signature helpKeyword="TVJS.PromiseStateMachine.done">
+            /// <summary locid="TVJS.PromiseStateMachine.done">
             /// Allows you to specify the work to be done on the fulfillment of the promised value,
             /// the error handling to be performed if the promise fails to fulfill
             /// a value, and the handling of progress notifications along the way.
@@ -1922,7 +1922,7 @@ define('WinJS/Promise/_StateMachine',[
             /// After the handlers have finished executing, this function throws any error that would have been returned
             /// from then() as a promise in the error state.
             /// </summary>
-            /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.done_p:onComplete">
+            /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.done_p:onComplete">
             /// The function to be called if the promise is fulfilled successfully with a value.
             /// The fulfilled value is passed as the single argument. If the value is null,
             /// the fulfilled value is returned. The value returned
@@ -1930,12 +1930,12 @@ define('WinJS/Promise/_StateMachine',[
             /// then(). If an exception is thrown while executing the function, the promise returned
             /// by then() moves into the error state.
             /// </param>
-            /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onError">
+            /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onError">
             /// The function to be called if the promise is fulfilled with an error. The error
             /// is passed as the single argument. If it is null, the error is forwarded.
             /// The value returned from the function is the fulfilled value of the promise returned by then().
             /// </param>
-            /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onProgress">
+            /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onProgress">
             /// the function to be called if the promise reports progress. Data about the progress
             /// is passed as the single argument. Promises are not required to support
             /// progress.
@@ -1944,30 +1944,30 @@ define('WinJS/Promise/_StateMachine',[
             this._state.done(this, onComplete, onError, onProgress);
         },
         then: function Promise_then(onComplete, onError, onProgress) {
-            /// <signature helpKeyword="WinJS.PromiseStateMachine.then">
-            /// <summary locid="WinJS.PromiseStateMachine.then">
+            /// <signature helpKeyword="TVJS.PromiseStateMachine.then">
+            /// <summary locid="TVJS.PromiseStateMachine.then">
             /// Allows you to specify the work to be done on the fulfillment of the promised value,
             /// the error handling to be performed if the promise fails to fulfill
             /// a value, and the handling of progress notifications along the way.
             /// </summary>
-            /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.then_p:onComplete">
+            /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.then_p:onComplete">
             /// The function to be called if the promise is fulfilled successfully with a value.
             /// The value is passed as the single argument. If the value is null, the value is returned.
             /// The value returned from the function becomes the fulfilled value of the promise returned by
             /// then(). If an exception is thrown while this function is being executed, the promise returned
             /// by then() moves into the error state.
             /// </param>
-            /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onError">
+            /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onError">
             /// The function to be called if the promise is fulfilled with an error. The error
             /// is passed as the single argument. If it is null, the error is forwarded.
             /// The value returned from the function becomes the fulfilled value of the promise returned by then().
             /// </param>
-            /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onProgress">
+            /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onProgress">
             /// The function to be called if the promise reports progress. Data about the progress
             /// is passed as the single argument. Promises are not required to support
             /// progress.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.PromiseStateMachine.then_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.PromiseStateMachine.then_returnValue">
             /// The promise whose value is the result of executing the complete or
             /// error function.
             /// </returns>
@@ -2090,7 +2090,7 @@ define('WinJS/Promise/_StateMachine',[
         );
     }
     function done(promise, onComplete, onError, onProgress) {
-        var asyncOpID = _Trace._traceAsyncOperationStarting("WinJS.Promise.done");
+        var asyncOpID = _Trace._traceAsyncOperationStarting("TVJS.Promise.done");
         pushListener(promise, { c: onComplete, e: onError, p: onProgress, asyncOpID: asyncOpID });
     }
     function error(promise, value, onerrorDetails, context) {
@@ -2235,7 +2235,7 @@ define('WinJS/Promise/_StateMachine',[
     }
     function then(promise, onComplete, onError, onProgress) {
         var result = new ThenPromise(promise);
-        var asyncOpID = _Trace._traceAsyncOperationStarting("WinJS.Promise.then");
+        var asyncOpID = _Trace._traceAsyncOperationStarting("TVJS.Promise.then");
         pushListener(promise, { promise: result, c: onComplete, e: onError, p: onProgress, asyncOpID: asyncOpID });
         return result;
     }
@@ -2266,8 +2266,8 @@ define('WinJS/Promise/_StateMachine',[
 
     //
     // Slim promise implementations for already completed promises, these are created
-    // under the hood on synchronous completion paths as well as by WinJS.Promise.wrap
-    // and WinJS.Promise.wrapError.
+    // under the hood on synchronous completion paths as well as by TVJS.Promise.wrap
+    // and TVJS.Promise.wrapError.
     //
 
     var ErrorPromise = _Base.Class.define(
@@ -2281,8 +2281,8 @@ define('WinJS/Promise/_StateMachine',[
             callonerror(this, value, detailsForError);
         }, {
             cancel: function () {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.cancel">
-                /// <summary locid="WinJS.PromiseStateMachine.cancel">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.cancel">
+                /// <summary locid="TVJS.PromiseStateMachine.cancel">
                 /// Attempts to cancel the fulfillment of a promised value. If the promise hasn't
                 /// already been fulfilled and cancellation is supported, the promise enters
                 /// the error state with a value of Error("Canceled").
@@ -2290,8 +2290,8 @@ define('WinJS/Promise/_StateMachine',[
                 /// </signature>
             },
             done: function ErrorPromise_done(unused, onError) {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.done">
-                /// <summary locid="WinJS.PromiseStateMachine.done">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.done">
+                /// <summary locid="TVJS.PromiseStateMachine.done">
                 /// Allows you to specify the work to be done on the fulfillment of the promised value,
                 /// the error handling to be performed if the promise fails to fulfill
                 /// a value, and the handling of progress notifications along the way.
@@ -2299,7 +2299,7 @@ define('WinJS/Promise/_StateMachine',[
                 /// After the handlers have finished executing, this function throws any error that would have been returned
                 /// from then() as a promise in the error state.
                 /// </summary>
-                /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.done_p:onComplete">
+                /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.done_p:onComplete">
                 /// The function to be called if the promise is fulfilled successfully with a value.
                 /// The fulfilled value is passed as the single argument. If the value is null,
                 /// the fulfilled value is returned. The value returned
@@ -2307,12 +2307,12 @@ define('WinJS/Promise/_StateMachine',[
                 /// then(). If an exception is thrown while executing the function, the promise returned
                 /// by then() moves into the error state.
                 /// </param>
-                /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onError">
+                /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onError">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument. If it is null, the error is forwarded.
                 /// The value returned from the function is the fulfilled value of the promise returned by then().
                 /// </param>
-                /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onProgress">
+                /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onProgress">
                 /// the function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
@@ -2343,30 +2343,30 @@ define('WinJS/Promise/_StateMachine',[
                 Promise._doneHandler(value);
             },
             then: function ErrorPromise_then(unused, onError) {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.then">
-                /// <summary locid="WinJS.PromiseStateMachine.then">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.then">
+                /// <summary locid="TVJS.PromiseStateMachine.then">
                 /// Allows you to specify the work to be done on the fulfillment of the promised value,
                 /// the error handling to be performed if the promise fails to fulfill
                 /// a value, and the handling of progress notifications along the way.
                 /// </summary>
-                /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.then_p:onComplete">
+                /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.then_p:onComplete">
                 /// The function to be called if the promise is fulfilled successfully with a value.
                 /// The value is passed as the single argument. If the value is null, the value is returned.
                 /// The value returned from the function becomes the fulfilled value of the promise returned by
                 /// then(). If an exception is thrown while this function is being executed, the promise returned
                 /// by then() moves into the error state.
                 /// </param>
-                /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onError">
+                /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onError">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument. If it is null, the error is forwarded.
                 /// The value returned from the function becomes the fulfilled value of the promise returned by then().
                 /// </param>
-                /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onProgress">
+                /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onProgress">
                 /// The function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.PromiseStateMachine.then_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.PromiseStateMachine.then_returnValue">
                 /// The promise whose value is the result of executing the complete or
                 /// error function.
                 /// </returns>
@@ -2431,8 +2431,8 @@ define('WinJS/Promise/_StateMachine',[
             this._value = value;
         }, {
             cancel: function () {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.cancel">
-                /// <summary locid="WinJS.PromiseStateMachine.cancel">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.cancel">
+                /// <summary locid="TVJS.PromiseStateMachine.cancel">
                 /// Attempts to cancel the fulfillment of a promised value. If the promise hasn't
                 /// already been fulfilled and cancellation is supported, the promise enters
                 /// the error state with a value of Error("Canceled").
@@ -2440,8 +2440,8 @@ define('WinJS/Promise/_StateMachine',[
                 /// </signature>
             },
             done: function CompletePromise_done(onComplete) {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.done">
-                /// <summary locid="WinJS.PromiseStateMachine.done">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.done">
+                /// <summary locid="TVJS.PromiseStateMachine.done">
                 /// Allows you to specify the work to be done on the fulfillment of the promised value,
                 /// the error handling to be performed if the promise fails to fulfill
                 /// a value, and the handling of progress notifications along the way.
@@ -2449,7 +2449,7 @@ define('WinJS/Promise/_StateMachine',[
                 /// After the handlers have finished executing, this function throws any error that would have been returned
                 /// from then() as a promise in the error state.
                 /// </summary>
-                /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.done_p:onComplete">
+                /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.done_p:onComplete">
                 /// The function to be called if the promise is fulfilled successfully with a value.
                 /// The fulfilled value is passed as the single argument. If the value is null,
                 /// the fulfilled value is returned. The value returned
@@ -2457,12 +2457,12 @@ define('WinJS/Promise/_StateMachine',[
                 /// then(). If an exception is thrown while executing the function, the promise returned
                 /// by then() moves into the error state.
                 /// </param>
-                /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onError">
+                /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onError">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument. If it is null, the error is forwarded.
                 /// The value returned from the function is the fulfilled value of the promise returned by then().
                 /// </param>
-                /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.done_p:onProgress">
+                /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.done_p:onProgress">
                 /// the function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
@@ -2480,30 +2480,30 @@ define('WinJS/Promise/_StateMachine',[
                 }
             },
             then: function CompletePromise_then(onComplete) {
-                /// <signature helpKeyword="WinJS.PromiseStateMachine.then">
-                /// <summary locid="WinJS.PromiseStateMachine.then">
+                /// <signature helpKeyword="TVJS.PromiseStateMachine.then">
+                /// <summary locid="TVJS.PromiseStateMachine.then">
                 /// Allows you to specify the work to be done on the fulfillment of the promised value,
                 /// the error handling to be performed if the promise fails to fulfill
                 /// a value, and the handling of progress notifications along the way.
                 /// </summary>
-                /// <param name='onComplete' type='Function' locid="WinJS.PromiseStateMachine.then_p:onComplete">
+                /// <param name='onComplete' type='Function' locid="TVJS.PromiseStateMachine.then_p:onComplete">
                 /// The function to be called if the promise is fulfilled successfully with a value.
                 /// The value is passed as the single argument. If the value is null, the value is returned.
                 /// The value returned from the function becomes the fulfilled value of the promise returned by
                 /// then(). If an exception is thrown while this function is being executed, the promise returned
                 /// by then() moves into the error state.
                 /// </param>
-                /// <param name='onError' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onError">
+                /// <param name='onError' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onError">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument. If it is null, the error is forwarded.
                 /// The value returned from the function becomes the fulfilled value of the promise returned by then().
                 /// </param>
-                /// <param name='onProgress' type='Function' optional='true' locid="WinJS.PromiseStateMachine.then_p:onProgress">
+                /// <param name='onProgress' type='Function' optional='true' locid="TVJS.PromiseStateMachine.then_p:onProgress">
                 /// The function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.PromiseStateMachine.then_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.PromiseStateMachine.then_returnValue">
                 /// The promise whose value is the result of executing the complete or
                 /// error function.
                 /// </returns>
@@ -2524,7 +2524,7 @@ define('WinJS/Promise/_StateMachine',[
     );
 
     //
-    // Promise is the user-creatable WinJS.Promise object.
+    // Promise is the user-creatable TVJS.Promise object.
     //
 
     function timeout(timeoutMS) {
@@ -2557,18 +2557,18 @@ define('WinJS/Promise/_StateMachine',[
 
     var Promise = _Base.Class.derive(PromiseStateMachine,
         function Promise_ctor(init, oncancel) {
-            /// <signature helpKeyword="WinJS.Promise">
-            /// <summary locid="WinJS.Promise">
+            /// <signature helpKeyword="TVJS.Promise">
+            /// <summary locid="TVJS.Promise">
             /// A promise provides a mechanism to schedule work to be done on a value that
             /// has not yet been computed. It is a convenient abstraction for managing
             /// interactions with asynchronous APIs.
             /// </summary>
-            /// <param name="init" type="Function" locid="WinJS.Promise_p:init">
+            /// <param name="init" type="Function" locid="TVJS.Promise_p:init">
             /// The function that is called during construction of the  promise. The function
             /// is given three arguments (complete, error, progress). Inside this function
             /// you should add event listeners for the notifications supported by this value.
             /// </param>
-            /// <param name="oncancel" optional="true" locid="WinJS.Promise_p:oncancel">
+            /// <param name="oncancel" optional="true" locid="TVJS.Promise_p:oncancel">
             /// The function to call if a consumer of this promise wants
             /// to cancel its undone work. Promises are not required to
             /// support cancellation.
@@ -2603,33 +2603,33 @@ define('WinJS/Promise/_StateMachine',[
         }, {
 
             addEventListener: function Promise_addEventListener(eventType, listener, capture) {
-                /// <signature helpKeyword="WinJS.Promise.addEventListener">
-                /// <summary locid="WinJS.Promise.addEventListener">
+                /// <signature helpKeyword="TVJS.Promise.addEventListener">
+                /// <summary locid="TVJS.Promise.addEventListener">
                 /// Adds an event listener to the control.
                 /// </summary>
-                /// <param name="eventType" locid="WinJS.Promise.addEventListener_p:eventType">
+                /// <param name="eventType" locid="TVJS.Promise.addEventListener_p:eventType">
                 /// The type (name) of the event.
                 /// </param>
-                /// <param name="listener" locid="WinJS.Promise.addEventListener_p:listener">
+                /// <param name="listener" locid="TVJS.Promise.addEventListener_p:listener">
                 /// The listener to invoke when the event is raised.
                 /// </param>
-                /// <param name="capture" locid="WinJS.Promise.addEventListener_p:capture">
+                /// <param name="capture" locid="TVJS.Promise.addEventListener_p:capture">
                 /// Specifies whether or not to initiate capture.
                 /// </param>
                 /// </signature>
                 promiseEventListeners.addEventListener(eventType, listener, capture);
             },
             any: function Promise_any(values) {
-                /// <signature helpKeyword="WinJS.Promise.any">
-                /// <summary locid="WinJS.Promise.any">
+                /// <signature helpKeyword="TVJS.Promise.any">
+                /// <summary locid="TVJS.Promise.any">
                 /// Returns a promise that is fulfilled when one of the input promises
                 /// has been fulfilled.
                 /// </summary>
-                /// <param name="values" type="Array" locid="WinJS.Promise.any_p:values">
+                /// <param name="values" type="Array" locid="TVJS.Promise.any_p:values">
                 /// An array that contains promise objects or objects whose property
                 /// values include promise objects.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.any_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.any_returnValue">
                 /// A promise that on fulfillment yields the value of the input (complete or error).
                 /// </returns>
                 /// </signature>
@@ -2667,15 +2667,15 @@ define('WinJS/Promise/_StateMachine',[
                 );
             },
             as: function Promise_as(value) {
-                /// <signature helpKeyword="WinJS.Promise.as">
-                /// <summary locid="WinJS.Promise.as">
+                /// <signature helpKeyword="TVJS.Promise.as">
+                /// <summary locid="TVJS.Promise.as">
                 /// Returns a promise. If the object is already a promise it is returned;
                 /// otherwise the object is wrapped in a promise.
                 /// </summary>
-                /// <param name="value" locid="WinJS.Promise.as_p:value">
+                /// <param name="value" locid="TVJS.Promise.as_p:value">
                 /// The value to be treated as a promise.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.as_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.as_returnValue">
                 /// A promise.
                 /// </returns>
                 /// </signature>
@@ -2684,7 +2684,7 @@ define('WinJS/Promise/_StateMachine',[
                 }
                 return new CompletePromise(value);
             },
-            /// <field type="WinJS.Promise" helpKeyword="WinJS.Promise.cancel" locid="WinJS.Promise.cancel">
+            /// <field type="TVJS.Promise" helpKeyword="TVJS.Promise.cancel" locid="TVJS.Promise.cancel">
             /// Canceled promise value, can be returned from a promise completion handler
             /// to indicate cancelation of the promise chain.
             /// </field>
@@ -2694,45 +2694,45 @@ define('WinJS/Promise/_StateMachine',[
                 }
             },
             dispatchEvent: function Promise_dispatchEvent(eventType, details) {
-                /// <signature helpKeyword="WinJS.Promise.dispatchEvent">
-                /// <summary locid="WinJS.Promise.dispatchEvent">
+                /// <signature helpKeyword="TVJS.Promise.dispatchEvent">
+                /// <summary locid="TVJS.Promise.dispatchEvent">
                 /// Raises an event of the specified type and properties.
                 /// </summary>
-                /// <param name="eventType" locid="WinJS.Promise.dispatchEvent_p:eventType">
+                /// <param name="eventType" locid="TVJS.Promise.dispatchEvent_p:eventType">
                 /// The type (name) of the event.
                 /// </param>
-                /// <param name="details" locid="WinJS.Promise.dispatchEvent_p:details">
+                /// <param name="details" locid="TVJS.Promise.dispatchEvent_p:details">
                 /// The set of additional properties to be attached to the event object.
                 /// </param>
-                /// <returns type="Boolean" locid="WinJS.Promise.dispatchEvent_returnValue">
+                /// <returns type="Boolean" locid="TVJS.Promise.dispatchEvent_returnValue">
                 /// Specifies whether preventDefault was called on the event.
                 /// </returns>
                 /// </signature>
                 return promiseEventListeners.dispatchEvent(eventType, details);
             },
             is: function Promise_is(value) {
-                /// <signature helpKeyword="WinJS.Promise.is">
-                /// <summary locid="WinJS.Promise.is">
+                /// <signature helpKeyword="TVJS.Promise.is">
+                /// <summary locid="TVJS.Promise.is">
                 /// Determines whether a value fulfills the promise contract.
                 /// </summary>
-                /// <param name="value" locid="WinJS.Promise.is_p:value">
+                /// <param name="value" locid="TVJS.Promise.is_p:value">
                 /// A value that may be a promise.
                 /// </param>
-                /// <returns type="Boolean" locid="WinJS.Promise.is_returnValue">
+                /// <returns type="Boolean" locid="TVJS.Promise.is_returnValue">
                 /// true if the specified value is a promise, otherwise false.
                 /// </returns>
                 /// </signature>
                 return value && typeof value === "object" && typeof value.then === "function";
             },
             join: function Promise_join(values) {
-                /// <signature helpKeyword="WinJS.Promise.join">
-                /// <summary locid="WinJS.Promise.join">
+                /// <signature helpKeyword="TVJS.Promise.join">
+                /// <summary locid="TVJS.Promise.join">
                 /// Creates a promise that is fulfilled when all the values are fulfilled.
                 /// </summary>
-                /// <param name="values" type="Object" locid="WinJS.Promise.join_p:values">
+                /// <param name="values" type="Object" locid="TVJS.Promise.join_p:values">
                 /// An object whose fields contain values, some of which may be promises.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.join_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.join_returnValue">
                 /// A promise whose value is an object with the same field names as those of the object in the values parameter, where
                 /// each field value is the fulfilled value of a promise.
                 /// </returns>
@@ -2795,17 +2795,17 @@ define('WinJS/Promise/_StateMachine',[
                 );
             },
             removeEventListener: function Promise_removeEventListener(eventType, listener, capture) {
-                /// <signature helpKeyword="WinJS.Promise.removeEventListener">
-                /// <summary locid="WinJS.Promise.removeEventListener">
+                /// <signature helpKeyword="TVJS.Promise.removeEventListener">
+                /// <summary locid="TVJS.Promise.removeEventListener">
                 /// Removes an event listener from the control.
                 /// </summary>
-                /// <param name='eventType' locid="WinJS.Promise.removeEventListener_eventType">
+                /// <param name='eventType' locid="TVJS.Promise.removeEventListener_eventType">
                 /// The type (name) of the event.
                 /// </param>
-                /// <param name='listener' locid="WinJS.Promise.removeEventListener_listener">
+                /// <param name='listener' locid="TVJS.Promise.removeEventListener_listener">
                 /// The listener to remove.
                 /// </param>
-                /// <param name='capture' locid="WinJS.Promise.removeEventListener_capture">
+                /// <param name='capture' locid="TVJS.Promise.removeEventListener_capture">
                 /// Specifies whether or not to initiate capture.
                 /// </param>
                 /// </signature>
@@ -2813,58 +2813,58 @@ define('WinJS/Promise/_StateMachine',[
             },
             supportedForProcessing: false,
             then: function Promise_then(value, onComplete, onError, onProgress) {
-                /// <signature helpKeyword="WinJS.Promise.then">
-                /// <summary locid="WinJS.Promise.then">
+                /// <signature helpKeyword="TVJS.Promise.then">
+                /// <summary locid="TVJS.Promise.then">
                 /// A static version of the promise instance method then().
                 /// </summary>
-                /// <param name="value" locid="WinJS.Promise.then_p:value">
+                /// <param name="value" locid="TVJS.Promise.then_p:value">
                 /// the value to be treated as a promise.
                 /// </param>
-                /// <param name="onComplete" type="Function" locid="WinJS.Promise.then_p:complete">
+                /// <param name="onComplete" type="Function" locid="TVJS.Promise.then_p:complete">
                 /// The function to be called if the promise is fulfilled with a value.
                 /// If it is null, the promise simply
                 /// returns the value. The value is passed as the single argument.
                 /// </param>
-                /// <param name="onError" type="Function" optional="true" locid="WinJS.Promise.then_p:error">
+                /// <param name="onError" type="Function" optional="true" locid="TVJS.Promise.then_p:error">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument.
                 /// </param>
-                /// <param name="onProgress" type="Function" optional="true" locid="WinJS.Promise.then_p:progress">
+                /// <param name="onProgress" type="Function" optional="true" locid="TVJS.Promise.then_p:progress">
                 /// The function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.then_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.then_returnValue">
                 /// A promise whose value is the result of executing the provided complete function.
                 /// </returns>
                 /// </signature>
                 return Promise.as(value).then(onComplete, onError, onProgress);
             },
             thenEach: function Promise_thenEach(values, onComplete, onError, onProgress) {
-                /// <signature helpKeyword="WinJS.Promise.thenEach">
-                /// <summary locid="WinJS.Promise.thenEach">
+                /// <signature helpKeyword="TVJS.Promise.thenEach">
+                /// <summary locid="TVJS.Promise.thenEach">
                 /// Performs an operation on all the input promises and returns a promise
                 /// that has the shape of the input and contains the result of the operation
                 /// that has been performed on each input.
                 /// </summary>
-                /// <param name="values" locid="WinJS.Promise.thenEach_p:values">
+                /// <param name="values" locid="TVJS.Promise.thenEach_p:values">
                 /// A set of values (which could be either an array or an object) of which some or all are promises.
                 /// </param>
-                /// <param name="onComplete" type="Function" locid="WinJS.Promise.thenEach_p:complete">
+                /// <param name="onComplete" type="Function" locid="TVJS.Promise.thenEach_p:complete">
                 /// The function to be called if the promise is fulfilled with a value.
                 /// If the value is null, the promise returns the value.
                 /// The value is passed as the single argument.
                 /// </param>
-                /// <param name="onError" type="Function" optional="true" locid="WinJS.Promise.thenEach_p:error">
+                /// <param name="onError" type="Function" optional="true" locid="TVJS.Promise.thenEach_p:error">
                 /// The function to be called if the promise is fulfilled with an error. The error
                 /// is passed as the single argument.
                 /// </param>
-                /// <param name="onProgress" type="Function" optional="true" locid="WinJS.Promise.thenEach_p:progress">
+                /// <param name="onProgress" type="Function" optional="true" locid="TVJS.Promise.thenEach_p:progress">
                 /// The function to be called if the promise reports progress. Data about the progress
                 /// is passed as the single argument. Promises are not required to support
                 /// progress.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.thenEach_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.thenEach_returnValue">
                 /// A promise that is the result of calling Promise.join on the values parameter.
                 /// </returns>
                 /// </signature>
@@ -2875,19 +2875,19 @@ define('WinJS/Promise/_StateMachine',[
                 return Promise.join(result);
             },
             timeout: function Promise_timeout(time, promise) {
-                /// <signature helpKeyword="WinJS.Promise.timeout">
-                /// <summary locid="WinJS.Promise.timeout">
+                /// <signature helpKeyword="TVJS.Promise.timeout">
+                /// <summary locid="TVJS.Promise.timeout">
                 /// Creates a promise that is fulfilled after a timeout.
                 /// </summary>
-                /// <param name="timeout" type="Number" optional="true" locid="WinJS.Promise.timeout_p:timeout">
+                /// <param name="timeout" type="Number" optional="true" locid="TVJS.Promise.timeout_p:timeout">
                 /// The timeout period in milliseconds. If this value is zero or not specified
                 /// setImmediate is called, otherwise setTimeout is called.
                 /// </param>
-                /// <param name="promise" type="Promise" optional="true" locid="WinJS.Promise.timeout_p:promise">
+                /// <param name="promise" type="Promise" optional="true" locid="TVJS.Promise.timeout_p:promise">
                 /// A promise that will be canceled if it doesn't complete before the
                 /// timeout has expired.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.timeout_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.timeout_returnValue">
                 /// A promise that is completed asynchronously after the specified timeout.
                 /// </returns>
                 /// </signature>
@@ -2895,30 +2895,30 @@ define('WinJS/Promise/_StateMachine',[
                 return promise ? timeoutWithPromise(to, promise) : to;
             },
             wrap: function Promise_wrap(value) {
-                /// <signature helpKeyword="WinJS.Promise.wrap">
-                /// <summary locid="WinJS.Promise.wrap">
+                /// <signature helpKeyword="TVJS.Promise.wrap">
+                /// <summary locid="TVJS.Promise.wrap">
                 /// Wraps a non-promise value in a promise. You can use this function if you need
                 /// to pass a value to a function that requires a promise.
                 /// </summary>
-                /// <param name="value" locid="WinJS.Promise.wrap_p:value">
+                /// <param name="value" locid="TVJS.Promise.wrap_p:value">
                 /// Some non-promise value to be wrapped in a promise.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.wrap_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.wrap_returnValue">
                 /// A promise that is successfully fulfilled with the specified value
                 /// </returns>
                 /// </signature>
                 return new CompletePromise(value);
             },
             wrapError: function Promise_wrapError(error) {
-                /// <signature helpKeyword="WinJS.Promise.wrapError">
-                /// <summary locid="WinJS.Promise.wrapError">
+                /// <signature helpKeyword="TVJS.Promise.wrapError">
+                /// <summary locid="TVJS.Promise.wrapError">
                 /// Wraps a non-promise error value in a promise. You can use this function if you need
                 /// to pass an error to a function that requires a promise.
                 /// </summary>
-                /// <param name="error" locid="WinJS.Promise.wrapError_p:error">
+                /// <param name="error" locid="TVJS.Promise.wrapError_p:error">
                 /// A non-promise error value to be wrapped in a promise.
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Promise.wrapError_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Promise.wrapError_returnValue">
                 /// A promise that is in an error state with the specified value.
                 /// </returns>
                 /// </signature>
@@ -2983,13 +2983,13 @@ define('WinJS/Promise/_StateMachine',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Promise',[
+define('TVJS/Promise',[
     './Core/_Base',
     './Promise/_StateMachine'
     ], function promiseInit( _Base, _StateMachine) {
     "use strict";
 
-    _Base.Namespace.define("WinJS", {
+    _Base.Namespace.define("TVJS", {
         Promise: _StateMachine.Promise
     });
 
@@ -2997,7 +2997,7 @@ define('WinJS/Promise',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_Log',[
+define('TVJS/Core/_Log',[
     'exports',
     './_Global',
     './_Base',
@@ -3006,19 +3006,19 @@ define('WinJS/Core/_Log',[
 
     var spaceR = /\s+/g;
     var typeR = /^(error|warn|info|log)$/;
-    var WinJSLog = null;
+    var TVJSLog = null;
 
     function format(message, tag, type) {
-        /// <signature helpKeyword="WinJS.Utilities.formatLog">
-        /// <summary locid="WinJS.Utilities.formatLog">
+        /// <signature helpKeyword="TVJS.Utilities.formatLog">
+        /// <summary locid="TVJS.Utilities.formatLog">
         /// Adds tags and type to a logging message.
         /// </summary>
-        /// <param name="message" type="String" locid="WinJS.Utilities.startLog_p:message">The message to format.</param>
-        /// <param name="tag" type="String" locid="WinJS.Utilities.startLog_p:tag">
+        /// <param name="message" type="String" locid="TVJS.Utilities.startLog_p:message">The message to format.</param>
+        /// <param name="tag" type="String" locid="TVJS.Utilities.startLog_p:tag">
         /// The tag(s) to apply to the message. Separate multiple tags with spaces.
         /// </param>
-        /// <param name="type" type="String" locid="WinJS.Utilities.startLog_p:type">The type of the message.</param>
-        /// <returns type="String" locid="WinJS.Utilities.startLog_returnValue">The formatted message.</returns>
+        /// <param name="type" type="String" locid="TVJS.Utilities.startLog_p:type">The type of the message.</param>
+        /// <returns type="String" locid="TVJS.Utilities.startLog_returnValue">The formatted message.</returns>
         /// </signature>
         var m = message;
         if (typeof (m) === "function") { m = m(); }
@@ -3037,21 +3037,21 @@ define('WinJS/Core/_Log',[
         // \s (whitespace) is used as separator, so don't escape it
         return s.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&");
     }
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         startLog: function (options) {
-            /// <signature helpKeyword="WinJS.Utilities.startLog">
-            /// <summary locid="WinJS.Utilities.startLog">
-            /// Configures a logger that writes messages containing the specified tags from WinJS.log to console.log.
+            /// <signature helpKeyword="TVJS.Utilities.startLog">
+            /// <summary locid="TVJS.Utilities.startLog">
+            /// Configures a logger that writes messages containing the specified tags from TVJS.log to console.log.
             /// </summary>
-            /// <param name="options" type="String" locid="WinJS.Utilities.startLog_p:options">
+            /// <param name="options" type="String" locid="TVJS.Utilities.startLog_p:options">
             /// The tags for messages to log. Separate multiple tags with spaces.
             /// </param>
             /// </signature>
             /// <signature>
-            /// <summary locid="WinJS.Utilities.startLog2">
-            /// Configure a logger to write WinJS.log output.
+            /// <summary locid="TVJS.Utilities.startLog2">
+            /// Configure a logger to write TVJS.log output.
             /// </summary>
-            /// <param name="options" type="Object" locid="WinJS.Utilities.startLog_p:options2">
+            /// <param name="options" type="Object" locid="TVJS.Utilities.startLog_p:options2">
             /// May contain .type, .tags, .excludeTags and .action properties.
             ///  - .type is a required tag.
             ///  - .excludeTags is a space-separated list of tags, any of which will result in a message not being logged.
@@ -3086,8 +3086,8 @@ define('WinJS/Core/_Log',[
             exports.log = result;
         },
         stopLog: function () {
-            /// <signature helpKeyword="WinJS.Utilities.stopLog">
-            /// <summary locid="WinJS.Utilities.stopLog">
+            /// <signature helpKeyword="TVJS.Utilities.stopLog">
+            /// <summary locid="TVJS.Utilities.stopLog">
             /// Removes the previously set up logger.
             /// </summary>
             /// </signature>
@@ -3096,20 +3096,20 @@ define('WinJS/Core/_Log',[
         formatLog: format
     });
 
-    _Base.Namespace._moduleDefine(exports, "WinJS", {
+    _Base.Namespace._moduleDefine(exports, "TVJS", {
         log: {
             get: function () {
-                return WinJSLog;
+                return TVJSLog;
             },
             set: function (value) {
-                WinJSLog = value;
+                TVJSLog = value;
             }
         }
     });
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Core/_BaseUtils',[
+define('TVJS/Core/_BaseUtils',[
     'exports',
     './_Global',
     './_Base',
@@ -3122,7 +3122,7 @@ define('WinJS/Core/_BaseUtils',[
     "use strict";
 
     var strings = {
-        get notSupportedForProcessing() { return "Value is not supported within a declarative processing context, if you want it to be supported mark it using WinJS.Utilities.markSupportedForProcessing. The value was: '{0}'"; }
+        get notSupportedForProcessing() { return "Value is not supported within a declarative processing context, if you want it to be supported mark it using TVJS.Utilities.markSupportedForProcessing. The value was: '{0}'"; }
     };
 
     var requestAnimationWorker;
@@ -3146,17 +3146,17 @@ define('WinJS/Core/_BaseUtils',[
     }
 
     function getMember(name, root) {
-        /// <signature helpKeyword="WinJS.Utilities.getMember">
-        /// <summary locid="WinJS.Utilities.getMember">
+        /// <signature helpKeyword="TVJS.Utilities.getMember">
+        /// <summary locid="TVJS.Utilities.getMember">
         /// Gets the leaf-level type or namespace specified by the name parameter.
         /// </summary>
-        /// <param name="name" locid="WinJS.Utilities.getMember_p:name">
+        /// <param name="name" locid="TVJS.Utilities.getMember_p:name">
         /// The name of the member.
         /// </param>
-        /// <param name="root" locid="WinJS.Utilities.getMember_p:root">
+        /// <param name="root" locid="TVJS.Utilities.getMember_p:root">
         /// The root to start in. Defaults to the global object.
         /// </param>
-        /// <returns type="Object" locid="WinJS.Utilities.getMember_returnValue">
+        /// <returns type="Object" locid="TVJS.Utilities.getMember_returnValue">
         /// The leaf-level type or namespace in the specified parent namespace.
         /// </returns>
         /// </signature>
@@ -3353,7 +3353,7 @@ define('WinJS/Core/_BaseUtils',[
         };
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         // Used for mocking in tests
         _setHasWinRT: {
             value: function (value) {
@@ -3364,7 +3364,7 @@ define('WinJS/Core/_BaseUtils',[
             enumerable: false
         },
 
-        /// <field type="Boolean" locid="WinJS.Utilities.hasWinRT" helpKeyword="WinJS.Utilities.hasWinRT">Determine if WinRT is accessible in this script context.</field>
+        /// <field type="Boolean" locid="TVJS.Utilities.hasWinRT" helpKeyword="TVJS.Utilities.hasWinRT">Determine if WinRT is accessible in this script context.</field>
         hasWinRT: {
             get: function () { return _BaseCoreUtils.hasWinRT; },
             configurable: false,
@@ -3396,16 +3396,16 @@ define('WinJS/Core/_BaseUtils',[
         _getCamelCasedName: getCamelCasedName,
 
         ready: function ready(callback, async) {
-            /// <signature helpKeyword="WinJS.Utilities.ready">
-            /// <summary locid="WinJS.Utilities.ready">
+            /// <signature helpKeyword="TVJS.Utilities.ready">
+            /// <summary locid="TVJS.Utilities.ready">
             /// Ensures that the specified function executes only after the DOMContentLoaded event has fired
             /// for the current page.
             /// </summary>
-            /// <returns type="WinJS.Promise" locid="WinJS.Utilities.ready_returnValue">A promise that completes after DOMContentLoaded has occurred.</returns>
-            /// <param name="callback" optional="true" locid="WinJS.Utilities.ready_p:callback">
+            /// <returns type="TVJS.Promise" locid="TVJS.Utilities.ready_returnValue">A promise that completes after DOMContentLoaded has occurred.</returns>
+            /// <param name="callback" optional="true" locid="TVJS.Utilities.ready_p:callback">
             /// A function that executes after DOMContentLoaded has occurred.
             /// </param>
-            /// <param name="async" optional="true" locid="WinJS.Utilities.ready_p:async">
+            /// <param name="async" optional="true" locid="TVJS.Utilities.ready_p:async">
             /// If true, the callback is executed asynchronously.
             /// </param>
             /// </signature>
@@ -3434,7 +3434,7 @@ define('WinJS/Core/_BaseUtils',[
                 }
                 if (readyState === "complete" || (_Global.document && _Global.document.body !== null)) {
                     if (async) {
-                        setImmediate(function WinJS_Utilities_ready() {
+                        setImmediate(function TVJS_Utilities_ready() {
                             complete();
                         });
                     } else {
@@ -3446,7 +3446,7 @@ define('WinJS/Core/_BaseUtils',[
             });
         },
 
-        /// <field type="Boolean" locid="WinJS.Utilities.strictProcessing" helpKeyword="WinJS.Utilities.strictProcessing">Determines if strict declarative processing is enabled in this script context.</field>
+        /// <field type="Boolean" locid="TVJS.Utilities.strictProcessing" helpKeyword="TVJS.Utilities.strictProcessing">Determines if strict declarative processing is enabled in this script context.</field>
         strictProcessing: {
             get: function () { return true; },
             configurable: false,
@@ -3462,17 +3462,17 @@ define('WinJS/Core/_BaseUtils',[
 
         requireSupportedForProcessing: {
             value: function (value) {
-                /// <signature helpKeyword="WinJS.Utilities.requireSupportedForProcessing">
-                /// <summary locid="WinJS.Utilities.requireSupportedForProcessing">
-                /// Asserts that the value is compatible with declarative processing, such as WinJS.UI.processAll
-                /// or WinJS.Binding.processAll. If it is not compatible an exception will be thrown.
+                /// <signature helpKeyword="TVJS.Utilities.requireSupportedForProcessing">
+                /// <summary locid="TVJS.Utilities.requireSupportedForProcessing">
+                /// Asserts that the value is compatible with declarative processing, such as TVJS.UI.processAll
+                /// or TVJS.Binding.processAll. If it is not compatible an exception will be thrown.
                 /// </summary>
-                /// <param name="value" type="Object" locid="WinJS.Utilities.requireSupportedForProcessing_p:value">
+                /// <param name="value" type="Object" locid="TVJS.Utilities.requireSupportedForProcessing_p:value">
                 /// The value to be tested for compatibility with declarative processing. If the
                 /// value is a function it must be marked with a property 'supportedForProcessing'
                 /// with a value of true.
                 /// </param>
-                /// <returns type="Object" locid="WinJS.Utilities.requireSupportedForProcessing_returnValue">
+                /// <returns type="Object" locid="TVJS.Utilities.requireSupportedForProcessing_returnValue">
                 /// The input value.
                 /// </returns>
                 /// </signature>
@@ -3502,7 +3502,7 @@ define('WinJS/Core/_BaseUtils',[
                     return value;
                 }
 
-                throw new _ErrorFromName("WinJS.Utilities.requireSupportedForProcessing", _Resources._formatString(strings.notSupportedForProcessing, value));
+                throw new _ErrorFromName("TVJS.Utilities.requireSupportedForProcessing", _Resources._formatString(strings.notSupportedForProcessing, value));
             },
             configurable: false,
             writable: false,
@@ -3587,7 +3587,7 @@ define('WinJS/Core/_BaseUtils',[
         _version: "4.2.0"
     });
 
-    _Base.Namespace._moduleDefine(exports, "WinJS", {
+    _Base.Namespace._moduleDefine(exports, "TVJS", {
         validation: {
             get: function () {
                 return validation;
@@ -3599,11 +3599,11 @@ define('WinJS/Core/_BaseUtils',[
     });
 
     // strictProcessing also exists as a module member
-    _Base.Namespace.define("WinJS", {
+    _Base.Namespace.define("TVJS", {
         strictProcessing: {
             value: function () {
-                /// <signature helpKeyword="WinJS.strictProcessing">
-                /// <summary locid="WinJS.strictProcessing">
+                /// <signature helpKeyword="TVJS.strictProcessing">
+                /// <summary locid="TVJS.strictProcessing">
                 /// Strict processing is always enforced, this method has no effect.
                 /// </summary>
                 /// </signature>
@@ -3616,7 +3616,7 @@ define('WinJS/Core/_BaseUtils',[
 });
 
 
-define('WinJS/Core',[
+define('TVJS/Core',[
     './Core/_Base',
     './Core/_BaseCoreUtils',
     './Core/_BaseUtils',
@@ -3631,7 +3631,7 @@ define('WinJS/Core',[
     // Wrapper module
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/_Signal',[
+define('TVJS/_Signal',[
     './Core/_Base',
     './Promise/_StateMachine'
     ], function signalInit(_Base, _StateMachine) {
@@ -3675,14 +3675,14 @@ define('WinJS/_Signal',[
         }
     );
 
-    _Base.Namespace.define("WinJS", {
+    _Base.Namespace.define("TVJS", {
         _Signal: Signal
     });
 
     return Signal;
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Control',[
+define('TVJS/Utilities/_Control',[
     'exports',
     '../Core/_Global',
     '../Core/_Base'
@@ -3695,16 +3695,16 @@ define('WinJS/Utilities/_Control',[
     }
 
     function setOptions(control, options) {
-        /// <signature helpKeyword="WinJS.UI.setOptions">
-        /// <summary locid="WinJS.UI.setOptions">
+        /// <signature helpKeyword="TVJS.UI.setOptions">
+        /// <summary locid="TVJS.UI.setOptions">
         /// Adds the set of declaratively specified options (properties and events) to the specified control.
         /// If name of the options property begins with "on", the property value is a function and the control
         /// supports addEventListener. The setOptions method calls the addEventListener method on the control.
         /// </summary>
-        /// <param name="control" type="Object" domElement="false" locid="WinJS.UI.setOptions_p:control">
+        /// <param name="control" type="Object" domElement="false" locid="TVJS.UI.setOptions_p:control">
         /// The control on which the properties and events are to be applied.
         /// </param>
-        /// <param name="options" type="Object" domElement="false" locid="WinJS.UI.setOptions_p:options">
+        /// <param name="options" type="Object" domElement="false" locid="TVJS.UI.setOptions_p:options">
         /// The set of options that are specified declaratively.
         /// </param>
         /// </signature>
@@ -3737,40 +3737,40 @@ define('WinJS/Utilities/_Control',[
         }
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         DOMEventMixin: _Base.Namespace._lazy(function () {
             return {
                 _domElement: null,
 
                 addEventListener: function (type, listener, useCapture) {
-                    /// <signature helpKeyword="WinJS.UI.DOMEventMixin.addEventListener">
-                    /// <summary locid="WinJS.UI.DOMEventMixin.addEventListener">
+                    /// <signature helpKeyword="TVJS.UI.DOMEventMixin.addEventListener">
+                    /// <summary locid="TVJS.UI.DOMEventMixin.addEventListener">
                     /// Adds an event listener to the control.
                     /// </summary>
-                    /// <param name="type" type="String" locid="WinJS.UI.DOMEventMixin.addEventListener_p:type">
+                    /// <param name="type" type="String" locid="TVJS.UI.DOMEventMixin.addEventListener_p:type">
                     /// The type (name) of the event.
                     /// </param>
-                    /// <param name="listener" type="Function" locid="WinJS.UI.DOMEventMixin.addEventListener_p:listener">
+                    /// <param name="listener" type="Function" locid="TVJS.UI.DOMEventMixin.addEventListener_p:listener">
                     /// The listener to invoke when the event gets raised.
                     /// </param>
-                    /// <param name="useCapture" type="Boolean" locid="WinJS.UI.DOMEventMixin.addEventListener_p:useCapture">
+                    /// <param name="useCapture" type="Boolean" locid="TVJS.UI.DOMEventMixin.addEventListener_p:useCapture">
                     /// true to initiate capture; otherwise, false.
                     /// </param>
                     /// </signature>
                     (this.element || this._domElement).addEventListener(type, listener, useCapture || false);
                 },
                 dispatchEvent: function (type, eventProperties) {
-                    /// <signature helpKeyword="WinJS.UI.DOMEventMixin.dispatchEvent">
-                    /// <summary locid="WinJS.UI.DOMEventMixin.dispatchEvent">
+                    /// <signature helpKeyword="TVJS.UI.DOMEventMixin.dispatchEvent">
+                    /// <summary locid="TVJS.UI.DOMEventMixin.dispatchEvent">
                     /// Raises an event of the specified type, adding the specified additional properties.
                     /// </summary>
-                    /// <param name="type" type="String" locid="WinJS.UI.DOMEventMixin.dispatchEvent_p:type">
+                    /// <param name="type" type="String" locid="TVJS.UI.DOMEventMixin.dispatchEvent_p:type">
                     /// The type (name) of the event.
                     /// </param>
-                    /// <param name="eventProperties" type="Object" locid="WinJS.UI.DOMEventMixin.dispatchEvent_p:eventProperties">
+                    /// <param name="eventProperties" type="Object" locid="TVJS.UI.DOMEventMixin.dispatchEvent_p:eventProperties">
                     /// The set of additional properties to be attached to the event object when the event is raised.
                     /// </param>
-                    /// <returns type="Boolean" locid="WinJS.UI.DOMEventMixin.dispatchEvent_returnValue">
+                    /// <returns type="Boolean" locid="TVJS.UI.DOMEventMixin.dispatchEvent_returnValue">
                     /// true if preventDefault was called on the event, otherwise false.
                     /// </returns>
                     /// </signature>
@@ -3785,17 +3785,17 @@ define('WinJS/Utilities/_Control',[
                     return (this.element || this._domElement).dispatchEvent(eventValue);
                 },
                 removeEventListener: function (type, listener, useCapture) {
-                    /// <signature helpKeyword="WinJS.UI.DOMEventMixin.removeEventListener">
-                    /// <summary locid="WinJS.UI.DOMEventMixin.removeEventListener">
+                    /// <signature helpKeyword="TVJS.UI.DOMEventMixin.removeEventListener">
+                    /// <summary locid="TVJS.UI.DOMEventMixin.removeEventListener">
                     /// Removes an event listener from the control.
                     /// </summary>
-                    /// <param name="type" type="String" locid="WinJS.UI.DOMEventMixin.removeEventListener_p:type">
+                    /// <param name="type" type="String" locid="TVJS.UI.DOMEventMixin.removeEventListener_p:type">
                     /// The type (name) of the event.
                     /// </param>
-                    /// <param name="listener" type="Function" locid="WinJS.UI.DOMEventMixin.removeEventListener_p:listener">
+                    /// <param name="listener" type="Function" locid="TVJS.UI.DOMEventMixin.removeEventListener_p:listener">
                     /// The listener to remove.
                     /// </param>
-                    /// <param name="useCapture" type="Boolean" locid="WinJS.UI.DOMEventMixin.removeEventListener_p:useCapture">
+                    /// <param name="useCapture" type="Boolean" locid="TVJS.UI.DOMEventMixin.removeEventListener_p:useCapture">
                     /// true to initiate capture; otherwise, false.
                     /// </param>
                     /// </signature>
@@ -3813,7 +3813,7 @@ define('WinJS/Utilities/_Control',[
 
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_ElementUtilities',[
+define('TVJS/Utilities/_ElementUtilities',[
     'exports',
     '../Core/_Global',
     '../Core/_Base',
@@ -3882,17 +3882,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         return e;
     }
     function addClass(e, name) {
-        /// <signature helpKeyword="WinJS.Utilities.addClass">
-        /// <summary locid="WinJS.Utilities.addClass">
+        /// <signature helpKeyword="TVJS.Utilities.addClass">
+        /// <summary locid="TVJS.Utilities.addClass">
         /// Adds the specified class(es) to the specified element. Multiple classes can be added using space delimited names.
         /// </summary>
-        /// <param name="e" type="HTMLElement" locid="WinJS.Utilities.addClass_p:e">
+        /// <param name="e" type="HTMLElement" locid="TVJS.Utilities.addClass_p:e">
         /// The element to which to add the class.
         /// </param>
-        /// <param name="name" type="String" locid="WinJS.Utilities.addClass_p:name">
+        /// <param name="name" type="String" locid="TVJS.Utilities.addClass_p:name">
         /// The name of the class to add, multiple classes can be added using space delimited names
         /// </param>
-        /// <returns type="HTMLElement" locid="WinJS.Utilities.addClass_returnValue">
+        /// <returns type="HTMLElement" locid="TVJS.Utilities.addClass_returnValue">
         /// The element.
         /// </returns>
         /// </signature>
@@ -3951,17 +3951,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
     }
     function removeClass(e, name) {
-        /// <signature helpKeyword="WinJS.Utilities.removeClass">
-        /// <summary locid="WinJS.Utilities.removeClass">
+        /// <signature helpKeyword="TVJS.Utilities.removeClass">
+        /// <summary locid="TVJS.Utilities.removeClass">
         /// Removes the specified class from the specified element.
         /// </summary>
-        /// <param name="e" type="HTMLElement" locid="WinJS.Utilities.removeClass_p:e">
+        /// <param name="e" type="HTMLElement" locid="TVJS.Utilities.removeClass_p:e">
         /// The element from which to remove the class.
         /// </param>
-        /// <param name="name" type="String" locid="WinJS.Utilities.removeClass_p:name">
+        /// <param name="name" type="String" locid="TVJS.Utilities.removeClass_p:name">
         /// The name of the class to remove.
         /// </param>
-        /// <returns type="HTMLElement" locid="WinJS.Utilities.removeClass_returnValue">
+        /// <returns type="HTMLElement" locid="TVJS.Utilities.removeClass_returnValue">
         /// The element.
         /// </returns>
         /// </signature>
@@ -4014,18 +4014,18 @@ define('WinJS/Utilities/_ElementUtilities',[
         }
     }
     function toggleClass(e, name) {
-        /// <signature helpKeyword="WinJS.Utilities.toggleClass">
-        /// <summary locid="WinJS.Utilities.toggleClass">
+        /// <signature helpKeyword="TVJS.Utilities.toggleClass">
+        /// <summary locid="TVJS.Utilities.toggleClass">
         /// Toggles (adds or removes) the specified class on the specified element.
         /// If the class is present, it is removed; if it is absent, it is added.
         /// </summary>
-        /// <param name="e" type="HTMLElement" locid="WinJS.Utilities.toggleClass_p:e">
+        /// <param name="e" type="HTMLElement" locid="TVJS.Utilities.toggleClass_p:e">
         /// The element on which to toggle the class.
         /// </param>
-        /// <param name="name" type="String" locid="WinJS.Utilities.toggleClass_p:name">
+        /// <param name="name" type="String" locid="TVJS.Utilities.toggleClass_p:name">
         /// The name of the class to toggle.
         /// </param>
-        /// <returns type="HTMLElement" locid="WinJS.Utilities.toggleClass_returnValue">
+        /// <returns type="HTMLElement" locid="TVJS.Utilities.toggleClass_returnValue">
         /// The element.
         /// </returns>
         /// </signature>
@@ -4077,17 +4077,17 @@ define('WinJS/Utilities/_ElementUtilities',[
     var _pixelsRE = /^-?\d+\.?\d*(px)?$/i;
     var _numberRE = /^-?\d+/i;
     function convertToPixels(element, value) {
-        /// <signature helpKeyword="WinJS.Utilities.convertToPixels">
-        /// <summary locid="WinJS.Utilities.convertToPixels">
+        /// <signature helpKeyword="TVJS.Utilities.convertToPixels">
+        /// <summary locid="TVJS.Utilities.convertToPixels">
         /// Converts a CSS positioning string for the specified element to pixels.
         /// </summary>
-        /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.convertToPixels_p:element">
+        /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.convertToPixels_p:element">
         /// The element.
         /// </param>
-        /// <param name="value" type="String" locid="WinJS.Utilities.convertToPixels_p:value">
+        /// <param name="value" type="String" locid="TVJS.Utilities.convertToPixels_p:value">
         /// The CSS positioning string.
         /// </param>
-        /// <returns type="Number" locid="WinJS.Utilities.convertToPixels_returnValue">
+        /// <returns type="Number" locid="TVJS.Utilities.convertToPixels_returnValue">
         /// The number of pixels.
         /// </returns>
         /// </signature>
@@ -4257,7 +4257,7 @@ define('WinJS/Utilities/_ElementUtilities',[
 
     function registerBubbleListener(element, type, listener, useCapture) {
         if (useCapture) {
-            throw "This custom WinJS event only supports bubbling";
+            throw "This custom TVJS event only supports bubbling";
         }
         addListenerToEventMap(element, type, listener, useCapture);
     }
@@ -4600,7 +4600,7 @@ define('WinJS/Utilities/_ElementUtilities',[
                 }
             },
             _resizeClass: { get: function () { return 'tv-element-resize'; } },
-            _resizeEvent: { get: function () { return 'WinJSElementResize'; } }
+            _resizeEvent: { get: function () { return 'TVJSElementResize'; } }
         }
     );
 
@@ -4609,14 +4609,14 @@ define('WinJS/Utilities/_ElementUtilities',[
     //   incorporated into the names of the events and classNames created by
     //   GenericListener.
     // - options
-    //   - registerThruWinJSCustomEvents: If true, will register for events using
-    //     _exports._addEventListener so that you can take advantage of WinJS's custom
+    //   - registerThruTVJSCustomEvents: If true, will register for events using
+    //     _exports._addEventListener so that you can take advantage of TVJS's custom
     //     events (e.g. focusin, pointer*). Otherwise, registers directly on *object*
     //     using its add/removeEventListener methods.
     var GenericListener = _Base.Class.define(
         function GenericListener_ctor(objectName, object, options) {
             options = options || {};
-            this.registerThruWinJSCustomEvents = !!options.registerThruWinJSCustomEvents;
+            this.registerThruTVJSCustomEvents = !!options.registerThruTVJSCustomEvents;
 
             this.objectName = objectName;
             this.object = object;
@@ -4634,7 +4634,7 @@ define('WinJS/Utilities/_ElementUtilities',[
                     handler.refCount = 0;
                     handlers[name] = handler;
 
-                    if (this.registerThruWinJSCustomEvents) {
+                    if (this.registerThruTVJSCustomEvents) {
                         exports._addEventListener(this.object, name, handler, capture);
                     } else {
                         this.object.addEventListener(name, handler, capture);
@@ -4653,7 +4653,7 @@ define('WinJS/Utilities/_ElementUtilities',[
                 if (handler) {
                     handler.refCount--;
                     if (handler.refCount === 0) {
-                        if (this.registerThruWinJSCustomEvents) {
+                        if (this.registerThruTVJSCustomEvents) {
                             exports._removeEventListener(this.object, name, handler, capture);
                         } else {
                             this.object.removeEventListener(name, handler, capture);
@@ -4681,7 +4681,7 @@ define('WinJS/Utilities/_ElementUtilities',[
 
             _getEventName: function GenericListener_getEventName(name, capture) {
                 var captureSuffix = capture ? 'capture' : 'bubble';
-                return 'WinJS' + this.objectName + 'Event-' + name + captureSuffix;
+                return 'TVJS' + this.objectName + 'Event-' + name + captureSuffix;
             },
 
             _getListener: function GenericListener_getListener(name, capture) {
@@ -4769,14 +4769,14 @@ define('WinJS/Utilities/_ElementUtilities',[
     }
 
     function getScrollPosition(element) {
-        /// <signature helpKeyword="WinJS.Utilities.getScrollPosition">
-        /// <summary locid="WinJS.Utilities.getScrollPosition">
+        /// <signature helpKeyword="TVJS.Utilities.getScrollPosition">
+        /// <summary locid="TVJS.Utilities.getScrollPosition">
         /// Gets the scrollLeft and scrollTop of the specified element, adjusting the scrollLeft to change from browser specific coordinates to logical coordinates when in RTL.
         /// </summary>
-        /// <param name="element" type="HTMLElement" domElement="true" locid="WinJS.Utilities.getScrollPosition_p:element">
+        /// <param name="element" type="HTMLElement" domElement="true" locid="TVJS.Utilities.getScrollPosition_p:element">
         /// The element.
         /// </param>
-        /// <returns type="Object" locid="WinJS.Utilities.getScrollPosition_returnValue">
+        /// <returns type="Object" locid="TVJS.Utilities.getScrollPosition_returnValue">
         /// An object with two properties: scrollLeft and scrollTop
         /// </returns>
         /// </signature>
@@ -4784,14 +4784,14 @@ define('WinJS/Utilities/_ElementUtilities',[
     }
 
     function setScrollPosition(element, position) {
-        /// <signature helpKeyword="WinJS.Utilities.setScrollPosition">
-        /// <summary locid="WinJS.Utilities.setScrollPosition">
+        /// <signature helpKeyword="TVJS.Utilities.setScrollPosition">
+        /// <summary locid="TVJS.Utilities.setScrollPosition">
         /// Sets the scrollLeft and scrollTop of the specified element, changing the scrollLeft from logical coordinates to browser-specific coordinates when in RTL.
         /// </summary>
-        /// <param name="element" type="HTMLElement" domElement="true" locid="WinJS.Utilities.setScrollPosition_p:element">
+        /// <param name="element" type="HTMLElement" domElement="true" locid="TVJS.Utilities.setScrollPosition_p:element">
         /// The element.
         /// </param>
-        /// <param name="position" type="Object" domElement="true" locid="WinJS.Utilities.setScrollPosition_p:position">
+        /// <param name="position" type="Object" domElement="true" locid="TVJS.Utilities.setScrollPosition_p:position">
         /// The element.
         /// </param>
         /// </signature>
@@ -4845,7 +4845,7 @@ define('WinJS/Utilities/_ElementUtilities',[
 
     var _selectionPartsSelector = ".tv-selectionborder, .tv-selectionbackground, .tv-selectioncheckmark, .tv-selectioncheckmarkbackground";
     var _dataKey = "_msDataKey";
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         _dataKey: _dataKey,
 
         _supportsSnapPoints: {
@@ -4992,7 +4992,7 @@ define('WinJS/Utilities/_ElementUtilities',[
                 element.msZoomTo(args);
             } else {
                 // Schedule to ensure that we're not running from within an event handler. For example, if running
-                // within a focus handler triggered by WinJS.Utilities._setActive, scroll position will not yet be
+                // within a focus handler triggered by TVJS.Utilities._setActive, scroll position will not yet be
                 // restored.
                 setImmediate(function () {
                     var initialPos = getAdjustedScrollPosition(element);
@@ -5091,26 +5091,26 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         _GenericListener: GenericListener,
-        _globalListener: new GenericListener("Global", _Global, { registerThruWinJSCustomEvents: true }),
-        _documentElementListener: new GenericListener("DocumentElement", _Global.document.documentElement, { registerThruWinJSCustomEvents: true }),
+        _globalListener: new GenericListener("Global", _Global, { registerThruTVJSCustomEvents: true }),
+        _documentElementListener: new GenericListener("DocumentElement", _Global.document.documentElement, { registerThruTVJSCustomEvents: true }),
         _inputPaneListener: _WinRT.Windows.UI.ViewManagement.InputPane ?
             new GenericListener("InputPane", _WinRT.Windows.UI.ViewManagement.InputPane.getForCurrentView()) :
             { addEventListener: function () { }, removeEventListener: function () { } },
 
         // Appends a hidden child to the given element that will listen for being added
         // to the DOM. When the hidden element is added to the DOM, it will dispatch a
-        // "WinJSNodeInserted" event on the provided element.
+        // "TVJSNodeInserted" event on the provided element.
         _addInsertedNotifier: function (element) {
             var hiddenElement = _Global.document.createElement("div");
-            hiddenElement.style[_BaseUtils._browserStyleEquivalents["animation-name"].scriptName] = "WinJS-node-inserted";
+            hiddenElement.style[_BaseUtils._browserStyleEquivalents["animation-name"].scriptName] = "TVJS-node-inserted";
             hiddenElement.style[_BaseUtils._browserStyleEquivalents["animation-duration"].scriptName] = "0.01s";
             hiddenElement.style["position"] = "absolute";
             element.appendChild(hiddenElement);
 
             exports._addEventListener(hiddenElement, "animationStart", function (e) {
-                if (e.animationName === "WinJS-node-inserted") {
+                if (e.animationName === "TVJS-node-inserted") {
                     var e = _Global.document.createEvent("Event");
-                    e.initEvent("WinJSNodeInserted", false, true);
+                    e.initEvent("TVJSNodeInserted", false, true);
                     element.dispatchEvent(e);
                 }
             }, false);
@@ -5125,11 +5125,11 @@ define('WinJS/Utilities/_ElementUtilities',[
                     c();
                 } else {
                     var nodeInsertedHandler = function () {
-                        element.removeEventListener("WinJSNodeInserted", nodeInsertedHandler, false);
+                        element.removeEventListener("TVJSNodeInserted", nodeInsertedHandler, false);
                         c();
                     };
                     exports._addInsertedNotifier(element);
-                    element.addEventListener("WinJSNodeInserted", nodeInsertedHandler, false);
+                    element.addEventListener("TVJSNodeInserted", nodeInsertedHandler, false);
                 }
             });
         },
@@ -5156,690 +5156,690 @@ define('WinJS/Utilities/_ElementUtilities',[
             }
         },
 
-        /// <field locid="WinJS.Utilities.Key" helpKeyword="WinJS.Utilities.Key">
+        /// <field locid="TVJS.Utilities.Key" helpKeyword="TVJS.Utilities.Key">
         /// Defines a set of keyboard values.
         /// </field>
         Key: {
-            /// <field locid="WinJS.Utilities.Key.backspace" helpKeyword="WinJS.Utilities.Key.backspace">
+            /// <field locid="TVJS.Utilities.Key.backspace" helpKeyword="TVJS.Utilities.Key.backspace">
             /// BACKSPACE key.
             /// </field>
             backspace: 8,
 
-            /// <field locid="WinJS.Utilities.Key.tab" helpKeyword="WinJS.Utilities.Key.tab">
+            /// <field locid="TVJS.Utilities.Key.tab" helpKeyword="TVJS.Utilities.Key.tab">
             /// TAB key.
             /// </field>
             tab: 9,
 
-            /// <field locid="WinJS.Utilities.Key.enter" helpKeyword="WinJS.Utilities.Key.enter">
+            /// <field locid="TVJS.Utilities.Key.enter" helpKeyword="TVJS.Utilities.Key.enter">
             /// ENTER key.
             /// </field>
             enter: 13,
 
-            /// <field locid="WinJS.Utilities.Key.shift" helpKeyword="WinJS.Utilities.Key.shift">
+            /// <field locid="TVJS.Utilities.Key.shift" helpKeyword="TVJS.Utilities.Key.shift">
             /// Shift key.
             /// </field>
             shift: 16,
 
-            /// <field locid="WinJS.Utilities.Key.ctrl" helpKeyword="WinJS.Utilities.Key.ctrl">
+            /// <field locid="TVJS.Utilities.Key.ctrl" helpKeyword="TVJS.Utilities.Key.ctrl">
             /// CTRL key.
             /// </field>
             ctrl: 17,
 
-            /// <field locid="WinJS.Utilities.Key.alt" helpKeyword="WinJS.Utilities.Key.alt">
+            /// <field locid="TVJS.Utilities.Key.alt" helpKeyword="TVJS.Utilities.Key.alt">
             /// ALT key
             /// </field>
             alt: 18,
 
-            /// <field locid="WinJS.Utilities.Key.pause" helpKeyword="WinJS.Utilities.Key.pause">
+            /// <field locid="TVJS.Utilities.Key.pause" helpKeyword="TVJS.Utilities.Key.pause">
             /// Pause key.
             /// </field>
             pause: 19,
 
-            /// <field locid="WinJS.Utilities.Key.capsLock" helpKeyword="WinJS.Utilities.Key.capsLock">
+            /// <field locid="TVJS.Utilities.Key.capsLock" helpKeyword="TVJS.Utilities.Key.capsLock">
             /// CAPS LOCK key.
             /// </field>
             capsLock: 20,
 
-            /// <field locid="WinJS.Utilities.Key.escape" helpKeyword="WinJS.Utilities.Key.escape">
+            /// <field locid="TVJS.Utilities.Key.escape" helpKeyword="TVJS.Utilities.Key.escape">
             /// ESCAPE key.
             /// </field>
             escape: 27,
 
-            /// <field locid="WinJS.Utilities.Key.space" helpKeyword="WinJS.Utilities.Key.space">
+            /// <field locid="TVJS.Utilities.Key.space" helpKeyword="TVJS.Utilities.Key.space">
             /// SPACE key.
             /// </field>
             space: 32,
 
-            /// <field locid="WinJS.Utilities.Key.pageUp" helpKeyword="WinJS.Utilities.Key.pageUp">
+            /// <field locid="TVJS.Utilities.Key.pageUp" helpKeyword="TVJS.Utilities.Key.pageUp">
             /// PAGE UP key.
             /// </field>
             pageUp: 33,
 
-            /// <field locid="WinJS.Utilities.Key.pageDown" helpKeyword="WinJS.Utilities.Key.pageDown">
+            /// <field locid="TVJS.Utilities.Key.pageDown" helpKeyword="TVJS.Utilities.Key.pageDown">
             /// PAGE DOWN key.
             /// </field>
             pageDown: 34,
 
-            /// <field locid="WinJS.Utilities.Key.end" helpKeyword="WinJS.Utilities.Key.end">
+            /// <field locid="TVJS.Utilities.Key.end" helpKeyword="TVJS.Utilities.Key.end">
             /// END key.
             /// </field>
             end: 35,
 
-            /// <field locid="WinJS.Utilities.Key.home" helpKeyword="WinJS.Utilities.Key.home">
+            /// <field locid="TVJS.Utilities.Key.home" helpKeyword="TVJS.Utilities.Key.home">
             /// HOME key.
             /// </field>
             home: 36,
 
-            /// <field locid="WinJS.Utilities.Key.leftArrow" helpKeyword="WinJS.Utilities.Key.leftArrow">
+            /// <field locid="TVJS.Utilities.Key.leftArrow" helpKeyword="TVJS.Utilities.Key.leftArrow">
             /// Left arrow key.
             /// </field>
             leftArrow: 37,
 
-            /// <field locid="WinJS.Utilities.Key.upArrow" helpKeyword="WinJS.Utilities.Key.upArrow">
+            /// <field locid="TVJS.Utilities.Key.upArrow" helpKeyword="TVJS.Utilities.Key.upArrow">
             /// Up arrow key.
             /// </field>
             upArrow: 38,
 
-            /// <field locid="WinJS.Utilities.Key.rightArrow" helpKeyword="WinJS.Utilities.Key.rightArrow">
+            /// <field locid="TVJS.Utilities.Key.rightArrow" helpKeyword="TVJS.Utilities.Key.rightArrow">
             /// Right arrow key.
             /// </field>
             rightArrow: 39,
 
-            /// <field locid="WinJS.Utilities.Key.downArrow" helpKeyword="WinJS.Utilities.Key.downArrow">
+            /// <field locid="TVJS.Utilities.Key.downArrow" helpKeyword="TVJS.Utilities.Key.downArrow">
             /// Down arrow key.
             /// </field>
             downArrow: 40,
 
-            /// <field locid="WinJS.Utilities.Key.insert" helpKeyword="WinJS.Utilities.Key.insert">
+            /// <field locid="TVJS.Utilities.Key.insert" helpKeyword="TVJS.Utilities.Key.insert">
             /// INSERT key.
             /// </field>
             insert: 45,
 
-            /// <field locid="WinJS.Utilities.Key.deleteKey" helpKeyword="WinJS.Utilities.Key.deleteKey">
+            /// <field locid="TVJS.Utilities.Key.deleteKey" helpKeyword="TVJS.Utilities.Key.deleteKey">
             /// DELETE key.
             /// </field>
             deleteKey: 46,
 
-            /// <field locid="WinJS.Utilities.Key.num0" helpKeyword="WinJS.Utilities.Key.num0">
+            /// <field locid="TVJS.Utilities.Key.num0" helpKeyword="TVJS.Utilities.Key.num0">
             /// Number 0 key.
             /// </field>
             num0: 48,
 
-            /// <field locid="WinJS.Utilities.Key.num1" helpKeyword="WinJS.Utilities.Key.num1">
+            /// <field locid="TVJS.Utilities.Key.num1" helpKeyword="TVJS.Utilities.Key.num1">
             /// Number 1 key.
             /// </field>
             num1: 49,
 
-            /// <field locid="WinJS.Utilities.Key.num2" helpKeyword="WinJS.Utilities.Key.num2">
+            /// <field locid="TVJS.Utilities.Key.num2" helpKeyword="TVJS.Utilities.Key.num2">
             /// Number 2 key.
             /// </field>
             num2: 50,
 
-            /// <field locid="WinJS.Utilities.Key.num3" helpKeyword="WinJS.Utilities.Key.num3">
+            /// <field locid="TVJS.Utilities.Key.num3" helpKeyword="TVJS.Utilities.Key.num3">
             /// Number 3 key.
             /// </field>
             num3: 51,
 
-            /// <field locid="WinJS.Utilities.Key.num4" helpKeyword="WinJS.Utilities.Key.num4">
+            /// <field locid="TVJS.Utilities.Key.num4" helpKeyword="TVJS.Utilities.Key.num4">
             /// Number 4 key.
             /// </field>
             num4: 52,
 
-            /// <field locid="WinJS.Utilities.Key.num5" helpKeyword="WinJS.Utilities.Key.num5">
+            /// <field locid="TVJS.Utilities.Key.num5" helpKeyword="TVJS.Utilities.Key.num5">
             /// Number 5 key.
             /// </field>
             num5: 53,
 
-            /// <field locid="WinJS.Utilities.Key.num6" helpKeyword="WinJS.Utilities.Key.num6">
+            /// <field locid="TVJS.Utilities.Key.num6" helpKeyword="TVJS.Utilities.Key.num6">
             /// Number 6 key.
             /// </field>
             num6: 54,
 
-            /// <field locid="WinJS.Utilities.Key.num7" helpKeyword="WinJS.Utilities.Key.num7">
+            /// <field locid="TVJS.Utilities.Key.num7" helpKeyword="TVJS.Utilities.Key.num7">
             /// Number 7 key.
             /// </field>
             num7: 55,
 
-            /// <field locid="WinJS.Utilities.Key.num8" helpKeyword="WinJS.Utilities.Key.num8">
+            /// <field locid="TVJS.Utilities.Key.num8" helpKeyword="TVJS.Utilities.Key.num8">
             /// Number 8 key.
             /// </field>
             num8: 56,
 
-            /// <field locid="WinJS.Utilities.Key.num9" helpKeyword="WinJS.Utilities.Key.num9">
+            /// <field locid="TVJS.Utilities.Key.num9" helpKeyword="TVJS.Utilities.Key.num9">
             /// Number 9 key.
             /// </field>
             num9: 57,
 
-            /// <field locid="WinJS.Utilities.Key.a" helpKeyword="WinJS.Utilities.Key.a">
+            /// <field locid="TVJS.Utilities.Key.a" helpKeyword="TVJS.Utilities.Key.a">
             /// A key.
             /// </field>
             a: 65,
 
-            /// <field locid="WinJS.Utilities.Key.b" helpKeyword="WinJS.Utilities.Key.b">
+            /// <field locid="TVJS.Utilities.Key.b" helpKeyword="TVJS.Utilities.Key.b">
             /// B key.
             /// </field>
             b: 66,
 
-            /// <field locid="WinJS.Utilities.Key.c" helpKeyword="WinJS.Utilities.Key.c">
+            /// <field locid="TVJS.Utilities.Key.c" helpKeyword="TVJS.Utilities.Key.c">
             /// C key.
             /// </field>
             c: 67,
 
-            /// <field locid="WinJS.Utilities.Key.d" helpKeyword="WinJS.Utilities.Key.d">
+            /// <field locid="TVJS.Utilities.Key.d" helpKeyword="TVJS.Utilities.Key.d">
             /// D key.
             /// </field>
             d: 68,
 
-            /// <field locid="WinJS.Utilities.Key.e" helpKeyword="WinJS.Utilities.Key.e">
+            /// <field locid="TVJS.Utilities.Key.e" helpKeyword="TVJS.Utilities.Key.e">
             /// E key.
             /// </field>
             e: 69,
 
-            /// <field locid="WinJS.Utilities.Key.f" helpKeyword="WinJS.Utilities.Key.f">
+            /// <field locid="TVJS.Utilities.Key.f" helpKeyword="TVJS.Utilities.Key.f">
             /// F key.
             /// </field>
             f: 70,
 
-            /// <field locid="WinJS.Utilities.Key.g" helpKeyword="WinJS.Utilities.Key.g">
+            /// <field locid="TVJS.Utilities.Key.g" helpKeyword="TVJS.Utilities.Key.g">
             /// G key.
             /// </field>
             g: 71,
 
-            /// <field locid="WinJS.Utilities.Key.h" helpKeyword="WinJS.Utilities.Key.h">
+            /// <field locid="TVJS.Utilities.Key.h" helpKeyword="TVJS.Utilities.Key.h">
             /// H key.
             /// </field>
             h: 72,
 
-            /// <field locid="WinJS.Utilities.Key.i" helpKeyword="WinJS.Utilities.Key.i">
+            /// <field locid="TVJS.Utilities.Key.i" helpKeyword="TVJS.Utilities.Key.i">
             /// I key.
             /// </field>
             i: 73,
 
-            /// <field locid="WinJS.Utilities.Key.j" helpKeyword="WinJS.Utilities.Key.j">
+            /// <field locid="TVJS.Utilities.Key.j" helpKeyword="TVJS.Utilities.Key.j">
             /// J key.
             /// </field>
             j: 74,
 
-            /// <field locid="WinJS.Utilities.Key.k" helpKeyword="WinJS.Utilities.Key.k">
+            /// <field locid="TVJS.Utilities.Key.k" helpKeyword="TVJS.Utilities.Key.k">
             /// K key.
             /// </field>
             k: 75,
 
-            /// <field locid="WinJS.Utilities.Key.l" helpKeyword="WinJS.Utilities.Key.l">
+            /// <field locid="TVJS.Utilities.Key.l" helpKeyword="TVJS.Utilities.Key.l">
             /// L key.
             /// </field>
             l: 76,
 
-            /// <field locid="WinJS.Utilities.Key.m" helpKeyword="WinJS.Utilities.Key.m">
+            /// <field locid="TVJS.Utilities.Key.m" helpKeyword="TVJS.Utilities.Key.m">
             /// M key.
             /// </field>
             m: 77,
 
-            /// <field locid="WinJS.Utilities.Key.n" helpKeyword="WinJS.Utilities.Key.n">
+            /// <field locid="TVJS.Utilities.Key.n" helpKeyword="TVJS.Utilities.Key.n">
             /// N key.
             /// </field>
             n: 78,
 
-            /// <field locid="WinJS.Utilities.Key.o" helpKeyword="WinJS.Utilities.Key.o">
+            /// <field locid="TVJS.Utilities.Key.o" helpKeyword="TVJS.Utilities.Key.o">
             /// O key.
             /// </field>
             o: 79,
 
-            /// <field locid="WinJS.Utilities.Key.p" helpKeyword="WinJS.Utilities.Key.p">
+            /// <field locid="TVJS.Utilities.Key.p" helpKeyword="TVJS.Utilities.Key.p">
             /// P key.
             /// </field>
             p: 80,
 
-            /// <field locid="WinJS.Utilities.Key.q" helpKeyword="WinJS.Utilities.Key.q">
+            /// <field locid="TVJS.Utilities.Key.q" helpKeyword="TVJS.Utilities.Key.q">
             /// Q key.
             /// </field>
             q: 81,
 
-            /// <field locid="WinJS.Utilities.Key.r" helpKeyword="WinJS.Utilities.Key.r">
+            /// <field locid="TVJS.Utilities.Key.r" helpKeyword="TVJS.Utilities.Key.r">
             /// R key.
             /// </field>
             r: 82,
 
-            /// <field locid="WinJS.Utilities.Key.s" helpKeyword="WinJS.Utilities.Key.s">
+            /// <field locid="TVJS.Utilities.Key.s" helpKeyword="TVJS.Utilities.Key.s">
             /// S key.
             /// </field>
             s: 83,
 
-            /// <field locid="WinJS.Utilities.Key.t" helpKeyword="WinJS.Utilities.Key.t">
+            /// <field locid="TVJS.Utilities.Key.t" helpKeyword="TVJS.Utilities.Key.t">
             /// T key.
             /// </field>
             t: 84,
 
-            /// <field locid="WinJS.Utilities.Key.u" helpKeyword="WinJS.Utilities.Key.u">
+            /// <field locid="TVJS.Utilities.Key.u" helpKeyword="TVJS.Utilities.Key.u">
             /// U key.
             /// </field>
             u: 85,
 
-            /// <field locid="WinJS.Utilities.Key.v" helpKeyword="WinJS.Utilities.Key.v">
+            /// <field locid="TVJS.Utilities.Key.v" helpKeyword="TVJS.Utilities.Key.v">
             /// V key.
             /// </field>
             v: 86,
 
-            /// <field locid="WinJS.Utilities.Key.w" helpKeyword="WinJS.Utilities.Key.w">
+            /// <field locid="TVJS.Utilities.Key.w" helpKeyword="TVJS.Utilities.Key.w">
             /// W key.
             /// </field>
             w: 87,
 
-            /// <field locid="WinJS.Utilities.Key.x" helpKeyword="WinJS.Utilities.Key.x">
+            /// <field locid="TVJS.Utilities.Key.x" helpKeyword="TVJS.Utilities.Key.x">
             /// X key.
             /// </field>
             x: 88,
 
-            /// <field locid="WinJS.Utilities.Key.y" helpKeyword="WinJS.Utilities.Key.y">
+            /// <field locid="TVJS.Utilities.Key.y" helpKeyword="TVJS.Utilities.Key.y">
             /// Y key.
             /// </field>
             y: 89,
 
-            /// <field locid="WinJS.Utilities.Key.z" helpKeyword="WinJS.Utilities.Key.z">
+            /// <field locid="TVJS.Utilities.Key.z" helpKeyword="TVJS.Utilities.Key.z">
             /// Z key.
             /// </field>
             z: 90,
 
-            /// <field locid="WinJS.Utilities.Key.leftWindows" helpKeyword="WinJS.Utilities.Key.leftWindows">
+            /// <field locid="TVJS.Utilities.Key.leftWindows" helpKeyword="TVJS.Utilities.Key.leftWindows">
             /// Left Windows key.
             /// </field>
             leftWindows: 91,
 
-            /// <field locid="WinJS.Utilities.Key.rightWindows" helpKeyword="WinJS.Utilities.Key.rightWindows">
+            /// <field locid="TVJS.Utilities.Key.rightWindows" helpKeyword="TVJS.Utilities.Key.rightWindows">
             /// Right Windows key.
             /// </field>
             rightWindows: 92,
 
-            /// <field locid="WinJS.Utilities.Key.menu" helpKeyword="WinJS.Utilities.Key.menu">
+            /// <field locid="TVJS.Utilities.Key.menu" helpKeyword="TVJS.Utilities.Key.menu">
             /// Menu key.
             /// </field>
             menu: 93,
 
-            /// <field locid="WinJS.Utilities.Key.numPad0" helpKeyword="WinJS.Utilities.Key.numPad0">
+            /// <field locid="TVJS.Utilities.Key.numPad0" helpKeyword="TVJS.Utilities.Key.numPad0">
             /// Number pad 0 key.
             /// </field>
             numPad0: 96,
 
-            /// <field locid="WinJS.Utilities.Key.numPad1" helpKeyword="WinJS.Utilities.Key.numPad1">
+            /// <field locid="TVJS.Utilities.Key.numPad1" helpKeyword="TVJS.Utilities.Key.numPad1">
             /// Number pad 1 key.
             /// </field>
             numPad1: 97,
 
-            /// <field locid="WinJS.Utilities.Key.numPad2" helpKeyword="WinJS.Utilities.Key.numPad2">
+            /// <field locid="TVJS.Utilities.Key.numPad2" helpKeyword="TVJS.Utilities.Key.numPad2">
             /// Number pad 2 key.
             /// </field>
             numPad2: 98,
 
-            /// <field locid="WinJS.Utilities.Key.numPad3" helpKeyword="WinJS.Utilities.Key.numPad3">
+            /// <field locid="TVJS.Utilities.Key.numPad3" helpKeyword="TVJS.Utilities.Key.numPad3">
             /// Number pad 3 key.
             /// </field>
             numPad3: 99,
 
-            /// <field locid="WinJS.Utilities.Key.numPad4" helpKeyword="WinJS.Utilities.Key.numPad4">
+            /// <field locid="TVJS.Utilities.Key.numPad4" helpKeyword="TVJS.Utilities.Key.numPad4">
             /// Number pad 4 key.
             /// </field>
             numPad4: 100,
 
-            /// <field locid="WinJS.Utilities.Key.numPad5" helpKeyword="WinJS.Utilities.Key.numPad5">
+            /// <field locid="TVJS.Utilities.Key.numPad5" helpKeyword="TVJS.Utilities.Key.numPad5">
             /// Number pad 5 key.
             /// </field>
             numPad5: 101,
 
-            /// <field locid="WinJS.Utilities.Key.numPad6" helpKeyword="WinJS.Utilities.Key.numPad6">
+            /// <field locid="TVJS.Utilities.Key.numPad6" helpKeyword="TVJS.Utilities.Key.numPad6">
             /// Number pad 6 key.
             /// </field>
             numPad6: 102,
 
-            /// <field locid="WinJS.Utilities.Key.numPad7" helpKeyword="WinJS.Utilities.Key.numPad7">
+            /// <field locid="TVJS.Utilities.Key.numPad7" helpKeyword="TVJS.Utilities.Key.numPad7">
             /// Number pad 7 key.
             /// </field>
             numPad7: 103,
 
-            /// <field locid="WinJS.Utilities.Key.numPad8" helpKeyword="WinJS.Utilities.Key.numPad8">
+            /// <field locid="TVJS.Utilities.Key.numPad8" helpKeyword="TVJS.Utilities.Key.numPad8">
             /// Number pad 8 key.
             /// </field>
             numPad8: 104,
 
-            /// <field locid="WinJS.Utilities.Key.numPad9" helpKeyword="WinJS.Utilities.Key.numPad9">
+            /// <field locid="TVJS.Utilities.Key.numPad9" helpKeyword="TVJS.Utilities.Key.numPad9">
             /// Number pad 9 key.
             /// </field>
             numPad9: 105,
 
-            /// <field locid="WinJS.Utilities.Key.multiply" helpKeyword="WinJS.Utilities.Key.multiply">
+            /// <field locid="TVJS.Utilities.Key.multiply" helpKeyword="TVJS.Utilities.Key.multiply">
             /// Multiplication key.
             /// </field>
             multiply: 106,
 
-            /// <field locid="WinJS.Utilities.Key.add" helpKeyword="WinJS.Utilities.Key.add">
+            /// <field locid="TVJS.Utilities.Key.add" helpKeyword="TVJS.Utilities.Key.add">
             /// Addition key.
             /// </field>
             add: 107,
 
-            /// <field locid="WinJS.Utilities.Key.subtract" helpKeyword="WinJS.Utilities.Key.subtract">
+            /// <field locid="TVJS.Utilities.Key.subtract" helpKeyword="TVJS.Utilities.Key.subtract">
             /// Subtraction key.
             /// </field>
             subtract: 109,
 
-            /// <field locid="WinJS.Utilities.Key.decimalPoint" helpKeyword="WinJS.Utilities.Key.decimalPoint">
+            /// <field locid="TVJS.Utilities.Key.decimalPoint" helpKeyword="TVJS.Utilities.Key.decimalPoint">
             /// Decimal point key.
             /// </field>
             decimalPoint: 110,
 
-            /// <field locid="WinJS.Utilities.Key.divide" helpKeyword="WinJS.Utilities.Key.divide">
+            /// <field locid="TVJS.Utilities.Key.divide" helpKeyword="TVJS.Utilities.Key.divide">
             /// Division key.
             /// </field>
             divide: 111,
 
-            /// <field locid="WinJS.Utilities.Key.F1" helpKeyword="WinJS.Utilities.Key.F1">
+            /// <field locid="TVJS.Utilities.Key.F1" helpKeyword="TVJS.Utilities.Key.F1">
             /// F1 key.
             /// </field>
             F1: 112,
 
-            /// <field locid="WinJS.Utilities.Key.F2" helpKeyword="WinJS.Utilities.Key.F2">
+            /// <field locid="TVJS.Utilities.Key.F2" helpKeyword="TVJS.Utilities.Key.F2">
             /// F2 key.
             /// </field>
             F2: 113,
 
-            /// <field locid="WinJS.Utilities.Key.F3" helpKeyword="WinJS.Utilities.Key.F3">
+            /// <field locid="TVJS.Utilities.Key.F3" helpKeyword="TVJS.Utilities.Key.F3">
             /// F3 key.
             /// </field>
             F3: 114,
 
-            /// <field locid="WinJS.Utilities.Key.F4" helpKeyword="WinJS.Utilities.Key.F4">
+            /// <field locid="TVJS.Utilities.Key.F4" helpKeyword="TVJS.Utilities.Key.F4">
             /// F4 key.
             /// </field>
             F4: 115,
 
-            /// <field locid="WinJS.Utilities.Key.F5" helpKeyword="WinJS.Utilities.Key.F5">
+            /// <field locid="TVJS.Utilities.Key.F5" helpKeyword="TVJS.Utilities.Key.F5">
             /// F5 key.
             /// </field>
             F5: 116,
 
-            /// <field locid="WinJS.Utilities.Key.F6" helpKeyword="WinJS.Utilities.Key.F6">
+            /// <field locid="TVJS.Utilities.Key.F6" helpKeyword="TVJS.Utilities.Key.F6">
             /// F6 key.
             /// </field>
             F6: 117,
 
-            /// <field locid="WinJS.Utilities.Key.F7" helpKeyword="WinJS.Utilities.Key.F7">
+            /// <field locid="TVJS.Utilities.Key.F7" helpKeyword="TVJS.Utilities.Key.F7">
             /// F7 key.
             /// </field>
             F7: 118,
 
-            /// <field locid="WinJS.Utilities.Key.F8" helpKeyword="WinJS.Utilities.Key.F8">
+            /// <field locid="TVJS.Utilities.Key.F8" helpKeyword="TVJS.Utilities.Key.F8">
             /// F8 key.
             /// </field>
             F8: 119,
 
-            /// <field locid="WinJS.Utilities.Key.F9" helpKeyword="WinJS.Utilities.Key.F9">
+            /// <field locid="TVJS.Utilities.Key.F9" helpKeyword="TVJS.Utilities.Key.F9">
             /// F9 key.
             /// </field>
             F9: 120,
 
-            /// <field locid="WinJS.Utilities.Key.F10" helpKeyword="WinJS.Utilities.Key.F10">
+            /// <field locid="TVJS.Utilities.Key.F10" helpKeyword="TVJS.Utilities.Key.F10">
             /// F10 key.
             /// </field>
             F10: 121,
 
-            /// <field locid="WinJS.Utilities.Key.F11" helpKeyword="WinJS.Utilities.Key.F11">
+            /// <field locid="TVJS.Utilities.Key.F11" helpKeyword="TVJS.Utilities.Key.F11">
             /// F11 key.
             /// </field>
             F11: 122,
 
-            /// <field locid="WinJS.Utilities.Key.F12" helpKeyword="WinJS.Utilities.Key.F12">
+            /// <field locid="TVJS.Utilities.Key.F12" helpKeyword="TVJS.Utilities.Key.F12">
             /// F12 key.
             /// </field>
             F12: 123,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationView" helpKeyword="WinJS.Utilities.Key.NavigationView">
+            /// <field locid="TVJS.Utilities.Key.NavigationView" helpKeyword="TVJS.Utilities.Key.NavigationView">
             /// XBox One Remote NavigationView key.
             /// </field>
             NavigationView: 136,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationMenu" helpKeyword="WinJS.Utilities.Key.NavigationMenu">
+            /// <field locid="TVJS.Utilities.Key.NavigationMenu" helpKeyword="TVJS.Utilities.Key.NavigationMenu">
             /// XBox One Remote NavigationMenu key.
             /// </field>
             NavigationMenu: 137,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationUp" helpKeyword="WinJS.Utilities.Key.NavigationUp">
+            /// <field locid="TVJS.Utilities.Key.NavigationUp" helpKeyword="TVJS.Utilities.Key.NavigationUp">
             /// XBox One Remote NavigationUp key.
             /// </field>
             NavigationUp: 138,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationDown" helpKeyword="WinJS.Utilities.Key.NavigationDown">
+            /// <field locid="TVJS.Utilities.Key.NavigationDown" helpKeyword="TVJS.Utilities.Key.NavigationDown">
             /// XBox One Remote NavigationDown key.
             /// </field>
             NavigationDown: 139,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationLeft" helpKeyword="WinJS.Utilities.Key.NavigationLeft">
+            /// <field locid="TVJS.Utilities.Key.NavigationLeft" helpKeyword="TVJS.Utilities.Key.NavigationLeft">
             /// XBox One Remote NavigationLeft key.
             /// </field>
             NavigationLeft: 140,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationRight" helpKeyword="WinJS.Utilities.Key.NavigationRight">
+            /// <field locid="TVJS.Utilities.Key.NavigationRight" helpKeyword="TVJS.Utilities.Key.NavigationRight">
             /// XBox One Remote NavigationRight key.
             /// </field>
             NavigationRight: 141,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationAccept" helpKeyword="WinJS.Utilities.Key.NavigationAccept">
+            /// <field locid="TVJS.Utilities.Key.NavigationAccept" helpKeyword="TVJS.Utilities.Key.NavigationAccept">
             /// XBox One Remote NavigationAccept key.
             /// </field>
             NavigationAccept: 142,
 
-            /// <field locid="WinJS.Utilities.Key.NavigationCancel" helpKeyword="WinJS.Utilities.Key.NavigationCancel">
+            /// <field locid="TVJS.Utilities.Key.NavigationCancel" helpKeyword="TVJS.Utilities.Key.NavigationCancel">
             /// XBox One Remote NavigationCancel key.
             /// </field>
             NavigationCancel: 143,
 
-            /// <field locid="WinJS.Utilities.Key.numLock" helpKeyword="WinJS.Utilities.Key.numLock">
+            /// <field locid="TVJS.Utilities.Key.numLock" helpKeyword="TVJS.Utilities.Key.numLock">
             /// NUMBER LOCK key.
             /// </field>
             numLock: 144,
 
-            /// <field locid="WinJS.Utilities.Key.scrollLock" helpKeyword="WinJS.Utilities.Key.scrollLock">
+            /// <field locid="TVJS.Utilities.Key.scrollLock" helpKeyword="TVJS.Utilities.Key.scrollLock">
             /// SCROLL LOCK key.
             /// </field>
             scrollLock: 145,
 
-            /// <field locid="WinJS.Utilities.Key.browserBack" helpKeyword="WinJS.Utilities.Key.browserBack">
+            /// <field locid="TVJS.Utilities.Key.browserBack" helpKeyword="TVJS.Utilities.Key.browserBack">
             /// Browser back key.
             /// </field>
             browserBack: 166,
 
-            /// <field locid="WinJS.Utilities.Key.browserForward" helpKeyword="WinJS.Utilities.Key.browserForward">
+            /// <field locid="TVJS.Utilities.Key.browserForward" helpKeyword="TVJS.Utilities.Key.browserForward">
             /// Browser forward key.
             /// </field>
             browserForward: 167,
 
-            /// <field locid="WinJS.Utilities.Key.semicolon" helpKeyword="WinJS.Utilities.Key.semicolon">
+            /// <field locid="TVJS.Utilities.Key.semicolon" helpKeyword="TVJS.Utilities.Key.semicolon">
             /// SEMICOLON key.
             /// </field>
             semicolon: 186,
 
-            /// <field locid="WinJS.Utilities.Key.equal" helpKeyword="WinJS.Utilities.Key.equal">
+            /// <field locid="TVJS.Utilities.Key.equal" helpKeyword="TVJS.Utilities.Key.equal">
             /// EQUAL key.
             /// </field>
             equal: 187,
 
-            /// <field locid="WinJS.Utilities.Key.comma" helpKeyword="WinJS.Utilities.Key.comma">
+            /// <field locid="TVJS.Utilities.Key.comma" helpKeyword="TVJS.Utilities.Key.comma">
             /// COMMA key.
             /// </field>
             comma: 188,
 
-            /// <field locid="WinJS.Utilities.Key.dash" helpKeyword="WinJS.Utilities.Key.dash">
+            /// <field locid="TVJS.Utilities.Key.dash" helpKeyword="TVJS.Utilities.Key.dash">
             /// DASH key.
             /// </field>
             dash: 189,
 
-            /// <field locid="WinJS.Utilities.Key.period" helpKeyword="WinJS.Utilities.Key.period">
+            /// <field locid="TVJS.Utilities.Key.period" helpKeyword="TVJS.Utilities.Key.period">
             /// PERIOD key.
             /// </field>
             period: 190,
 
-            /// <field locid="WinJS.Utilities.Key.forwardSlash" helpKeyword="WinJS.Utilities.Key.forwardSlash">
+            /// <field locid="TVJS.Utilities.Key.forwardSlash" helpKeyword="TVJS.Utilities.Key.forwardSlash">
             /// FORWARD SLASH key.
             /// </field>
             forwardSlash: 191,
 
-            /// <field locid="WinJS.Utilities.Key.graveAccent" helpKeyword="WinJS.Utilities.Key.graveAccent">
+            /// <field locid="TVJS.Utilities.Key.graveAccent" helpKeyword="TVJS.Utilities.Key.graveAccent">
             /// Accent grave key.
             /// </field>
             graveAccent: 192,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadA" helpKeyword="WinJS.Utilities.Key.GamepadA">
+            /// <field locid="TVJS.Utilities.Key.GamepadA" helpKeyword="TVJS.Utilities.Key.GamepadA">
             /// XBox One GamepadA key.
             /// </field>
             gamepadA: 195,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadB" helpKeyword="WinJS.Utilities.Key.GamepadB">
+            /// <field locid="TVJS.Utilities.Key.GamepadB" helpKeyword="TVJS.Utilities.Key.GamepadB">
             /// XBox One GamepadB key.
             /// </field>
             gamepadB: 196,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadX" helpKeyword="WinJS.Utilities.Key.GamepadX">
+            /// <field locid="TVJS.Utilities.Key.GamepadX" helpKeyword="TVJS.Utilities.Key.GamepadX">
             /// XBox One GamepadX key.
             /// </field>
             gamepadX: 197,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadY" helpKeyword="WinJS.Utilities.Key.GamepadY">
+            /// <field locid="TVJS.Utilities.Key.GamepadY" helpKeyword="TVJS.Utilities.Key.GamepadY">
             /// XBox One GamepadY key.
             /// </field>
             gamepadY: 198,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightShoulder" helpKeyword="WinJS.Utilities.Key.GamepadRightShoulder">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightShoulder" helpKeyword="TVJS.Utilities.Key.GamepadRightShoulder">
             /// XBox One GamepadRightShoulder key.
             /// </field>
             gamepadRightShoulder: 199,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftShoulder" helpKeyword="WinJS.Utilities.Key.GamepadLeftShoulder">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftShoulder" helpKeyword="TVJS.Utilities.Key.GamepadLeftShoulder">
             /// XBox One GamepadLeftShoulder key.
             /// </field>
             gamepadLeftShoulder: 200,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftTrigger" helpKeyword="WinJS.Utilities.Key.GamepadLeftTrigger">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftTrigger" helpKeyword="TVJS.Utilities.Key.GamepadLeftTrigger">
             /// XBox One GamepadLeftTrigger key.
             /// </field>
             gamepadLeftTrigger: 201,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightTrigger" helpKeyword="WinJS.Utilities.Key.GamepadRightTrigger">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightTrigger" helpKeyword="TVJS.Utilities.Key.GamepadRightTrigger">
             /// XBox One GamepadRightTrigger key.
             /// </field>
             gamepadRightTrigger: 202,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadDPadUp" helpKeyword="WinJS.Utilities.Key.GamepadDPadUp">
+            /// <field locid="TVJS.Utilities.Key.GamepadDPadUp" helpKeyword="TVJS.Utilities.Key.GamepadDPadUp">
             /// XBox One GamepadDPadUp key.
             /// </field>
             gamepadDPadUp: 203,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadDPadDown" helpKeyword="WinJS.Utilities.Key.GamepadDPadDown">
+            /// <field locid="TVJS.Utilities.Key.GamepadDPadDown" helpKeyword="TVJS.Utilities.Key.GamepadDPadDown">
             /// XBox One GamepadDPadDown key.
             /// </field>
             gamepadDPadDown: 204,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadDPadLeft" helpKeyword="WinJS.Utilities.Key.GamepadDPadLeft">
+            /// <field locid="TVJS.Utilities.Key.GamepadDPadLeft" helpKeyword="TVJS.Utilities.Key.GamepadDPadLeft">
             /// XBox One GamepadDPadLeft key.
             /// </field>
             gamepadDPadLeft: 205,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadDPadRight" helpKeyword="WinJS.Utilities.Key.GamepadDPadRight">
+            /// <field locid="TVJS.Utilities.Key.GamepadDPadRight" helpKeyword="TVJS.Utilities.Key.GamepadDPadRight">
             /// XBox One GamepadDPadRight key.
             /// </field>
             gamepadDPadRight: 206,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadMenu" helpKeyword="WinJS.Utilities.Key.GamepadMenu">
+            /// <field locid="TVJS.Utilities.Key.GamepadMenu" helpKeyword="TVJS.Utilities.Key.GamepadMenu">
             /// XBox One GamepadMenu key.
             /// </field>
             gamepadMenu: 207,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadView" helpKeyword="WinJS.Utilities.Key.GamepadView">
+            /// <field locid="TVJS.Utilities.Key.GamepadView" helpKeyword="TVJS.Utilities.Key.GamepadView">
             /// XBox One GamepadView key.
             /// </field>
             gamepadView: 208,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstick">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftThumbstick" helpKeyword="TVJS.Utilities.Key.GamepadLeftThumbstick">
             /// XBox One GamepadLeftThumbstick key.
             /// </field>
             gamepadLeftThumbstick: 209,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstick" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstick">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightThumbstick" helpKeyword="TVJS.Utilities.Key.GamepadRightThumbstick">
             /// XBox One GamepadRightThumbstick key.
             /// </field>
             gamepadRightThumbstick: 210,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickUp">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftThumbstickUp" helpKeyword="TVJS.Utilities.Key.GamepadLeftThumbstickUp">
             /// XBox One GamepadLeftThumbstickUp key.
             /// </field>
             gamepadLeftThumbstickUp: 211,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickDown">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftThumbstickDown" helpKeyword="TVJS.Utilities.Key.GamepadLeftThumbstickDown">
             /// XBox One GamepadLeftThumbstickDown key.
             /// </field>
             gamepadLeftThumbstickDown: 212,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickRight">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftThumbstickRight" helpKeyword="TVJS.Utilities.Key.GamepadLeftThumbstickRight">
             /// XBox One GamepadLeftThumbstickRight key.
             /// </field>
             gamepadLeftThumbstickRight: 213,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadLeftThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadLeftThumbstickLeft">
+            /// <field locid="TVJS.Utilities.Key.GamepadLeftThumbstickLeft" helpKeyword="TVJS.Utilities.Key.GamepadLeftThumbstickLeft">
             /// XBox One GamepadLeftThumbstickLeft key.
             /// </field>
             gamepadLeftThumbstickLeft: 214,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickUp" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickUp">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightThumbstickUp" helpKeyword="TVJS.Utilities.Key.GamepadRightThumbstickUp">
             /// XBox One GamepadRightThumbstickUp key.
             /// </field>
             gamepadRightThumbstickUp: 215,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickDown" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickDown">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightThumbstickDown" helpKeyword="TVJS.Utilities.Key.GamepadRightThumbstickDown">
             /// XBox One GamepadRightThumbstickDown key.
             /// </field>
             gamepadRightThumbstickDown: 216,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickRight" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickRight">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightThumbstickRight" helpKeyword="TVJS.Utilities.Key.GamepadRightThumbstickRight">
             /// XBox One GamepadRightThumbstickRight key.
             /// </field>
             gamepadRightThumbstickRight: 217,
 
-            /// <field locid="WinJS.Utilities.Key.GamepadRightThumbstickLeft" helpKeyword="WinJS.Utilities.Key.GamepadRightThumbstickLeft">
+            /// <field locid="TVJS.Utilities.Key.GamepadRightThumbstickLeft" helpKeyword="TVJS.Utilities.Key.GamepadRightThumbstickLeft">
             /// XBox One GamepadRightThumbstickLeft key.
             /// </field>
             gamepadRightThumbstickLeft: 218,
 
-            /// <field locid="WinJS.Utilities.Key.openBracket" helpKeyword="WinJS.Utilities.Key.openBracket">
+            /// <field locid="TVJS.Utilities.Key.openBracket" helpKeyword="TVJS.Utilities.Key.openBracket">
             /// OPEN BRACKET key.
             /// </field>
             openBracket: 219,
 
-            /// <field locid="WinJS.Utilities.Key.backSlash" helpKeyword="WinJS.Utilities.Key.backSlash">
+            /// <field locid="TVJS.Utilities.Key.backSlash" helpKeyword="TVJS.Utilities.Key.backSlash">
             /// BACKSLASH key.
             /// </field>
             backSlash: 220,
 
-            /// <field locid="WinJS.Utilities.Key.closeBracket" helpKeyword="WinJS.Utilities.Key.closeBracket">
+            /// <field locid="TVJS.Utilities.Key.closeBracket" helpKeyword="TVJS.Utilities.Key.closeBracket">
             /// CLOSE BRACKET key.
             /// </field>
             closeBracket: 221,
 
-            /// <field locid="WinJS.Utilities.Key.singleQuote" helpKeyword="WinJS.Utilities.Key.singleQuote">
+            /// <field locid="TVJS.Utilities.Key.singleQuote" helpKeyword="TVJS.Utilities.Key.singleQuote">
             /// SINGLE QUOTE key.
             /// </field>
             singleQuote: 222,
 
-            /// <field locid="WinJS.Utilities.Key.IME" helpKeyword="WinJS.Utilities.Key.IME">
+            /// <field locid="TVJS.Utilities.Key.IME" helpKeyword="TVJS.Utilities.Key.IME">
             /// Any IME input.
             /// </field>
             IME: 229
         },
 
         data: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.data">
-            /// <summary locid="WinJS.Utilities.data">
+            /// <signature helpKeyword="TVJS.Utilities.data">
+            /// <summary locid="TVJS.Utilities.data">
             /// Gets the data value associated with the specified element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.data_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.data_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Object" locid="WinJS.Utilities.data_returnValue">
+            /// <returns type="Object" locid="TVJS.Utilities.data_returnValue">
             /// The value associated with the element.
             /// </returns>
             /// </signature>
@@ -5850,17 +5850,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         hasClass: function (e, name) {
-            /// <signature helpKeyword="WinJS.Utilities.hasClass">
-            /// <summary locid="WinJS.Utilities.hasClass">
+            /// <signature helpKeyword="TVJS.Utilities.hasClass">
+            /// <summary locid="TVJS.Utilities.hasClass">
             /// Determines whether the specified element has the specified class.
             /// </summary>
-            /// <param name="e" type="HTMLElement" locid="WinJS.Utilities.hasClass_p:e">
+            /// <param name="e" type="HTMLElement" locid="TVJS.Utilities.hasClass_p:e">
             /// The element.
             /// </param>
-            /// <param name="name" type="String" locid="WinJS.Utilities.hasClass_p:name">
+            /// <param name="name" type="String" locid="TVJS.Utilities.hasClass_p:name">
             /// The name of the class.
             /// </param>
-            /// <returns type="Boolean" locid="WinJS.Utilities.hasClass_returnValue">
+            /// <returns type="Boolean" locid="TVJS.Utilities.hasClass_returnValue">
             /// true if the specified element contains the specified class; otherwise, false.
             /// </returns>
             /// </signature>
@@ -5889,17 +5889,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         _setAttribute: setAttribute,
 
         getRelativeLeft: function (element, parent) {
-            /// <signature helpKeyword="WinJS.Utilities.getRelativeLeft">
-            /// <summary locid="WinJS.Utilities.getRelativeLeft">
+            /// <signature helpKeyword="TVJS.Utilities.getRelativeLeft">
+            /// <summary locid="TVJS.Utilities.getRelativeLeft">
             /// Gets the left coordinate of the specified element relative to the specified parent.
             /// </summary>
-            /// <param name="element" domElement="true" locid="WinJS.Utilities.getRelativeLeft_p:element">
+            /// <param name="element" domElement="true" locid="TVJS.Utilities.getRelativeLeft_p:element">
             /// The element.
             /// </param>
-            /// <param name="parent" domElement="true" locid="WinJS.Utilities.getRelativeLeft_p:parent">
+            /// <param name="parent" domElement="true" locid="TVJS.Utilities.getRelativeLeft_p:parent">
             /// The parent element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getRelativeLeft_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getRelativeLeft_returnValue">
             /// The relative left coordinate.
             /// </returns>
             /// </signature>
@@ -5922,17 +5922,17 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getRelativeTop: function (element, parent) {
-            /// <signature helpKeyword="WinJS.Utilities.getRelativeTop">
-            /// <summary locid="WinJS.Utilities.getRelativeTop">
+            /// <signature helpKeyword="TVJS.Utilities.getRelativeTop">
+            /// <summary locid="TVJS.Utilities.getRelativeTop">
             /// Gets the top coordinate of the element relative to the specified parent.
             /// </summary>
-            /// <param name="element" domElement="true" locid="WinJS.Utilities.getRelativeTop_p:element">
+            /// <param name="element" domElement="true" locid="TVJS.Utilities.getRelativeTop_p:element">
             /// The element.
             /// </param>
-            /// <param name="parent" domElement="true" locid="WinJS.Utilities.getRelativeTop_p:parent">
+            /// <param name="parent" domElement="true" locid="TVJS.Utilities.getRelativeTop_p:parent">
             /// The parent element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getRelativeTop_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getRelativeTop_returnValue">
             /// The relative top coordinate.
             /// </returns>
             /// </signature>
@@ -5959,14 +5959,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         setScrollPosition: setScrollPosition,
 
         empty: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.empty">
-            /// <summary locid="WinJS.Utilities.empty">
+            /// <signature helpKeyword="TVJS.Utilities.empty">
+            /// <summary locid="TVJS.Utilities.empty">
             /// Removes all the child nodes from the specified element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" domElement="true" locid="WinJS.Utilities.empty_p:element">
+            /// <param name="element" type="HTMLElement" domElement="true" locid="TVJS.Utilities.empty_p:element">
             /// The element.
             /// </param>
-            /// <returns type="HTMLElement" locid="WinJS.Utilities.empty_returnValue">
+            /// <returns type="HTMLElement" locid="TVJS.Utilities.empty_returnValue">
             /// The element.
             /// </returns>
             /// </signature>
@@ -5985,14 +5985,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getContentWidth: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getContentWidth">
-            /// <summary locid="WinJS.Utilities.getContentWidth">
+            /// <signature helpKeyword="TVJS.Utilities.getContentWidth">
+            /// <summary locid="TVJS.Utilities.getContentWidth">
             /// Gets the width of the content of the specified element. The content width does not include borders or padding.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getContentWidth_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getContentWidth_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getContentWidth_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getContentWidth_returnValue">
             /// The content width of the element.
             /// </returns>
             /// </signature>
@@ -6007,14 +6007,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getTotalWidth: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getTotalWidth">
-            /// <summary locid="WinJS.Utilities.getTotalWidth">
+            /// <signature helpKeyword="TVJS.Utilities.getTotalWidth">
+            /// <summary locid="TVJS.Utilities.getTotalWidth">
             /// Gets the width of the element, including margins.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getTotalWidth_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getTotalWidth_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getTotalWidth_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getTotalWidth_returnValue">
             /// The width of the element including margins.
             /// </returns>
             /// </signature>
@@ -6027,14 +6027,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getContentHeight: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getContentHeight">
-            /// <summary locid="WinJS.Utilities.getContentHeight">
+            /// <signature helpKeyword="TVJS.Utilities.getContentHeight">
+            /// <summary locid="TVJS.Utilities.getContentHeight">
             /// Gets the height of the content of the specified element. The content height does not include borders or padding.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getContentHeight_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getContentHeight_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Number" integer="true" locid="WinJS.Utilities.getContentHeight_returnValue">
+            /// <returns type="Number" integer="true" locid="TVJS.Utilities.getContentHeight_returnValue">
             /// The content height of the element.
             /// </returns>
             /// </signature>
@@ -6049,14 +6049,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getTotalHeight: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getTotalHeight">
-            /// <summary locid="WinJS.Utilities.getTotalHeight">
+            /// <signature helpKeyword="TVJS.Utilities.getTotalHeight">
+            /// <summary locid="TVJS.Utilities.getTotalHeight">
             /// Gets the height of the element, including its margins.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getTotalHeight_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getTotalHeight_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getTotalHeight_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getTotalHeight_returnValue">
             /// The height of the element including margins.
             /// </returns>
             /// </signature>
@@ -6069,14 +6069,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getPosition: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getPosition">
-            /// <summary locid="WinJS.Utilities.getPosition">
+            /// <signature helpKeyword="TVJS.Utilities.getPosition">
+            /// <summary locid="TVJS.Utilities.getPosition">
             /// Gets the position of the specified element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getPosition_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getPosition_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Object" locid="WinJS.Utilities.getPosition_returnValue">
+            /// <returns type="Object" locid="TVJS.Utilities.getPosition_returnValue">
             /// An object that contains the left, top, width and height properties of the element.
             /// </returns>
             /// </signature>
@@ -6084,14 +6084,14 @@ define('WinJS/Utilities/_ElementUtilities',[
         },
 
         getTabIndex: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.getTabIndex">
-            /// <summary locid="WinJS.Utilities.getTabIndex">
+            /// <signature helpKeyword="TVJS.Utilities.getTabIndex">
+            /// <summary locid="TVJS.Utilities.getTabIndex">
             /// Gets the tabIndex of the specified element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.getTabIndex_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.getTabIndex_p:element">
             /// The element.
             /// </param>
-            /// <returns type="Number" locid="WinJS.Utilities.getTabIndex_returnValue">
+            /// <returns type="Number" locid="TVJS.Utilities.getTabIndex_returnValue">
             /// The tabIndex of the element. Returns -1 if the element cannot be tabbed to
             /// </returns>
             /// </signature>
@@ -6120,17 +6120,17 @@ define('WinJS/Utilities/_ElementUtilities',[
 
 
         eventWithinElement: function (element, event) {
-            /// <signature helpKeyword="WinJS.Utilities.eventWithinElement">
-            /// <summary locid="WinJS.Utilities.eventWithinElement">
+            /// <signature helpKeyword="TVJS.Utilities.eventWithinElement">
+            /// <summary locid="TVJS.Utilities.eventWithinElement">
             /// Determines whether the specified event occurred within the specified element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.eventWithinElement_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.eventWithinElement_p:element">
             /// The element.
             /// </param>
-            /// <param name="event" type="Event" locid="WinJS.Utilities.eventWithinElement_p:event">
+            /// <param name="event" type="Event" locid="TVJS.Utilities.eventWithinElement_p:event">
             /// The event.
             /// </param>
-            /// <returns type="Boolean" locid="WinJS.Utilities.eventWithinElement_returnValue">
+            /// <returns type="Boolean" locid="TVJS.Utilities.eventWithinElement_returnValue">
             /// true if the event occurred within the element; otherwise, false.
             /// </returns>
             /// </signature>
@@ -6147,7 +6147,7 @@ define('WinJS/Utilities/_ElementUtilities',[
             _Global.console && _Global.console.warn(message);
         },
 
-        // Take a renderer which may be a function (signature: (data) => element) or a WinJS.Binding.Template
+        // Take a renderer which may be a function (signature: (data) => element) or a TVJS.Binding.Template
         //  and return a function with a unified synchronous contract which is:
         //
         //  (data, container) => element
@@ -6507,7 +6507,7 @@ define('WinJS/Utilities/_ElementUtilities',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Dispose',[
+define('TVJS/Utilities/_Dispose',[
     'exports',
     '../Core/_Base',
     './_ElementUtilities'
@@ -6515,14 +6515,14 @@ define('WinJS/Utilities/_Dispose',[
     "use strict";
 
     function markDisposable(element, disposeImpl) {
-            /// <signature helpKeyword="WinJS.Utilities.markDisposable">
-            /// <summary locid="WinJS.Utilities.markDisposable">
+            /// <signature helpKeyword="TVJS.Utilities.markDisposable">
+            /// <summary locid="TVJS.Utilities.markDisposable">
             /// Adds the specified dispose implementation to the specified element and marks it as disposable.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.markDisposable_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.markDisposable_p:element">
             /// The element to mark as disposable.
             /// </param>
-            /// <param name="disposeImpl" type="Function" locid="WinJS.Utilities.markDisposable_p:disposeImpl">
+            /// <param name="disposeImpl" type="Function" locid="TVJS.Utilities.markDisposable_p:disposeImpl">
             /// The function containing the element-specific dispose logic that will be called by the dispose function.
             /// </param>
             /// </signature>
@@ -6544,12 +6544,12 @@ define('WinJS/Utilities/_Dispose',[
         }
 
     function disposeSubTree(element) {
-        /// <signature helpKeyword="WinJS.Utilities.disposeSubTree">
-        /// <summary locid="WinJS.Utilities.disposeSubTree">
+        /// <signature helpKeyword="TVJS.Utilities.disposeSubTree">
+        /// <summary locid="TVJS.Utilities.disposeSubTree">
         /// Disposes all first-generation disposable elements that are descendents of the specified element.
         /// The specified element itself is not disposed.
         /// </summary>
-        /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.disposeSubTree_p:element">
+        /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.disposeSubTree_p:element">
         /// The root element whose sub-tree is to be disposed.
         /// </param>
         /// </signature>
@@ -6600,7 +6600,7 @@ define('WinJS/Utilities/_Dispose',[
         }
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
 
         markDisposable: markDisposable,
 
@@ -6611,7 +6611,7 @@ define('WinJS/Utilities/_Dispose',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/ControlProcessor',[
+define('TVJS/ControlProcessor',[
     'exports',
     './Core/_Global',
     './Core/_Base',
@@ -6638,14 +6638,14 @@ define('WinJS/ControlProcessor',[
 
     function createSelect(element) {
         var result = function select(selector) {
-            /// <signature helpKeyword="WinJS.UI.select.createSelect">
-            /// <summary locid="WinJS.UI.select.createSelect">
+            /// <signature helpKeyword="TVJS.UI.select.createSelect">
+            /// <summary locid="TVJS.UI.select.createSelect">
             /// Walks the DOM tree from the given  element to the root of the document, whenever
             /// a selector scope is encountered select performs a lookup within that scope for
             /// the given selector string. The first matching element is returned.
             /// </summary>
-            /// <param name="selector" type="String" locid="WinJS.UI.select.createSelect_p:selector">The selector string.</param>
-            /// <returns type="HTMLElement" domElement="true" locid="WinJS.UI.select.createSelect_returnValue">The target element, if found.</returns>
+            /// <param name="selector" type="String" locid="TVJS.UI.select.createSelect_p:selector">The selector string.</param>
+            /// <returns type="HTMLElement" domElement="true" locid="TVJS.UI.select.createSelect_returnValue">The target element, if found.</returns>
             /// </signature>
             var current = element;
             var selected;
@@ -6700,7 +6700,7 @@ define('WinJS/ControlProcessor',[
                 checkComplete();
             }
             catch (err) {
-                _Log.log && _Log.log(_Resources._formatString(strings.errorActivatingControl, err && err.message), "winjs controls", "error");
+                _Log.log && _Log.log(_Resources._formatString(strings.errorActivatingControl, err && err.message), "TVJS controls", "error");
                 error(err);
             }
         });
@@ -6784,30 +6784,30 @@ define('WinJS/ControlProcessor',[
     };
 
     function scopedSelect(selector, element) {
-        /// <signature helpKeyword="WinJS.UI.scopedSelect">
-        /// <summary locid="WinJS.UI.scopedSelect">
+        /// <signature helpKeyword="TVJS.UI.scopedSelect">
+        /// <summary locid="TVJS.UI.scopedSelect">
         /// Walks the DOM tree from the given  element to the root of the document, whenever
         /// a selector scope is encountered select performs a lookup within that scope for
         /// the given selector string. The first matching element is returned.
         /// </summary>
-        /// <param name="selector" type="String" locid="WinJS.UI.scopedSelect_p:selector">The selector string.</param>
-        /// <returns type="HTMLElement" domElement="true" locid="WinJS.UI.scopedSelect_returnValue">The target element, if found.</returns>
+        /// <param name="selector" type="String" locid="TVJS.UI.scopedSelect_p:selector">The selector string.</param>
+        /// <returns type="HTMLElement" domElement="true" locid="TVJS.UI.scopedSelect_returnValue">The target element, if found.</returns>
         /// </signature>
         return createSelect(element)(selector);
     };
 
     function processAll(rootElement, skipRoot) {
-        /// <signature helpKeyword="WinJS.UI.processAll">
-        /// <summary locid="WinJS.UI.processAll">
+        /// <signature helpKeyword="TVJS.UI.processAll">
+        /// <summary locid="TVJS.UI.processAll">
         /// Applies declarative control binding to all elements, starting at the specified root element.
         /// </summary>
-        /// <param name="rootElement" type="Object" domElement="true" locid="WinJS.UI.processAll_p:rootElement">
+        /// <param name="rootElement" type="Object" domElement="true" locid="TVJS.UI.processAll_p:rootElement">
         /// The element at which to start applying the binding. If this parameter is not specified, the binding is applied to the entire document.
         /// </param>
-        /// <param name="skipRoot" type="Boolean" optional="true" locid="WinJS.UI.processAll_p:skipRoot">
+        /// <param name="skipRoot" type="Boolean" optional="true" locid="TVJS.UI.processAll_p:skipRoot">
         /// If true, the elements to be bound skip the specified root element and include only the children.
         /// </param>
-        /// <returns type="WinJS.Promise" locid="WinJS.UI.processAll_returnValue">
+        /// <returns type="TVJS.Promise" locid="TVJS.UI.processAll_returnValue">
         /// A promise that is fulfilled when binding has been applied to all the controls.
         /// </returns>
         /// </signature>
@@ -6822,14 +6822,14 @@ define('WinJS/ControlProcessor',[
     };
 
     function process(element) {
-        /// <signature helpKeyword="WinJS.UI.process">
-        /// <summary locid="WinJS.UI.process">
+        /// <signature helpKeyword="TVJS.UI.process">
+        /// <summary locid="TVJS.UI.process">
         /// Applies declarative control binding to the specified element.
         /// </summary>
-        /// <param name="element" type="Object" domElement="true" locid="WinJS.UI.process_p:element">
+        /// <param name="element" type="Object" domElement="true" locid="TVJS.UI.process_p:element">
         /// The element to bind.
         /// </param>
-        /// <returns type="WinJS.Promise" locid="WinJS.UI.process_returnValue">
+        /// <returns type="TVJS.Promise" locid="TVJS.UI.process_returnValue">
         /// A promise that is fulfilled after the control is activated. The value of the
         /// promise is the control that is attached to element.
         /// </returns>
@@ -6846,14 +6846,14 @@ define('WinJS/ControlProcessor',[
         }
     };
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         scopedSelect: scopedSelect,
         processAll: processAll,
         process: process
     });
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_ElementListUtilities',[
+define('TVJS/Utilities/_ElementListUtilities',[
     'exports',
     '../Core/_Global',
     '../Core/_Base',
@@ -6869,15 +6869,15 @@ define('WinJS/Utilities/_ElementListUtilities',[
         return;
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         QueryCollection: _Base.Class.derive(Array, function (items) {
-            /// <signature helpKeyword="WinJS.Utilities.QueryCollection">
-            /// <summary locid="WinJS.Utilities.QueryCollection">
+            /// <signature helpKeyword="TVJS.Utilities.QueryCollection">
+            /// <summary locid="TVJS.Utilities.QueryCollection">
             /// Represents the result of a query selector, and provides
             /// various operations that perform actions over the elements of
             /// the collection.
             /// </summary>
-            /// <param name="items" locid="WinJS.Utilities.QueryCollection_p:items">
+            /// <param name="items" locid="TVJS.Utilities.QueryCollection_p:items">
             /// The items resulting from the query.
             /// </param>
             /// </signature>
@@ -6886,17 +6886,17 @@ define('WinJS/Utilities/_ElementListUtilities',[
             }
         }, {
             forEach: function (callbackFn, thisArg) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.forEach">
-                /// <summary locid="WinJS.Utilities.QueryCollection.forEach">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.forEach">
+                /// <summary locid="TVJS.Utilities.QueryCollection.forEach">
                 /// Performs an action on each item in the QueryCollection
                 /// </summary>
-                /// <param name="callbackFn" type="function(value, Number index, traversedObject)" locid="WinJS.Utilities.QueryCollection.forEach_p:callbackFn">
+                /// <param name="callbackFn" type="function(value, Number index, traversedObject)" locid="TVJS.Utilities.QueryCollection.forEach_p:callbackFn">
                 /// Action to perform on each item.
                 /// </param>
-                /// <param name="thisArg" isOptional="true" type="function(value, Number index, traversedObject)" locid="WinJS.Utilities.QueryCollection.forEach_p:thisArg">
+                /// <param name="thisArg" isOptional="true" type="function(value, Number index, traversedObject)" locid="TVJS.Utilities.QueryCollection.forEach_p:thisArg">
                 /// Argument to bind to callbackFn
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.forEach_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.forEach_returnValue">
                 /// Returns the QueryCollection
                 /// </returns>
                 /// </signature>
@@ -6904,31 +6904,31 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             get: function (index) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.get">
-                /// <summary locid="WinJS.Utilities.QueryCollection.get">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.get">
+                /// <summary locid="TVJS.Utilities.QueryCollection.get">
                 /// Gets an item from the QueryCollection.
                 /// </summary>
-                /// <param name="index" type="Number" locid="WinJS.Utilities.QueryCollection.get_p:index">
+                /// <param name="index" type="Number" locid="TVJS.Utilities.QueryCollection.get_p:index">
                 /// The index of the item to return.
                 /// </param>
-                /// <returns type="Object" locid="WinJS.Utilities.QueryCollection.get_returnValue">
+                /// <returns type="Object" locid="TVJS.Utilities.QueryCollection.get_returnValue">
                 /// A single item from the collection.
                 /// </returns>
                 /// </signature>
                 return this[index];
             },
             setAttribute: function (name, value) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.setAttribute">
-                /// <summary locid="WinJS.Utilities.QueryCollection.setAttribute">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.setAttribute">
+                /// <summary locid="TVJS.Utilities.QueryCollection.setAttribute">
                 /// Sets an attribute value on all the items in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.setAttribute_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.setAttribute_p:name">
                 /// The name of the attribute to be set.
                 /// </param>
-                /// <param name="value" type="String" locid="WinJS.Utilities.QueryCollection.setAttribute_p:value">
+                /// <param name="value" type="String" locid="TVJS.Utilities.QueryCollection.setAttribute_p:value">
                 /// The value of the attribute to be set.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.setAttribute_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.setAttribute_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -6938,14 +6938,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             getAttribute: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.getAttribute">
-                /// <summary locid="WinJS.Utilities.QueryCollection.getAttribute">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.getAttribute">
+                /// <summary locid="TVJS.Utilities.QueryCollection.getAttribute">
                 /// Gets an attribute value from the first element in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.getAttribute_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.getAttribute_p:name">
                 /// The name of the attribute.
                 /// </param>
-                /// <returns type="String" locid="WinJS.Utilities.QueryCollection.getAttribute_returnValue">
+                /// <returns type="String" locid="TVJS.Utilities.QueryCollection.getAttribute_returnValue">
                 /// The value of the attribute.
                 /// </returns>
                 /// </signature>
@@ -6954,14 +6954,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 }
             },
             addClass: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.addClass">
-                /// <summary locid="WinJS.Utilities.QueryCollection.addClass">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.addClass">
+                /// <summary locid="TVJS.Utilities.QueryCollection.addClass">
                 /// Adds the specified class to all the elements in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.addClass_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.addClass_p:name">
                 /// The name of the class to add.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.addClass_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.addClass_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -6971,14 +6971,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             hasClass: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.hasClass">
-                /// <summary locid="WinJS.Utilities.QueryCollection.hasClass">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.hasClass">
+                /// <summary locid="TVJS.Utilities.QueryCollection.hasClass">
                 /// Determines whether the specified class exists on the first element of the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.hasClass_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.hasClass_p:name">
                 /// The name of the class.
                 /// </param>
-                /// <returns type="Boolean" locid="WinJS.Utilities.QueryCollection.hasClass_returnValue">
+                /// <returns type="Boolean" locid="TVJS.Utilities.QueryCollection.hasClass_returnValue">
                 /// true if the element has the specified class; otherwise, false.
                 /// </returns>
                 /// </signature>
@@ -6988,14 +6988,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return false;
             },
             removeClass: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.removeClass">
-                /// <summary locid="WinJS.Utilities.QueryCollection.removeClass">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.removeClass">
+                /// <summary locid="TVJS.Utilities.QueryCollection.removeClass">
                 /// Removes the specified class from all the elements in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.removeClass_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.removeClass_p:name">
                 /// The name of the class to be removed.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.removeClass_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.removeClass_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7005,15 +7005,15 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             toggleClass: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.toggleClass">
-                /// <summary locid="WinJS.Utilities.QueryCollection.toggleClass">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.toggleClass">
+                /// <summary locid="TVJS.Utilities.QueryCollection.toggleClass">
                 /// Toggles (adds or removes) the specified class on all the elements in the collection.
                 /// If the class is present, it is removed; if it is absent, it is added.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.toggleClass_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.toggleClass_p:name">
                 /// The name of the class to be toggled.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.toggleClass_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.toggleClass_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7023,20 +7023,20 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             listen: function (eventType, listener, capture) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.listen">
-                /// <summary locid="WinJS.Utilities.QueryCollection.listen">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.listen">
+                /// <summary locid="TVJS.Utilities.QueryCollection.listen">
                 /// Registers the listener for the specified event on all the elements in the collection.
                 /// </summary>
-                /// <param name="eventType" type="String" locid="WinJS.Utilities.QueryCollection.listen_p:eventType">
+                /// <param name="eventType" type="String" locid="TVJS.Utilities.QueryCollection.listen_p:eventType">
                 /// The name of the event.
                 /// </param>
-                /// <param name="listener" type="Function" locid="WinJS.Utilities.QueryCollection.listen_p:listener">
+                /// <param name="listener" type="Function" locid="TVJS.Utilities.QueryCollection.listen_p:listener">
                 /// The event handler function to be called when the event occurs.
                 /// </param>
-                /// <param name="capture" type="Boolean" locid="WinJS.Utilities.QueryCollection.listen_p:capture">
+                /// <param name="capture" type="Boolean" locid="TVJS.Utilities.QueryCollection.listen_p:capture">
                 /// true if capture == true is to be passed to addEventListener; otherwise, false.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.listen_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.listen_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7046,20 +7046,20 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             removeEventListener: function (eventType, listener, capture) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.removeEventListener">
-                /// <summary locid="WinJS.Utilities.QueryCollection.removeEventListener">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.removeEventListener">
+                /// <summary locid="TVJS.Utilities.QueryCollection.removeEventListener">
                 /// Unregisters the listener for the specified event on all the elements in the collection.
                 /// </summary>
-                /// <param name="eventType" type="String" locid="WinJS.Utilities.QueryCollection.removeEventListener_p:eventType">
+                /// <param name="eventType" type="String" locid="TVJS.Utilities.QueryCollection.removeEventListener_p:eventType">
                 /// The name of the event.
                 /// </param>
-                /// <param name="listener" type="Function" locid="WinJS.Utilities.QueryCollection.removeEventListener_p:listener">
+                /// <param name="listener" type="Function" locid="TVJS.Utilities.QueryCollection.removeEventListener_p:listener">
                 /// The event handler function.
                 /// </param>
-                /// <param name="capture" type="Boolean" locid="WinJS.Utilities.QueryCollection.removeEventListener_p:capture">
+                /// <param name="capture" type="Boolean" locid="TVJS.Utilities.QueryCollection.removeEventListener_p:capture">
                 /// true if capture == true; otherwise, false.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.removeEventListener_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.removeEventListener_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7069,17 +7069,17 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             setStyle: function (name, value) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.setStyle">
-                /// <summary locid="WinJS.Utilities.QueryCollection.setStyle">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.setStyle">
+                /// <summary locid="TVJS.Utilities.QueryCollection.setStyle">
                 /// Sets the specified style property for all the elements in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.setStyle_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.setStyle_p:name">
                 /// The name of the style property.
                 /// </param>
-                /// <param name="value" type="String" locid="WinJS.Utilities.QueryCollection.setStyle_p:value">
+                /// <param name="value" type="String" locid="TVJS.Utilities.QueryCollection.setStyle_p:value">
                 /// The value for the property.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.setStyle_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.setStyle_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7089,14 +7089,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             clearStyle: function (name) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.clearStyle">
-                /// <summary locid="WinJS.Utilities.QueryCollection.clearStyle">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.clearStyle">
+                /// <summary locid="TVJS.Utilities.QueryCollection.clearStyle">
                 /// Clears the specified style property for all the elements in the collection.
                 /// </summary>
-                /// <param name="name" type="String" locid="WinJS.Utilities.QueryCollection.clearStyle_p:name">
+                /// <param name="name" type="String" locid="TVJS.Utilities.QueryCollection.clearStyle_p:name">
                 /// The name of the style property to be cleared.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.clearStyle_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.clearStyle_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7106,15 +7106,15 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             query: function (query) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.query">
-                /// <summary locid="WinJS.Utilities.QueryCollection.query">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.query">
+                /// <summary locid="TVJS.Utilities.QueryCollection.query">
                 /// Executes a query selector on all the elements in the collection
                 /// and aggregates the result into a QueryCollection.
                 /// </summary>
-                /// <param name="query" type="String" locid="WinJS.Utilities.QueryCollection.query_p:query">
+                /// <param name="query" type="String" locid="TVJS.Utilities.QueryCollection.query_p:query">
                 /// The query selector string.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.query_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.query_returnValue">
                 /// A QueryCollection object containing the aggregate results of
                 /// executing the query on all the elements in the collection.
                 /// </returns>
@@ -7126,11 +7126,11 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return newCollection;
             },
             include: function (items) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.include">
-                /// <summary locid="WinJS.Utilities.QueryCollection.include">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.include">
+                /// <summary locid="TVJS.Utilities.QueryCollection.include">
                 /// Adds a set of items to this QueryCollection.
                 /// </summary>
-                /// <param name="items" locid="WinJS.Utilities.QueryCollection.include_p:items">
+                /// <param name="items" locid="TVJS.Utilities.QueryCollection.include_p:items">
                 /// The items to add to the QueryCollection. This may be an
                 /// array-like object, a document fragment, or a single item.
                 /// </param>
@@ -7146,28 +7146,28 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 }
             },
             control: function (Ctor, options) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.control">
-                /// <summary locid="WinJS.Utilities.QueryCollection.control">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.control">
+                /// <summary locid="TVJS.Utilities.QueryCollection.control">
                 /// Creates controls that are attached to the elements in this QueryCollection.
                 /// </summary>
-                /// <param name='Ctor' locid="WinJS.Utilities.QueryCollection.control_p:ctor">
+                /// <param name='Ctor' locid="TVJS.Utilities.QueryCollection.control_p:ctor">
                 /// A constructor function that is used to create controls to attach to the elements.
                 /// </param>
-                /// <param name='options' locid="WinJS.Utilities.QueryCollection.control_p:options">
+                /// <param name='options' locid="TVJS.Utilities.QueryCollection.control_p:options">
                 /// The options passed to the newly-created controls.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.control_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.control_returnValue">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
                 /// <signature>
-                /// <summary locid="WinJS.Utilities.QueryCollection.control2">
+                /// <summary locid="TVJS.Utilities.QueryCollection.control2">
                 /// Configures the controls that are attached to the elements in this QueryCollection.
                 /// </summary>
-                /// <param name='ctor' locid="WinJS.Utilities.QueryCollection.control_p:ctor2">
+                /// <param name='ctor' locid="TVJS.Utilities.QueryCollection.control_p:ctor2">
                 /// The options passed to the controls.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.control_returnValue2">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.control_returnValue2">
                 /// This QueryCollection object.
                 /// </returns>
                 /// </signature>
@@ -7187,28 +7187,28 @@ define('WinJS/Utilities/_ElementListUtilities',[
                 return this;
             },
             template: function (templateElement, data, renderDonePromiseCallback) {
-                /// <signature helpKeyword="WinJS.Utilities.QueryCollection.template">
-                /// <summary locid="WinJS.Utilities.QueryCollection.template">
+                /// <signature helpKeyword="TVJS.Utilities.QueryCollection.template">
+                /// <summary locid="TVJS.Utilities.QueryCollection.template">
                 /// Renders a template that is bound to the given data
                 /// and parented to the elements included in the QueryCollection.
                 /// If the QueryCollection contains multiple elements, the template
                 /// is rendered multiple times, once at each element in the QueryCollection
                 /// per item of data passed.
                 /// </summary>
-                /// <param name="templateElement" type="DOMElement" locid="WinJS.Utilities.QueryCollection.template_p:templateElement">
+                /// <param name="templateElement" type="DOMElement" locid="TVJS.Utilities.QueryCollection.template_p:templateElement">
                 /// The DOM element to which the template control is attached to.
                 /// </param>
-                /// <param name="data" type="Object" locid="WinJS.Utilities.QueryCollection.template_p:data">
+                /// <param name="data" type="Object" locid="TVJS.Utilities.QueryCollection.template_p:data">
                 /// The data to render. If the data is an array (or any other object
                 /// that has a forEach method) then the template is rendered
                 /// multiple times, once for each item in the collection.
                 /// </param>
-                /// <param name="renderDonePromiseCallback" type="Function" locid="WinJS.Utilities.QueryCollection.template_p:renderDonePromiseCallback">
+                /// <param name="renderDonePromiseCallback" type="Function" locid="TVJS.Utilities.QueryCollection.template_p:renderDonePromiseCallback">
                 /// If supplied, this function is called
                 /// each time the template gets rendered, and is passed a promise
                 /// that is fulfilled when the template rendering is complete.
                 /// </param>
-                /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.QueryCollection.template_returnValue">
+                /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.QueryCollection.template_returnValue">
                 /// The QueryCollection.
                 /// </returns>
                 /// </signature>
@@ -7239,18 +7239,18 @@ define('WinJS/Utilities/_ElementListUtilities',[
         }),
 
         query: function (query, element) {
-            /// <signature helpKeyword="WinJS.Utilities.query">
-            /// <summary locid="WinJS.Utilities.query">
+            /// <signature helpKeyword="TVJS.Utilities.query">
+            /// <summary locid="TVJS.Utilities.query">
             /// Executes a query selector on the specified element or the entire document.
             /// </summary>
-            /// <param name="query" type="String" locid="WinJS.Utilities.query_p:query">
+            /// <param name="query" type="String" locid="TVJS.Utilities.query_p:query">
             /// The query selector to be executed.
             /// </param>
-            /// <param name="element" optional="true" type="HTMLElement" locid="WinJS.Utilities.query_p:element">
+            /// <param name="element" optional="true" type="HTMLElement" locid="TVJS.Utilities.query_p:element">
             /// The element on which to execute the query. If this parameter is not specified, the
             /// query is executed on the entire document.
             /// </param>
-            /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.query_returnValue">
+            /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.query_returnValue">
             /// The QueryCollection that contains the results of the query.
             /// </returns>
             /// </signature>
@@ -7258,14 +7258,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
         },
 
         id: function (id) {
-            /// <signature helpKeyword="WinJS.Utilities.id">
-            /// <summary locid="WinJS.Utilities.id">
+            /// <signature helpKeyword="TVJS.Utilities.id">
+            /// <summary locid="TVJS.Utilities.id">
             /// Looks up an element by ID and wraps the result in a QueryCollection.
             /// </summary>
-            /// <param name="id" type="String" locid="WinJS.Utilities.id_p:id">
+            /// <param name="id" type="String" locid="TVJS.Utilities.id_p:id">
             /// The ID of the element.
             /// </param>
-            /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.id_returnValue">
+            /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.id_returnValue">
             /// A QueryCollection that contains the element, if it is found.
             /// </returns>
             /// </signature>
@@ -7274,14 +7274,14 @@ define('WinJS/Utilities/_ElementListUtilities',[
         },
 
         children: function (element) {
-            /// <signature helpKeyword="WinJS.Utilities.children">
-            /// <summary locid="WinJS.Utilities.children">
+            /// <signature helpKeyword="TVJS.Utilities.children">
+            /// <summary locid="TVJS.Utilities.children">
             /// Creates a QueryCollection that contains the children of the specified parent element.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.children_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.children_p:element">
             /// The parent element.
             /// </param>
-            /// <returns type="WinJS.Utilities.QueryCollection" locid="WinJS.Utilities.children_returnValue">
+            /// <returns type="TVJS.Utilities.QueryCollection" locid="TVJS.Utilities.children_returnValue">
             /// The QueryCollection that contains the children of the element.
             /// </returns>
             /// </signature>
@@ -7291,7 +7291,7 @@ define('WinJS/Utilities/_ElementListUtilities',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Hoverable',[
+define('TVJS/Utilities/_Hoverable',[
     'exports',
     '../Core/_Global'
 ], function hoverable(exports, _Global) {
@@ -7319,7 +7319,7 @@ define('WinJS/Utilities/_Hoverable',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_KeyboardBehavior',[
+define('TVJS/Utilities/_KeyboardBehavior',[
     'exports',
     '../Core/_Global',
     '../Core/_Base',
@@ -7362,7 +7362,7 @@ define('WinJS/Utilities/_KeyboardBehavior',[
         _lastInputType = InputTypes.keyboard;
     }, true);
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         _keyboardSeenLast: {
             get: function _keyboardSeenLast_get() {
                 return _lastInputType === InputTypes.keyboard;
@@ -7673,14 +7673,14 @@ define('WinJS/Utilities/_KeyboardBehavior',[
 
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_SafeHtml',[
+define('TVJS/Utilities/_SafeHtml',[
     'exports',
-    '../Core/_WinJS',
+    '../Core/_TVJS',
     '../Core/_Global',
     '../Core/_Base',
     '../Core/_ErrorFromName',
     '../Core/_Resources'
-    ], function safeHTMLInit(exports, _WinJS, _Global, _Base, _ErrorFromName, _Resources) {
+    ], function safeHTMLInit(exports, _TVJS, _Global, _Base, _ErrorFromName, _Resources) {
     "use strict";
 
 
@@ -7696,45 +7696,45 @@ define('WinJS/Utilities/_SafeHtml',[
     };
 
     setInnerHTML = setInnerHTMLUnsafe = function (element, text) {
-        /// <signature helpKeyword="WinJS.Utilities.setInnerHTML">
-        /// <summary locid="WinJS.Utilities.setInnerHTML">
+        /// <signature helpKeyword="TVJS.Utilities.setInnerHTML">
+        /// <summary locid="TVJS.Utilities.setInnerHTML">
         /// Sets the innerHTML property of the specified element to the specified text.
         /// </summary>
-        /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.setInnerHTML_p:element">
+        /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.setInnerHTML_p:element">
         /// The element on which the innerHTML property is to be set.
         /// </param>
-        /// <param name="text" type="String" locid="WinJS.Utilities.setInnerHTML_p:text">
+        /// <param name="text" type="String" locid="TVJS.Utilities.setInnerHTML_p:text">
         /// The value to be set to the innerHTML property.
         /// </param>
         /// </signature>
         element.innerHTML = text;
     };
     setOuterHTML = setOuterHTMLUnsafe = function (element, text) {
-        /// <signature helpKeyword="WinJS.Utilities.setOuterHTML">
-        /// <summary locid="WinJS.Utilities.setOuterHTML">
+        /// <signature helpKeyword="TVJS.Utilities.setOuterHTML">
+        /// <summary locid="TVJS.Utilities.setOuterHTML">
         /// Sets the outerHTML property of the specified element to the specified text.
         /// </summary>
-        /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.setOuterHTML_p:element">
+        /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.setOuterHTML_p:element">
         /// The element on which the outerHTML property is to be set.
         /// </param>
-        /// <param name="text" type="String" locid="WinJS.Utilities.setOuterHTML_p:text">
+        /// <param name="text" type="String" locid="TVJS.Utilities.setOuterHTML_p:text">
         /// The value to be set to the outerHTML property.
         /// </param>
         /// </signature>
         element.outerHTML = text;
     };
     insertAdjacentHTML = insertAdjacentHTMLUnsafe = function (element, position, text) {
-        /// <signature helpKeyword="WinJS.Utilities.insertAdjacentHTML">
-        /// <summary locid="WinJS.Utilities.insertAdjacentHTML">
+        /// <signature helpKeyword="TVJS.Utilities.insertAdjacentHTML">
+        /// <summary locid="TVJS.Utilities.insertAdjacentHTML">
         /// Calls insertAdjacentHTML on the specified element.
         /// </summary>
-        /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.insertAdjacentHTML_p:element">
+        /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.insertAdjacentHTML_p:element">
         /// The element on which insertAdjacentHTML is to be called.
         /// </param>
-        /// <param name="position" type="String" locid="WinJS.Utilities.insertAdjacentHTML_p:position">
+        /// <param name="position" type="String" locid="TVJS.Utilities.insertAdjacentHTML_p:position">
         /// The position relative to the element at which to insert the HTML.
         /// </param>
-        /// <param name="text" type="String" locid="WinJS.Utilities.insertAdjacentHTML_p:text">
+        /// <param name="text" type="String" locid="TVJS.Utilities.insertAdjacentHTML_p:text">
         /// The value to be provided to insertAdjacentHTML.
         /// </param>
         /// </signature>
@@ -7744,92 +7744,92 @@ define('WinJS/Utilities/_SafeHtml',[
     var msApp = _Global.MSApp;
     if (msApp && msApp.execUnsafeLocalFunction) {
         setInnerHTMLUnsafe = function (element, text) {
-            /// <signature helpKeyword="WinJS.Utilities.setInnerHTMLUnsafe">
-            /// <summary locid="WinJS.Utilities.setInnerHTMLUnsafe">
+            /// <signature helpKeyword="TVJS.Utilities.setInnerHTMLUnsafe">
+            /// <summary locid="TVJS.Utilities.setInnerHTMLUnsafe">
             /// Sets the innerHTML property of the specified element to the specified text.
             /// </summary>
-            /// <param name='element' type='HTMLElement' locid="WinJS.Utilities.setInnerHTMLUnsafe_p:element">
+            /// <param name='element' type='HTMLElement' locid="TVJS.Utilities.setInnerHTMLUnsafe_p:element">
             /// The element on which the innerHTML property is to be set.
             /// </param>
-            /// <param name='text' type="String" locid="WinJS.Utilities.setInnerHTMLUnsafe_p:text">
+            /// <param name='text' type="String" locid="TVJS.Utilities.setInnerHTMLUnsafe_p:text">
             /// The value to be set to the innerHTML property.
             /// </param>
             /// </signature>
             msApp.execUnsafeLocalFunction(function () {
                 try {
-                    _WinJS._execUnsafe = true;
+                    _TVJS._execUnsafe = true;
                     element.innerHTML = text;
                 } finally {
-                    _WinJS._execUnsafe = false;
+                    _TVJS._execUnsafe = false;
                 }
             });
         };
         setOuterHTMLUnsafe = function (element, text) {
-            /// <signature helpKeyword="WinJS.Utilities.setOuterHTMLUnsafe">
-            /// <summary locid="WinJS.Utilities.setOuterHTMLUnsafe">
+            /// <signature helpKeyword="TVJS.Utilities.setOuterHTMLUnsafe">
+            /// <summary locid="TVJS.Utilities.setOuterHTMLUnsafe">
             /// Sets the outerHTML property of the specified element to the specified text
             /// in the context of msWWA.execUnsafeLocalFunction.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.setOuterHTMLUnsafe_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.setOuterHTMLUnsafe_p:element">
             /// The element on which the outerHTML property is to be set.
             /// </param>
-            /// <param name="text" type="String" locid="WinJS.Utilities.setOuterHTMLUnsafe_p:text">
+            /// <param name="text" type="String" locid="TVJS.Utilities.setOuterHTMLUnsafe_p:text">
             /// The value to be set to the outerHTML property.
             /// </param>
             /// </signature>
             msApp.execUnsafeLocalFunction(function () {
                 try {
-                    _WinJS._execUnsafe = true;
+                    _TVJS._execUnsafe = true;
                     element.outerHTML = text;
                 } finally {
-                    _WinJS._execUnsafe = false;
+                    _TVJS._execUnsafe = false;
                 }
             });
         };
         insertAdjacentHTMLUnsafe = function (element, position, text) {
-            /// <signature helpKeyword="WinJS.Utilities.insertAdjacentHTMLUnsafe">
-            /// <summary locid="WinJS.Utilities.insertAdjacentHTMLUnsafe">
+            /// <signature helpKeyword="TVJS.Utilities.insertAdjacentHTMLUnsafe">
+            /// <summary locid="TVJS.Utilities.insertAdjacentHTMLUnsafe">
             /// Calls insertAdjacentHTML on the specified element in the context
             /// of msWWA.execUnsafeLocalFunction.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.insertAdjacentHTMLUnsafe_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.insertAdjacentHTMLUnsafe_p:element">
             /// The element on which insertAdjacentHTML is to be called.
             /// </param>
-            /// <param name="position" type="String" locid="WinJS.Utilities.insertAdjacentHTMLUnsafe_p:position">
+            /// <param name="position" type="String" locid="TVJS.Utilities.insertAdjacentHTMLUnsafe_p:position">
             /// The position relative to the element at which to insert the HTML.
             /// </param>
-            /// <param name="text" type="String" locid="WinJS.Utilities.insertAdjacentHTMLUnsafe_p:text">
+            /// <param name="text" type="String" locid="TVJS.Utilities.insertAdjacentHTMLUnsafe_p:text">
             /// Value to be provided to insertAdjacentHTML.
             /// </param>
             /// </signature>
             msApp.execUnsafeLocalFunction(function () {
                 try {
-                    _WinJS._execUnsafe = true;
+                    _TVJS._execUnsafe = true;
                     element.insertAdjacentHTML(position, text);
                 } finally {
-                    _WinJS._execUnsafe = false;
+                    _TVJS._execUnsafe = false;
                 }
             });
         };
     } else if (_Global.msIsStaticHTML) {
         var check = function (str) {
             if (!_Global.msIsStaticHTML(str)) {
-                throw new _ErrorFromName("WinJS.Utitilies.NonStaticHTML", strings.nonStaticHTML);
+                throw new _ErrorFromName("TVJS.Utitilies.NonStaticHTML", strings.nonStaticHTML);
             }
         };
         // If we ever get isStaticHTML we can attempt to recreate the behavior we have in the local
         // compartment, in the mean-time all we can do is sanitize the input.
         //
         setInnerHTML = function (element, text) {
-            /// <signature helpKeyword="WinJS.Utilities.setInnerHTML">
-            /// <summary locid="WinJS.Utilities.msIsStaticHTML.setInnerHTML">
+            /// <signature helpKeyword="TVJS.Utilities.setInnerHTML">
+            /// <summary locid="TVJS.Utilities.msIsStaticHTML.setInnerHTML">
             /// Sets the innerHTML property of a element to the specified text
             /// if it passes a msIsStaticHTML check.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.msIsStaticHTML.setInnerHTML_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.msIsStaticHTML.setInnerHTML_p:element">
             /// The element on which the innerHTML property is to be set.
             /// </param>
-            /// <param name="text" type="String" locid="WinJS.Utilities.msIsStaticHTML.setInnerHTML_p:text">
+            /// <param name="text" type="String" locid="TVJS.Utilities.msIsStaticHTML.setInnerHTML_p:text">
             /// The value to be set to the innerHTML property.
             /// </param>
             /// </signature>
@@ -7837,15 +7837,15 @@ define('WinJS/Utilities/_SafeHtml',[
             element.innerHTML = text;
         };
         setOuterHTML = function (element, text) {
-            /// <signature helpKeyword="WinJS.Utilities.setOuterHTML">
-            /// <summary locid="WinJS.Utilities.msIsStaticHTML.setOuterHTML">
+            /// <signature helpKeyword="TVJS.Utilities.setOuterHTML">
+            /// <summary locid="TVJS.Utilities.msIsStaticHTML.setOuterHTML">
             /// Sets the outerHTML property of a element to the specified text
             /// if it passes a msIsStaticHTML check.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.msIsStaticHTML.setOuterHTML_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.msIsStaticHTML.setOuterHTML_p:element">
             /// The element on which the outerHTML property is to be set.
             /// </param>
-            /// <param name="text" type="String" locid="WinJS.Utilities.msIsStaticHTML.setOuterHTML_p:text">
+            /// <param name="text" type="String" locid="TVJS.Utilities.msIsStaticHTML.setOuterHTML_p:text">
             /// The value to be set to the outerHTML property.
             /// </param>
             /// </signature>
@@ -7853,18 +7853,18 @@ define('WinJS/Utilities/_SafeHtml',[
             element.outerHTML = text;
         };
         insertAdjacentHTML = function (element, position, text) {
-            /// <signature helpKeyword="WinJS.Utilities.insertAdjacentHTML">
-            /// <summary locid="WinJS.Utilities.msIsStaticHTML.insertAdjacentHTML">
+            /// <signature helpKeyword="TVJS.Utilities.insertAdjacentHTML">
+            /// <summary locid="TVJS.Utilities.msIsStaticHTML.insertAdjacentHTML">
             /// Calls insertAdjacentHTML on the element if it passes
             /// a msIsStaticHTML check.
             /// </summary>
-            /// <param name="element" type="HTMLElement" locid="WinJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:element">
+            /// <param name="element" type="HTMLElement" locid="TVJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:element">
             /// The element on which insertAdjacentHTML is to be called.
             /// </param>
-            /// <param name="position" type="String" locid="WinJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:position">
+            /// <param name="position" type="String" locid="TVJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:position">
             /// The position relative to the element at which to insert the HTML.
             /// </param>
-            /// <param name="text" type="String" locid="WinJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:text">
+            /// <param name="text" type="String" locid="TVJS.Utilities.msIsStaticHTML.insertAdjacentHTML_p:text">
             /// The value to be provided to insertAdjacentHTML.
             /// </param>
             /// </signature>
@@ -7873,7 +7873,7 @@ define('WinJS/Utilities/_SafeHtml',[
         };
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         setInnerHTML: setInnerHTML,
         setInnerHTMLUnsafe: setInnerHTMLUnsafe,
         setOuterHTML: setOuterHTML,
@@ -7885,14 +7885,14 @@ define('WinJS/Utilities/_SafeHtml',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Select',[
+define('TVJS/Utilities/_Select',[
     'exports',
     '../Core/_Base',
     './_SafeHtml'
     ], function selectInit(exports, _Base, _SafeHtml) {
     "use strict";
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         _Select: _Base.Namespace._lazy(function () {
             var encodeHtmlRegEx = /[&<>'"]/g;
             var encodeHtmlEscapeMap = {
@@ -8023,21 +8023,21 @@ define('WinJS/Utilities/_Select',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Telemetry',[
+define('TVJS/Utilities/_Telemetry',[
     'exports'
     ], function telemetryInit(exports) {
     "use strict";
 
     /// NOTE: This file should be included when NOT building
-    /// Microsoft WinJS Framework Package which will be available in Windows Store.
+    /// Microsoft TVJS Framework Package which will be available in Windows Store.
 
     exports.send = function (name, params) {
-    /// <signature helpKeyword="WinJS._Telemetry.send">
-    /// <summary locid="WinJS._Telemetry.send">
+    /// <signature helpKeyword="TVJS._Telemetry.send">
+    /// <summary locid="TVJS._Telemetry.send">
     /// Formatter to upload the name/value pair to Asimov in the correct format.
     /// This will result in no-op when built outside of Microsoft Framework Package.
     /// </summary>
-    /// <param name="params" type="Object" locid="WinJS._Telemetry.send_p:params">
+    /// <param name="params" type="Object" locid="TVJS._Telemetry.send_p:params">
     /// Object of name/value pair items that need to be logged. They can be of type,
     /// bool, int32, string.  Any other type will be ignored.
     /// </param>
@@ -8047,37 +8047,37 @@ define('WinJS/Utilities/_Telemetry',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_UI',[
+define('TVJS/Utilities/_UI',[
     'exports',
     '../Core/_BaseCoreUtils',
     '../Core/_Base'
     ], function uiInit(exports, _BaseCoreUtils, _Base) {
     "use strict";
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         eventHandler: function (handler) {
-            /// <signature helpKeyword="WinJS.UI.eventHandler">
-            /// <summary locid="WinJS.UI.eventHandler">
+            /// <signature helpKeyword="TVJS.UI.eventHandler">
+            /// <summary locid="TVJS.UI.eventHandler">
             /// Marks a event handler function as being compatible with declarative processing.
             /// </summary>
-            /// <param name="handler" type="Object" locid="WinJS.UI.eventHandler_p:handler">
+            /// <param name="handler" type="Object" locid="TVJS.UI.eventHandler_p:handler">
             /// The handler to be marked as compatible with declarative processing.
             /// </param>
-            /// <returns type="Object" locid="WinJS.UI.eventHandler_returnValue">
+            /// <returns type="Object" locid="TVJS.UI.eventHandler_returnValue">
             /// The input handler.
             /// </returns>
             /// </signature>
             return _BaseCoreUtils.markSupportedForProcessing(handler);
         },
-        /// <field locid="WinJS.UI.Orientation" helpKeyword="WinJS.UI.Orientation">
+        /// <field locid="TVJS.UI.Orientation" helpKeyword="TVJS.UI.Orientation">
         /// Orientation options for a control's property
         /// </field>
         Orientation: {
-            /// <field locid="WinJS.UI.Orientation.horizontal" helpKeyword="WinJS.UI.Orientation.horizontal">
+            /// <field locid="TVJS.UI.Orientation.horizontal" helpKeyword="TVJS.UI.Orientation.horizontal">
             /// Horizontal
             /// </field>
             horizontal: "horizontal",
-            /// <field locid="WinJS.UI.Orientation.vertical" helpKeyword="WinJS.UI.Orientation.vertical">
+            /// <field locid="TVJS.UI.Orientation.vertical" helpKeyword="TVJS.UI.Orientation.vertical">
             /// Vertical
             /// </field>
             vertical: "vertical"
@@ -8109,97 +8109,97 @@ define('WinJS/Utilities/_UI',[
             noLongerMeaningful: "noLongerMeaningful"
         },
 
-        /// <field locid="WinJS.UI.ListView.ObjectType" helpKeyword="WinJS.UI.ObjectType">
+        /// <field locid="TVJS.UI.ListView.ObjectType" helpKeyword="TVJS.UI.ObjectType">
         /// Specifies the type of an IListViewEntity.
         /// </field>
         ObjectType: {
-            /// <field locid="WinJS.UI.ListView.ObjectType.item" helpKeyword="WinJS.UI.ObjectType.item">
+            /// <field locid="TVJS.UI.ListView.ObjectType.item" helpKeyword="TVJS.UI.ObjectType.item">
             /// This value represents a ListView item.
             /// </field>
             item: "item",
-            /// <field locid="WinJS.UI.ListView.ObjectType.groupHeader" helpKeyword="WinJS.UI.ObjectType.groupHeader">
+            /// <field locid="TVJS.UI.ListView.ObjectType.groupHeader" helpKeyword="TVJS.UI.ObjectType.groupHeader">
             /// This value represents a ListView group header.
             /// </field>
             groupHeader: "groupHeader",
-            /// <field locid="WinJS.UI.ListView.ObjectType.header" helpKeyword="WinJS.UI.ObjectType.header">
+            /// <field locid="TVJS.UI.ListView.ObjectType.header" helpKeyword="TVJS.UI.ObjectType.header">
             /// This value represents the ListView's header.
             /// </field>
             header: "header",
-            /// <field locid="WinJS.UI.ListView.ObjectType.footer" helpKeyword="WinJS.UI.ObjectType.footer">
+            /// <field locid="TVJS.UI.ListView.ObjectType.footer" helpKeyword="TVJS.UI.ObjectType.footer">
             /// This value represents the ListView's footer.
             /// </field>
             footer: "footer",
         },
 
-        /// <field locid="WinJS.UI.ListView.SelectionMode" helpKeyword="WinJS.UI.SelectionMode">
+        /// <field locid="TVJS.UI.ListView.SelectionMode" helpKeyword="TVJS.UI.SelectionMode">
         /// Specifies the selection mode for a ListView.
         /// </field>
         SelectionMode: {
-            /// <field locid="WinJS.UI.ListView.SelectionMode.none" helpKeyword="WinJS.UI.SelectionMode.none">
+            /// <field locid="TVJS.UI.ListView.SelectionMode.none" helpKeyword="TVJS.UI.SelectionMode.none">
             /// Items cannot be selected.
             /// </field>
             none: "none",
-            /// <field locid="WinJS.UI.ListView.SelectionMode.single" helpKeyword="WinJS.UI.SelectionMode.single">
+            /// <field locid="TVJS.UI.ListView.SelectionMode.single" helpKeyword="TVJS.UI.SelectionMode.single">
             /// A single item may be selected.
             /// <compatibleWith platform="Windows" minVersion="8.0"/>
             /// </field>
             single: "single",
-            /// <field locid="WinJS.UI.ListView.SelectionMode.multi" helpKeyword="WinJS.UI.SelectionMode.multi">
+            /// <field locid="TVJS.UI.ListView.SelectionMode.multi" helpKeyword="TVJS.UI.SelectionMode.multi">
             /// Multiple items may be selected.
             /// </field>
             multi: "multi"
         },
 
-        /// <field locid="WinJS.UI.TapBehavior" helpKeyword="WinJS.UI.TapBehavior">
+        /// <field locid="TVJS.UI.TapBehavior" helpKeyword="TVJS.UI.TapBehavior">
         /// Specifies how an ItemContainer or items in a ListView respond to the tap interaction.
         /// </field>
         TapBehavior: {
-            /// <field locid="WinJS.UI.TapBehavior.directSelect" helpKeyword="WinJS.UI.TapBehavior.directSelect">
+            /// <field locid="TVJS.UI.TapBehavior.directSelect" helpKeyword="TVJS.UI.TapBehavior.directSelect">
             /// Tapping the item invokes it and selects it. Navigating to the item with the keyboard changes the
             /// the selection so that the focused item is the only item that is selected.
             /// <compatibleWith platform="Windows" minVersion="8.0"/>
             /// </field>
             directSelect: "directSelect",
-            /// <field locid="WinJS.UI.TapBehavior.toggleSelect" helpKeyword="WinJS.UI.TapBehavior.toggleSelect">
+            /// <field locid="TVJS.UI.TapBehavior.toggleSelect" helpKeyword="TVJS.UI.TapBehavior.toggleSelect">
             /// Tapping the item invokes it. If the item was selected, tapping it clears the selection. If the item wasn't
             /// selected, tapping the item selects it.
             /// Navigating to the item with the keyboard does not select or invoke it.
             /// </field>
             toggleSelect: "toggleSelect",
-            /// <field locid="WinJS.UI.TapBehavior.invokeOnly" helpKeyword="WinJS.UI.TapBehavior.invokeOnly">
+            /// <field locid="TVJS.UI.TapBehavior.invokeOnly" helpKeyword="TVJS.UI.TapBehavior.invokeOnly">
             /// Tapping the item invokes it. Navigating to the item with keyboard does not select it or invoke it.
             /// </field>
             invokeOnly: "invokeOnly",
-            /// <field locid="WinJS.UI.TapBehavior.none" helpKeyword="WinJS.UI.TapBehavior.none">
+            /// <field locid="TVJS.UI.TapBehavior.none" helpKeyword="TVJS.UI.TapBehavior.none">
             /// Nothing happens.
             /// </field>
             none: "none"
         },
 
-        /// <field locid="WinJS.UI.SwipeBehavior" helpKeyword="WinJS.UI.SwipeBehavior">
+        /// <field locid="TVJS.UI.SwipeBehavior" helpKeyword="TVJS.UI.SwipeBehavior">
         /// Specifies whether items are selected when the user performs a swipe interaction.
         /// <compatibleWith platform="Windows" minVersion="8.0"/>
         /// </field>
         SwipeBehavior: {
-            /// <field locid="WinJS.UI.SwipeBehavior.select" helpKeyword="WinJS.UI.SwipeBehavior.select">
+            /// <field locid="TVJS.UI.SwipeBehavior.select" helpKeyword="TVJS.UI.SwipeBehavior.select">
             /// The swipe interaction selects the items touched by the swipe.
             /// </field>
             select: "select",
-            /// <field locid="WinJS.UI.SwipeBehavior.none" helpKeyword="WinJS.UI.SwipeBehavior.none">
+            /// <field locid="TVJS.UI.SwipeBehavior.none" helpKeyword="TVJS.UI.SwipeBehavior.none">
             /// The swipe interaction does not change which items are selected.
             /// </field>
             none: "none"
         },
 
-        /// <field locid="WinJS.UI.GroupHeaderTapBehavior" helpKeyword="WinJS.UI.GroupHeaderTapBehavior">
+        /// <field locid="TVJS.UI.GroupHeaderTapBehavior" helpKeyword="TVJS.UI.GroupHeaderTapBehavior">
         /// Specifies how group headers in a ListView respond to the tap interaction.
         /// </field>
         GroupHeaderTapBehavior: {
-            /// <field locid="WinJS.UI.GroupHeaderTapBehavior.invoke" helpKeyword="WinJS.UI.GroupHeaderTapBehavior.invoke">
+            /// <field locid="TVJS.UI.GroupHeaderTapBehavior.invoke" helpKeyword="TVJS.UI.GroupHeaderTapBehavior.invoke">
             /// Tapping the group header invokes it.
             /// </field>
             invoke: "invoke",
-            /// <field locid="WinJS.UI.GroupHeaderTapBehavior.none" helpKeyword="WinJS.UI.GroupHeaderTapBehavior.none">
+            /// <field locid="TVJS.UI.GroupHeaderTapBehavior.none" helpKeyword="TVJS.UI.GroupHeaderTapBehavior.none">
             /// Nothing happens.
             /// </field>
             none: "none"
@@ -8210,7 +8210,7 @@ define('WinJS/Utilities/_UI',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities/_Xhr',[
+define('TVJS/Utilities/_Xhr',[
     '../Core/_Global',
     '../Core/_Base',
     '../Promise',
@@ -8229,22 +8229,22 @@ define('WinJS/Utilities/_Xhr',[
     var schemeRegex = /^(\w+)\:\/\//;
 
     function xhr(options) {
-        /// <signature helpKeyword="WinJS.xhr">
-        /// <summary locid="WinJS.xhr">
+        /// <signature helpKeyword="TVJS.xhr">
+        /// <summary locid="TVJS.xhr">
         /// Wraps calls to XMLHttpRequest in a promise.
         /// </summary>
-        /// <param name="options" type="Object" locid="WinJS.xhr_p:options">
+        /// <param name="options" type="Object" locid="TVJS.xhr_p:options">
         /// The options that are applied to the XMLHttpRequest object. They are: type,
         /// url, user, password, headers, responseType, data, and customRequestInitializer.
         /// </param>
-        /// <returns type="WinJS.Promise" locid="WinJS.xhr_returnValue">
+        /// <returns type="TVJS.Promise" locid="TVJS.xhr_returnValue">
         /// A promise that returns the XMLHttpRequest object when it completes.
         /// </returns>
         /// </signature>
         var req;
         return new Promise(
             function (c, e, p) {
-                /// <returns value="c(new XMLHttpRequest())" locid="WinJS.xhr.constructor._returnValue" />
+                /// <returns value="c(new XMLHttpRequest())" locid="TVJS.xhr.constructor._returnValue" />
                 req = new _Global.XMLHttpRequest();
 
                 var isLocalRequest = false;
@@ -8315,7 +8315,7 @@ define('WinJS/Utilities/_Xhr',[
         );
     }
 
-    _Base.Namespace.define("WinJS", {
+    _Base.Namespace.define("TVJS", {
         xhr: xhr
     });
 
@@ -8324,7 +8324,7 @@ define('WinJS/Utilities/_Xhr',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Utilities',[
+define('TVJS/Utilities',[
     './Utilities/_Control',
     './Utilities/_Dispose',
     './Utilities/_ElementListUtilities',
@@ -8340,7 +8340,7 @@ define('WinJS/Utilities',[
     //wrapper module
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Application/_State',[
+define('TVJS/Application/_State',[
     'exports',
     '../Core/_Global',
     '../Core/_WinRT',
@@ -8366,14 +8366,14 @@ define('WinJS/Application/_State',[
             },
 
             exists: function (fileName) {
-                /// <signature helpKeyword="WinJS.Application.IOHelper.exists">
-                /// <summary locid="WinJS.Application.IOHelper.exists">
+                /// <signature helpKeyword="TVJS.Application.IOHelper.exists">
+                /// <summary locid="TVJS.Application.IOHelper.exists">
                 /// Determines if the specified file exists in the container
                 /// </summary>
-                /// <param name="fileName" type="String" locid="WinJS.Application.IOHelper.exists_p:fileName">
+                /// <param name="fileName" type="String" locid="TVJS.Application.IOHelper.exists_p:fileName">
                 /// The file which may exist within this folder
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Application.IOHelper.exists_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Application.IOHelper.exists_returnValue">
                 /// Promise with either true (file exists) or false.
                 /// </returns>
                 /// </signature>
@@ -8382,14 +8382,14 @@ define('WinJS/Application/_State',[
                 });
             },
             remove: function (fileName) {
-                /// <signature helpKeyword="WinJS.Application.IOHelper.remove">
-                /// <summary locid="WinJS.Application.IOHelper.remove">
+                /// <signature helpKeyword="TVJS.Application.IOHelper.remove">
+                /// <summary locid="TVJS.Application.IOHelper.remove">
                 /// Delets a file in the container
                 /// </summary>
-                /// <param name="fileName" type="String" locid="WinJS.Application.IOHelper.remove_p:fileName">
+                /// <param name="fileName" type="String" locid="TVJS.Application.IOHelper.remove_p:fileName">
                 /// The file to be deleted
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Application.IOHelper.remove_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Application.IOHelper.remove_returnValue">
                 /// Promise which is fulfilled when the file has been deleted
                 /// </returns>
                 /// </signature>
@@ -8398,17 +8398,17 @@ define('WinJS/Application/_State',[
                 }).then(null, function () { return false; });
             },
             writeText: function (fileName, str) {
-                /// <signature helpKeyword="WinJS.Application.IOHelper.writeText">
-                /// <summary locid="WinJS.Application.IOHelper.writeText">
+                /// <signature helpKeyword="TVJS.Application.IOHelper.writeText">
+                /// <summary locid="TVJS.Application.IOHelper.writeText">
                 /// Writes a file to the container with the specified text
                 /// </summary>
-                /// <param name="fileName" type="String" locid="WinJS.Application.IOHelper.writeText_p:fileName">
+                /// <param name="fileName" type="String" locid="TVJS.Application.IOHelper.writeText_p:fileName">
                 /// The file to write to
                 /// </param>
-                /// <param name="str" type="String" locid="WinJS.Application.IOHelper.writeText_p:str">
+                /// <param name="str" type="String" locid="TVJS.Application.IOHelper.writeText_p:str">
                 /// Content to be written to the file
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Application.IOHelper.writeText_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Application.IOHelper.writeText_returnValue">
                 /// Promise which is fulfilled when the file has been written
                 /// </returns>
                 /// </signature>
@@ -8421,18 +8421,18 @@ define('WinJS/Application/_State',[
             },
 
             readText: function (fileName, def) {
-                /// <signature helpKeyword="WinJS.Application.IOHelper.readText">
-                /// <summary locid="WinJS.Application.IOHelper.readText">
+                /// <signature helpKeyword="TVJS.Application.IOHelper.readText">
+                /// <summary locid="TVJS.Application.IOHelper.readText">
                 /// Reads the contents of a file from the container, if the file
                 /// doesn't exist, def is returned.
                 /// </summary>
-                /// <param name="fileName" type="String" locid="WinJS.Application.IOHelper.readText_p:fileName">
+                /// <param name="fileName" type="String" locid="TVJS.Application.IOHelper.readText_p:fileName">
                 /// The file to read from
                 /// </param>
-                /// <param name="def" type="String" locid="WinJS.Application.IOHelper.readText_p:def">
+                /// <param name="def" type="String" locid="TVJS.Application.IOHelper.readText_p:def">
                 /// Default value to be returned if the file failed to open
                 /// </param>
-                /// <returns type="WinJS.Promise" locid="WinJS.Application.IOHelper.readText_returnValue">
+                /// <returns type="TVJS.Promise" locid="TVJS.Application.IOHelper.readText_returnValue">
                 /// Promise containing the contents of the file, or def.
                 /// </returns>
                 /// </signature>
@@ -8446,8 +8446,8 @@ define('WinJS/Application/_State',[
             supportedForProcessing: false,
         });
 
-        _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
-            /// <field type="Object" helpKeyword="WinJS.Application.local" locid="WinJS.Application.local">
+        _Base.Namespace._moduleDefine(exports, "TVJS.Application", {
+            /// <field type="Object" helpKeyword="TVJS.Application.local" locid="TVJS.Application.local">
             /// Allows access to create files in the application local storage, which is preserved across runs
             /// of an application and does not roam.
             /// </field>
@@ -8459,7 +8459,7 @@ define('WinJS/Application/_State',[
                     return local;
                 }
             },
-            /// <field type="Object" helpKeyword="WinJS.Application.temp" locid="WinJS.Application.temp">
+            /// <field type="Object" helpKeyword="TVJS.Application.temp" locid="TVJS.Application.temp">
             /// Allows access to create files in the application temp storage, which may be reclaimed
             /// by the system between application runs.
             /// </field>
@@ -8471,7 +8471,7 @@ define('WinJS/Application/_State',[
                     return temp;
                 }
             },
-            /// <field type="Object" helpKeyword="WinJS.Application.roaming" locid="WinJS.Application.roaming">
+            /// <field type="Object" helpKeyword="TVJS.Application.roaming" locid="TVJS.Application.roaming">
             /// Allows access to create files in the application roaming storage, which is preserved across runs
             /// of an application and roams with the user across multiple machines.
             /// </field>
@@ -8492,14 +8492,14 @@ define('WinJS/Application/_State',[
                 this.storage = {};
             }, {
                 exists: function (fileName) {
-                    /// <signature helpKeyword="WinJS.Application.InMemoryHelper.exists">
-                    /// <summary locid="WinJS.Application.InMemoryHelper.exists">
+                    /// <signature helpKeyword="TVJS.Application.InMemoryHelper.exists">
+                    /// <summary locid="TVJS.Application.InMemoryHelper.exists">
                     /// Determines if the specified file exists in the container
                     /// </summary>
-                    /// <param name="fileName" type="String" locid="WinJS.Application.InMemoryHelper.exists_p:fileName">
+                    /// <param name="fileName" type="String" locid="TVJS.Application.InMemoryHelper.exists_p:fileName">
                     /// The filename which may exist within this folder
                     /// </param>
-                    /// <returns type="WinJS.Promise" locid="WinJS.Application.InMemoryHelper.exists_returnValue">
+                    /// <returns type="TVJS.Promise" locid="TVJS.Application.InMemoryHelper.exists_returnValue">
                     /// Promise with either true (file exists) or false.
                     /// </returns>
                     /// </signature>
@@ -8508,14 +8508,14 @@ define('WinJS/Application/_State',[
                     return Promise.as(this.storage[fileName] !== undefined);
                 },
                 remove: function (fileName) {
-                    /// <signature helpKeyword="WinJS.Application.InMemoryHelper.remove">
-                    /// <summary locid="WinJS.Application.InMemoryHelper.remove">
+                    /// <signature helpKeyword="TVJS.Application.InMemoryHelper.remove">
+                    /// <summary locid="TVJS.Application.InMemoryHelper.remove">
                     /// Deletes a file in the container
                     /// </summary>
-                    /// <param name="fileName" type="String" locid="WinJS.Application.InMemoryHelper.remove_p:fileName">
+                    /// <param name="fileName" type="String" locid="TVJS.Application.InMemoryHelper.remove_p:fileName">
                     /// The file to be deleted
                     /// </param>
-                    /// <returns type="WinJS.Promise" locid="WinJS.Application.InMemoryHelper.remove_returnValue">
+                    /// <returns type="TVJS.Promise" locid="TVJS.Application.InMemoryHelper.remove_returnValue">
                     /// Promise which is fulfilled when the file has been deleted
                     /// </returns>
                     /// </signature>
@@ -8523,17 +8523,17 @@ define('WinJS/Application/_State',[
                     return Promise.as();
                 },
                 writeText: function (fileName, str) {
-                    /// <signature helpKeyword="WinJS.Application.InMemoryHelper.writeText">
-                    /// <summary locid="WinJS.Application.InMemoryHelper.writeText">
+                    /// <signature helpKeyword="TVJS.Application.InMemoryHelper.writeText">
+                    /// <summary locid="TVJS.Application.InMemoryHelper.writeText">
                     /// Writes a file to the container with the specified text
                     /// </summary>
-                    /// <param name="fileName" type="String" locid="WinJS.Application.InMemoryHelper.writeText_p:fileName">
+                    /// <param name="fileName" type="String" locid="TVJS.Application.InMemoryHelper.writeText_p:fileName">
                     /// The filename to write to
                     /// </param>
-                    /// <param name="str" type="String" locid="WinJS.Application.InMemoryHelper.writeText_p:str">
+                    /// <param name="str" type="String" locid="TVJS.Application.InMemoryHelper.writeText_p:str">
                     /// Content to be written to the file
                     /// </param>
-                    /// <returns type="WinJS.Promise" locid="WinJS.Application.InMemoryHelper.writeText_returnValue">
+                    /// <returns type="TVJS.Promise" locid="TVJS.Application.InMemoryHelper.writeText_returnValue">
                     /// Promise which is fulfilled when the file has been written
                     /// </returns>
                     /// </signature>
@@ -8541,18 +8541,18 @@ define('WinJS/Application/_State',[
                     return Promise.as(str.length);
                 },
                 readText: function (fileName, def) {
-                    /// <signature helpKeyword="WinJS.Application.InMemoryHelper.readText">
-                    /// <summary locid="WinJS.Application.InMemoryHelper.readText">
+                    /// <signature helpKeyword="TVJS.Application.InMemoryHelper.readText">
+                    /// <summary locid="TVJS.Application.InMemoryHelper.readText">
                     /// Reads the contents of a file from the container, if the file
                     /// doesn't exist, def is returned.
                     /// </summary>
-                    /// <param name="fileName" type="String" locid="WinJS.Application.InMemoryHelper.readText_p:fileName">
+                    /// <param name="fileName" type="String" locid="TVJS.Application.InMemoryHelper.readText_p:fileName">
                     /// The filename to read from
                     /// </param>
-                    /// <param name="def" type="String" locid="WinJS.Application.InMemoryHelper.readText_p:def">
+                    /// <param name="def" type="String" locid="TVJS.Application.InMemoryHelper.readText_p:def">
                     /// Default value to be returned if the file failed to open
                     /// </param>
-                    /// <returns type="WinJS.Promise" locid="WinJS.Application.InMemoryHelper.readText_returnValue">
+                    /// <returns type="TVJS.Promise" locid="TVJS.Application.InMemoryHelper.readText_returnValue">
                     /// Promise containing the contents of the file, or def.
                     /// </returns>
                     /// </signature>
@@ -8564,18 +8564,18 @@ define('WinJS/Application/_State',[
             }
         );
 
-        _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
-            /// <field type="Object" helpKeyword="WinJS.Application.local" locid="WinJS.Application.local">
+        _Base.Namespace._moduleDefine(exports, "TVJS.Application", {
+            /// <field type="Object" helpKeyword="TVJS.Application.local" locid="TVJS.Application.local">
             /// Allows access to create files in the application local storage, which is preserved across runs
             /// of an application and does not roam.
             /// </field>
             local: new InMemoryHelper(),
-            /// <field type="Object" helpKeyword="WinJS.Application.temp" locid="WinJS.Application.temp">
+            /// <field type="Object" helpKeyword="TVJS.Application.temp" locid="TVJS.Application.temp">
             /// Allows access to create files in the application temp storage, which may be reclaimed
             /// by the system between application runs.
             /// </field>
             temp: new InMemoryHelper(),
-            /// <field type="Object" helpKeyword="WinJS.Application.roaming" locid="WinJS.Application.roaming">
+            /// <field type="Object" helpKeyword="TVJS.Application.roaming" locid="TVJS.Application.roaming">
             /// Allows access to create files in the application roaming storage, which is preserved across runs
             /// of an application and roams with the user across multiple machines.
             /// </field>
@@ -8591,7 +8591,7 @@ define('WinJS/Application/_State',[
 
     var sessionState = {};
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Application", {
         sessionState: {
             get: function () {
                 return sessionState;
@@ -8644,7 +8644,7 @@ define('WinJS/Application/_State',[
     });
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Application',[
+define('TVJS/Application',[
     'exports',
     './Core/_Global',
     './Core/_WinRT',
@@ -8887,7 +8887,7 @@ define('WinJS/Application',[
     }
 
     function fatalErrorHandler(e) {
-        _Log.log && _Log.log(safeSerialize(e), "winjs", "error");
+        _Log.log && _Log.log(safeSerialize(e), "TVJS", "error");
 
         if (_Global.document && exports._terminateApp) {
             var data = e.detail;
@@ -8905,7 +8905,7 @@ define('WinJS/Application',[
 
     function defaultTerminateAppHandler(data, e) {
         /*jshint unused: false*/
-        // This is the unhandled exception handler in WinJS. This handler is invoked whenever a promise
+        // This is the unhandled exception handler in TVJS. This handler is invoked whenever a promise
         // has an exception occur that is not handled (via an error handler passed to then() or a call to done()).
         //
         // To see the original exception stack, look at data.stack.
@@ -8950,12 +8950,12 @@ define('WinJS/Application',[
     function dispatchEvent(eventRecord) {
         var waitForPromise = Promise.as();
         eventRecord.setPromise = function (promise) {
-            /// <signature helpKeyword="WinJS.Application.eventRecord.setPromise">
-            /// <summary locid="WinJS.Application.event.setPromise">
+            /// <signature helpKeyword="TVJS.Application.eventRecord.setPromise">
+            /// <summary locid="TVJS.Application.event.setPromise">
             /// Used to inform the application object that asynchronous work is being performed, and that this
             /// event handler should not be considered complete until the promise completes.
             /// </summary>
-            /// <param name="promise" type="WinJS.Promise" locid="WinJS.Application.eventRecord.setPromise_p:promise">
+            /// <param name="promise" type="TVJS.Promise" locid="TVJS.Application.eventRecord.setPromise_p:promise">
             /// The promise to wait for.
             /// </param>
             /// </signature>
@@ -9079,23 +9079,23 @@ define('WinJS/Application',[
         // Schedule a job which will be responsible for draining events for the
         //  lifetime of the application.
         //
-        eventQueueJob = setImmediate(function Application_pumpEventQueue(jobInfo) {
-            function drainNext() {
-                return drainQueue;
-            }
-            jobInfo.setPromise(promise.then(drainNext, drainNext));
-        });
-        eventQueueJob._queue = queue;
+        //eventQueueJob = setImmediate(function Application_pumpEventQueue(jobInfo) {
+        //    function drainNext() {
+        //        return drainQueue;
+        //    }
+        //    jobInfo.setPromise(promise.then(drainNext, drainNext));
+        //});
+        //eventQueueJob._queue = queue;
     }
 
     function queueEvent(eventRecord) {
-        /// <signature helpKeyword="WinJS.Application.queueEvent">
-        /// <summary locid="WinJS.Application.queueEvent">
-        /// Queues an event to be processed by the WinJS.Application event queue.
+        /// <signature helpKeyword="TVJS.Application.queueEvent">
+        /// <summary locid="TVJS.Application.queueEvent">
+        /// Queues an event to be processed by the TVJS.Application event queue.
         /// </summary>
-        /// <param name="eventRecord" type="Object" locid="WinJS.Application.queueEvent_p:eventRecord">
+        /// <param name="eventRecord" type="Object" locid="TVJS.Application.queueEvent_p:eventRecord">
         /// The event object is expected to have a type property that is
-        /// used as the event name when dispatching on the WinJS.Application
+        /// used as the event name when dispatching on the TVJS.Application
         /// event queue. The entire object is provided to event listeners
         /// in the detail property of the event.
         /// </param>
@@ -9273,7 +9273,7 @@ define('WinJS/Application',[
     }
 
     function hardwareButtonBackPressed(winRTBackPressedEvent) {
-        // Fire WinJS.Application 'backclick' event. If the winRTBackPressedEvent is not handled, the app will get suspended.
+        // Fire TVJS.Application 'backclick' event. If the winRTBackPressedEvent is not handled, the app will get suspended.
         var eventRecord = { type: backClickET };
         Object.defineProperty(eventRecord, "_winRTBackPressedEvent", {
             value: winRTBackPressedEvent,
@@ -9320,7 +9320,7 @@ define('WinJS/Application',[
                     settingsPane.addEventListener("commandsrequested", commandsRequested);
                 }
 
-                // This integrates WinJS.Application into the hardware or OS-provided back button.
+                // This integrates TVJS.Application into the hardware or OS-provided back button.
                 if (_WinRT.Windows.UI.Core.SystemNavigationManager) {
                     // On Win10 this accomodates hardware buttons (phone), 
                     // the taskbar's tablet mode button, and the optional window frame back button.
@@ -9381,11 +9381,11 @@ define('WinJS/Application',[
         }
     }
 
-    var publicNS = _Base.Namespace._moduleDefine(exports, "WinJS.Application", {
+    var publicNS = _Base.Namespace._moduleDefine(exports, "TVJS.Application", {
         stop: function Application_stop() {
-            /// <signature helpKeyword="WinJS.Application.stop">
-            /// <summary locid="WinJS.Application.stop">
-            /// Stops application event processing and resets WinJS.Application
+            /// <signature helpKeyword="TVJS.Application.stop">
+            /// <summary locid="TVJS.Application.stop">
+            /// Stops application event processing and resets TVJS.Application
             /// to its initial state.
             /// </summary>
             /// </signature>
@@ -9414,17 +9414,17 @@ define('WinJS/Application',[
         },
 
         addEventListener: function Application_addEventListener(eventType, listener, capture) {
-            /// <signature helpKeyword="WinJS.Application.addEventListener">
-            /// <summary locid="WinJS.Application.addEventListener">
+            /// <signature helpKeyword="TVJS.Application.addEventListener">
+            /// <summary locid="TVJS.Application.addEventListener">
             /// Adds an event listener to the control.
             /// </summary>
-            /// <param name="eventType" locid="WinJS.Application.addEventListener_p:eventType">
+            /// <param name="eventType" locid="TVJS.Application.addEventListener_p:eventType">
             /// The type (name) of the event.
             /// </param>
-            /// <param name="listener" locid="WinJS.Application.addEventListener_p:listener">
+            /// <param name="listener" locid="TVJS.Application.addEventListener_p:listener">
             /// The listener to invoke when the event is raised.
             /// </param>
-            /// <param name="capture" locid="WinJS.Application.addEventListener_p:capture">
+            /// <param name="capture" locid="TVJS.Application.addEventListener_p:capture">
             /// true to initiate capture; otherwise, false.
             /// </param>
             /// </signature>
@@ -9434,17 +9434,17 @@ define('WinJS/Application',[
             }
         },
         removeEventListener: function Application_removeEventListener(eventType, listener, capture) {
-            /// <signature helpKeyword="WinJS.Application.removeEventListener">
-            /// <summary locid="WinJS.Application.removeEventListener">
+            /// <signature helpKeyword="TVJS.Application.removeEventListener">
+            /// <summary locid="TVJS.Application.removeEventListener">
             /// Removes an event listener from the control.
             /// </summary>
-            /// <param name="eventType" locid="WinJS.Application.removeEventListener_p:eventType">
+            /// <param name="eventType" locid="TVJS.Application.removeEventListener_p:eventType">
             /// The type (name) of the event.
             /// </param>
-            /// <param name="listener" locid="WinJS.Application.removeEventListener_p:listener">
+            /// <param name="listener" locid="TVJS.Application.removeEventListener_p:listener">
             /// The listener to remove.
             /// </param>
-            /// <param name="capture" locid="WinJS.Application.removeEventListener_p:capture">
+            /// <param name="capture" locid="TVJS.Application.removeEventListener_p:capture">
             /// Specifies whether or not to initiate capture.
             /// </param>
             /// </signature>
@@ -9455,8 +9455,8 @@ define('WinJS/Application',[
         },
 
         checkpoint: function Application_checkpoint() {
-            /// <signature helpKeyword="WinJS.Application.checkpoint">
-            /// <summary locid="WinJS.Application.checkpoint">
+            /// <signature helpKeyword="TVJS.Application.checkpoint">
+            /// <summary locid="TVJS.Application.checkpoint">
             /// Queues a checkpoint event.
             /// </summary>
             /// </signature>
@@ -9464,9 +9464,9 @@ define('WinJS/Application',[
         },
 
         start: function Application_start() {
-            /// <signature helpKeyword="WinJS.Application.start">
-            /// <summary locid="WinJS.Application.start">
-            /// Starts processing events in the WinJS.Application event queue.
+            /// <signature helpKeyword="TVJS.Application.start">
+            /// <summary locid="TVJS.Application.start">
+            /// Starts processing events in the TVJS.Application event queue.
             /// </summary>
             /// </signature>
             register();
@@ -9493,38 +9493,38 @@ define('WinJS/Application',[
             return new _ElementUtilities._GenericListener("Application", publicNS);
         }),
 
-        /// <field type="Function" locid="WinJS.Application.oncheckpoint" helpKeyword="WinJS.Application.oncheckpoint">
+        /// <field type="Function" locid="TVJS.Application.oncheckpoint" helpKeyword="TVJS.Application.oncheckpoint">
         /// Occurs when receiving Process Lifetime Management (PLM) notification or when the checkpoint function is called.
         /// </field>
         oncheckpoint: createEvent(checkpointET),
-        /// <field type="Function" locid="WinJS.Application.onunload" helpKeyword="WinJS.Application.onunload">
+        /// <field type="Function" locid="TVJS.Application.onunload" helpKeyword="TVJS.Application.onunload">
         /// Occurs when the application is about to be unloaded.
         /// </field>
         onunload: createEvent(unloadET),
-        /// <field type="Function" locid="WinJS.Application.onactivated" helpKeyword="WinJS.Application.onactivated">
+        /// <field type="Function" locid="TVJS.Application.onactivated" helpKeyword="TVJS.Application.onactivated">
         /// Occurs when Windows Runtime activation has occurred.
         /// The name of this event is "activated" (and also "mainwindowactivated".)
         /// This event occurs after the loaded event and before the ready event.
         /// </field>
         onactivated: createEvent(activatedET),
-        /// <field type="Function" locid="WinJS.Application.onloaded" helpKeyword="WinJS.Application.onloaded">
+        /// <field type="Function" locid="TVJS.Application.onloaded" helpKeyword="TVJS.Application.onloaded">
         /// Occurs after the DOMContentLoaded event, which fires after the page has been parsed but before all the resources are loaded.
         /// This event occurs before the activated event and the ready event.
         /// </field>
         onloaded: createEvent(loadedET),
-        /// <field type="Function" locid="WinJS.Application.onready" helpKeyword="WinJS.Application.onready">
+        /// <field type="Function" locid="TVJS.Application.onready" helpKeyword="TVJS.Application.onready">
         /// Occurs when the application is ready. This event occurs after the onloaded event and the onactivated event.
         /// </field>
         onready: createEvent(readyET),
-        /// <field type="Function" locid="WinJS.Application.onsettings" helpKeyword="WinJS.Application.onsettings">
+        /// <field type="Function" locid="TVJS.Application.onsettings" helpKeyword="TVJS.Application.onsettings">
         /// Occurs when the settings charm is invoked.
         /// </field>
         onsettings: createEvent(settingsET),
-        /// <field type="Function" locid="WinJS.Application.onerror" helpKeyword="WinJS.Application.onerror">
+        /// <field type="Function" locid="TVJS.Application.onerror" helpKeyword="TVJS.Application.onerror">
         /// Occurs when an unhandled error has been raised.
         /// </field>
         onerror: createEvent(errorET),
-        /// <field type="Function" locid="WinJS.Application.onbackclick" helpKeyword="WinJS.Application.onbackclick">
+        /// <field type="Function" locid="TVJS.Application.onbackclick" helpKeyword="TVJS.Application.onbackclick">
         /// Raised when the users clicks the hardware back button.
         /// </field>
         onbackclick: createEvent(backClickET)
@@ -9533,30 +9533,30 @@ define('WinJS/Application',[
     });
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Animations/_Constants',[
+define('TVJS/Animations/_Constants',[
     'exports',
     '../Core/_Base'
     ], function animationsConstantsInit(exports, _Base) {
     "use strict";
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
-        /// <field locid="WinJS.UI.PageNavigationAnimation" helpKeyword="WinJS.UI.PageNavigationAnimation">
-        /// Specifies what animation type should be returned by WinJS.UI.Animation.createPageNavigationAnimations.
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
+        /// <field locid="TVJS.UI.PageNavigationAnimation" helpKeyword="TVJS.UI.PageNavigationAnimation">
+        /// Specifies what animation type should be returned by TVJS.UI.Animation.createPageNavigationAnimations.
         /// </field>
         PageNavigationAnimation: {
-            /// <field locid="WinJS.UI.PageNavigationAnimation.turnstile" helpKeyword="WinJS.UI.PageNavigationAnimation.turnstile">
+            /// <field locid="TVJS.UI.PageNavigationAnimation.turnstile" helpKeyword="TVJS.UI.PageNavigationAnimation.turnstile">
             /// The pages will exit and enter using a turnstile animation.
             /// </field>
             turnstile: "turnstile",
-            /// <field locid="WinJS.UI.PageNavigationAnimation.slide" helpKeyword="WinJS.UI.PageNavigationAnimation.slide">
+            /// <field locid="TVJS.UI.PageNavigationAnimation.slide" helpKeyword="TVJS.UI.PageNavigationAnimation.slide">
             /// The pages will exit and enter using an animation that slides up/down.
             /// </field>
             slide: "slide",
-            /// <field locid="WinJS.UI.PageNavigationAnimation.enterPage" helpKeyword="WinJS.UI.PageNavigationAnimation.enterPage">
+            /// <field locid="TVJS.UI.PageNavigationAnimation.enterPage" helpKeyword="TVJS.UI.PageNavigationAnimation.enterPage">
             /// The pages will enter using an enterPage animation, and exit with no animation.
             /// </field>
             enterPage: "enterPage",
-            /// <field locid="WinJS.UI.PageNavigationAnimation.continuum" helpKeyword="WinJS.UI.PageNavigationAnimation.continuum">
+            /// <field locid="TVJS.UI.PageNavigationAnimation.continuum" helpKeyword="TVJS.UI.PageNavigationAnimation.continuum">
             /// The pages will exit and enter using a continuum animation.
             /// </field>
             continuum: "continuum"
@@ -9565,7 +9565,7 @@ define('WinJS/Animations/_Constants',[
 
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Animations/_TransitionAnimation',[
+define('TVJS/Animations/_TransitionAnimation',[
     'exports',
     '../Core/_Global',
     '../Core/_WinRT',
@@ -9596,10 +9596,10 @@ define('WinJS/Animations/_TransitionAnimation',[
     var keyframeCounter = 0;
     function getUniqueKeyframeName() {
         ++keyframeCounter;
-        return "WinJSUIAnimation" + keyframeCounter;
+        return "TVJSUIAnimation" + keyframeCounter;
     }
     function isUniqueKeyframeName(s) {
-        return "WinJSUIAnimation" === s.substring(0, 16);
+        return "TVJSUIAnimation" === s.substring(0, 16);
     }
 
     function resolveStyles(elem) {
@@ -9926,13 +9926,13 @@ define('WinJS/Animations/_TransitionAnimation',[
     }
 
     var isAnimationEnabled = function isAnimationEnabledImpl() {
-        /// <signature helpKeyword="WinJS.UI.isAnimationEnabled">
-        /// <summary locid="WinJS.UI.isAnimationEnabled">
-        /// Determines whether the WinJS Animation Library will perform animations.
+        /// <signature helpKeyword="TVJS.UI.isAnimationEnabled">
+        /// <summary locid="TVJS.UI.isAnimationEnabled">
+        /// Determines whether the TVJS Animation Library will perform animations.
         /// </summary>
-        /// <returns type="Boolean" locid="WinJS.UI.isAnimationEnabled_returnValue">
-        /// true if WinJS animations will be performed.
-        /// false if WinJS animations are suppressed.
+        /// <returns type="Boolean" locid="TVJS.UI.isAnimationEnabled_returnValue">
+        /// true if TVJS animations will be performed.
+        /// false if TVJS animations are suppressed.
         /// </returns>
         /// </signature>
         initAnimations();
@@ -9998,11 +9998,11 @@ define('WinJS/Animations/_TransitionAnimation',[
     var animationFactor = 1;
     var libraryDelay = 0;
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         disableAnimations: function () {
-            /// <signature helpKeyword="WinJS.UI.disableAnimations">
-            /// <summary locid="WinJS.UI.disableAnimations">
-            /// Disables animations in the WinJS Animation Library
+            /// <signature helpKeyword="TVJS.UI.disableAnimations">
+            /// <summary locid="TVJS.UI.disableAnimations">
+            /// Disables animations in the TVJS Animation Library
             /// by decrementing the animation enable count.
             /// </summary>
             /// </signature>
@@ -10010,9 +10010,9 @@ define('WinJS/Animations/_TransitionAnimation',[
         },
 
         enableAnimations: function () {
-            /// <signature helpKeyword="WinJS.UI.enableAnimations">
-            /// <summary locid="WinJS.UI.enableAnimations">
-            /// Enables animations in the WinJS Animation Library
+            /// <signature helpKeyword="TVJS.UI.enableAnimations">
+            /// <summary locid="TVJS.UI.enableAnimations">
+            /// Enables animations in the TVJS Animation Library
             /// by incrementing the animation enable count.
             /// </summary>
             /// </signature>
@@ -10038,21 +10038,21 @@ define('WinJS/Animations/_TransitionAnimation',[
         },
 
         executeAnimation: function (element, animation) {
-            /// <signature helpKeyword="WinJS.UI.executeAnimation">
-            /// <summary locid="WinJS.UI.executeAnimation">
+            /// <signature helpKeyword="TVJS.UI.executeAnimation">
+            /// <summary locid="TVJS.UI.executeAnimation">
             /// Perform a CSS animation that can coexist with other
             /// Animation Library animations. Applications are not expected
             /// to call this function directly; they should prefer to use
             /// the high-level animations in the Animation Library.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.executeAnimation_p:element">
+            /// <param name="element" locid="TVJS.UI.executeAnimation_p:element">
             /// Single element or collection of elements on which
             /// to perform a CSS animation.
             /// </param>
-            /// <param name="animation" locid="WinJS.UI.executeAnimation_p:animation">
+            /// <param name="animation" locid="TVJS.UI.executeAnimation_p:animation">
             /// Single animation description or array of animation descriptions.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.executeAnimation_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.executeAnimation_returnValue">
             /// Promise object that completes when the CSS animation is complete.
             /// </returns>
             /// </signature>
@@ -10060,21 +10060,21 @@ define('WinJS/Animations/_TransitionAnimation',[
         },
 
         executeTransition: function (element, transition) {
-            /// <signature helpKeyword="WinJS.UI.executeTransition">
-            /// <summary locid="WinJS.UI.executeTransition">
+            /// <signature helpKeyword="TVJS.UI.executeTransition">
+            /// <summary locid="TVJS.UI.executeTransition">
             /// Perform a CSS transition that can coexist with other
             /// Animation Library animations. Applications are not expected
             /// to call this function directly; they should prefer to use
             /// the high-level animations in the Animation Library.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.executeTransition_p:element">
+            /// <param name="element" locid="TVJS.UI.executeTransition_p:element">
             /// Single element or collection of elements on which
             /// to perform a CSS transition.
             /// </param>
-            /// <param name="transition" locid="WinJS.UI.executeTransition_p:transition">
+            /// <param name="transition" locid="TVJS.UI.executeTransition_p:transition">
             /// Single transition description or array of transition descriptions.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.executeTransition_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.executeTransition_returnValue">
             /// Promise object that completes when the CSS transition is complete.
             /// </returns>
             /// </signature>
@@ -10092,7 +10092,7 @@ define('WinJS/Animations/_TransitionAnimation',[
 
     });
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Utilities", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Utilities", {
         _fastAnimations: {
             get: function () {
                 return animationFactor === 1/20;
@@ -10122,7 +10122,7 @@ define('WinJS/Animations/_TransitionAnimation',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Animations',[
+define('TVJS/Animations',[
     'exports',
     './Core/_Global',
     './Core/_Base',
@@ -10406,7 +10406,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.revealedArray,
                 {
-                    keyframe: "WinJS-opacity-in",
+                    keyframe: "TVJS-opacity-in",
                     property: "opacity",
                     delay: this.affectedArray.length > 0 ? 200 : 0,
                     duration: 167,
@@ -10442,7 +10442,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.hiddenArray,
                 {
-                    keyframe: "WinJS-opacity-out",
+                    keyframe: "TVJS-opacity-out",
                     property: "opacity",
                     delay: 0,
                     duration: 167,
@@ -10502,7 +10502,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.addedArray,
                 [{
-                    keyframe: "WinJS-scale-up",
+                    keyframe: "TVJS-scale-up",
                     property: transformNames.cssName,
                     delay: delay,
                     duration: 120,
@@ -10511,7 +10511,7 @@ define('WinJS/Animations',[
                     to: "none"
                 },
                 {
-                    keyframe: "WinJS-opacity-in",
+                    keyframe: "TVJS-opacity-in",
                     property: "opacity",
                     delay: delay,
                     duration: 120,
@@ -10548,7 +10548,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.deletedArray,
                 [{
-                    keyframe: "WinJS-scale-down",
+                    keyframe: "TVJS-scale-down",
                     property: transformNames.cssName,
                     delay: 0,
                     duration: 120,
@@ -10557,7 +10557,7 @@ define('WinJS/Animations',[
                     to: "scale(0.85)"
                 },
                 {
-                    keyframe: "WinJS-opacity-out",
+                    keyframe: "TVJS-opacity-out",
                     property: "opacity",
                     delay: 0,
                     duration: 120,
@@ -10599,7 +10599,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.deletedArray,
                 [{
-                    keyframe: keyframeCallbackAnimate(this.deletedOffsetArray, "WinJS-scale-down"),
+                    keyframe: keyframeCallbackAnimate(this.deletedOffsetArray, "TVJS-scale-down"),
                     property: transformNames.cssName,
                     delay: 0,
                     duration: 120,
@@ -10608,7 +10608,7 @@ define('WinJS/Animations',[
                     to: translateCallbackAnimate(this.deletedOffsetArray, "scale(0.85)")
                 },
                 {
-                    keyframe: "WinJS-opacity-out",
+                    keyframe: "TVJS-opacity-out",
                     property: "opacity",
                     delay: 0,
                     duration: 120,
@@ -10641,7 +10641,7 @@ define('WinJS/Animations',[
             var promise3 = _TransitionAnimation.executeAnimation(
                 this.addedArray,
                 [{
-                    keyframe: "WinJS-scale-up",
+                    keyframe: "TVJS-scale-up",
                     property: transformNames.cssName,
                     delay: delay,
                     duration: 120,
@@ -10650,7 +10650,7 @@ define('WinJS/Animations',[
                     to: "none"
                 },
                 {
-                    keyframe: "WinJS-opacity-in",
+                    keyframe: "TVJS-opacity-in",
                     property: "opacity",
                     delay: delay,
                     duration: 120,
@@ -10678,7 +10678,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.addedArray,
                 {
-                    keyframe: "WinJS-opacity-in",
+                    keyframe: "TVJS-opacity-in",
                     property: "opacity",
                     delay: this.affectedArray.length > 0 ? 240 : 0,
                     duration: 117,
@@ -10714,7 +10714,7 @@ define('WinJS/Animations',[
             var promise1 = _TransitionAnimation.executeAnimation(
                 this.deletedArray,
                 {
-                    keyframe: "WinJS-opacity-out",
+                    keyframe: "TVJS-opacity-out",
                     property: "opacity",
                     delay: 0,
                     duration: 93,
@@ -10860,24 +10860,24 @@ define('WinJS/Animations',[
         ];
     }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI.Animation", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI.Animation", {
 
         createExpandAnimation: function (revealed, affected) {
-            /// <signature helpKeyword="WinJS.UI.Animation.createExpandAnimation">
-            /// <summary locid="WinJS.UI.Animation.createExpandAnimation">
+            /// <signature helpKeyword="TVJS.UI.Animation.createExpandAnimation">
+            /// <summary locid="TVJS.UI.Animation.createExpandAnimation">
             /// Creates an expand animation.
             /// After creating the ExpandAnimation object,
             /// modify the document to move the elements to their new positions,
             /// then call the execute method on the ExpandAnimation object.
             /// </summary>
-            /// <param name="revealed" locid="WinJS.UI.Animation.createExpandAnimation_p:revealed">
+            /// <param name="revealed" locid="TVJS.UI.Animation.createExpandAnimation_p:revealed">
             /// Single element or collection of elements which were revealed.
             /// </param>
-            /// <param name="affected" locid="WinJS.UI.Animation.createExpandAnimation_p:affected">
+            /// <param name="affected" locid="TVJS.UI.Animation.createExpandAnimation_p:affected">
             /// Single element or collection of elements whose positions were
             /// affected by the expand.
             /// </param>
-            /// <returns type="{ execute: Function }" locid="WinJS.UI.Animation.createExpandAnimation_returnValue">
+            /// <returns type="{ execute: Function }" locid="TVJS.UI.Animation.createExpandAnimation_returnValue">
             /// ExpandAnimation object whose execute method returns
             /// a Promise that completes when the animation is complete.
             /// </returns>
@@ -10886,15 +10886,15 @@ define('WinJS/Animations',[
         },
 
         fadeIn: function (shown) {
-            /// <signature helpKeyword="WinJS.UI.Animation.fadeIn">
-            /// <summary locid="WinJS.UI.Animation.fadeIn">
+            /// <signature helpKeyword="TVJS.UI.Animation.fadeIn">
+            /// <summary locid="TVJS.UI.Animation.fadeIn">
             /// Execute a fade-in animation.
             /// </summary>
-            /// <param name="shown" locid="WinJS.UI.Animation.fadeIn_p:element">
+            /// <param name="shown" locid="TVJS.UI.Animation.fadeIn_p:element">
             /// Single element or collection of elements to fade in.
             /// At the end of the animation, the opacity of the elements is 1.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.fadeIn_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.fadeIn_returnValue">
             /// Promise object that completes when the animation is complete.
             /// </returns>
             /// </signature>
@@ -10914,15 +10914,15 @@ define('WinJS/Animations',[
         },
 
         fadeOut: function (hidden) {
-            /// <signature helpKeyword="WinJS.UI.Animation.fadeOut">
-            /// <summary locid="WinJS.UI.Animation.fadeOut">
+            /// <signature helpKeyword="TVJS.UI.Animation.fadeOut">
+            /// <summary locid="TVJS.UI.Animation.fadeOut">
             /// Execute a fade-out animation.
             /// </summary>
-            /// <param name="hidden" locid="WinJS.UI.Animation.fadeOut_p:element">
+            /// <param name="hidden" locid="TVJS.UI.Animation.fadeOut_p:element">
             /// Single element or collection of elements to fade out.
             /// At the end of the animation, the opacity of the elements is 0.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.fadeOut_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.fadeOut_returnValue">
             /// Promise object that completes when the animation is complete.
             /// </returns>
             /// </signature>
@@ -10941,21 +10941,21 @@ define('WinJS/Animations',[
         },
 
         createAddToListAnimation: function (added, affected) {
-            /// <signature helpKeyword="WinJS.UI.Animation.createAddToListAnimation" >
-            /// <summary locid="WinJS.UI.Animation.createAddToListAnimation">
+            /// <signature helpKeyword="TVJS.UI.Animation.createAddToListAnimation" >
+            /// <summary locid="TVJS.UI.Animation.createAddToListAnimation">
             /// Creates an animation for adding to a list.
             /// After creating the AddToListAnimation object,
             /// modify the document to move the elements to their new positions,
             /// then call the execute method on the AddToListAnimation object.
             /// </summary>
-            /// <param name="added" locid="WinJS.UI.Animation.createAddToListAnimation_p:added">
+            /// <param name="added" locid="TVJS.UI.Animation.createAddToListAnimation_p:added">
             /// Single element or collection of elements which were added.
             /// </param>
-            /// <param name="affected" locid="WinJS.UI.Animation.createAddToListAnimation_p:affected">
+            /// <param name="affected" locid="TVJS.UI.Animation.createAddToListAnimation_p:affected">
             /// Single element or collection of elements whose positions were
             /// affected by the add.
             /// </param>
-            /// <returns type="{ execute: Function }" locid="WinJS.UI.Animation.createAddToListAnimation_returnValue">
+            /// <returns type="{ execute: Function }" locid="TVJS.UI.Animation.createAddToListAnimation_returnValue">
             /// AddToListAnimation object whose execute method returns
             /// a Promise that completes when the animation is complete.
             /// </returns>
@@ -10964,23 +10964,23 @@ define('WinJS/Animations',[
         },
 
         createDeleteFromListAnimation: function (deleted, remaining) {
-            /// <signature helpKeyword="WinJS.UI.Animation.createDeleteFromListAnimation">
-            /// <summary locid="WinJS.UI.Animation.createDeleteFromListAnimation">
+            /// <signature helpKeyword="TVJS.UI.Animation.createDeleteFromListAnimation">
+            /// <summary locid="TVJS.UI.Animation.createDeleteFromListAnimation">
             /// Crestes an animation for deleting from a list.
             /// After creating the DeleteFromListAnimation object,
             /// modify the document to reflect the deletion,
             /// then call the execute method on the DeleteFromListAnimation object.
             /// </summary>
-            /// <param name="deleted" locid="WinJS.UI.Animation.createDeleteFromListAnimation_p:deleted">
+            /// <param name="deleted" locid="TVJS.UI.Animation.createDeleteFromListAnimation_p:deleted">
             /// Single element or collection of elements which will be deleted.
             /// When the animation completes, the application should hide the elements
             /// or remove them from the document.
             /// </param>
-            /// <param name="remaining" locid="WinJS.UI.Animation.createDeleteFromListAnimation_p:remaining">
+            /// <param name="remaining" locid="TVJS.UI.Animation.createDeleteFromListAnimation_p:remaining">
             /// Single element or collection of elements whose positions were
             /// affected by the deletion.
             /// </param>
-            /// <returns type="{ execute: Function }" locid="WinJS.UI.Animation.createDeleteFromListAnimation_returnValue">
+            /// <returns type="{ execute: Function }" locid="TVJS.UI.Animation.createDeleteFromListAnimation_returnValue">
             /// DeleteFromListAnimation object whose execute method returns
             /// a Promise that completes when the animation is complete.
             /// </returns>
@@ -10989,17 +10989,17 @@ define('WinJS/Animations',[
         },
 
         showPanel: function (element, offset) {
-            /// <signature helpKeyword="WinJS.UI.Animation.showPanel">
-            /// <summary locid="WinJS.UI.Animation.showPanel">
+            /// <signature helpKeyword="TVJS.UI.Animation.showPanel">
+            /// <summary locid="TVJS.UI.Animation.showPanel">
             /// Slides an element or elements into position at the edge of the screen.
             /// This animation is designed for a large object like a keyboard.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.Animation.showPanel_p:element">
+            /// <param name="element" locid="TVJS.UI.Animation.showPanel_p:element">
             /// Single element or collection of elements to be slid into position.
             /// The elements should be at their final positions
             /// at the time the function is called.
             /// </param>
-            /// <param name="offset" locid="WinJS.UI.Animation.showPanel_p:offset">
+            /// <param name="offset" locid="TVJS.UI.Animation.showPanel_p:offset">
             /// Optional offset object or collection of offset objects
             /// array describing the starting point of the animation.
             /// If the number of offset objects is less than the length of the
@@ -11007,13 +11007,13 @@ define('WinJS/Animations',[
             /// remaining elements.
             /// If this parameter is omitted, then a default value is used.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.showPanel_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.showPanel_returnValue">
             /// promise object
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("showPanel,StartTM");
 
-            var offsetArray = new OffsetArray(offset, "WinJS-showPanel", [{ top: "0px", left: "364px", rtlflip: true }]);
+            var offsetArray = new OffsetArray(offset, "TVJS-showPanel", [{ top: "0px", left: "364px", rtlflip: true }]);
             return _TransitionAnimation.executeAnimation(
                 element,
                 {
@@ -11029,17 +11029,17 @@ define('WinJS/Animations',[
         },
 
         hidePanel: function (element, offset) {
-            /// <signature helpKeyword="WinJS.UI.Animation.hidePanel">
-            /// <summary locid="WinJS.UI.Animation.hidePanel">
+            /// <signature helpKeyword="TVJS.UI.Animation.hidePanel">
+            /// <summary locid="TVJS.UI.Animation.hidePanel">
             /// Slides an element or elements at the edge of the screen out of view.
             /// This animation is designed for a large object like a keyboard.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.Animation.hidePanel_p:element">
+            /// <param name="element" locid="TVJS.UI.Animation.hidePanel_p:element">
             /// Single element or collection of elements to be slid out.
             /// The elements should be at their onscreen positions
             /// at the time the function is called.
             /// </param>
-            /// <param name="offset" locid="WinJS.UI.Animation.hidePanel_p:offset">
+            /// <param name="offset" locid="TVJS.UI.Animation.hidePanel_p:offset">
             /// Optional offset object or collection of offset objects
             /// array describing the ending point of the animation.
             /// If the number of offset objects is less than the length of the
@@ -11047,13 +11047,13 @@ define('WinJS/Animations',[
             /// remaining elements.
             /// If this parameter is omitted, then a default value is used.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.hidePanel_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.hidePanel_returnValue">
             /// Promise object that completes when the animation is complete.
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("hidePanel,StartTM");
 
-            var offsetArray = new OffsetArray(offset, "WinJS-hidePanel", [{ top: "0px", left: "364px", rtlflip: true }]);
+            var offsetArray = new OffsetArray(offset, "TVJS-hidePanel", [{ top: "0px", left: "364px", rtlflip: true }]);
             return _TransitionAnimation.executeAnimation(
                 element,
                 {
@@ -11069,14 +11069,14 @@ define('WinJS/Animations',[
         },
 
         showPopup: function (element, offset) {
-            /// <signature helpKeyword="WinJS.UI.Animation.showPopup">
-            /// <summary locid="WinJS.UI.Animation.showPopup">
+            /// <signature helpKeyword="TVJS.UI.Animation.showPopup">
+            /// <summary locid="TVJS.UI.Animation.showPopup">
             /// Displays an element or elements in the style of a popup.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.Animation.showPopup_p:element">
+            /// <param name="element" locid="TVJS.UI.Animation.showPopup_p:element">
             /// Single element or collection of elements to be shown like a popup.
             /// </param>
-            /// <param name="offset" locid="WinJS.UI.Animation.showPopup_p:offset">
+            /// <param name="offset" locid="TVJS.UI.Animation.showPopup_p:offset">
             /// Optional offset object or collection of offset objects
             /// array describing the starting point of the animation.
             /// If the number of offset objects is less than the length of the
@@ -11084,17 +11084,17 @@ define('WinJS/Animations',[
             /// remaining elements.
             /// If this parameter is omitted, then a default value is used.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.showPopup_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.showPopup_returnValue">
             /// Promise object that completes when the animation is complete.
             /// </returns>
             /// </signature>
             writeAnimationProfilerMark("showPopup,StartTM");
 
-            var offsetArray = new OffsetArray(offset, "WinJS-showPopup", [{ top: "50px", left: "0px" }]);
+            var offsetArray = new OffsetArray(offset, "TVJS-showPopup", [{ top: "50px", left: "0px" }]);
             return _TransitionAnimation.executeAnimation(
                 element,
                 [{
-                    keyframe: "WinJS-opacity-in",
+                    keyframe: "TVJS-opacity-in",
                     property: "opacity",
                     delay: 83,
                     duration: 83,
@@ -11115,16 +11115,16 @@ define('WinJS/Animations',[
         },
 
         hidePopup: function (element) {
-            /// <signature helpKeyword="WinJS.UI.Animation.hidePopup" >
-            /// <summary locid="WinJS.UI.Animation.hidePopup">
+            /// <signature helpKeyword="TVJS.UI.Animation.hidePopup" >
+            /// <summary locid="TVJS.UI.Animation.hidePopup">
             /// Removes a popup from the screen.
             /// </summary>
-            /// <param name="element" locid="WinJS.UI.Animation.hidePopup_p:element">
+            /// <param name="element" locid="TVJS.UI.Animation.hidePopup_p:element">
             /// Single element or collection of elements to be hidden like a popup.
             /// When the animation completes, the application should hide the elements
             /// or remove them from the document.
             /// </param>
-            /// <returns type="WinJS.Promise" locid="WinJS.UI.Animation.hidePopup_returnValue">
+            /// <returns type="TVJS.Promise" locid="TVJS.UI.Animation.hidePopup_returnValue">
             /// Promise object that completes when the animation is complete.
             /// </returns>
             /// </signature>
@@ -11133,7 +11133,7 @@ define('WinJS/Animations',[
             return _TransitionAnimation.executeAnimation(
                 element,
                 {
-                    keyframe: "WinJS-opacity-out",
+                    keyframe: "TVJS-opacity-out",
                     property: "opacity",
                     delay: 0,
                     duration: 83,
@@ -11278,7 +11278,7 @@ define('WinJS/Animations',[
 });
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Res',[
+define('TVJS/Res',[
     'exports',
     './Core/_Global',
     './Core/_Base',
@@ -11341,7 +11341,7 @@ define('WinJS/Res',[
             }
 
         } else if (_BaseUtils.validation) {
-            throw new _ErrorFromName("WinJS.Res.NestingExceeded", "NestingExceeded");
+            throw new _ErrorFromName("TVJS.Res.NestingExceeded", "NestingExceeded");
         }
 
         return Promise.as(rootElement);
@@ -11372,7 +11372,7 @@ define('WinJS/Res',[
     }
 
     function notFound(name) {
-        throw new _ErrorFromName("WinJS.Res.NotFound", _Resources._formatString("NotFound: {0}", name));
+        throw new _ErrorFromName("TVJS.Res.NotFound", _Resources._formatString("NotFound: {0}", name));
     }
 
     function setMembers(root, target, descriptor, count) {
@@ -11412,12 +11412,12 @@ define('WinJS/Res',[
     }
 
     function processAll(rootElement) {
-            /// <signature helpKeyword="WinJS.Resources.processAll">
-            /// <summary locid="WinJS.Resources.processAll">
+            /// <signature helpKeyword="TVJS.Resources.processAll">
+            /// <summary locid="TVJS.Resources.processAll">
             /// Processes resources tag and replaces strings
             /// with localized strings.
             /// </summary>
-            /// <param name="rootElement" locid="WinJS.Resources.processAll_p:rootElement">
+            /// <param name="rootElement" locid="TVJS.Resources.processAll_p:rootElement">
             /// The DOM element at which to start processing. processAll processes the element and its child elements.
             /// If you don't specify root element, processAll processes the entire document.
             /// </param>
@@ -11438,41 +11438,41 @@ define('WinJS/Res',[
             }
         }
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.Resources", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.Resources", {
         processAll: processAll
     });
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('base',[
-    'WinJS/Core/_WinJS',
-    'WinJS/Core',
-    'WinJS/Promise',
-    'WinJS/_Signal',
-    'WinJS/Utilities',
-    'WinJS/Application',
-    'WinJS/Animations',
-    'WinJS/Res',
-    'WinJS/ControlProcessor',
-    ], function (_WinJS) {
+    'TVJS/Core/_TVJS',
+    'TVJS/Core',
+    'TVJS/Promise',
+    'TVJS/_Signal',
+    'TVJS/Utilities',
+    'TVJS/Application',
+    'TVJS/Animations',
+    'TVJS/Res',
+    'TVJS/ControlProcessor',
+    ], function (_TVJS) {
     "use strict";
 
-    _WinJS.Namespace.define("WinJS.Utilities", {
+    _TVJS.Namespace.define("TVJS.Utilities", {
         _require: require,
         _define: define
     });
 
-    return _WinJS;
+    return _TVJS;
 });
 
-        require(['WinJS/Core/_WinJS', 'base'], function (_WinJS) {
-            // WinJS always publishes itself to global
-            globalObject.WinJS = _WinJS;
+        require(['TVJS/Core/_TVJS', 'base'], function (_TVJS) {
+            // TVJS always publishes itself to global
+            globalObject.TVJS = _TVJS;
             if (typeof module !== 'undefined') {
                 // This is a CommonJS context so publish to exports
-                module.exports = _WinJS;
+                module.exports = _TVJS;
             }
         });
-        return globalObject.WinJS;
+        return globalObject.TVJS;
     }));
 }());
 
@@ -11496,19 +11496,19 @@ define('base',[
                 factory(require("./base"));
             } else {
                 // No module system
-                factory(globalObject.WinJS);
+                factory(globalObject.TVJS);
             }
         }
-    }(function (WinJS) {
+    }(function (TVJS) {
 
 
-var require = WinJS.Utilities._require;
-var define = WinJS.Utilities._define;
+var require = TVJS.Utilities._require;
+var define = TVJS.Utilities._define;
 
-define('WinJS/_Accents',["require", "exports", "./Core/_Global", "./Core/_WinRT", "./Core/_Base", "./Core/_BaseUtils", './Utilities/_ElementUtilities'], function (require, exports, _Global, _WinRT, _Base, _BaseUtils, _ElementUtilities) {
+define('TVJS/_Accents',["require", "exports", "./Core/_Global", "./Core/_WinRT", "./Core/_Base", "./Core/_BaseUtils", './Utilities/_ElementUtilities'], function (require, exports, _Global, _WinRT, _Base, _BaseUtils, _ElementUtilities) {
     var Constants = {
-        accentStyleId: "WinJSAccentsStyle",
-        themeDetectionTag: "winjs-themedetection-tag",
+        accentStyleId: "TVJSAccentsStyle",
+        themeDetectionTag: "TVJS-themedetection-tag",
         hoverSelector: "html.tv-hoverable",
         lightThemeSelector: ".tv-ui-light",
         darkThemeSelector: ".tv-ui-dark"
@@ -11631,7 +11631,7 @@ define('WinJS/_Accents',["require", "exports", "./Core/_Global", "./Core/_WinRT"
         // The order of the colors align with the ColorTypes enum values
         colors.push("rgb(0, 120, 215)", "rgba(0, 120, 215, " + (isDarkTheme ? "0.6" : "0.4") + ")", "rgba(0, 120, 215, " + (isDarkTheme ? "0.8" : "0.6") + ")", "rgba(0, 120, 215, " + (isDarkTheme ? "0.9" : "0.7") + ")", "rgba(0, 120, 215, " + (isDarkTheme ? "0.4" : "0.6") + ")", "rgba(0, 120, 215, " + (isDarkTheme ? "0.6" : "0.8") + ")", "rgba(0, 120, 215, " + (isDarkTheme ? "0.7" : "0.9") + ")");
     }
-    // Publish to WinJS namespace
+    // Publish to TVJS namespace
     var toPublish = {
         ColorTypes: ColorTypes,
         createAccentRule: createAccentRule,
@@ -11640,7 +11640,7 @@ define('WinJS/_Accents',["require", "exports", "./Core/_Global", "./Core/_WinRT"
         _reset: _reset,
         _isDarkTheme: isDarkTheme
     };
-    _Base.Namespace.define("WinJS.UI._Accents", toPublish);
+    _Base.Namespace.define("TVJS.UI._Accents", toPublish);
 });
 
 define('require-style',{load: function(id){throw new Error("Dynamic load not allowed: " + id);}});
@@ -11649,7 +11649,7 @@ define('require-style!less/styles-intrinsic',[],function(){});
 
 define('require-style!less/colors-intrinsic',[],function(){});
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
-define('WinJS/Controls/IntrinsicControls',[
+define('TVJS/Controls/IntrinsicControls',[
     '../Utilities/_Hoverable',
     '../_Accents',
     'require-style!less/styles-intrinsic',
@@ -11745,13 +11745,13 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define('WinJS/_LightDismissService',["require", "exports", './Application', './Core/_Base', './Core/_BaseUtils', './Utilities/_ElementUtilities', './Core/_Global', './Utilities/_KeyboardBehavior', './Core/_Log', './Core/_Resources'], function (require, exports, Application, _Base, _BaseUtils, _ElementUtilities, _Global, _KeyboardBehavior, _Log, _Resources) {
+define('TVJS/_LightDismissService',["require", "exports", './Application', './Core/_Base', './Core/_BaseUtils', './Utilities/_ElementUtilities', './Core/_Global', './Utilities/_KeyboardBehavior', './Core/_Log', './Core/_Resources'], function (require, exports, Application, _Base, _BaseUtils, _ElementUtilities, _Global, _KeyboardBehavior, _Log, _Resources) {
     require(["require-style!less/styles-lightdismissservice"]);
     "use strict";
     var baseZIndex = 1000;
     var Strings = {
         get closeOverlay() {
-            return _Resources._getWinJSString("ui/closeOverlay").value;
+            return _Resources._getTVJSString("ui/closeOverlay").value;
         }
     };
     exports._ClassNames = {
@@ -12121,7 +12121,7 @@ define('WinJS/_LightDismissService',["require", "exports", './Application', './C
         };
         LightDismissService.prototype._dispatchLightDismiss = function (reason, clients, options) {
             if (this._notifying) {
-                _Log.log && _Log.log('_LightDismissService ignored dismiss trigger to avoid re-entrancy: "' + reason + '"', "winjs _LightDismissService", "warning");
+                _Log.log && _Log.log('_LightDismissService ignored dismiss trigger to avoid re-entrancy: "' + reason + '"', "TVJS _LightDismissService", "warning");
                 return;
             }
             clients = clients || this._clients.slice(0);
@@ -12299,7 +12299,7 @@ define('WinJS/_LightDismissService',["require", "exports", './Application', './C
     exports._clickEaterTapped = service._clickEaterTapped.bind(service);
     exports._onBackClick = service._onBackClick.bind(service);
     exports._setDebug = service._setDebug.bind(service);
-    _Base.Namespace.define("WinJS.UI._LightDismissService", {
+    _Base.Namespace.define("TVJS.UI._LightDismissService", {
         shown: exports.shown,
         hidden: exports.hidden,
         updated: exports.updated,
@@ -12321,7 +12321,7 @@ define('WinJS/_LightDismissService',["require", "exports", './Application', './C
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 /// <reference path="../../../../typings/require.d.ts" />
-define('WinJS/Utilities/_KeyboardInfo', ["require", "exports", '../Core/_BaseCoreUtils', '../Core/_Global', '../Core/_WinRT'], function (require, exports, _BaseCoreUtils, _Global, _WinRT) {
+define('TVJS/Utilities/_KeyboardInfo', ["require", "exports", '../Core/_BaseCoreUtils', '../Core/_Global', '../Core/_WinRT'], function (require, exports, _BaseCoreUtils, _Global, _WinRT) {
     "use strict";
     var _Constants = {
         visualViewportClass: "tv-visualviewport-space",
@@ -12334,7 +12334,7 @@ define('WinJS/Utilities/_KeyboardInfo', ["require", "exports", '../Core/_BaseCor
     //   when the input pane has shown without resizing the *visual viewport*. In this case, the *visible document*
     //   is the *visual viewport* height minus the input pane occlusion.
     // This private module provides accurate metrics for the Visual Viewport and WWA's IHM offsets in Win10 WWA 
-    // where "-ms-device-fixed" CSS positioning is supported. WinJS controls will also use this module for
+    // where "-ms-device-fixed" CSS positioning is supported. TVJS controls will also use this module for
     // positoning themselves relative to the viewport in a web browser outside of WWA. Their preference is still 
     // to rely on "-ms-device-fixed" positioning, but currently fallback to "fixed" positioning in enviornments where
     // "-ms-device-fixed" is not supported.
@@ -12428,7 +12428,7 @@ define('WinJS/Utilities/_KeyboardInfo', ["require", "exports", '../Core/_BaseCor
                 else {
                     // Phone platform does not yet expose the Animation Metrics API. 
                     // Hard code the correct values for the time being.
-                    // https://github.com/winjs/winjs/issues/1060
+                    // https://github.com/TVJS/TVJS/issues/1060
                     var animationDuration = 300;
                     var animationDelay = 50;
                     return animationDelay + animationDuration;
@@ -12464,7 +12464,7 @@ define('require-style!less/styles-overlay',[],function(){});
 define('require-style!less/colors-overlay',[],function(){});
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 /// <dictionary>animatable,appbar,appbars,divs,Flyout,Flyouts,iframe,Statics,unfocus,unselectable</dictionary>
-define('WinJS/Controls/Flyout/_Overlay',[
+define('TVJS/Controls/Flyout/_Overlay',[
     'exports',
     '../../Core/_Global',
     '../../Core/_WinRT',
@@ -12495,7 +12495,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
 
     _Accents.createAccentRule(".tv-flyout, .tv-settingsflyout", [{ name: "border-color", value: _Accents.ColorTypes.accent }]);
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         _Overlay: _Base.Namespace._lazy(function () {
 
             // Helper for Global Event listeners. Invokes the specified callback member function on each _Overlay in the DOM.
@@ -12577,7 +12577,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 // Statics
                 profilerString: {
                     get: function () {
-                        return "WinJS.UI._Overlay Global Listener:";
+                        return "TVJS.UI._Overlay Global Listener:";
                     }
                 },
                 states: {
@@ -12626,21 +12626,21 @@ define('WinJS/Controls/Flyout/_Overlay',[
             var strings = {
                 get duplicateConstruction() { return "Invalid argument: Controls may only be instantiated one time for each DOM element"; },
                 get mustContainCommands() { return "Invalid HTML: AppBars/Menus must contain only AppBarCommands/MenuCommands"; },
-                get closeOverlay() { return _Resources._getWinJSString("ui/closeOverlay").value; },
+                get closeOverlay() { return _Resources._getTVJSString("ui/closeOverlay").value; },
             };
 
             var _Overlay = _Base.Class.define(function _Overlay_ctor(element, options) {
-                /// <signature helpKeyword="WinJS.UI._Overlay">
-                /// <summary locid="WinJS.UI._Overlay">
+                /// <signature helpKeyword="TVJS.UI._Overlay">
+                /// <summary locid="TVJS.UI._Overlay">
                 /// Constructs the Overlay control and associates it with the underlying DOM element.
                 /// </summary>
-                /// <param name="element" type="HTMLElement" domElement="true" locid="WinJS.UI._Overlay_p:element">
+                /// <param name="element" type="HTMLElement" domElement="true" locid="TVJS.UI._Overlay_p:element">
                 /// The DOM element to be associated with the Overlay control.
                 /// </param>
-                /// <param name="options" type="Object" domElement="false" locid="WinJS.UI._Overlay_p:options">
+                /// <param name="options" type="Object" domElement="false" locid="TVJS.UI._Overlay_p:options">
                 /// The set of options to be applied initially to the Overlay control.
                 /// </param>
-                /// <returns type="WinJS.UI._Overlay" locid="WinJS.UI._Overlay_returnValue">A fully constructed Overlay control.</returns>
+                /// <returns type="TVJS.UI._Overlay" locid="TVJS.UI._Overlay_returnValue">A fully constructed Overlay control.</returns>
                 /// </signature>
                 this._baseOverlayConstructor(element, options);
             }, {
@@ -12657,7 +12657,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                     // Check to make sure we weren't duplicated
                     var overlay = element.winControl;
                     if (overlay) {
-                        throw new _ErrorFromName("WinJS.UI._Overlay.DuplicateConstruction", strings.duplicateConstruction);
+                        throw new _ErrorFromName("TVJS.UI._Overlay.DuplicateConstruction", strings.duplicateConstruction);
                     }
 
                     if (!this._element) {
@@ -12705,7 +12705,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                     _Overlay._globalEventListeners.initialize();
                 },
 
-                /// <field type="HTMLElement" domElement="true" readonly="true" hidden="true" locid="WinJS.UI._Overlay.element" helpKeyword="WinJS.UI._Overlay.element">The DOM element the Overlay is attached to</field>
+                /// <field type="HTMLElement" domElement="true" readonly="true" hidden="true" locid="TVJS.UI._Overlay.element" helpKeyword="TVJS.UI._Overlay.element">The DOM element the Overlay is attached to</field>
                 element: {
                     get: function () {
                         return this._element;
@@ -12713,8 +12713,8 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 },
 
                 dispose: function () {
-                    /// <signature helpKeyword="WinJS.UI.Overlay.dispose">
-                    /// <summary locid="WinJS.UI.Overlay.dispose">
+                    /// <signature helpKeyword="TVJS.UI.Overlay.dispose">
+                    /// <summary locid="TVJS.UI.Overlay.dispose">
                     /// Disposes this Overlay.
                     /// </summary>
                     /// </signature>
@@ -12741,7 +12741,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 },
 
                 // Is the overlay "hidden"?
-                /// <field type="Boolean" hidden="true" locid="WinJS.UI._Overlay.hidden" helpKeyword="WinJS.UI._Overlay.hidden">Gets or sets Overlay's visibility.</field>
+                /// <field type="Boolean" hidden="true" locid="TVJS.UI._Overlay.hidden" helpKeyword="TVJS.UI._Overlay.hidden">Gets or sets Overlay's visibility.</field>
                 hidden: {
                     get: function () {
                         return (this._element.style.visibility === "hidden" ||
@@ -12759,25 +12759,25 @@ define('WinJS/Controls/Flyout/_Overlay',[
                 },
 
                 addEventListener: function (type, listener, useCapture) {
-                    /// <signature helpKeyword="WinJS.UI._Overlay.addEventListener">
-                    /// <summary locid="WinJS.UI._Overlay.addEventListener">
+                    /// <signature helpKeyword="TVJS.UI._Overlay.addEventListener">
+                    /// <summary locid="TVJS.UI._Overlay.addEventListener">
                     /// Add an event listener to the DOM element for this Overlay
                     /// </summary>
-                    /// <param name="type" type="String" locid="WinJS.UI._Overlay.addEventListener_p:type">Required. Event type to add, "beforehide", "afterhide", "beforeshow", or "aftershow"</param>
-                    /// <param name="listener" type="Function" locid="WinJS.UI._Overlay.addEventListener_p:listener">Required. The event handler function to associate with this event.</param>
-                    /// <param name="useCapture" type="Boolean" locid="WinJS.UI._Overlay.addEventListener_p:useCapture">Optional. True, register for the event capturing phase.  False for the event bubbling phase.</param>
+                    /// <param name="type" type="String" locid="TVJS.UI._Overlay.addEventListener_p:type">Required. Event type to add, "beforehide", "afterhide", "beforeshow", or "aftershow"</param>
+                    /// <param name="listener" type="Function" locid="TVJS.UI._Overlay.addEventListener_p:listener">Required. The event handler function to associate with this event.</param>
+                    /// <param name="useCapture" type="Boolean" locid="TVJS.UI._Overlay.addEventListener_p:useCapture">Optional. True, register for the event capturing phase.  False for the event bubbling phase.</param>
                     /// </signature>
                     return this._element.addEventListener(type, listener, useCapture);
                 },
 
                 removeEventListener: function (type, listener, useCapture) {
-                    /// <signature helpKeyword="WinJS.UI._Overlay.removeEventListener">
-                    /// <summary locid="WinJS.UI._Overlay.removeEventListener">
+                    /// <signature helpKeyword="TVJS.UI._Overlay.removeEventListener">
+                    /// <summary locid="TVJS.UI._Overlay.removeEventListener">
                     /// Remove an event listener to the DOM element for this Overlay
                     /// </summary>
-                    /// <param name="type" type="String" locid="WinJS.UI._Overlay.removeEventListener_p:type">Required. Event type to remove, "beforehide", "afterhide", "beforeshow", or "aftershow"</param>
-                    /// <param name="listener" type="Function" locid="WinJS.UI._Overlay.removeEventListener_p:listener">Required. The event handler function to associate with this event.</param>
-                    /// <param name="useCapture" type="Boolean" locid="WinJS.UI._Overlay.removeEventListener_p:useCapture">Optional. True, register for the event capturing phase.  False for the event bubbling phase.</param>
+                    /// <param name="type" type="String" locid="TVJS.UI._Overlay.removeEventListener_p:type">Required. Event type to remove, "beforehide", "afterhide", "beforeshow", or "aftershow"</param>
+                    /// <param name="listener" type="Function" locid="TVJS.UI._Overlay.removeEventListener_p:listener">Required. The event handler function to associate with this event.</param>
+                    /// <param name="useCapture" type="Boolean" locid="TVJS.UI._Overlay.removeEventListener_p:useCapture">Optional. True, register for the event capturing phase.  False for the event bubbling phase.</param>
                     /// </signature>
                     return this._element.removeEventListener(type, listener, useCapture);
                 },
@@ -12836,7 +12836,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                             // new overlay so that if the user opens multiple overlays in a row, then dismisses
                             // each one, once all the overlays are gone, the user will end back up with their origional
                             // focusRoot restored.
-                            if (WinJS.Utilities.hasClass(TVJS.DirectionalNavigation.focusRoot, "win-overlay")) {
+                            if (TVJS.Utilities.hasClass(TVJS.DirectionalNavigation.focusRoot, "win-overlay")) {
                                 this._previousFocusRoot = TVJS.DirectionalNavigation.focusRoot.winControl._previousFocusRoot;
                             } else {
                                 this._previousFocusRoot = TVJS.DirectionalNavigation.focusRoot;
@@ -13465,7 +13465,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
                         if (!_ElementUtilities.hasClass(children[i], "tv-command") &&
                         children[i].getAttribute("data-tv-control") !== type) {
                             // Wasn't tagged with class or AppBar/MenuCommand, not an AppBar/MenuCommand
-                            throw new _ErrorFromName("WinJS.UI._Overlay.MustContainCommands", strings.mustContainCommands);
+                            throw new _ErrorFromName("TVJS.UI._Overlay.MustContainCommands", strings.mustContainCommands);
                         } else {
                             // Instantiate the commands.
                             ControlProcessor.processAll(children[i]);
@@ -13652,7 +13652,7 @@ define('WinJS/Controls/Flyout/_Overlay',[
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 /// <dictionary>appbar,Flyout,Flyouts,Statics</dictionary>
-define('WinJS/Controls/Flyout',[
+define('TVJS/Controls/Flyout',[
     'exports',
     '../Core/_Global',
     '../Core/_Base',
@@ -13672,25 +13672,25 @@ define('WinJS/Controls/Flyout',[
 ], function flyoutInit(exports, _Global, _Base, _BaseUtils, _ErrorFromName, _Events, _Log, _Resources, Animations, _Signal, _LightDismissService, _Dispose, _ElementUtilities, _KeyboardBehavior, _Hoverable, _Overlay) {
     "use strict";
 
-    _Base.Namespace._moduleDefine(exports, "WinJS.UI", {
+    _Base.Namespace._moduleDefine(exports, "TVJS.UI", {
         /// <field>
-        /// <summary locid="WinJS.UI.Flyout">
+        /// <summary locid="TVJS.UI.Flyout">
         /// Displays lightweight UI that is either informational, or requires user interaction.
         /// Unlike a dialog, a Flyout can be light dismissed by clicking or tapping off of it.
         /// </summary>
         /// <compatibleWith platform="Windows" minVersion="8.0"/>
         /// </field>
-        /// <name locid="WinJS.UI.Flyout_name">Flyout</name>
-        /// <icon src="ui_winjs.ui.flyout.12x12.png" width="12" height="12" />
-        /// <icon src="ui_winjs.ui.flyout.16x16.png" width="16" height="16" />
-        /// <htmlSnippet supportsContent="true"><![CDATA[<div data-tv-control="WinJS.UI.Flyout"></div>]]></htmlSnippet>
-        /// <event name="beforeshow" locid="WinJS.UI.Flyout_e:beforeshow">Raised just before showing a flyout.</event>
-        /// <event name="aftershow" locid="WinJS.UI.Flyout_e:aftershow">Raised immediately after a flyout is fully shown.</event>
-        /// <event name="beforehide" locid="WinJS.UI.Flyout_e:beforehide">Raised just before hiding a flyout.</event>
-        /// <event name="afterhide" locid="WinJS.UI.Flyout_e:afterhide">Raised immediately after a flyout is fully hidden.</event>
-        /// <part name="flyout" class="tv-flyout" locid="WinJS.UI.Flyout_part:flyout">The Flyout control itself.</part>
-        /// <resource type="javascript" src="//WinJS.4.3/js/WinJS.js" shared="true" />
-        /// <resource type="css" src="//WinJS.4.3/css/ui-dark.css" shared="true" />
+        /// <name locid="TVJS.UI.Flyout_name">Flyout</name>
+        /// <icon src="ui_TVJS.ui.flyout.12x12.png" width="12" height="12" />
+        /// <icon src="ui_TVJS.ui.flyout.16x16.png" width="16" height="16" />
+        /// <htmlSnippet supportsContent="true"><![CDATA[<div data-tv-control="TVJS.UI.Flyout"></div>]]></htmlSnippet>
+        /// <event name="beforeshow" locid="TVJS.UI.Flyout_e:beforeshow">Raised just before showing a flyout.</event>
+        /// <event name="aftershow" locid="TVJS.UI.Flyout_e:aftershow">Raised immediately after a flyout is fully shown.</event>
+        /// <event name="beforehide" locid="TVJS.UI.Flyout_e:beforehide">Raised just before hiding a flyout.</event>
+        /// <event name="afterhide" locid="TVJS.UI.Flyout_e:afterhide">Raised immediately after a flyout is fully hidden.</event>
+        /// <part name="flyout" class="tv-flyout" locid="TVJS.UI.Flyout_part:flyout">The Flyout control itself.</part>
+        /// <resource type="javascript" src="//TVJS.4.3/js/TVJS.js" shared="true" />
+        /// <resource type="css" src="//TVJS.4.3/css/ui-dark.css" shared="true" />
         Flyout: _Base.Namespace._lazy(function () {
             var Key = _ElementUtilities.Key;
 
@@ -13712,7 +13712,7 @@ define('WinJS/Controls/Flyout',[
             }
 
             var strings = {
-                get ariaLabel() { return _Resources._getWinJSString("ui/flyoutAriaLabel").value; },
+                get ariaLabel() { return _Resources._getTVJSString("ui/flyoutAriaLabel").value; },
                 get noAnchor() { return "Invalid argument: Flyout anchor element not found in DOM."; },
                 get badPlacement() { return "Invalid argument: Flyout placement should be 'top' (default), 'bottom', 'left', 'right', 'auto', 'autohorizontal', or 'autovertical'."; },
                 get badAlignment() { return "Invalid argument: Flyout alignment should be 'center' (default), 'left', or 'right'."; },
@@ -13906,7 +13906,7 @@ define('WinJS/Controls/Flyout',[
             {
                 appendFlyout: function _CascadeManager_appendFlyout(flyoutToAdd) {
                     // PRECONDITION: this.reentrancyLock must be false. appendFlyout should only be called from baseFlyoutShow() which is the function responsible for preventing reentrancy.
-                    _Log.log && this.reentrancyLock && _Log.log('_CascadeManager is attempting to append a Flyout through reentrancy.', "winjs _CascadeManager", "error");
+                    _Log.log && this.reentrancyLock && _Log.log('_CascadeManager is attempting to append a Flyout through reentrancy.', "TVJS _CascadeManager", "error");
 
                     if (this.indexOf(flyoutToAdd) < 0) {
                         // IF the anchor element for flyoutToAdd is contained within another flyout,
@@ -14045,10 +14045,10 @@ define('WinJS/Controls/Flyout',[
             });
 
             var AnimationOffsets = {
-                top: { top: "50px", left: "0px", keyframe: "WinJS-showFlyoutTop" },
-                bottom: { top: "-50px", left: "0px", keyframe: "WinJS-showFlyoutBottom" },
-                left: { top: "0px", left: "50px", keyframe: "WinJS-showFlyoutLeft" },
-                right: { top: "0px", left: "-50px", keyframe: "WinJS-showFlyoutRight" },
+                top: { top: "50px", left: "0px", keyframe: "TVJS-showFlyoutTop" },
+                bottom: { top: "-50px", left: "0px", keyframe: "TVJS-showFlyoutBottom" },
+                left: { top: "0px", left: "50px", keyframe: "TVJS-showFlyoutLeft" },
+                right: { top: "0px", left: "-50px", keyframe: "TVJS-showFlyoutRight" },
             };
 
             var PositionRequests = {
@@ -14065,7 +14065,7 @@ define('WinJS/Controls/Flyout',[
 
                     if (!anchor) {
                         // We expect an anchor
-                        throw new _ErrorFromName("WinJS.UI.Flyout.NoAnchor", strings.noAnchor);
+                        throw new _ErrorFromName("TVJS.UI.Flyout.NoAnchor", strings.noAnchor);
                     }
 
                     this.anchor = anchor;
@@ -14101,7 +14101,7 @@ define('WinJS/Controls/Flyout',[
                             anchorBorderBox = this.anchor.getBoundingClientRect();
                         }
                         catch (e) {
-                            throw new _ErrorFromName("WinJS.UI.Flyout.NoAnchor", strings.noAnchor);
+                            throw new _ErrorFromName("TVJS.UI.Flyout.NoAnchor", strings.noAnchor);
                         }
 
                         var nextLeft;
@@ -14194,7 +14194,7 @@ define('WinJS/Controls/Flyout',[
                             } else if (alignment === "right") {
                                 nextLeft = anchorBorderBox.right - flyoutMeasurements.totalWidth;
                             } else {
-                                throw new _ErrorFromName("WinJS.UI.Flyout.BadAlignment", strings.badAlignment);
+                                throw new _ErrorFromName("TVJS.UI.Flyout.BadAlignment", strings.badAlignment);
                             }
                             if (nextLeft < 0) {
                                 nextLeft = 0;
@@ -14334,7 +14334,7 @@ define('WinJS/Controls/Flyout',[
                                 break;
                             default:
                                 // Not a legal placement value
-                                throw new _ErrorFromName("WinJS.UI.Flyout.BadPlacement", strings.badPlacement);
+                                throw new _ErrorFromName("TVJS.UI.Flyout.BadPlacement", strings.badPlacement);
                         }
 
                         return {
@@ -14363,7 +14363,7 @@ define('WinJS/Controls/Flyout',[
                         coordinates.y !== +coordinates.y) {
 
                         // We expect an x,y pair of numbers.
-                        throw new _ErrorFromName("WinJS.UI.Flyout.NoCoordinates", strings.noCoordinates);
+                        throw new _ErrorFromName("TVJS.UI.Flyout.NoCoordinates", strings.noCoordinates);
                     }
                     this.coordinates = coordinates;
                 }, {
@@ -14411,17 +14411,17 @@ define('WinJS/Controls/Flyout',[
             };
 
             var Flyout = _Base.Class.derive(_Overlay._Overlay, function Flyout_ctor(element, options) {
-                /// <signature helpKeyword="WinJS.UI.Flyout.Flyout">
-                /// <summary locid="WinJS.UI.Flyout.constructor">
+                /// <signature helpKeyword="TVJS.UI.Flyout.Flyout">
+                /// <summary locid="TVJS.UI.Flyout.constructor">
                 /// Creates a new Flyout control.
                 /// </summary>
-                /// <param name="element" type="HTMLElement" domElement="true" locid="WinJS.UI.Flyout.constructor_p:element">
+                /// <param name="element" type="HTMLElement" domElement="true" locid="TVJS.UI.Flyout.constructor_p:element">
                 /// The DOM element that hosts the control.
                 /// </param>
-                /// <param name="options" type="Object" domElement="false" locid="WinJS.UI.Flyout.constructor_p:options">
+                /// <param name="options" type="Object" domElement="false" locid="TVJS.UI.Flyout.constructor_p:options">
                 /// The set of properties and values to apply to the new Flyout.
                 /// </param>
-                /// <returns type="WinJS.UI.Flyout" locid="WinJS.UI.Flyout.constructor_returnValue">The new Flyout control.</returns>
+                /// <returns type="TVJS.UI.Flyout" locid="TVJS.UI.Flyout.constructor_returnValue">The new Flyout control.</returns>
                 /// <compatibleWith platform="Windows" minVersion="8.0"/>
                 /// </signature>
 
@@ -14503,7 +14503,7 @@ define('WinJS/Controls/Flyout',[
                     _ElementUtilities._addEventListener(this.element, "focusin", this._handleFocusIn.bind(this), false);
                 },
 
-                /// <field type="String" locid="WinJS.UI.Flyout.anchor" helpKeyword="WinJS.UI.Flyout.anchor">
+                /// <field type="String" locid="TVJS.UI.Flyout.anchor" helpKeyword="TVJS.UI.Flyout.anchor">
                 /// Gets or sets the Flyout control's anchor. The anchor element is the HTML element which the Flyout originates from and is positioned relative to.
                 /// (This setting can be overridden when you call the show method.)
                 /// <compatibleWith platform="Windows" minVersion="8.0"/>
@@ -14517,7 +14517,7 @@ define('WinJS/Controls/Flyout',[
                     }
                 },
 
-                /// <field type="String" defaultValue="auto" oamOptionsDatatype="WinJS.UI.Flyout.placement" locid="WinJS.UI.Flyout.placement" helpKeyword="WinJS.UI.Flyout.placement">
+                /// <field type="String" defaultValue="auto" oamOptionsDatatype="TVJS.UI.Flyout.placement" locid="TVJS.UI.Flyout.placement" helpKeyword="TVJS.UI.Flyout.placement">
                 /// Gets or sets the default placement of this Flyout. (This setting can be overridden when you call the show method.)
                 /// <compatibleWith platform="Windows" minVersion="8.0"/>
                 /// </field>
@@ -14528,13 +14528,13 @@ define('WinJS/Controls/Flyout',[
                     set: function (value) {
                         if (value !== "top" && value !== "bottom" && value !== "left" && value !== "right" && value !== "auto" && value !== "autohorizontal" && value !== "autovertical") {
                             // Not a legal placement value
-                            throw new _ErrorFromName("WinJS.UI.Flyout.BadPlacement", strings.badPlacement);
+                            throw new _ErrorFromName("TVJS.UI.Flyout.BadPlacement", strings.badPlacement);
                         }
                         this._placement = value;
                     }
                 },
 
-                /// <field type="String" defaultValue="center" oamOptionsDatatype="WinJS.UI.Flyout.alignment" locid="WinJS.UI.Flyout.alignment" helpKeyword="WinJS.UI.Flyout.alignment">
+                /// <field type="String" defaultValue="center" oamOptionsDatatype="TVJS.UI.Flyout.alignment" locid="TVJS.UI.Flyout.alignment" helpKeyword="TVJS.UI.Flyout.alignment">
                 /// Gets or sets the default alignment for this Flyout. (This setting can be overridden when you call the show method.)
                 /// <compatibleWith platform="Windows" minVersion="8.0"/>
                 /// </field>
@@ -14545,13 +14545,13 @@ define('WinJS/Controls/Flyout',[
                     set: function (value) {
                         if (value !== "right" && value !== "left" && value !== "center") {
                             // Not a legal alignment value
-                            throw new _ErrorFromName("WinJS.UI.Flyout.BadAlignment", strings.badAlignment);
+                            throw new _ErrorFromName("TVJS.UI.Flyout.BadAlignment", strings.badAlignment);
                         }
                         this._alignment = value;
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.Flyout.disabled" helpKeyword="WinJS.UI.Flyout.disabled">Disable a Flyout, setting or getting the HTML disabled attribute.  When disabled the Flyout will no longer display with show(), and will hide if currently visible.</field>
+                /// <field type="Boolean" locid="TVJS.UI.Flyout.disabled" helpKeyword="TVJS.UI.Flyout.disabled">Disable a Flyout, setting or getting the HTML disabled attribute.  When disabled the Flyout will no longer display with show(), and will hide if currently visible.</field>
                 disabled: {
                     get: function () {
                         // Ensure it's a boolean because we're using the DOM element to keep in-sync
@@ -14570,22 +14570,22 @@ define('WinJS/Controls/Flyout',[
                     }
                 },
 
-                /// <field type="Function" locid="WinJS.UI.Flyout.onbeforeshow" helpKeyword="WinJS.UI.Flyout.onbeforeshow">
+                /// <field type="Function" locid="TVJS.UI.Flyout.onbeforeshow" helpKeyword="TVJS.UI.Flyout.onbeforeshow">
                 /// Occurs immediately before the control is shown.
                 /// </field>
                 onbeforeshow: createEvent(_Overlay._Overlay.beforeShow),
 
-                /// <field type="Function" locid="WinJS.UI.Flyout.onaftershow" helpKeyword="WinJS.UI.Flyout.onaftershow">
+                /// <field type="Function" locid="TVJS.UI.Flyout.onaftershow" helpKeyword="TVJS.UI.Flyout.onaftershow">
                 /// Occurs immediately after the control is shown.
                 /// </field>
                 onaftershow: createEvent(_Overlay._Overlay.afterShow),
 
-                /// <field type="Function" locid="WinJS.UI.Flyout.onbeforehide" helpKeyword="WinJS.UI.Flyout.onbeforehide">
+                /// <field type="Function" locid="TVJS.UI.Flyout.onbeforehide" helpKeyword="TVJS.UI.Flyout.onbeforehide">
                 /// Occurs immediately before the control is hidden.
                 /// </field>
                 onbeforehide: createEvent(_Overlay._Overlay.beforeHide),
 
-                /// <field type="Function" locid="WinJS.UI.Flyout.onafterhide" helpKeyword="WinJS.UI.Flyout.onafterhide">
+                /// <field type="Function" locid="TVJS.UI.Flyout.onafterhide" helpKeyword="TVJS.UI.Flyout.onafterhide">
                 /// Occurs immediately after the control is hidden.
                 /// </field>
                 onafterhide: createEvent(_Overlay._Overlay.afterHide),
@@ -14598,17 +14598,17 @@ define('WinJS/Controls/Flyout',[
                 },
 
                 show: function (anchor, placement, alignment) {
-                    /// <signature helpKeyword="WinJS.UI.Flyout.show">
-                    /// <summary locid="WinJS.UI.Flyout.show">
+                    /// <signature helpKeyword="TVJS.UI.Flyout.show">
+                    /// <summary locid="TVJS.UI.Flyout.show">
                     /// Shows the Flyout, if hidden, regardless of other states.
                     /// </summary>
-                    /// <param name="anchor" type="HTMLElement" domElement="true" locid="WinJS.UI.Flyout.show_p:anchor">
+                    /// <param name="anchor" type="HTMLElement" domElement="true" locid="TVJS.UI.Flyout.show_p:anchor">
                     /// The DOM element, or ID of a DOM element to anchor the Flyout, overriding the anchor property for this time only.
                     /// </param>
-                    /// <param name="placement" type="Object" domElement="false" locid="WinJS.UI.Flyout.show_p:placement">
+                    /// <param name="placement" type="Object" domElement="false" locid="TVJS.UI.Flyout.show_p:placement">
                     /// The placement of the Flyout to the anchor: 'auto' (default), 'top', 'bottom', 'left', or 'right'.  This parameter overrides the placement property for this show only.
                     /// </param>
-                    /// <param name="alignment" type="Object" domElement="false" locid="WinJS.UI.Flyout.show:alignment">
+                    /// <param name="alignment" type="Object" domElement="false" locid="TVJS.UI.Flyout.show:alignment">
                     /// For 'top' or 'bottom' placement, the alignment of the Flyout to the anchor's edge: 'center' (default), 'left', or 'right'.
                     /// This parameter overrides the alignment property for this show only.
                     /// </param>
@@ -14629,11 +14629,11 @@ define('WinJS/Controls/Flyout',[
                     this._baseFlyoutShow();
                 },
 
-                /// <signature helpKeyword="WinJS.UI.Flyout.showAt">
-                /// <summary locid="WinJS.UI.Flyout.showAt">
+                /// <signature helpKeyword="TVJS.UI.Flyout.showAt">
+                /// <summary locid="TVJS.UI.Flyout.showAt">
                 /// Shows the Flyout, if hidden, at the specified (x,y) coordinates.
                 /// </summary>
-                /// <param name="coordinates" type="Object" locid="WinJS.UI.Flyout.showAt_p:coordinates">
+                /// <param name="coordinates" type="Object" locid="TVJS.UI.Flyout.showAt_p:coordinates">
                 /// An Object specifying the (X,Y) position to render the top left corner of the Flyout. commands to show. 
                 /// The coordinates object may be a MouseEventObj, or an Object in the shape of {x:number, y:number}.
                 /// </param>
@@ -14646,8 +14646,8 @@ define('WinJS/Controls/Flyout',[
                 },
 
                 hide: function () {
-                    /// <signature helpKeyword="WinJS.UI.Flyout.hide">
-                    /// <summary locid="WinJS.UI.Flyout.hide">
+                    /// <signature helpKeyword="TVJS.UI.Flyout.hide">
+                    /// <summary locid="TVJS.UI.Flyout.hide">
                     /// Hides the Flyout, if visible, regardless of other states.
                     /// </summary>
                     /// <compatibleWith platform="Windows" minVersion="8.0"/>
@@ -15066,24 +15066,24 @@ define('WinJS/Controls/Flyout',[
 
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('ui',[
-    'WinJS/Core/_WinJS',
-    'WinJS/Controls/IntrinsicControls',
-    'WinJS/Controls/Flyout',
-    ], function (_WinJS) {
+    'TVJS/Core/_TVJS',
+    'TVJS/Controls/IntrinsicControls',
+    'TVJS/Controls/Flyout',
+    ], function (_TVJS) {
     "use strict";
 
-    return _WinJS;
+    return _TVJS;
 });
 
-        require(['WinJS/Core/_WinJS', 'ui'], function (_WinJS) {
-            // WinJS always publishes itself to global
-            globalObject.WinJS = _WinJS;
+        require(['TVJS/Core/_TVJS', 'ui'], function (_TVJS) {
+            // TVJS always publishes itself to global
+            globalObject.TVJS = _TVJS;
             if (typeof module !== 'undefined') {
                 // This is a CommonJS context so publish to exports
-                module.exports = _WinJS;
+                module.exports = _TVJS;
             }
         });
-        return globalObject.WinJS;
+        return globalObject.TVJS;
     }));
 }());
 
@@ -15105,14 +15105,14 @@ define('ui',[
                 factory(require("./base"),require("./ui"));
             } else {
                 // No module system
-                factory(globalObject.WinJS);
+                factory(globalObject.TVJS);
             }
         }
-    }(function (WinJS) {
+    }(function (TVJS) {
 
 
-var require = WinJS.Utilities._require;
-var define = WinJS.Utilities._define;
+var require = TVJS.Utilities._require;
+var define = TVJS.Utilities._define;
 
         // Function aliases to help with minification
 function addClass(element, className) {
@@ -15123,7 +15123,7 @@ function removeClass(element, className) {
 };
 
 // Copyright (c) Microsoft Open Technologies, Inc.  All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
+define('TVJS/Controls/MediaPlayer/MediaElementAdapter', [
     'exports',
     '../../Core/_Global',
     '../../Core/_WinRT',
@@ -15138,7 +15138,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
     var utilities = _ElementUtilities;
 
     var strings = {
-        get mediaElementAdapterConstructorNullParameter() { return _Resources._getWinJSString("ui/mediaElementAdapterConstructorNullParameter").value; },
+        get mediaElementAdapterConstructorNullParameter() { return _Resources._getTVJSString("ui/mediaElementAdapterConstructorNullParameter").value; },
     };
 
     var MediaElementAdapter = _Base.Class.define(function (mediaPlayer, existingMediaElement) {
@@ -15154,7 +15154,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
 
         // Public Properties
         liveTime: {
-            /// <field type="Object" locid="WinJS.UI.MediaElementAdapter.liveTime" helpKeyword="WinJS.UI.MediaElementAdapter.liveTime">
+            /// <field type="Object" locid="TVJS.UI.MediaElementAdapter.liveTime" helpKeyword="TVJS.UI.MediaElementAdapter.liveTime">
             /// Gets or sets the live time.
             /// </field>
 
@@ -15168,7 +15168,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         live: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.live" helpKeyword="WinJS.UI.MediaElementAdapter.live">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.live" helpKeyword="TVJS.UI.MediaElementAdapter.live">
             /// Gets or sets whether the content is a live stream.
             /// </field>
 
@@ -15182,7 +15182,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         isLive: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.isLive" helpKeyword="WinJS.UI.MediaElementAdapter.isLive">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.isLive" helpKeyword="TVJS.UI.MediaElementAdapter.isLive">
             /// Exists for legacy compatability.
             /// </field>
             get: function () {
@@ -15194,7 +15194,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         pauseAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.pauseAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.pauseAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.pauseAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.pauseAllowed">
             /// Gets or sets a value that specifies whether the pause method can be executed.
             /// </field>
 
@@ -15221,7 +15221,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         isPauseAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.isPauseAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.isPauseAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.isPauseAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.isPauseAllowed">
             /// Exists for legacy compatability.
             /// </field>
             get: function () {
@@ -15233,7 +15233,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         playAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.playAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.playAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.playAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.playAllowed">
             /// Gets or sets a value that specifies whether the play method can be executed.
             /// </field>
 
@@ -15260,7 +15260,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         isPlayAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.isPlayAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.isPlayAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.isPlayAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.isPlayAllowed">
             /// Exists for legacy compatability.
             /// </field>
             get: function () {
@@ -15272,7 +15272,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         seekAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.seekAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.seekAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.seekAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.seekAllowed">
             /// Gets or sets a value that specifies whether the seek method can be executed.
             /// </field>
 
@@ -15305,7 +15305,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         isSeekAllowed: {
-            /// <field type="Boolean" locid="WinJS.UI.MediaElementAdapter.isSeekAllowed" helpKeyword="WinJS.UI.MediaElementAdapter.isSeekAllowed">
+            /// <field type="Boolean" locid="TVJS.UI.MediaElementAdapter.isSeekAllowed" helpKeyword="TVJS.UI.MediaElementAdapter.isSeekAllowed">
             /// Exists for legacy compatability.
             /// </field>
             get: function () {
@@ -15317,7 +15317,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         mediaElement: {
-            /// <field type="Object" locid="WinJS.UI.MediaElementAdapter.mediaElement" helpKeyword="WinJS.UI.MediaElementAdapter.mediaElement">
+            /// <field type="Object" locid="TVJS.UI.MediaElementAdapter.mediaElement" helpKeyword="TVJS.UI.MediaElementAdapter.mediaElement">
             /// Gets or sets a value the underlying media element. This is either a video or audio tag.
             /// </field>
 
@@ -15343,8 +15343,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
             },
         },
         baseMediaElementAdapterConstructor: function (mediaPlayer, existingMediaElement) {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.baseMediaElementAdapterConstructor">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.baseMediaElementAdapterConstructor">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.baseMediaElementAdapterConstructor">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.baseMediaElementAdapterConstructor">
             /// The base class constructor. If you are deriving from the MediaElementAdapter class, you
             /// must call this base class constructor.
             /// </summary>
@@ -15362,7 +15362,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
             if (mediaPlayer) {
                 this._mediaPlayer = mediaPlayer;
             } else {
-                throw new _ErrorFromName("WinJS.UI.MediaElementAdapter.nullParameter", strings.mediaElementAdapterConstructorNullParameter);
+                throw new _ErrorFromName("TVJS.UI.MediaElementAdapter.nullParameter", strings.mediaElementAdapterConstructorNullParameter);
             }
 
             if (_WinRT.Windows.Media.SystemMediaTransportControls) {
@@ -15390,8 +15390,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         dispose: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.dispose">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.dispose">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.dispose">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.dispose">
             /// Releases MediaElementAdapter resources.
             /// </summary>
             /// </signature>
@@ -15412,8 +15412,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         nextTrack: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.nextTrack">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.nextTrack">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.nextTrack">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.nextTrack">
             /// Skips to the next track in a playlist. This function is empty by default and
             /// meant to be overridden with a custom implementation.
             /// </summary>
@@ -15421,8 +15421,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         pause: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.pause">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.pause">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.pause">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.pause">
             /// Pauses the media.
             /// </summary>
             /// </signature>
@@ -15434,8 +15434,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         play: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.play">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.play">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.play">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.play">
             /// Sets the playbackRate to the default playbackRate for the media and plays the media.
             /// </summary>
             /// </signature>
@@ -15447,8 +15447,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         previousTrack: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.previousTrack">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.previousTrack">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.previousTrack">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.previousTrack">
             /// Skips to the previous track in a playlist. This function is empty by default and
             /// meant to be overridden with a custom implementation.
             /// </summary>
@@ -15456,8 +15456,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         seek: function (newTime) {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.seek">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.seek">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.seek">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.seek">
             /// Navigates to the specified position in the media.
             /// </summary>
             /// </signature>
@@ -15469,8 +15469,8 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
         },
 
         stop: function () {
-            /// <signature helpKeyword="WinJS.UI.MediaElementAdapter.stop">
-            /// <summary locid="WinJS.UI.MediaElementAdapter.stop">
+            /// <signature helpKeyword="TVJS.UI.MediaElementAdapter.stop">
+            /// <summary locid="TVJS.UI.MediaElementAdapter.stop">
             /// Navigates to the specified position in the media.
             /// </summary>
             /// </signature>
@@ -15496,7 +15496,7 @@ define('WinJS/Controls/MediaPlayer/MediaElementAdapter', [
 
 });
 // Copyright (c) Microsoft Open Technologies, Inc.  All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-define('WinJS/Controls/MediaPlayer/_MediaUI', [
+define('TVJS/Controls/MediaPlayer/_MediaUI', [
     'exports',
     '../../Core/_BaseCoreUtils',
     '../../Core/_Base'
@@ -15504,126 +15504,126 @@ define('WinJS/Controls/MediaPlayer/_MediaUI', [
     "use strict";
 
     _Base.Namespace._moduleDefine(exports, "TVJS", {
-        /// <field locid="WinJS.UI.MediaCommand" helpKeyword="WinJS.UI.MediaCommand">
+        /// <field locid="TVJS.UI.MediaCommand" helpKeyword="TVJS.UI.MediaCommand">
         /// An enumeration of Media commands that the transport bar buttons support.
         /// </field>
         MediaCommand: {
-            /// <field type="String" locid="WinJS.UI.MediaCommand.audioTracks" helpKeyword="WinJS.UI.MediaCommand.audioTracks">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.audioTracks" helpKeyword="TVJS.UI.MediaCommand.audioTracks">
             /// Invokes a menu that allows the viewer to select an audio track.
             /// </field>
             audioTracks: "audioTracks",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.cast" helpKeyword="WinJS.UI.MediaCommand.cast">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.cast" helpKeyword="TVJS.UI.MediaCommand.cast">
             /// Play the current media on a remote screen.
             /// </field>
             cast: "cast",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.chapterSkipBack" helpKeyword="WinJS.UI.MediaCommand.chapterSkipBack">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.chapterSkipBack" helpKeyword="TVJS.UI.MediaCommand.chapterSkipBack">
             /// Seeks to the previous chapter.
             /// </field>
             chapterSkipBack: "chapterSkipBack",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.chapterSkipForward" helpKeyword="WinJS.UI.MediaCommand.chapterSkipForward">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.chapterSkipForward" helpKeyword="TVJS.UI.MediaCommand.chapterSkipForward">
             /// Seeks to the next chapter marker.
             /// </field>
             chapterSkipForward: "chapterSkipForward",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.closedcaptions" helpKeyword="WinJS.UI.MediaCommand.closedcaptions">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.closedcaptions" helpKeyword="TVJS.UI.MediaCommand.closedcaptions">
             /// Invokes a menu that allows the user to choose a closed captions setting.
             /// </field>
             closedCaptions: "closedCaptions",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.fastForward" helpKeyword="WinJS.UI.MediaCommand.fastForward">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.fastForward" helpKeyword="TVJS.UI.MediaCommand.fastForward">
             /// Increases the playback rate of the media.
             /// </field>
             fastForward: "fastForward",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.goToLive" helpKeyword="WinJS.UI.MediaCommand.goToLive">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.goToLive" helpKeyword="TVJS.UI.MediaCommand.goToLive">
             /// Navigates to the real-time position in live streamed media.
             /// </field>
             goToLive: "goToLive",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.nextTrack" helpKeyword="WinJS.UI.MediaCommand.nextTrack">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.nextTrack" helpKeyword="TVJS.UI.MediaCommand.nextTrack">
             /// Plays the next track.
             /// </field>
             nextTrack: "nextTrack",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.pause" helpKeyword="WinJS.UI.MediaCommand.pause">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.pause" helpKeyword="TVJS.UI.MediaCommand.pause">
             /// Pauses the media.
             /// </field>
             pause: "pause",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.play" helpKeyword="WinJS.UI.MediaCommand.play">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.play" helpKeyword="TVJS.UI.MediaCommand.play">
             /// Sets the playbackRate to the default playbackRate for the media and plays the media.
             /// </field>
             play: "play",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.play" helpKeyword="WinJS.UI.MediaCommand.play">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.play" helpKeyword="TVJS.UI.MediaCommand.play">
             /// Allows the viewer to select a playback rate for the media.
             /// </field>
             playbackRate: "playbackRate",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.playFromBeginning" helpKeyword="WinJS.UI.MediaCommand.playFromBeginning">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.playFromBeginning" helpKeyword="TVJS.UI.MediaCommand.playFromBeginning">
             /// Seeks to the beginning of the timeline and starts playing.
             /// </field>
             playFromBeginning: "playFromBeginning",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.previousTrack" helpKeyword="WinJS.UI.MediaCommand.previousTrack">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.previousTrack" helpKeyword="TVJS.UI.MediaCommand.previousTrack">
             /// Plays the previous track.
             /// </field>
             previousTrack: "previousTrack",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.rewind" helpKeyword="WinJS.UI.MediaCommand.rewind">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.rewind" helpKeyword="TVJS.UI.MediaCommand.rewind">
             /// Decreases the playbackRate of the media.
             /// </field>
             rewind: "rewind",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.seek" helpKeyword="WinJS.UI.MediaCommand.seek">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.seek" helpKeyword="TVJS.UI.MediaCommand.seek">
             /// Navigates to the specified position in the media.
             /// </field>
             seek: "seek",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.stop" helpKeyword="WinJS.UI.MediaCommand.stop">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.stop" helpKeyword="TVJS.UI.MediaCommand.stop">
             /// Stops the media.
             /// </field>
             stop: "stop",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.timeskipBack" helpKeyword="WinJS.UI.MediaCommand.timeskipBack">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.timeskipBack" helpKeyword="TVJS.UI.MediaCommand.timeskipBack">
             /// Moves the current timeline position backward by a short interval.
             /// </field>
             timeSkipBack: "timeSkipBack",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.timeSkipForward" helpKeyword="WinJS.UI.MediaCommand.timeSkipForward">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.timeSkipForward" helpKeyword="TVJS.UI.MediaCommand.timeSkipForward">
             /// Moves the current timeline position forward short interval.
             /// </field>
             timeSkipForward: "timeSkipForward",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.zoom" helpKeyword="WinJS.UI.MediaCommand.zoom">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.zoom" helpKeyword="TVJS.UI.MediaCommand.zoom">
             /// Shows UI that allows the viewer to change the volume.
             /// </field>
             volume: "volume",
 
-            /// <field type="String" locid="WinJS.UI.MediaCommand.zoom" helpKeyword="WinJS.UI.MediaCommand.zoom">
+            /// <field type="String" locid="TVJS.UI.MediaCommand.zoom" helpKeyword="TVJS.UI.MediaCommand.zoom">
             /// Toggles the display mode between letterbox and native.
             /// </field>
             zoom: "zoom"
         },
 
-        /// <field locid="WinJS.UI.MediaCommand" helpKeyword="WinJS.UI.MediaCommand">
+        /// <field locid="TVJS.UI.MediaCommand" helpKeyword="TVJS.UI.MediaCommand">
         /// The types of timeline markers supported by the MediaPlayer.
         /// </field>
         MarkerType: {
-            /// <field type="String" locid="WinJS.UI.MarkerType.advertisement" helpKeyword="WinJS.UI.MarkerType.advertisement">
+            /// <field type="String" locid="TVJS.UI.MarkerType.advertisement" helpKeyword="TVJS.UI.MarkerType.advertisement">
             /// The marker represents the beginning of an advertisement.
             /// </field>
             advertisement: "advertisement",
 
-            /// <field type="String" locid="WinJS.UI.MarkerType.chapter" helpKeyword="WinJS.UI.MarkerType.chapter">
+            /// <field type="String" locid="TVJS.UI.MarkerType.chapter" helpKeyword="TVJS.UI.MarkerType.chapter">
             /// The markers represents the beginning of a chapter.
             /// </field>
             chapter: "chapter",
 
-            /// <field type="String" locid="WinJS.UI.MarkerType.custom" helpKeyword="WinJS.UI.MarkerType.custom">
+            /// <field type="String" locid="TVJS.UI.MarkerType.custom" helpKeyword="TVJS.UI.MarkerType.custom">
             /// The markers represents a custom event.
             /// </field>
             custom: "custom"
@@ -15638,7 +15638,7 @@ define('require-style!less/colors-mediaplayer',[],function(){});
 // Note: We should not call the API directly from mediaElement object.We should always call those API (like play, pause etc) from mediaElementAdapter. Otherwise functionality might breaks
 // if someone implemented custom mediaElementAdapters.
 // Media Player
-define('WinJS/Controls/MediaPlayer', [
+define('TVJS/Controls/MediaPlayer', [
     'exports',
     '../Core/_Global',
     '../Core/_WinRT',
@@ -15674,88 +15674,88 @@ define('WinJS/Controls/MediaPlayer', [
 
     _Base.Namespace.define("TVJS", {
 
-        // MediaPlayer is capitalized to follow WinJS conventions for class names.
+        // MediaPlayer is capitalized to follow TVJS conventions for class names.
         MediaPlayer: _Base.Namespace._lazy(function () {
 
             var strings = {
-                get chapterSkipBackMediaCommandDisplayText() { return _Resources._getWinJSString("ui/chapterSkipBackMediaCommandDisplayText").value; },
-                get chapterSkipForwardMediaCommandDisplayText() { return _Resources._getWinJSString("ui/chapterSkipForwardMediaCommandDisplayText").value; },
-                get closedCaptionsLabelNone() { return _Resources._getWinJSString("ui/closedCaptionsLabelNone").value; },
-                get closedCaptionsMediaCommandDisplayText() { return _Resources._getWinJSString("ui/closedCaptionsMediaCommandDisplayText").value; },
-                get fastForwardMediaCommandDisplayText() { return _Resources._getWinJSString("ui/fastForwardMediaCommandDisplayText").value; },
-                get fastForwardFeedbackDisplayText() { return _Resources._getWinJSString("ui/fastForwardFeedbackDisplayText").value; },
-                get fastForwardFeedbackSlowMotionDisplayText() { return _Resources._getWinJSString("ui/fastForwardFeedbackSlowMotionDisplayText").value; },
-                get goToLiveMediaCommandDisplayText() { return _Resources._getWinJSString("ui/goToLiveMediaCommandDisplayText").value; },
-                get mediaErrorAborted() { return _Resources._getWinJSString("ui/mediaErrorAborted").value; },
-                get mediaErrorNetwork() { return _Resources._getWinJSString("ui/mediaErrorNetwork").value; },
-                get mediaErrorDecode() { return _Resources._getWinJSString("ui/mediaErrorDecode").value; },
-                get mediaErrorSourceNotSupported() { return _Resources._getWinJSString("ui/mediaErrorSourceNotSupported").value; },
-                get mediaErrorUnknown() { return _Resources._getWinJSString("ui/mediaErrorUnknown").value; },
+                get chapterSkipBackMediaCommandDisplayText() { return _Resources._getTVJSString("ui/chapterSkipBackMediaCommandDisplayText").value; },
+                get chapterSkipForwardMediaCommandDisplayText() { return _Resources._getTVJSString("ui/chapterSkipForwardMediaCommandDisplayText").value; },
+                get closedCaptionsLabelNone() { return _Resources._getTVJSString("ui/closedCaptionsLabelNone").value; },
+                get closedCaptionsMediaCommandDisplayText() { return _Resources._getTVJSString("ui/closedCaptionsMediaCommandDisplayText").value; },
+                get fastForwardMediaCommandDisplayText() { return _Resources._getTVJSString("ui/fastForwardMediaCommandDisplayText").value; },
+                get fastForwardFeedbackDisplayText() { return _Resources._getTVJSString("ui/fastForwardFeedbackDisplayText").value; },
+                get fastForwardFeedbackSlowMotionDisplayText() { return _Resources._getTVJSString("ui/fastForwardFeedbackSlowMotionDisplayText").value; },
+                get goToLiveMediaCommandDisplayText() { return _Resources._getTVJSString("ui/goToLiveMediaCommandDisplayText").value; },
+                get mediaErrorAborted() { return _Resources._getTVJSString("ui/mediaErrorAborted").value; },
+                get mediaErrorNetwork() { return _Resources._getTVJSString("ui/mediaErrorNetwork").value; },
+                get mediaErrorDecode() { return _Resources._getTVJSString("ui/mediaErrorDecode").value; },
+                get mediaErrorSourceNotSupported() { return _Resources._getTVJSString("ui/mediaErrorSourceNotSupported").value; },
+                get mediaErrorUnknown() { return _Resources._getTVJSString("ui/mediaErrorUnknown").value; },
                 get mediaPlayerAddMarkerErrorInvalidMarkerType() { return "Invalid argument: The type used is not supported."; },
-                get mediaPlayerOverlayActiveOptionIndicator() { return _Resources._getWinJSString("ui/mediaPlayerOverlayActiveOptionIndicator").value; },
+                get mediaPlayerOverlayActiveOptionIndicator() { return _Resources._getTVJSString("ui/mediaPlayerOverlayActiveOptionIndicator").value; },
                 get mediaPlayerLayvolumeoutUnsupportedValue() { return "Invalid argument: The value for XboxJS.UI.MediaPlayer.layout is not supported."; },
                 get mediaPlayerInvalidTimeValue() { return "Invalid argument: Time must be a number."; },
                 get mediaPlayerNullContentType() { return "Invalid argument: contentType cannot be null."; },
                 get unSupportedOperation() { return "UnSupported Operation: Cannot possible set the compact after setting Commands property"; },
                 get mediaPlayerNullMetadata() { return "Invalid argument: metadata cannot be null."; },
                 get mediaPlayerSetContentMetadataInvalidContentRating() { return "Invalid argument: contentRating is empty or incorrectly formatted."; },
-                get nextTrackMediaCommandDisplayText() { return _Resources._getWinJSString("ui/nextTrackMediaCommandDisplayText").value; },
-                get playbackRateHalfSpeedLabel() { return _Resources._getWinJSString("ui/playbackRateHalfSpeedLabel").value; },
-                get playbackRateNormalSpeedLabel() { return _Resources._getWinJSString("ui/playbackRateNormalSpeedLabel").value; },
-                get playbackRateOneAndHalfSpeedLabel() { return _Resources._getWinJSString("ui/playbackRateOneAndHalfSpeedLabel").value; },
-                get playbackRateDoubleSpeedLabel() { return _Resources._getWinJSString("ui/playbackRateDoubleSpeedLabel").value; },
-                get playMediaCommandDisplayText() { return _Resources._getWinJSString("ui/playMediaCommandDisplayText").value; },
-                get playFromBeginningMediaCommandDisplayText() { return _Resources._getWinJSString("ui/playMediaCommandDisplayText").value; },
-                get pauseMediaCommandDisplayText() { return _Resources._getWinJSString("ui/pauseMediaCommandDisplayText").value; },
-                get previousTrackMediaCommandDisplayText() { return _Resources._getWinJSString("ui/playFromBeginningMediaCommandDisplayText").value; },
-                get replayMediaCommandDisplayText() { return _Resources._getWinJSString("ui/replayMediaCommandDisplayText").value; },
-                get rewindMediaCommandDisplayText() { return _Resources._getWinJSString("ui/rewindMediaCommandDisplayText").value; },
-                get rewindFeedbackDisplayText() { return _Resources._getWinJSString("ui/rewindFeedbackDisplayText").value; },
-                get rewindFeedbackSlowMotionDisplayText() { return _Resources._getWinJSString("ui/rewindFeedbackSlowMotionDisplayText").value; },
-                get stopMediaCommandDisplayText() { return _Resources._getWinJSString("ui/stopMediaCommandDisplayText").value; },
-                get timeSeparator() { return _Resources._getWinJSString("ui/timeSeparator").value; },
-                get timeSkipBackMediaCommandDisplayText() { return _Resources._getWinJSString("ui/timeSkipBackMediaCommandDisplayText").value; },
-                get timeSkipForwardMediaCommandDisplayText() { return _Resources._getWinJSString("ui/timeSkipForwardMediaCommandDisplayText").value; },
-                get mediaPlayerAudioTracksButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerAudioTracksButtonLabel").value; },
-                get mediaPlayerStopButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerStopButtonLabel").value; },
-                get mediaPlayerPreviousTrackButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerPreviousTrackButtonLabel").value; },
-                get mediaPlayerPlayFromBeginningButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerPlayFromBeginningButtonLabel").value; },
-                get mediaPlayerChapterSkipBackButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerChapterSkipBackButtonLabel").value; },
-                get mediaPlayerRewindButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerRewindButtonLabel").value; },
-                get mediaPlayerTimeSkipBackButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerTimeSkipBackButtonLabel").value; },
-                get mediaPlayerPlayButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerPlayButtonLabel").value; },
-                get mediaPlayerPauseButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerPauseButtonLabel").value; },
-                get mediaPlayerPlayRateButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerPlayRateButtonLabel").value; },
-                get mediaPlayerTimeSkipForwardButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerTimeSkipForwardButtonLabel").value; },
-                get mediaPlayerFastForwardButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerFastForwardButtonLabel").value; },
-                get mediaPlayerChapterSkipForwardButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerChapterSkipForwardButtonLabel").value; },
-                get mediaPlayerNextTrackButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerNextTrackButtonLabel").value; },
-                get mediaPlayerClosedCaptionsButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerClosedCaptionsButtonLabel").value; },
-                get mediaPlayerZoomButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerZoomButtonLabel").value; },
-                get mediaPlayerLiveButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerLiveButtonLabel").value; },
-                get mediaPlayerToggleSnapButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerToggleSnapButtonLabel").value; },
-                get mediaPlayerCastButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerCastButtonLabel").value; },
-                get mediaPlayerVolumeButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerVolumeButtonLabel").value; },
-                get mediaPlayerFullscreenButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerFullscreenButtonLabel").value; },
-                get mediaPlayerExitFullscreenButtonLabel() { return _Resources._getWinJSString("ui/mediaPlayerFullscreenButtonLabel").value; }
+                get nextTrackMediaCommandDisplayText() { return _Resources._getTVJSString("ui/nextTrackMediaCommandDisplayText").value; },
+                get playbackRateHalfSpeedLabel() { return _Resources._getTVJSString("ui/playbackRateHalfSpeedLabel").value; },
+                get playbackRateNormalSpeedLabel() { return _Resources._getTVJSString("ui/playbackRateNormalSpeedLabel").value; },
+                get playbackRateOneAndHalfSpeedLabel() { return _Resources._getTVJSString("ui/playbackRateOneAndHalfSpeedLabel").value; },
+                get playbackRateDoubleSpeedLabel() { return _Resources._getTVJSString("ui/playbackRateDoubleSpeedLabel").value; },
+                get playMediaCommandDisplayText() { return _Resources._getTVJSString("ui/playMediaCommandDisplayText").value; },
+                get playFromBeginningMediaCommandDisplayText() { return _Resources._getTVJSString("ui/playMediaCommandDisplayText").value; },
+                get pauseMediaCommandDisplayText() { return _Resources._getTVJSString("ui/pauseMediaCommandDisplayText").value; },
+                get previousTrackMediaCommandDisplayText() { return _Resources._getTVJSString("ui/playFromBeginningMediaCommandDisplayText").value; },
+                get replayMediaCommandDisplayText() { return _Resources._getTVJSString("ui/replayMediaCommandDisplayText").value; },
+                get rewindMediaCommandDisplayText() { return _Resources._getTVJSString("ui/rewindMediaCommandDisplayText").value; },
+                get rewindFeedbackDisplayText() { return _Resources._getTVJSString("ui/rewindFeedbackDisplayText").value; },
+                get rewindFeedbackSlowMotionDisplayText() { return _Resources._getTVJSString("ui/rewindFeedbackSlowMotionDisplayText").value; },
+                get stopMediaCommandDisplayText() { return _Resources._getTVJSString("ui/stopMediaCommandDisplayText").value; },
+                get timeSeparator() { return _Resources._getTVJSString("ui/timeSeparator").value; },
+                get timeSkipBackMediaCommandDisplayText() { return _Resources._getTVJSString("ui/timeSkipBackMediaCommandDisplayText").value; },
+                get timeSkipForwardMediaCommandDisplayText() { return _Resources._getTVJSString("ui/timeSkipForwardMediaCommandDisplayText").value; },
+                get mediaPlayerAudioTracksButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerAudioTracksButtonLabel").value; },
+                get mediaPlayerStopButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerStopButtonLabel").value; },
+                get mediaPlayerPreviousTrackButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerPreviousTrackButtonLabel").value; },
+                get mediaPlayerPlayFromBeginningButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerPlayFromBeginningButtonLabel").value; },
+                get mediaPlayerChapterSkipBackButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerChapterSkipBackButtonLabel").value; },
+                get mediaPlayerRewindButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerRewindButtonLabel").value; },
+                get mediaPlayerTimeSkipBackButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerTimeSkipBackButtonLabel").value; },
+                get mediaPlayerPlayButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerPlayButtonLabel").value; },
+                get mediaPlayerPauseButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerPauseButtonLabel").value; },
+                get mediaPlayerPlayRateButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerPlayRateButtonLabel").value; },
+                get mediaPlayerTimeSkipForwardButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerTimeSkipForwardButtonLabel").value; },
+                get mediaPlayerFastForwardButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerFastForwardButtonLabel").value; },
+                get mediaPlayerChapterSkipForwardButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerChapterSkipForwardButtonLabel").value; },
+                get mediaPlayerNextTrackButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerNextTrackButtonLabel").value; },
+                get mediaPlayerClosedCaptionsButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerClosedCaptionsButtonLabel").value; },
+                get mediaPlayerZoomButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerZoomButtonLabel").value; },
+                get mediaPlayerLiveButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerLiveButtonLabel").value; },
+                get mediaPlayerToggleSnapButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerToggleSnapButtonLabel").value; },
+                get mediaPlayerCastButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerCastButtonLabel").value; },
+                get mediaPlayerVolumeButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerVolumeButtonLabel").value; },
+                get mediaPlayerFullscreenButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerFullscreenButtonLabel").value; },
+                get mediaPlayerExitFullscreenButtonLabel() { return _Resources._getTVJSString("ui/mediaPlayerFullscreenButtonLabel").value; }
             };
 
             // If we are running in an iFrame, then wuiv should be undefined. Otherwise there will be an exception.
             var wuiv = _WinRT.Windows.UI.ViewManagement;
 
             var MediaPlayer = _Base.Class.define(function (element, options) {
-                /// <signature helpKeyword="WinJS.UI.MediaPlayer.MediaPlayer">
-                /// <summary locid="WinJS.UI.MediaPlayer.constructor">
+                /// <signature helpKeyword="TVJS.UI.MediaPlayer.MediaPlayer">
+                /// <summary locid="TVJS.UI.MediaPlayer.constructor">
                 /// Creates a new MediaPlayer.
                 /// </summary>
-                /// <param name="element" domElement="true" locid="WinJS.UI.MediaPlayer.constructor_p:element">
+                /// <param name="element" domElement="true" locid="TVJS.UI.MediaPlayer.constructor_p:element">
                 /// The DOM element that hosts the MediaPlayer control.
                 /// </param>
-                /// <param name="options" type="Object" locid="WinJS.UI.MediaPlayer.constructor_p:options">
+                /// <param name="options" type="Object" locid="TVJS.UI.MediaPlayer.constructor_p:options">
                 /// An object that contains one or more property/value pairs to apply to the new control.
                 /// Each property of the options object corresponds to one of the control's properties or events.
                 /// </param>
-                /// <returns type="WinJS.UI.MediaPlayer" locid="WinJS.UI.MediaPlayer.constructor_returnValue">
+                /// <returns type="TVJS.UI.MediaPlayer" locid="TVJS.UI.MediaPlayer.constructor_returnValue">
                 /// The new MediaPlayer.
                 /// </returns>
                 /// </signature>
@@ -16409,7 +16409,7 @@ define('WinJS/Controls/MediaPlayer', [
                         return Promise.wrap(true);
                     }
 
-                    // We need to map the contentType from the one in the WinJS.Data.ContentType
+                    // We need to map the contentType from the one in the TVJS.Data.ContentType
                     // enumeration to the contentType enumeration in the family safety API.
                     var contentType = this._mediaMetadata.contentType;
                     var contentDescription = new _WinRT.Windows.Media.ContentRestrictions.RatedContentDescription(
@@ -17179,7 +17179,7 @@ define('WinJS/Controls/MediaPlayer', [
                             castingConnection.requestStartCastingAsync(that._mediaElementAdapter.mediaElement.msGetAsCastingSource());
                         };
 
-                        var buttonRect = this._castButton.element.getBoundingClientRect();
+                        var buttonRect = this._castButton.getBoundingClientRect();
                         castingPicker.show({ x: buttonRect.left, y: buttonRect.top, width: buttonRect.width, height: buttonRect.height }, _WinRT.Windows.UI.Popups.Placement.above);
 
                         this._updateUIAndRaiseEvents(mediaCommandEnum.cast, strings.castMediaCommandDisplayText);
@@ -19307,7 +19307,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
 
                     // Query for any developer-added custom buttons. The reason we do this before setting the MediaPlayer's innerHTML
-                    // is because if we querySelector for all the WinJS.UI.Command objects we'll get the developer added buttons in
+                    // is because if we querySelector for all the TVJS.UI.Command objects we'll get the developer added buttons in
                     // addition to the built in ones.
                     this._customButtons = this._element.querySelectorAll("button, .tv-mediaplayer-button");
 
@@ -19738,7 +19738,7 @@ define('WinJS/Controls/MediaPlayer', [
                     this._updateMediaState(false);
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.controlsVisible" helpKeyword="WinJS.UI.MediaPlayer.controlsVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.controlsVisible" helpKeyword="TVJS.UI.MediaPlayer.controlsVisible">
                 /// Gets a property that specifies whether the transport controls are visible.
                 /// </field>
                 controlsVisible: {
@@ -19748,7 +19748,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.isControlsVisible" helpKeyword="WinJS.UI.MediaPlayer.isControlsVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isControlsVisible" helpKeyword="TVJS.UI.MediaPlayer.isControlsVisible">
                 /// Exists for legacy migration.
                 /// </field>
                 isControlsVisible: {
@@ -19759,7 +19759,7 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.endTime" helpKeyword="WinJS.UI.MediaPlayer.endTime">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.endTime" helpKeyword="TVJS.UI.MediaPlayer.endTime">
                 /// Gets or sets maximum playback position of the media. By default, the value is the duration of the media.
                 /// </field>
                 endTime: {
@@ -19779,7 +19779,7 @@ define('WinJS/Controls/MediaPlayer', [
                         if (value < 0 ||
                             isNaN(value) ||
                             !isFinite(value)) {
-                            throw new _ErrorFromName("WinJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
+                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
                         }
 
                         this._endTime = value;
@@ -19804,7 +19804,7 @@ define('WinJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="HTMLElement" domElement="true" hidden="true" locid="WinJS.UI.MediaPlayer.element" helpKeyword="WinJS.UI.MediaPlayer.element">
+                /// <field type="HTMLElement" domElement="true" hidden="true" locid="TVJS.UI.MediaPlayer.element" helpKeyword="TVJS.UI.MediaPlayer.element">
                 /// The DOM element that hosts the MediaPlayer control.
                 /// </field>
                 element: {
@@ -19813,8 +19813,8 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" hidden="true" locid="WinJS.UI.MediaPlayer.commands" helpKeyword="WinJS.UI.MediaPlayer.commands">
-                /// Gets or sets the commands that appear in the transport controls. The collection is a binding list of WinJS.UI.Command objects.
+                /// <field type="Object" hidden="true" locid="TVJS.UI.MediaPlayer.commands" helpKeyword="TVJS.UI.MediaPlayer.commands">
+                /// Gets or sets the commands that appear in the transport controls. The collection is a binding list of TVJS.UI.Command objects.
                 /// </field>
                 commands: {
                     get: function () {
@@ -19918,7 +19918,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.compact" helpKeyword="WinJS.UI.MediaPlayer.compact">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.compact" helpKeyword="TVJS.UI.MediaPlayer.compact">
                 /// Gets or sets a value indicating whether the MediaPlayer is using a layout that minimized space used, but only has room for a limited number of
                 /// commands or a layout that has room for a lot of commands, but takes up more space.
                 /// </field>
@@ -19929,7 +19929,7 @@ define('WinJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         if (this._isCommandsSetByUser) {
-                            throw new _ErrorFromName("WinJS.UI.MediaPlayer.unSupportedOperation", strings.unSupportedOperation);
+                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.unSupportedOperation", strings.unSupportedOperation);
                         }
                         this._compact = value;
                         if (this._compact) {
@@ -19948,7 +19948,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.fullScreen" helpKeyword="WinJS.UI.MediaPlayer.fullScreen">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.fullScreen" helpKeyword="TVJS.UI.MediaPlayer.fullScreen">
                 /// Gets or sets a value indicating whether the MediaPlayer is full screen.
                 /// </field>
                 fullScreen: {
@@ -20063,7 +20063,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.isFullScreen" helpKeyword="WinJS.UI.MediaPlayer.isFullScreen">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isFullScreen" helpKeyword="TVJS.UI.MediaPlayer.isFullScreen">
                 /// Old property name kept for legacy compatability.
                 /// </field>
                 isFullScreen: {
@@ -20075,7 +20075,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.thumbnailEnabled" helpKeyword="WinJS.UI.MediaPlayer.thumbnailEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.thumbnailEnabled" helpKeyword="TVJS.UI.MediaPlayer.thumbnailEnabled">
                 /// Gets or sets a value indicating whether to use thumbnails for fast forward, rewind and scrubbing. If true, the fast forward, rewind and scrub operations
                 /// will pause the mediaElement and cycle thumbnails as the user changes position. If false, the fast forward, rewind operations will increase or decrease
                 /// the mediaElement's playbackRate and the scrub operation will move the position.
@@ -20096,7 +20096,7 @@ define('WinJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.isThumbnailEnabled" helpKeyword="WinJS.UI.MediaPlayer.isThumbnailEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isThumbnailEnabled" helpKeyword="TVJS.UI.MediaPlayer.isThumbnailEnabled">
                 /// Old property names kept for legacy compatability.
                 /// </field>
                 isThumbnailEnabled: {
@@ -20110,7 +20110,7 @@ define('WinJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.markers" helpKeyword="WinJS.UI.MediaPlayer.markers">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.markers" helpKeyword="TVJS.UI.MediaPlayer.markers">
                 /// Gets or sets the MediaPlayer's marker collection.
                 /// </field>
                 markers: {
@@ -20145,7 +20145,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.mediaElementAdapter" helpKeyword="WinJS.UI.MediaPlayer.mediaElementAdapter">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.mediaElementAdapter" helpKeyword="TVJS.UI.MediaPlayer.mediaElementAdapter">
                 /// Gets or sets an interface that your application can implement to have more control over synchronization between
                 /// the MediaPlayer and your media.
                 /// </field>
@@ -20176,7 +20176,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.startTime" helpKeyword="WinJS.UI.MediaPlayer.startTime">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.startTime" helpKeyword="TVJS.UI.MediaPlayer.startTime">
                 /// Gets or sets minimum playback position of the media. By default the value is zero.
                 /// </field>
                 startTime: {
@@ -20189,7 +20189,7 @@ define('WinJS/Controls/MediaPlayer', [
                         if (value < 0 ||
                             isNaN(value) ||
                             !isFinite(value)) {
-                            throw new _ErrorFromName("WinJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
+                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
                         }
 
                         this._startTime = value;
@@ -20213,7 +20213,7 @@ define('WinJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.targetCurrentTime" helpKeyword="WinJS.UI.MediaPlayer.targetCurrentTime">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.targetCurrentTime" helpKeyword="TVJS.UI.MediaPlayer.targetCurrentTime">
                 /// Gets the current time as it is represented in the UI. While fast forwarding or rewinding, this property may be different than the video or audio
                 /// tag's 'currentTime' property. This is because during a fast forward or rewind operation, the media is paused while the timeline animates to
                 /// simulate a fast forward or rewind operation.
@@ -20238,7 +20238,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.targetPlaybackRate" helpKeyword="WinJS.UI.MediaPlayer.targetPlaybackRate">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.targetPlaybackRate" helpKeyword="TVJS.UI.MediaPlayer.targetPlaybackRate">
                 /// Gets the playbackRate as it is represented in the UI. While fast forwarding or rewinding, this property may be different than the video or audio
                 /// tag's 'playbackRate' property. This is because during a fast forward or rewind operation, the media is paused while the timeline animates to
                 /// simulate a fast forward or rewind operation.
@@ -20263,7 +20263,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.timeFormatter" helpKeyword="WinJS.UI.MediaPlayer.timeFormatter">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.timeFormatter" helpKeyword="TVJS.UI.MediaPlayer.timeFormatter">
                 /// Gets or sets a function that converts raw time data from the video or audio tag into text to display in the UI of the MediaPlayer.
                 /// </field>
                 timeFormatter: {
@@ -20283,7 +20283,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="WinJS.UI.MediaPlayer.thumbnailImage" helpKeyword="WinJS.UI.MediaPlayer.thumbnailImage">
+                /// <field type="Object" locid="TVJS.UI.MediaPlayer.thumbnailImage" helpKeyword="TVJS.UI.MediaPlayer.thumbnailImage">
                 /// Sets the path to the current thumbnail image to display.
                 /// </field>
                 thumbnailImage: {
@@ -20292,7 +20292,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.castButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.castButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.castButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.castButtonVisible">
                 /// Gets or sets whether the CAST button is visible.
                 /// </field>
                 castButtonVisible: {
@@ -20310,7 +20310,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.castButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.castButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.castButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.castButtonEnabled">
                 /// Gets or sets whether the cast button is enabled.
                 /// </field>
                 castButtonEnabled: {
@@ -20328,7 +20328,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible">
                 /// Gets or sets whether the chapter skip back button is visible.
                 /// </field>
                 chapterSkipBackButtonVisible: {
@@ -20346,7 +20346,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled">
                 /// Gets or sets whether the chapter skip back button is enabled.
                 /// </field>
                 chapterSkipBackButtonEnabled: {
@@ -20364,7 +20364,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible">
                 /// Gets or sets whether the chapter skip forward button is visible.
                 /// </field>
                 chapterSkipForwardButtonVisible: {
@@ -20382,7 +20382,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled">
                 /// Gets or sets whether the chapter skip forward button is enabled.
                 /// </field>
                 chapterSkipForwardButtonEnabled: {
@@ -20400,7 +20400,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible">
                 /// Gets or sets whether the fast forward button is visible.
                 /// </field>
                 fastForwardButtonVisible: {
@@ -20418,7 +20418,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled">
                 /// Gets or sets whether the fast forward button is enabled.
                 /// </field>
                 fastForwardButtonEnabled: {
@@ -20436,7 +20436,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible">
                 /// Gets or sets whether the full screen button is visible.
                 /// </field>
                 fullscreenButtonVisible: {
@@ -20454,7 +20454,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled">
                 /// Gets or sets whether the more button is enabled.
                 /// </field>
                 fullscreenButtonEnabled: {
@@ -20472,7 +20472,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible">
                 /// Gets or sets whether the LIVE button is visible.
                 /// </field>
                 goToLiveButtonVisible: {
@@ -20490,7 +20490,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled">
                 /// Gets or sets whether the LIVE button is enabled.
                 /// </field>
                 goToLiveButtonEnabled: {
@@ -20508,7 +20508,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible">
                 /// Gets or sets whether the next track button is visible.
                 /// </field>
                 nextTrackButtonVisible: {
@@ -20526,7 +20526,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled">
                 /// Gets or sets whether the next track button is enabled.
                 /// </field>
                 nextTrackButtonEnabled: {
@@ -20545,7 +20545,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible">
                 /// Gets or sets whether the play from beginning button is visible.
                 /// </field>
                 playFromBeginningButtonVisible: {
@@ -20563,7 +20563,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled">
                 /// Gets or sets whether the play from beginning button is enabled.
                 /// </field>
                 playFromBeginningButtonEnabled: {
@@ -20581,7 +20581,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible">
                 /// Gets or sets whether the play / pause button is visible.
                 /// </field>
                 playPauseButtonVisible: {
@@ -20599,7 +20599,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled">
                 /// Gets or sets whether the play / pause button is enabled.
                 /// </field>
                 playPauseButtonEnabled: {
@@ -20617,7 +20617,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible">
                 /// Gets or sets whether the playback rate button is visible.
                 /// </field>
                 playbackRateButtonVisible: {
@@ -20635,7 +20635,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled">
                 /// Gets or sets whether the playback rate button is enabled.
                 /// </field>
                 playbackRateButtonEnabled: {
@@ -20653,7 +20653,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible">
                 /// Gets or sets whether the previous track button is visible.
                 /// </field>
                 previousTrackButtonVisible: {
@@ -20671,7 +20671,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled">
                 /// Gets or sets whether the previous track button is enabled.
                 /// </field>
                 previousTrackButtonEnabled: {
@@ -20689,7 +20689,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.rewindButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.rewindButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.rewindButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.rewindButtonVisible">
                 /// Gets or sets whether the rewind button is visible.
                 /// </field>
                 rewindButtonVisible: {
@@ -20707,7 +20707,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled">
                 /// Gets or sets whether the rewind button is enabled.
                 /// </field>
                 rewindButtonEnabled: {
@@ -20725,7 +20725,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.seekBarVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.seekBarVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.seekBarVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.seekBarVisible">
                 /// Gets or sets whether the seek bar is visible.
                 /// </field>
                 seekBarVisible: {
@@ -20743,7 +20743,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.seekingEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.seekingEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.seekingEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.seekingEnabled">
                 /// Gets or sets whether the seeking is enabled.
                 /// </field>
                 seekingEnabled: {
@@ -20765,7 +20765,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.stopButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.stopButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.stopButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.stopButtonVisible">
                 /// Gets or sets whether the stop button is visible.
                 /// </field>
                 stopButtonVisible: {
@@ -20783,7 +20783,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.stopButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.stopButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.stopButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.stopButtonEnabled">
                 /// Gets or sets whether the stop button is enabled.
                 /// </field>
                 stopButtonEnabled: {
@@ -20801,7 +20801,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible">
                 /// Gets or sets whether the time skip back button is visible.
                 /// </field>
                 timeSkipBackButtonVisible: {
@@ -20819,7 +20819,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled">
                 /// Gets or sets whether the time skip back button is enabled.
                 /// </field>
                 timeSkipBackButtonEnabled: {
@@ -20837,7 +20837,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible">
                 /// Gets or sets whether the time skip forward button is visible.
                 /// </field>
                 timeSkipForwardButtonVisible: {
@@ -20855,7 +20855,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled">
                 /// Gets or sets whether the time skip forward button is enabled.
                 /// </field>
                 timeSkipForwardButtonEnabled: {
@@ -20873,7 +20873,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.volumeButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.volumeButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.volumeButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.volumeButtonVisible">
                 /// Gets or sets whether the volume button is visible.
                 /// </field>
                 volumeButtonVisible: {
@@ -20891,7 +20891,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled">
                 /// Gets or sets whether the volume button is enabled.
                 /// </field>
                 volumeButtonEnabled: {
@@ -20909,7 +20909,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.zoomButtonVisible" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.zoomButtonVisible">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.zoomButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.zoomButtonVisible">
                 /// Gets or sets whether the zoom button is visible.
                 /// </field>
                 zoomButtonVisible: {
@@ -20927,7 +20927,7 @@ define('WinJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="WinJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled" helpKeyword="WinJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled">
                 /// Gets or sets whether the zoom button is enabled.
                 /// </field>
                 zoomButtonEnabled: {
@@ -20947,20 +20947,20 @@ define('WinJS/Controls/MediaPlayer', [
 
                 // Public methods
                 addMarker: function (time, type, data, extraClass) {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.addMarker">
-                    /// <summary locid="WinJS.UI.MediaPlayer.addMarker">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.addMarker">
+                    /// <summary locid="TVJS.UI.MediaPlayer.addMarker">
                     /// Adds a new timeline marker.
                     /// </summary>
-                    /// <param name="time" type="Number" locid="WinJS.UI.MediaPlayer.addMarker_p:time">
+                    /// <param name="time" type="Number" locid="TVJS.UI.MediaPlayer.addMarker_p:time">
                     /// The marker time.
                     /// </param>
-                    /// <param name="type" type="String" locid="WinJS.UI.MediaPlayer.addMarker_p:type">
+                    /// <param name="type" type="String" locid="TVJS.UI.MediaPlayer.addMarker_p:type">
                     /// The marker type.
                     /// </param>
-                    /// <param name="data" type="Object" locid="WinJS.UI.MediaPlayer.addMarker_p:data">
+                    /// <param name="data" type="Object" locid="TVJS.UI.MediaPlayer.addMarker_p:data">
                     /// The marker data.
                     /// </param>
-                    /// <param name="extraClass" type="String" optional="true" locid="WinJS.UI.MediaPlayer.addMarker_p:extraClass">
+                    /// <param name="extraClass" type="String" optional="true" locid="TVJS.UI.MediaPlayer.addMarker_p:extraClass">
                     /// An extra class that can be used to style the marker.
                     /// </param>
                     /// </signature>
@@ -20973,7 +20973,7 @@ define('WinJS/Controls/MediaPlayer', [
                         time !== 0) ||
                         isNaN(time)) {
 
-                        throw new _ErrorFromName("WinJS.UI.MediaPlayer.timeNotANumber", strings.mediaPlayerInvalidTimeValue);
+                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.timeNotANumber", strings.mediaPlayerInvalidTimeValue);
                     }
 
                     if (!type) {
@@ -20983,7 +20983,7 @@ define('WinJS/Controls/MediaPlayer', [
                     if (type !== markerType.advertisement &&
                         type !== markerType.chapter &&
                         type !== markerType.custom) {
-                        throw new _ErrorFromName("WinJS.UI.MediaPlayer.InvalidMarkerType", strings.mediaPlayerAddMarkerErrorInvalidMarkerType);
+                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.InvalidMarkerType", strings.mediaPlayerAddMarkerErrorInvalidMarkerType);
                     }
 
                     // If it's a chapter marker, clear out the default chapter markers
@@ -21032,8 +21032,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 chapterSkipBack: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.chapterSkipBack">
-                    /// <summary locid="WinJS.UI.MediaPlayer.chapterSkipBack">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.chapterSkipBack">
+                    /// <summary locid="TVJS.UI.MediaPlayer.chapterSkipBack">
                     /// Seeks to the previous chapter marker.
                     /// </summary>
                     /// </signature>
@@ -21077,8 +21077,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 chapterSkipForward: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.chapterSkipForward">
-                    /// <summary locid="WinJS.UI.MediaPlayer.chapterSkipForward">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.chapterSkipForward">
+                    /// <summary locid="TVJS.UI.MediaPlayer.chapterSkipForward">
                     /// Seeks to the next chapter marker.
                     /// </summary>
                     /// </signature>
@@ -21122,8 +21122,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 dispose: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.dispose">
-                    /// <summary locid="WinJS.UI.MediaPlayer.dispose">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.dispose">
+                    /// <summary locid="TVJS.UI.MediaPlayer.dispose">
                     /// Releases MediaPlayer resources.
                     /// </summary>
                     /// </signature>
@@ -21401,8 +21401,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 fastForward: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.fastForward">
-                    /// <summary locid="WinJS.UI.MediaPlayer.fastForward">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.fastForward">
+                    /// <summary locid="TVJS.UI.MediaPlayer.fastForward">
                     /// Increases the playback rate of the media.
                     /// </summary>
                     /// </signature>
@@ -21484,8 +21484,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 goToLive: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.goToLive">
-                    /// <summary locid="WinJS.UI.MediaPlayer.goToLive">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.goToLive">
+                    /// <summary locid="TVJS.UI.MediaPlayer.goToLive">
                     /// Navigates to the real-time position in live streamed media.
                     /// </summary>
                     /// </signature>
@@ -21502,8 +21502,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 hideControls: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.hideControls">
-                    /// <summary locid="WinJS.UI.MediaPlayer.hideControls">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.hideControls">
+                    /// <summary locid="TVJS.UI.MediaPlayer.hideControls">
                     /// Hides all the UI associated with the MediaPlayer.
                     /// </summary>
                     /// </signature>
@@ -21512,8 +21512,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 nextTrack: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.nextTrack">
-                    /// <summary locid="WinJS.UI.MediaPlayer.nextTrack">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.nextTrack">
+                    /// <summary locid="TVJS.UI.MediaPlayer.nextTrack">
                     /// Plays the next track.
                     /// </summary>
                     /// </signature>
@@ -21529,8 +21529,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 pause: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.pause">
-                    /// <summary locid="WinJS.UI.MediaPlayer.pause">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.pause">
+                    /// <summary locid="TVJS.UI.MediaPlayer.pause">
                     /// Pauses the media.
                     /// </summary>
                     /// </signature>
@@ -21549,8 +21549,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 play: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.play">
-                    /// <summary locid="WinJS.UI.MediaPlayer.play">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.play">
+                    /// <summary locid="TVJS.UI.MediaPlayer.play">
                     /// Sets the playbackRate to the default playbackRate for the media and plays the media.
                     /// </summary>
                     /// </signature>
@@ -21573,8 +21573,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 previousTrack: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.previousTrack">
-                    /// <summary locid="WinJS.UI.MediaPlayer.previousTrack">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.previousTrack">
+                    /// <summary locid="TVJS.UI.MediaPlayer.previousTrack">
                     /// Plays the previous track.
                     /// </summary>
                     /// </signature>
@@ -21589,11 +21589,11 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 removeMarker: function (time) {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.removeMarker">
-                    /// <summary locid="WinJS.UI.MediaPlayer.removeMarker">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.removeMarker">
+                    /// <summary locid="TVJS.UI.MediaPlayer.removeMarker">
                     /// Removes all chapter markers at the specified time.
                     /// </summary>
-                    /// <param name="time" type="Object" locid="WinJS.UI.MediaPlayer.removeMarker_p:time">
+                    /// <param name="time" type="Object" locid="TVJS.UI.MediaPlayer.removeMarker_p:time">
                     /// The time of the marker to remove.
                     /// </param>
                     /// </signature>
@@ -21642,8 +21642,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 rewind: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.rewind">
-                    /// <summary locid="WinJS.UI.MediaPlayer.rewind">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.rewind">
+                    /// <summary locid="TVJS.UI.MediaPlayer.rewind">
                     /// Decreases the playbackRate of the media.
                     /// </summary>
                     /// </signature>
@@ -21727,11 +21727,11 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 seek: function (time) {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.seek">
-                    /// <summary locid="WinJS.UI.MediaPlayer.seek">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.seek">
+                    /// <summary locid="TVJS.UI.MediaPlayer.seek">
                     /// Navigates to the specified position in the media.
                     /// </summary>
-                    /// <param name="time" type="Number" locid="WinJS.UI.MediaPlayer.seek_p:time">
+                    /// <param name="time" type="Number" locid="TVJS.UI.MediaPlayer.seek_p:time">
                     /// The position in seconds to seek to.
                     /// </param>
                     /// </signature>
@@ -21739,20 +21739,20 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 setContentMetadata: function (metadata) {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.setContentMetadata">
-                    /// <summary locid="WinJS.UI.MediaPlayer.setContentMetadata">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.setContentMetadata">
+                    /// <summary locid="TVJS.UI.MediaPlayer.setContentMetadata">
                     /// Sets the metadata fields for the given peice of media. This method should be called before changing the video stream.
                     /// </summary>
-                    /// <param name="metadata" type="Object" locid="WinJS.UI.MediaPlayer.setContentMetadata:metadata">
+                    /// <param name="metadata" type="Object" locid="TVJS.UI.MediaPlayer.setContentMetadata:metadata">
                     /// A collection of name value pairs that provide additional information about the current media.
                     /// </param>
-                    /// <returns type="WinJS.Promise" locid="WinJS.UI.MediaPlayer.setContentMetadata_returnValue"> 
+                    /// <returns type="TVJS.Promise" locid="TVJS.UI.MediaPlayer.setContentMetadata_returnValue"> 
                     /// A promise which is successfully update the Content Metadata.The completion value indicates
                     /// content allowed to view based on family safety policy. Otherwise promise returns an error.
                     /// </returns>
                     /// </signature>
                     if (!metadata) {
-                        throw new _ErrorFromName("WinJS.UI.MediaPlayer.nullMetadata", strings.mediaPlayerNullMetadata);
+                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.nullMetadata", strings.mediaPlayerNullMetadata);
                     }
 
                     // Set the title & description in the UI
@@ -21809,8 +21809,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 showControls: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.showControls">
-                    /// <summary locid="WinJS.UI.MediaPlayer.showControls">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.showControls">
+                    /// <summary locid="TVJS.UI.MediaPlayer.showControls">
                     /// Displays the UI associated with the MediaPlayer.
                     /// </summary>
                     /// </signature>
@@ -21819,8 +21819,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 stop: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.stop">
-                    /// <summary locid="WinJS.UI.MediaPlayer.stop">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.stop">
+                    /// <summary locid="TVJS.UI.MediaPlayer.stop">
                     /// Stops the media.
                     /// </summary>
                     /// </signature>
@@ -21833,8 +21833,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 timeSkipBack: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.timeSkipBack">
-                    /// <summary locid="WinJS.UI.MediaPlayer.timeSkipBack">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.timeSkipBack">
+                    /// <summary locid="TVJS.UI.MediaPlayer.timeSkipBack">
                     /// Moves the current timeline position backward by a short interval.
                     /// </summary>
                     /// </signature>
@@ -21859,8 +21859,8 @@ define('WinJS/Controls/MediaPlayer', [
                 },
 
                 timeSkipForward: function () {
-                    /// <signature helpKeyword="WinJS.UI.MediaPlayer.timeSkipForward">
-                    /// <summary locid="WinJS.UI.MediaPlayer.timeSkipForward">
+                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.timeSkipForward">
+                    /// <summary locid="TVJS.UI.MediaPlayer.timeSkipForward">
                     /// Moves the current timeline position forward by a short interval.
                     /// </summary>
                     /// </signature>
@@ -21921,7 +21921,7 @@ define('WinJS/Controls/MediaPlayer', [
 });
 // Copyright (c) Microsoft Corporation.  All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information.
 define('mediaplayerJs',[
-    'WinJS/Controls/MediaPlayer'
+    'TVJS/Controls/MediaPlayer'
     // Put references to styles in src/mediaPlayerCss.js
 ], function () {
 });
