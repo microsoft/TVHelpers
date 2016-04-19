@@ -18258,11 +18258,17 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 _onToggleFullscreenCommandInvoked: function () {
+                    
+                    var currentClosedCaptionTrack = this._getActiveTextTrack();
+
                     if (this.isFullScreen) {
                         this.isFullScreen = false;
                     } else {
                         this.isFullScreen = true;
                     }
+
+                    if (currentClosedCaptionTrack >= 0)
+                        this._setActiveTextTrack(currentClosedCaptionTrack);
                 },
 
                 _onStopCommandInvoked: function () {
@@ -18605,6 +18611,21 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
+                _getActiveTextTrack: function () {
+                    if (this._mediaElementAdapter &&
+                        this._mediaElementAdapter.mediaElement &&
+                        this._mediaElementAdapter.mediaElement.textTracks) {
+                        var textTracks = this._mediaElementAdapter.mediaElement.textTracks;
+                        for (var i = 0, len = textTracks.length; i < len; i++) {
+                            var currentTrack = textTracks[i];
+                            if ((currentTrack.kind === "captions" || currentTrack.kind === "subtitles")  && currentTrack.mode == "showing" ) {
+                                return i;
+                            }                         
+                        }
+                    }
+                    return -1;
+                },
+                
                 _setActiveTextTrack: function (index) {
                     var closedCaptionsOptions = this._closedCaptionsFlyout.element.querySelectorAll("button");
                     if (this._mediaElementAdapter &&
