@@ -200,8 +200,8 @@
         * Executes XYFocus algorithm with the given parameters. Returns true if focus was moved, false otherwise.
         * @param direction The direction to move focus.
         * @param keyCode The key code of the pressed key.
-        * @param (optional) A rectangle to use as the source coordinates for finding the next focusable element.
-        * @param (optional) Indicates whether this focus request is allowed to propagate to its parent if we are in iframe.
+        * @param referenceRect (optional) A rectangle to use as the source coordinates for finding the next focusable element.
+        * @param dontExit (optional) Indicates whether this focus request is allowed to propagate to its parent if we are in iframe.
     **/
     function _xyFocus(direction, keyCode, referenceRect, dontExit) {
         // If focus has moved since the last XYFocus movement, scrolling occured, or an explicit
