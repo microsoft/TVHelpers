@@ -856,6 +856,10 @@ progress.tv-mediaplayer-busy {
   display: none;
 }
 /* Markers */
+.tv-mediaplayer-marker {
+    position: absolute;
+}
+
 .tv-mediaplayer-chaptermarker,
 .tv-mediaplayer-advertisementmarker {
   height: 6px;
