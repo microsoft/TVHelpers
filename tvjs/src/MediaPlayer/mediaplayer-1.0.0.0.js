@@ -15744,18 +15744,18 @@ define('TVJS/Controls/MediaPlayer', [
             var wuiv = _WinRT.Windows.UI.ViewManagement;
 
             var MediaPlayer = _Base.Class.define(function (element, options) {
-                /// <signature helpKeyword="TVJS.UI.MediaPlayer.MediaPlayer">
-                /// <summary locid="TVJS.UI.MediaPlayer.constructor">
+                /// <signature helpKeyword="TVJS.MediaPlayer.MediaPlayer">
+                /// <summary locid="TVJS.MediaPlayer.constructor">
                 /// Creates a new MediaPlayer.
                 /// </summary>
-                /// <param name="element" domElement="true" locid="TVJS.UI.MediaPlayer.constructor_p:element">
+                /// <param name="element" domElement="true" locid="TVJS.MediaPlayer.constructor_p:element">
                 /// The DOM element that hosts the MediaPlayer control.
                 /// </param>
-                /// <param name="options" type="Object" locid="TVJS.UI.MediaPlayer.constructor_p:options">
+                /// <param name="options" type="Object" locid="TVJS.MediaPlayer.constructor_p:options">
                 /// An object that contains one or more property/value pairs to apply to the new control.
                 /// Each property of the options object corresponds to one of the control's properties or events.
                 /// </param>
-                /// <returns type="TVJS.UI.MediaPlayer" locid="TVJS.UI.MediaPlayer.constructor_returnValue">
+                /// <returns type="TVJS.MediaPlayer" locid="TVJS.MediaPlayer.constructor_returnValue">
                 /// The new MediaPlayer.
                 /// </returns>
                 /// </signature>
@@ -19759,7 +19759,7 @@ define('TVJS/Controls/MediaPlayer', [
                     this._updateMediaState(false);
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.controlsVisible" helpKeyword="TVJS.UI.MediaPlayer.controlsVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.controlsVisible" helpKeyword="TVJS.MediaPlayer.controlsVisible">
                 /// Gets a property that specifies whether the transport controls are visible.
                 /// </field>
                 controlsVisible: {
@@ -19769,7 +19769,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isControlsVisible" helpKeyword="TVJS.UI.MediaPlayer.isControlsVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.isControlsVisible" helpKeyword="TVJS.MediaPlayer.isControlsVisible">
                 /// Exists for legacy migration.
                 /// </field>
                 isControlsVisible: {
@@ -19780,7 +19780,7 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.endTime" helpKeyword="TVJS.UI.MediaPlayer.endTime">
+                /// <field type="Object" locid="TVJS.MediaPlayer.endTime" helpKeyword="TVJS.MediaPlayer.endTime">
                 /// Gets or sets maximum playback position of the media. By default, the value is the duration of the media.
                 /// </field>
                 endTime: {
@@ -19800,7 +19800,7 @@ define('TVJS/Controls/MediaPlayer', [
                         if (value < 0 ||
                             isNaN(value) ||
                             !isFinite(value)) {
-                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
+                            throw new _ErrorFromName("TVJS.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
                         }
 
                         this._endTime = value;
@@ -19825,7 +19825,7 @@ define('TVJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="HTMLElement" domElement="true" hidden="true" locid="TVJS.UI.MediaPlayer.element" helpKeyword="TVJS.UI.MediaPlayer.element">
+                /// <field type="HTMLElement" domElement="true" hidden="true" locid="TVJS.MediaPlayer.element" helpKeyword="TVJS.MediaPlayer.element">
                 /// The DOM element that hosts the MediaPlayer control.
                 /// </field>
                 element: {
@@ -19834,7 +19834,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" hidden="true" locid="TVJS.UI.MediaPlayer.commands" helpKeyword="TVJS.UI.MediaPlayer.commands">
+                /// <field type="Object" hidden="true" locid="TVJS.MediaPlayer.commands" helpKeyword="TVJS.MediaPlayer.commands">
                 /// Gets or sets the commands that appear in the transport controls. The collection is a binding list of TVJS.UI.Command objects.
                 /// </field>
                 commands: {
@@ -19939,7 +19939,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.compact" helpKeyword="TVJS.UI.MediaPlayer.compact">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.compact" helpKeyword="TVJS.MediaPlayer.compact">
                 /// Gets or sets a value indicating whether the MediaPlayer is using a layout that minimized space used, but only has room for a limited number of
                 /// commands or a layout that has room for a lot of commands, but takes up more space.
                 /// </field>
@@ -19950,7 +19950,7 @@ define('TVJS/Controls/MediaPlayer', [
 
                     set: function (value) {
                         if (this._isCommandsSetByUser) {
-                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.unSupportedOperation", strings.unSupportedOperation);
+                            throw new _ErrorFromName("TVJS.MediaPlayer.unSupportedOperation", strings.unSupportedOperation);
                         }
                         this._compact = value;
                         if (this._compact) {
@@ -19969,7 +19969,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.fullScreen" helpKeyword="TVJS.UI.MediaPlayer.fullScreen">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.fullScreen" helpKeyword="TVJS.MediaPlayer.fullScreen">
                 /// Gets or sets a value indicating whether the MediaPlayer is full screen.
                 /// </field>
                 fullScreen: {
@@ -20084,7 +20084,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isFullScreen" helpKeyword="TVJS.UI.MediaPlayer.isFullScreen">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.isFullScreen" helpKeyword="TVJS.MediaPlayer.isFullScreen">
                 /// Old property name kept for legacy compatability.
                 /// </field>
                 isFullScreen: {
@@ -20096,7 +20096,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.thumbnailEnabled" helpKeyword="TVJS.UI.MediaPlayer.thumbnailEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.thumbnailEnabled" helpKeyword="TVJS.MediaPlayer.thumbnailEnabled">
                 /// Gets or sets a value indicating whether to use thumbnails for fast forward, rewind and scrubbing. If true, the fast forward, rewind and scrub operations
                 /// will pause the mediaElement and cycle thumbnails as the user changes position. If false, the fast forward, rewind operations will increase or decrease
                 /// the mediaElement's playbackRate and the scrub operation will move the position.
@@ -20117,7 +20117,7 @@ define('TVJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.isThumbnailEnabled" helpKeyword="TVJS.UI.MediaPlayer.isThumbnailEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.isThumbnailEnabled" helpKeyword="TVJS.MediaPlayer.isThumbnailEnabled">
                 /// Old property names kept for legacy compatability.
                 /// </field>
                 isThumbnailEnabled: {
@@ -20131,7 +20131,7 @@ define('TVJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.markers" helpKeyword="TVJS.UI.MediaPlayer.markers">
+                /// <field type="Object" locid="TVJS.MediaPlayer.markers" helpKeyword="TVJS.MediaPlayer.markers">
                 /// Gets or sets the MediaPlayer's marker collection.
                 /// </field>
                 markers: {
@@ -20166,7 +20166,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.mediaElementAdapter" helpKeyword="TVJS.UI.MediaPlayer.mediaElementAdapter">
+                /// <field type="Object" locid="TVJS.MediaPlayer.mediaElementAdapter" helpKeyword="TVJS.MediaPlayer.mediaElementAdapter">
                 /// Gets or sets an interface that your application can implement to have more control over synchronization between
                 /// the MediaPlayer and your media.
                 /// </field>
@@ -20197,7 +20197,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.startTime" helpKeyword="TVJS.UI.MediaPlayer.startTime">
+                /// <field type="Object" locid="TVJS.MediaPlayer.startTime" helpKeyword="TVJS.MediaPlayer.startTime">
                 /// Gets or sets minimum playback position of the media. By default the value is zero.
                 /// </field>
                 startTime: {
@@ -20210,7 +20210,7 @@ define('TVJS/Controls/MediaPlayer', [
                         if (value < 0 ||
                             isNaN(value) ||
                             !isFinite(value)) {
-                            throw new _ErrorFromName("TVJS.UI.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
+                            throw new _ErrorFromName("TVJS.MediaPlayer.invalidTimeValue", strings.mediaPlayerInvalidTimeValue);
                         }
 
                         this._startTime = value;
@@ -20234,7 +20234,7 @@ define('TVJS/Controls/MediaPlayer', [
                     },
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.targetCurrentTime" helpKeyword="TVJS.UI.MediaPlayer.targetCurrentTime">
+                /// <field type="Object" locid="TVJS.MediaPlayer.targetCurrentTime" helpKeyword="TVJS.MediaPlayer.targetCurrentTime">
                 /// Gets the current time as it is represented in the UI. While fast forwarding or rewinding, this property may be different than the video or audio
                 /// tag's 'currentTime' property. This is because during a fast forward or rewind operation, the media is paused while the timeline animates to
                 /// simulate a fast forward or rewind operation.
@@ -20259,7 +20259,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.targetPlaybackRate" helpKeyword="TVJS.UI.MediaPlayer.targetPlaybackRate">
+                /// <field type="Object" locid="TVJS.MediaPlayer.targetPlaybackRate" helpKeyword="TVJS.MediaPlayer.targetPlaybackRate">
                 /// Gets the playbackRate as it is represented in the UI. While fast forwarding or rewinding, this property may be different than the video or audio
                 /// tag's 'playbackRate' property. This is because during a fast forward or rewind operation, the media is paused while the timeline animates to
                 /// simulate a fast forward or rewind operation.
@@ -20284,7 +20284,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.timeFormatter" helpKeyword="TVJS.UI.MediaPlayer.timeFormatter">
+                /// <field type="Object" locid="TVJS.MediaPlayer.timeFormatter" helpKeyword="TVJS.MediaPlayer.timeFormatter">
                 /// Gets or sets a function that converts raw time data from the video or audio tag into text to display in the UI of the MediaPlayer.
                 /// </field>
                 timeFormatter: {
@@ -20304,7 +20304,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Object" locid="TVJS.UI.MediaPlayer.thumbnailImage" helpKeyword="TVJS.UI.MediaPlayer.thumbnailImage">
+                /// <field type="Object" locid="TVJS.MediaPlayer.thumbnailImage" helpKeyword="TVJS.MediaPlayer.thumbnailImage">
                 /// Sets the path to the current thumbnail image to display.
                 /// </field>
                 thumbnailImage: {
@@ -20313,7 +20313,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.castButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.castButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.castButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.castButtonVisible">
                 /// Gets or sets whether the CAST button is visible.
                 /// </field>
                 castButtonVisible: {
@@ -20331,7 +20331,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.castButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.castButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.castButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.castButtonEnabled">
                 /// Gets or sets whether the cast button is enabled.
                 /// </field>
                 castButtonEnabled: {
@@ -20349,7 +20349,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.chapterSkipBackButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.chapterSkipBackButtonVisible">
                 /// Gets or sets whether the chapter skip back button is visible.
                 /// </field>
                 chapterSkipBackButtonVisible: {
@@ -20367,7 +20367,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.chapterSkipBackButtonEnabled">
                 /// Gets or sets whether the chapter skip back button is enabled.
                 /// </field>
                 chapterSkipBackButtonEnabled: {
@@ -20385,7 +20385,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.chapterSkipForwardButtonVisible">
                 /// Gets or sets whether the chapter skip forward button is visible.
                 /// </field>
                 chapterSkipForwardButtonVisible: {
@@ -20403,7 +20403,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.chapterSkipForwardButtonEnabled">
                 /// Gets or sets whether the chapter skip forward button is enabled.
                 /// </field>
                 chapterSkipForwardButtonEnabled: {
@@ -20421,7 +20421,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.fastForwardButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.fastForwardButtonVisible">
                 /// Gets or sets whether the fast forward button is visible.
                 /// </field>
                 fastForwardButtonVisible: {
@@ -20439,7 +20439,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fastForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.fastForwardButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.fastForwardButtonEnabled">
                 /// Gets or sets whether the fast forward button is enabled.
                 /// </field>
                 fastForwardButtonEnabled: {
@@ -20457,7 +20457,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.fullscreenButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.fullscreenButtonVisible">
                 /// Gets or sets whether the full screen button is visible.
                 /// </field>
                 fullscreenButtonVisible: {
@@ -20475,7 +20475,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.fullscreenButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.fullscreenButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.fullscreenButtonEnabled">
                 /// Gets or sets whether the more button is enabled.
                 /// </field>
                 fullscreenButtonEnabled: {
@@ -20493,7 +20493,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.goToLiveButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.goToLiveButtonVisible">
                 /// Gets or sets whether the LIVE button is visible.
                 /// </field>
                 goToLiveButtonVisible: {
@@ -20511,7 +20511,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.goToLiveButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.goToLiveButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.goToLiveButtonEnabled">
                 /// Gets or sets whether the LIVE button is enabled.
                 /// </field>
                 goToLiveButtonEnabled: {
@@ -20529,7 +20529,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.nextTrackButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.nextTrackButtonVisible">
                 /// Gets or sets whether the next track button is visible.
                 /// </field>
                 nextTrackButtonVisible: {
@@ -20547,7 +20547,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.nextTrackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.nextTrackButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.nextTrackButtonEnabled">
                 /// Gets or sets whether the next track button is enabled.
                 /// </field>
                 nextTrackButtonEnabled: {
@@ -20566,7 +20566,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playFromBeginningButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.playFromBeginningButtonVisible">
                 /// Gets or sets whether the play from beginning button is visible.
                 /// </field>
                 playFromBeginningButtonVisible: {
@@ -20584,7 +20584,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playFromBeginningButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playFromBeginningButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.playFromBeginningButtonEnabled">
                 /// Gets or sets whether the play from beginning button is enabled.
                 /// </field>
                 playFromBeginningButtonEnabled: {
@@ -20602,7 +20602,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playPauseButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.playPauseButtonVisible">
                 /// Gets or sets whether the play / pause button is visible.
                 /// </field>
                 playPauseButtonVisible: {
@@ -20620,7 +20620,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playPauseButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playPauseButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.playPauseButtonEnabled">
                 /// Gets or sets whether the play / pause button is enabled.
                 /// </field>
                 playPauseButtonEnabled: {
@@ -20638,7 +20638,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playbackRateButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.playbackRateButtonVisible">
                 /// Gets or sets whether the playback rate button is visible.
                 /// </field>
                 playbackRateButtonVisible: {
@@ -20656,7 +20656,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.playbackRateButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.playbackRateButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.playbackRateButtonEnabled">
                 /// Gets or sets whether the playback rate button is enabled.
                 /// </field>
                 playbackRateButtonEnabled: {
@@ -20674,7 +20674,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.previousTrackButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.previousTrackButtonVisible">
                 /// Gets or sets whether the previous track button is visible.
                 /// </field>
                 previousTrackButtonVisible: {
@@ -20692,7 +20692,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.previousTrackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.previousTrackButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.previousTrackButtonEnabled">
                 /// Gets or sets whether the previous track button is enabled.
                 /// </field>
                 previousTrackButtonEnabled: {
@@ -20710,7 +20710,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.rewindButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.rewindButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.rewindButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.rewindButtonVisible">
                 /// Gets or sets whether the rewind button is visible.
                 /// </field>
                 rewindButtonVisible: {
@@ -20728,7 +20728,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.rewindButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.rewindButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.rewindButtonEnabled">
                 /// Gets or sets whether the rewind button is enabled.
                 /// </field>
                 rewindButtonEnabled: {
@@ -20746,7 +20746,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.seekBarVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.seekBarVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.seekBarVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.seekBarVisible">
                 /// Gets or sets whether the seek bar is visible.
                 /// </field>
                 seekBarVisible: {
@@ -20764,7 +20764,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.seekingEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.seekingEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.seekingEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.seekingEnabled">
                 /// Gets or sets whether the seeking is enabled.
                 /// </field>
                 seekingEnabled: {
@@ -20786,7 +20786,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.stopButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.stopButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.stopButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.stopButtonVisible">
                 /// Gets or sets whether the stop button is visible.
                 /// </field>
                 stopButtonVisible: {
@@ -20804,7 +20804,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.stopButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.stopButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.stopButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.stopButtonEnabled">
                 /// Gets or sets whether the stop button is enabled.
                 /// </field>
                 stopButtonEnabled: {
@@ -20822,7 +20822,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.timeSkipBackButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.timeSkipBackButtonVisible">
                 /// Gets or sets whether the time skip back button is visible.
                 /// </field>
                 timeSkipBackButtonVisible: {
@@ -20840,7 +20840,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipBackButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.timeSkipBackButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.timeSkipBackButtonEnabled">
                 /// Gets or sets whether the time skip back button is enabled.
                 /// </field>
                 timeSkipBackButtonEnabled: {
@@ -20858,7 +20858,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.timeSkipForwardButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.timeSkipForwardButtonVisible">
                 /// Gets or sets whether the time skip forward button is visible.
                 /// </field>
                 timeSkipForwardButtonVisible: {
@@ -20876,7 +20876,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.timeSkipForwardButtonEnabled">
                 /// Gets or sets whether the time skip forward button is enabled.
                 /// </field>
                 timeSkipForwardButtonEnabled: {
@@ -20894,7 +20894,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.volumeButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.volumeButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.volumeButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.volumeButtonVisible">
                 /// Gets or sets whether the volume button is visible.
                 /// </field>
                 volumeButtonVisible: {
@@ -20912,7 +20912,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.volumeButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.volumeButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.volumeButtonEnabled">
                 /// Gets or sets whether the volume button is enabled.
                 /// </field>
                 volumeButtonEnabled: {
@@ -20930,7 +20930,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.zoomButtonVisible" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.zoomButtonVisible">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.zoomButtonVisible" helpKeyword="TVJS.MediaPlayer.TransportControls.zoomButtonVisible">
                 /// Gets or sets whether the zoom button is visible.
                 /// </field>
                 zoomButtonVisible: {
@@ -20948,7 +20948,7 @@ define('TVJS/Controls/MediaPlayer', [
                     }
                 },
 
-                /// <field type="Boolean" locid="TVJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled" helpKeyword="TVJS.UI.MediaPlayer.TransportControls.zoomButtonEnabled">
+                /// <field type="Boolean" locid="TVJS.MediaPlayer.TransportControls.zoomButtonEnabled" helpKeyword="TVJS.MediaPlayer.TransportControls.zoomButtonEnabled">
                 /// Gets or sets whether the zoom button is enabled.
                 /// </field>
                 zoomButtonEnabled: {
@@ -20968,20 +20968,20 @@ define('TVJS/Controls/MediaPlayer', [
 
                 // Public methods
                 addMarker: function (time, type, data, extraClass) {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.addMarker">
-                    /// <summary locid="TVJS.UI.MediaPlayer.addMarker">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.addMarker">
+                    /// <summary locid="TVJS.MediaPlayer.addMarker">
                     /// Adds a new timeline marker.
                     /// </summary>
-                    /// <param name="time" type="Number" locid="TVJS.UI.MediaPlayer.addMarker_p:time">
+                    /// <param name="time" type="Number" locid="TVJS.MediaPlayer.addMarker_p:time">
                     /// The marker time.
                     /// </param>
-                    /// <param name="type" type="String" locid="TVJS.UI.MediaPlayer.addMarker_p:type">
+                    /// <param name="type" type="String" locid="TVJS.MediaPlayer.addMarker_p:type">
                     /// The marker type.
                     /// </param>
-                    /// <param name="data" type="Object" locid="TVJS.UI.MediaPlayer.addMarker_p:data">
+                    /// <param name="data" type="Object" locid="TVJS.MediaPlayer.addMarker_p:data">
                     /// The marker data.
                     /// </param>
-                    /// <param name="extraClass" type="String" optional="true" locid="TVJS.UI.MediaPlayer.addMarker_p:extraClass">
+                    /// <param name="extraClass" type="String" optional="true" locid="TVJS.MediaPlayer.addMarker_p:extraClass">
                     /// An extra class that can be used to style the marker.
                     /// </param>
                     /// </signature>
@@ -20994,7 +20994,7 @@ define('TVJS/Controls/MediaPlayer', [
                         time !== 0) ||
                         isNaN(time)) {
 
-                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.timeNotANumber", strings.mediaPlayerInvalidTimeValue);
+                        throw new _ErrorFromName("TVJS.MediaPlayer.timeNotANumber", strings.mediaPlayerInvalidTimeValue);
                     }
 
                     if (!type) {
@@ -21004,7 +21004,7 @@ define('TVJS/Controls/MediaPlayer', [
                     if (type !== markerType.advertisement &&
                         type !== markerType.chapter &&
                         type !== markerType.custom) {
-                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.InvalidMarkerType", strings.mediaPlayerAddMarkerErrorInvalidMarkerType);
+                        throw new _ErrorFromName("TVJS.MediaPlayer.InvalidMarkerType", strings.mediaPlayerAddMarkerErrorInvalidMarkerType);
                     }
 
                     // If it's a chapter marker, clear out the default chapter markers
@@ -21053,8 +21053,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 chapterSkipBack: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.chapterSkipBack">
-                    /// <summary locid="TVJS.UI.MediaPlayer.chapterSkipBack">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.chapterSkipBack">
+                    /// <summary locid="TVJS.MediaPlayer.chapterSkipBack">
                     /// Seeks to the previous chapter marker.
                     /// </summary>
                     /// </signature>
@@ -21098,8 +21098,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 chapterSkipForward: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.chapterSkipForward">
-                    /// <summary locid="TVJS.UI.MediaPlayer.chapterSkipForward">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.chapterSkipForward">
+                    /// <summary locid="TVJS.MediaPlayer.chapterSkipForward">
                     /// Seeks to the next chapter marker.
                     /// </summary>
                     /// </signature>
@@ -21143,8 +21143,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 dispose: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.dispose">
-                    /// <summary locid="TVJS.UI.MediaPlayer.dispose">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.dispose">
+                    /// <summary locid="TVJS.MediaPlayer.dispose">
                     /// Releases MediaPlayer resources.
                     /// </summary>
                     /// </signature>
@@ -21422,8 +21422,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 fastForward: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.fastForward">
-                    /// <summary locid="TVJS.UI.MediaPlayer.fastForward">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.fastForward">
+                    /// <summary locid="TVJS.MediaPlayer.fastForward">
                     /// Increases the playback rate of the media.
                     /// </summary>
                     /// </signature>
@@ -21505,8 +21505,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 goToLive: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.goToLive">
-                    /// <summary locid="TVJS.UI.MediaPlayer.goToLive">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.goToLive">
+                    /// <summary locid="TVJS.MediaPlayer.goToLive">
                     /// Navigates to the real-time position in live streamed media.
                     /// </summary>
                     /// </signature>
@@ -21523,8 +21523,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 hideControls: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.hideControls">
-                    /// <summary locid="TVJS.UI.MediaPlayer.hideControls">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.hideControls">
+                    /// <summary locid="TVJS.MediaPlayer.hideControls">
                     /// Hides all the UI associated with the MediaPlayer.
                     /// </summary>
                     /// </signature>
@@ -21533,8 +21533,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 nextTrack: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.nextTrack">
-                    /// <summary locid="TVJS.UI.MediaPlayer.nextTrack">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.nextTrack">
+                    /// <summary locid="TVJS.MediaPlayer.nextTrack">
                     /// Plays the next track.
                     /// </summary>
                     /// </signature>
@@ -21550,8 +21550,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 pause: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.pause">
-                    /// <summary locid="TVJS.UI.MediaPlayer.pause">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.pause">
+                    /// <summary locid="TVJS.MediaPlayer.pause">
                     /// Pauses the media.
                     /// </summary>
                     /// </signature>
@@ -21570,8 +21570,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 play: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.play">
-                    /// <summary locid="TVJS.UI.MediaPlayer.play">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.play">
+                    /// <summary locid="TVJS.MediaPlayer.play">
                     /// Sets the playbackRate to the default playbackRate for the media and plays the media.
                     /// </summary>
                     /// </signature>
@@ -21594,8 +21594,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 previousTrack: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.previousTrack">
-                    /// <summary locid="TVJS.UI.MediaPlayer.previousTrack">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.previousTrack">
+                    /// <summary locid="TVJS.MediaPlayer.previousTrack">
                     /// Plays the previous track.
                     /// </summary>
                     /// </signature>
@@ -21610,11 +21610,11 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 removeMarker: function (time) {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.removeMarker">
-                    /// <summary locid="TVJS.UI.MediaPlayer.removeMarker">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.removeMarker">
+                    /// <summary locid="TVJS.MediaPlayer.removeMarker">
                     /// Removes all chapter markers at the specified time.
                     /// </summary>
-                    /// <param name="time" type="Object" locid="TVJS.UI.MediaPlayer.removeMarker_p:time">
+                    /// <param name="time" type="Object" locid="TVJS.MediaPlayer.removeMarker_p:time">
                     /// The time of the marker to remove.
                     /// </param>
                     /// </signature>
@@ -21663,8 +21663,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 rewind: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.rewind">
-                    /// <summary locid="TVJS.UI.MediaPlayer.rewind">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.rewind">
+                    /// <summary locid="TVJS.MediaPlayer.rewind">
                     /// Decreases the playbackRate of the media.
                     /// </summary>
                     /// </signature>
@@ -21748,11 +21748,11 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 seek: function (time) {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.seek">
-                    /// <summary locid="TVJS.UI.MediaPlayer.seek">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.seek">
+                    /// <summary locid="TVJS.MediaPlayer.seek">
                     /// Navigates to the specified position in the media.
                     /// </summary>
-                    /// <param name="time" type="Number" locid="TVJS.UI.MediaPlayer.seek_p:time">
+                    /// <param name="time" type="Number" locid="TVJS.MediaPlayer.seek_p:time">
                     /// The position in seconds to seek to.
                     /// </param>
                     /// </signature>
@@ -21760,20 +21760,20 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 setContentMetadata: function (metadata) {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.setContentMetadata">
-                    /// <summary locid="TVJS.UI.MediaPlayer.setContentMetadata">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.setContentMetadata">
+                    /// <summary locid="TVJS.MediaPlayer.setContentMetadata">
                     /// Sets the metadata fields for the given peice of media. This method should be called before changing the video stream.
                     /// </summary>
-                    /// <param name="metadata" type="Object" locid="TVJS.UI.MediaPlayer.setContentMetadata:metadata">
+                    /// <param name="metadata" type="Object" locid="TVJS.MediaPlayer.setContentMetadata:metadata">
                     /// A collection of name value pairs that provide additional information about the current media.
                     /// </param>
-                    /// <returns type="TVJS.Promise" locid="TVJS.UI.MediaPlayer.setContentMetadata_returnValue"> 
+                    /// <returns type="TVJS.Promise" locid="TVJS.MediaPlayer.setContentMetadata_returnValue"> 
                     /// A promise which is successfully update the Content Metadata.The completion value indicates
                     /// content allowed to view based on family safety policy. Otherwise promise returns an error.
                     /// </returns>
                     /// </signature>
                     if (!metadata) {
-                        throw new _ErrorFromName("TVJS.UI.MediaPlayer.nullMetadata", strings.mediaPlayerNullMetadata);
+                        throw new _ErrorFromName("TVJS.MediaPlayer.nullMetadata", strings.mediaPlayerNullMetadata);
                     }
 
                     // Set the title & description in the UI
@@ -21830,8 +21830,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 showControls: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.showControls">
-                    /// <summary locid="TVJS.UI.MediaPlayer.showControls">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.showControls">
+                    /// <summary locid="TVJS.MediaPlayer.showControls">
                     /// Displays the UI associated with the MediaPlayer.
                     /// </summary>
                     /// </signature>
@@ -21840,8 +21840,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 stop: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.stop">
-                    /// <summary locid="TVJS.UI.MediaPlayer.stop">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.stop">
+                    /// <summary locid="TVJS.MediaPlayer.stop">
                     /// Stops the media.
                     /// </summary>
                     /// </signature>
@@ -21854,8 +21854,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 timeSkipBack: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.timeSkipBack">
-                    /// <summary locid="TVJS.UI.MediaPlayer.timeSkipBack">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.timeSkipBack">
+                    /// <summary locid="TVJS.MediaPlayer.timeSkipBack">
                     /// Moves the current timeline position backward by a short interval.
                     /// </summary>
                     /// </signature>
@@ -21880,8 +21880,8 @@ define('TVJS/Controls/MediaPlayer', [
                 },
 
                 timeSkipForward: function () {
-                    /// <signature helpKeyword="TVJS.UI.MediaPlayer.timeSkipForward">
-                    /// <summary locid="TVJS.UI.MediaPlayer.timeSkipForward">
+                    /// <signature helpKeyword="TVJS.MediaPlayer.timeSkipForward">
+                    /// <summary locid="TVJS.MediaPlayer.timeSkipForward">
                     /// Moves the current timeline position forward by a short interval.
                     /// </summary>
                     /// </signature>
