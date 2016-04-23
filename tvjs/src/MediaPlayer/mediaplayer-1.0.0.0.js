@@ -19243,7 +19243,7 @@ define('TVJS/Controls/MediaPlayer', [
 
                                 var percentageTime = currentMarkerTime / this._totalTime;
                                 var currentTimeLeftOffset = percentageTime * this._totalSeekBarWidth;
-                                marker.style.marginLeft = currentTimeLeftOffset + "px";
+                                marker.style.left = currentTimeLeftOffset + "px";
 
                                 if (this._seekBar.parentNode) {
                                     this._seekBar.parentNode.insertBefore(marker, this._seekBar.nextElementSibling);
