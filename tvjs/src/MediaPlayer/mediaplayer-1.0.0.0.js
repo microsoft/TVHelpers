@@ -19466,7 +19466,7 @@ define('TVJS/Controls/MediaPlayer', [
                     this._addGestureEventHandler(this._progressContainer, "pointerdown", this._inputHandlerPointerDownCallback);
                     this._addGestureEventHandler(this.element, "pointerover", this._handlePointerHover);
                     this._addGestureEventHandler(this.element, "pointermove", this._inputHandlerPointerMoveCallback);
-                    this._addGestureEventHandler(this._progressContainer, "pointerup", this._inputHandlerPointerUpCallback);
+                    this._addGestureEventHandler(this._controls, "pointerup", this._inputHandlerPointerUpCallback);
 
                     document.body.addEventListener("mouseleave", this._inputHandlerMouseOutCallback, false);
 
