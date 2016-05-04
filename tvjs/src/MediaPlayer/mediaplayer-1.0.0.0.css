@@ -1228,3 +1228,16 @@ button.tv-mediaplayer-mutebutton {
 .tv-mediaplayer-mobile .tv-flyout button {
     border: none;
 }
+.tv-mediaplayer-mobile .tv-mediaplayer-scrubbing .tv-mediaplayer-thumbnail {
+    margin-bottom: 16px;
+    margin-top: -42px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-scrubbing .tv-mediaplayer-seek-mark {
+    margin-top: -10px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-scrubbing .tv-mediaplayer-thumbnailmode .tv-mediaplayer-thumbnail {
+    margin-top: -82px;
+}
+.tv-mediaplayer-mobile .tv-mediaplayer-scrubbing .tv-mediaplayer-thumbnailmode .tv-mediaplayer-seek-mark {
+    margin-top: -11px;
+}
