@@ -793,7 +793,7 @@
     // from the webview. The navigatingfocus event handles transforming the 
     // coordinate space so we just pass the values along.
     document.addEventListener("departingfocus", function(eventArg) {
-        var focusChanged = _xyfocus(
+        var focusChanged = _xyFocus(
             eventArg.navigationReason,
             -1,
             WebViewHelper.navigateFocusRectToRefRect(eventArg));
@@ -808,7 +808,7 @@
     // into the webview from the app. The navigatingfocus event handles transforming the 
     // coordinate space so we just pass the values along.
     window.addEventListener("navigatingfocus", function(eventArg) {
-        var focusChanged = _xyfocus(
+        var focusChanged = _xyFocus(
             eventArg.navigationReason,
             -1,
             WebViewHelper.navigateFocusRectToRefRect(eventArg));
