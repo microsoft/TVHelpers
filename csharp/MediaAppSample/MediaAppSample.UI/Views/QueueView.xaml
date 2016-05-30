@@ -1,0 +1,187 @@
+﻿<!--
+// The MIT License (MIT)
+//
+// Copyright (c) 2016 Microsoft. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+-->
+    
+<views:QueueViewBase
+    x:Class="MediaAppSample.UI.Views.QueueView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:views="using:MediaAppSample.UI.Views"
+    xmlns:viewmodels="using:MediaAppSample.Core.ViewModels"
+    xmlns:models="using:MediaAppSample.Core.Models"
+    xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
+    xmlns:controls="using:MediaAppSample.UI.Controls"
+    xmlns:resources="using:MediaAppSample.UI.Resources"
+    xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
+    d:DataContext="{d:DesignInstance designTime:QueueViewModel, IsDesignTimeCreatable=True}"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Common />
+                <resources:TextStyles />
+                <resources:Templates />
+                <resources:ListStyles />
+                <resources:ControlStyles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid x:Name="ContentPanel" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Hub>
+
+            <!-- Resume / Next in Queue -->
+            <HubSection Height="{x:Bind DeviceWindowHeight, Mode=OneWay}">
+                <DataTemplate x:DataType="viewmodels:QueueViewModel">
+                    <UserControl>
+                        <Grid Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition x:Name="colNextInQueue" Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Visibility="{x:Bind ViewModel.ResumeItem, Mode=OneWay, Converter={StaticResource visConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.ResumeItem.ImageResume, Mode=OneWay}" Stretch="UniformToFill" />
+                                </Grid.Background>
+
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource StandardGutterAll}" MaxWidth="400">
+                                    <TextBlock Text="{x:Bind ViewModel.ResumeItem.Item.Flag, Mode=OneWay}" />
+                                    <HyperlinkButton Content="{x:Bind ViewModel.ResumeItem.Item.Title, Mode=OneWay}"
+                                                 Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand, Mode=OneWay}"
+                                                 CommandParameter="{x:Bind ViewModel.ResumeItem.Item, Mode=OneWay}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Border x:Name="nextInQueue" Grid.Column="1" Visibility="Collapsed" x:DeferLoadStrategy="Lazy" Background="{ThemeResource SystemAccentColorBrush}">
+                                <Grid Visibility="{x:Bind ViewModel.NextQueueItem, Mode=OneWay, Converter={StaticResource visConverter}}">
+                                    <Button Style="{StaticResource TransparentButtonStyle}"
+                                            Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand, Mode=OneWay}" 
+                                            CommandParameter="{x:Bind ViewModel.NextQueueItem, Mode=OneWay}">
+                                        <StackPanel Margin="100">
+                                            <TextBlock x:Uid="/MediaAppSample.Core/Resources/tbNextInQueue" Text="Next in queue:" />
+                                            <Image Source="{x:Bind ViewModel.NextQueueItem.Item.ImageFeatured, Mode=OneWay}" Stretch="UniformToFill" />
+                                            <TextBlock Text="{Binding ViewModel.NextQueueItem.Item.Title, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <!-- Responsive VisualStates -->
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <!-- VisualState for 13" laptop -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="1366" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="nextInQueue.Visibility" Value="Visible" />
+                                            <Setter Target="colNextInQueue.Width" Value="*" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <!-- VisualState for 8" tablet -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="640" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="nextInQueue.Visibility" Value="Collapsed" />
+                                            <Setter Target="colNextInQueue.Width" Value="Auto" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState>
+                                        <!-- VisualState for 5" phone -->
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="nextInQueue.Visibility" Value="Collapsed" />
+                                            <Setter Target="colNextInQueue.Width" Value="Auto" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- My Queue -->
+            <HubSection x:Uid="/MediaAppSample.Core/Resources/hsMyQueue" Header="My Queue">
+                <DataTemplate x:DataType="viewmodels:QueueViewModel">
+                    <GridView ItemsSource="{x:Bind ViewModel.Queue, Mode=OneWay}" 
+                              ItemTemplate="{StaticResource QueueImageSmallTitleOverlayTemplate}"
+                              ItemContainerStyle="{StaticResource MediaTile2x1GridViewItemContainerStyle}"
+                              Background="{ThemeResource ThemeSectionBackground}"
+                              Padding="48,68,48,68"
+                              Margin="0,0,12,0"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              behaviors:ListViewBaseCommandBehavior.Command="{x:Bind ViewModel.Platform.Navigation.NavigateToMediaCommand}" />
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Recommended -->
+            <HubSection x:Uid="/MediaAppSample.Core/Resources/hsRecommended" Header="Recommended">
+                <DataTemplate x:DataType="viewmodels:QueueViewModel">
+                    <Grid>
+                        <controls:ContentItemListControl
+                            Background="{ThemeResource ThemeBackground}"
+                            ItemTemplate="{StaticResource ImageSmallDataTemplate}"
+                            ItemContainerStyle="{StaticResource MediaTile2x1ListViewItemContainerStyle}"
+                            Items="{x:Bind ViewModel.RecommendedItemsTask.Result, Mode=OneWay}"
+                            ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
+                        <ProgressRing Visibility="{x:Bind ViewModel.RecommendedItemsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" 
+                                      IsActive="{x:Bind ViewModel.RecommendedItemsTask.IsNotCompleted}" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+            <!-- Friends Watched -->
+            <HubSection x:Uid="/MediaAppSample.Core/Resources/hsFriendsWatched" Header="Friends Watched">
+                <DataTemplate x:DataType="viewmodels:QueueViewModel">
+                    <Grid>
+                        <controls:ContentItemListControl
+                            ItemTemplate="{StaticResource ImageSmallDataTemplate}"
+                            ItemContainerStyle="{StaticResource MediaTile2x1ListViewItemContainerStyle}"
+                            Items="{x:Bind ViewModel.FriendsWatchedItemsTask.Result, Mode=OneWay}"
+                            ItemCommand="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" />
+                        <ProgressRing Visibility="{x:Bind ViewModel.FriendsWatchedItemsTask.IsCompleted, Mode=OneWay, Converter={StaticResource visInvertedConverter}}"
+                                      IsActive="{x:Bind ViewModel.FriendsWatchedItemsTask.IsNotCompleted}" />
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+        </Hub>
+
+    </Grid>
+    
+</views:QueueViewBase>

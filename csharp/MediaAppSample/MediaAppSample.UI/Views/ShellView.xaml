@@ -1,0 +1,203 @@
+﻿<!--
+// The MIT License (MIT)
+//
+// Copyright (c) 2016 Microsoft. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+-->
+<views:ShellViewBase
+    x:Class="MediaAppSample.UI.Views.ShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="using:MediaAppSample.UI"
+    xmlns:views="using:MediaAppSample.UI.Views"
+    xmlns:controls="using:MediaAppSample.UI.Controls"
+    xmlns:core="using:MediaAppSample.Core"
+    xmlns:triggers="using:MediaAppSample.UI.Triggers"
+    xmlns:behaviors="using:MediaAppSample.UI.Behaviors"
+    xmlns:models="using:MediaAppSample.Core.Models"
+    xmlns:resources="using:MediaAppSample.UI.Resources"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Interactions="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
+    d:DataContext="{d:DesignInstance designTime:ShellViewModel, IsDesignTimeCreatable=True}"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Common />
+                <resources:TextStyles />
+                <resources:Templates />
+                <resources:ListStyles />
+                <resources:ControlStyles />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="controls:SplitViewButton">
+                <Setter Property="Height" Value="48" />
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="controls:SplitViewButton">
+                            <Grid BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource StandardElementGridLength}"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bgNormal">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bgChecked">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bgNormal">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListMediumBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="bgChecked">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentHighBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="symbol">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="CheckStates">
+                                        <VisualState x:Name="Checked">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="bgNormal">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="bgChecked">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unchecked"/>
+                                        <VisualState x:Name="Indeterminate"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="bgChecked" Grid.ColumnSpan="2" Opacity="0" Fill="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+                                <Rectangle x:Name="bgNormal" Grid.ColumnSpan="2" Opacity="1" />
+                                <SymbolIcon x:Name="symbol" Symbol="{TemplateBinding Symbol}" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,0,0" TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
+        <SplitView x:Name="svMain"
+                   DisplayMode="Overlay"
+                   OpenPaneLength="240"
+                   IsTabStop="False"
+                   IsPaneOpen="{x:Bind ViewModel.IsMenuOpen, Mode=TwoWay}">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbHome" x:Name="btnHome" Content="Home" Symbol="Home" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToHomeCommand}" AutomationProperties.Name="Home" ToolTipService.ToolTip="Home"/>
+                            <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbSearch" x:Name="btnSearch" Content="Search" Symbol="Find" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSearchCommand}" AutomationProperties.Name="Search" ToolTipService.ToolTip="Search"/>
+                            <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbMyQueue" x:Name="btnQueue" Content="My Queue" Symbol="Favorite" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToQueueCommand}" AutomationProperties.Name="My Queue" ToolTipService.ToolTip="My Queue" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}" />
+                            <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbMovies" x:Name="btnMovies" Content="Movies" Symbol="Video" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" CommandParameter="Movie" AutomationProperties.Name="Movies" ToolTipService.ToolTip="Movies"/>
+                            <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbTV" x:Name="btnTV" Content="TV" Symbol="VideoChat" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToDetailsCommand}" CommandParameter="TvSeries"  AutomationProperties.Name="TV" ToolTipService.ToolTip="TV"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <StackPanel Grid.Row="2" BorderBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" BorderThickness="0,2,0,0">
+                        <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbRateApp" Content="Rate Application" Symbol="Like" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToRateAppCommand}" AutomationProperties.Name="Rate Application" ToolTipService.ToolTip="Rate Application"/>
+                        <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbSignIn" Content="Sign in" Symbol="Contact" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToWelcomeCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visInvertedConverter}}" AutomationProperties.Name="Sign in" ToolTipService.ToolTip="Sign in" />
+                        <controls:SplitViewButton GroupName="ShellNav" Symbol="Contact" Command="{x:Bind ViewModel.NavigateToAccountSignoutCommand}" Visibility="{x:Bind ViewModel.IsUserAuthenticated, Mode=OneWay, Converter={StaticResource visConverter}}" AutomationProperties.Name="Sign out" ToolTipService.ToolTip="Sign out">
+                            <StackPanel>
+                                <TextBlock  Foreground="{ThemeResource SystemAccentColorBrush}" Text="{x:Bind ViewModel.WelcomeMessage, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" >Welcome <Run Text="{x:Bind ViewModel.Platform.AuthManager.User.FirstName, Mode=OneWay}" />!</TextBlock>
+                                <TextBlock x:Uid="/MediaAppSample.Core/Resources/tbSignout" Text="Sign out" />
+                            </StackPanel>                           
+                        </controls:SplitViewButton>
+                        <controls:SplitViewButton GroupName="ShellNav" x:Uid="/MediaAppSample.Core/Resources/svbSettings" x:Name="btnSettings" Content="Settings" Symbol="Setting" Command="{x:Bind ViewModel.Platform.Navigation.NavigateToSettingsCommand}" AutomationProperties.Name="Settings" ToolTipService.ToolTip="Settings"/>
+                    </StackPanel>
+                </Grid>
+            </SplitView.Pane>
+
+            <Grid>
+                <ui:ApplicationFrame x:Name="bodyFrame">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <EntranceNavigationTransitionInfo/>
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </ui:ApplicationFrame>
+                <Grid Background="#BB000000"
+                      Visibility="{x:Bind ViewModel.IsMenuOpen, Mode=OneWay, Converter={StaticResource visConverter}}" />
+            </Grid>
+
+        </SplitView>
+        
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Style="{StaticResource TransparentButtonStyle}"
+                Command="{x:Bind ViewModel.ToggleMenuCommand, Mode=OneWay}"
+                Width="{StaticResource StandardElementPixels}" Height="{StaticResource StandardElementPixels}">
+            <FontIcon FontSize="20" Glyph="&#xE700;" Foreground="{ThemeResource ThemeTextForeground}" />
+        </Button>
+        
+    </Grid>
+</views:ShellViewBase>

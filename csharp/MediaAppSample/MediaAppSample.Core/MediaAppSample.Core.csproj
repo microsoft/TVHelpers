@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9A7EBE07-4655-4EEC-B627-F8ADE0EE9953}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MediaAppSample.Core</RootNamespace>
+    <AssemblyName>MediaAppSample.Core</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
+    <PRIResource Include="Strings\en-US\BackgroundTasks.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>BackgroundTasks.cs</LastGenOutput>
+      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\WebBrowser.resw">
+      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>WebBrowser.cs</LastGenOutput>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\Search.resw">
+      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Search.cs</LastGenOutput>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.cs</LastGenOutput>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\Account.resw">
+      <CustomToolNamespace>MediaAppSample.Core.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Account.cs</LastGenOutput>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgentSync.cs" />
+    <Compile Include="Data\ClientApiBase.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\GenericCommand.cs" />
+    <Compile Include="Commands\NavigationCommand.cs" />
+    <Compile Include="Commands\PinTileCommand.cs" />
+    <Compile Include="Commands\ShareCommand.cs" />
+    <Compile Include="Commands\WebBrowserCommand.cs" />
+    <Compile Include="Data\DataSource.cs" />
+    <Compile Include="Data\IDataSource.cs" />
+    <Compile Include="Data\SampleLocalData\SampleLocalDataSource.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\FrameExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\LongExtensions.cs" />
+    <Compile Include="Extensions\PackageVersionExtensions.cs" />
+    <Compile Include="GeneralFunctions.cs" />
+    <Compile Include="Data\MicrosoftApi.cs" />
+    <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\BackgroundTaskRunInfo.cs" />
+    <Compile Include="Models\ClientApiModels.cs" />
+    <Compile Include="Models\ContentItemBase.cs" />
+    <Compile Include="Models\ItemBase.cs" />
+    <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\ModelList.cs" />
+    <Compile Include="Models\MovieModel.cs" />
+    <Compile Include="Models\NotifyTaskCompletion.cs" />
+    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\QueueModel.cs" />
+    <Compile Include="Models\RatingModel.cs" />
+    <Compile Include="Models\ReviewModel.cs" />
+    <Compile Include="Models\SeasonModel.cs" />
+    <Compile Include="Models\TrailerModel.cs" />
+    <Compile Include="Models\TvEpisodeModel.cs" />
+    <Compile Include="Models\TvSeriesModel.cs" />
+    <Compile Include="Models\VoiceCommandInfo.cs" />
+    <Compile Include="Platform.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AnalyticsServiceBase.cs" />
+    <Compile Include="Services\JumpListManager.cs" />
+    <Compile Include="Services\AppInfoProvider.cs" />
+    <Compile Include="Services\AuthorizationManager.cs" />
+    <Compile Include="Services\CryptographyProvider.cs" />
+    <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\NavigationManagerBase.Core.cs" />
+    <Compile Include="Services\NavigationManagerBase.cs" />
+    <Compile Include="Services\NotificationsService.Core.cs" />
+    <Compile Include="Services\NotificationsService.cs" />
+    <Compile Include="Services\PlatformBase.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\RatingsManager.cs" />
+    <Compile Include="Services\SharingManager.cs" />
+    <Compile Include="Services\StorageManager.cs" />
+    <Compile Include="Services\BackgroundTasksManager.cs" />
+    <Compile Include="Services\VoiceCommandManager.cs" />
+    <Compile Include="Serializers.cs" />
+    <Compile Include="Strings\en-US\Account.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Account.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\en-US\BackgroundTasks.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BackgroundTasks.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\en-US\Resources.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\en-US\Search.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\en-US\WebBrowser.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebBrowser.resw</DependentUpon>
+    </Compile>
+    <Compile Include="TypeUtility.cs" />
+    <Compile Include="ViewModels\DebuggingViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AccountForgotViewModel.cs" />
+    <Compile Include="ViewModels\AccountSignInViewModel.cs" />
+    <Compile Include="ViewModels\AccountSignUpViewModel.cs" />
+    <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
+    <Compile Include="ViewModels\QueueViewModel.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\_NewViewModel.cs" />
+    <Compile Include="ViewModels\CollectionViewModelBase.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PrivacyPolicyViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\GeneralSettingsViewModel.cs" />
+    <Compile Include="ViewModels\TermsOfServiceViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Services\WebAccountManager.cs" />
+    <Compile Include="ViewModels\WebBrowserViewModel.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_01.jpg" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_02.jpg" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_03.jpg" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_04.jpg" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_05.jpg" />
+    <Content Include="Data\SampleLocalData\Cast\CastImage_06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image02.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image03.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image04.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image05.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image07.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image08.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image09.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image10.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image11.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image12.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image13.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image14.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image15.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image16.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image17.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image18.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image19.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image20.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image21.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image22.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image23.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image24.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image25.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image26.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image27.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image28.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image29.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image30.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image31.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image32.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image33.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image34.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image35.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image36.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image37.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image38.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image39.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image40.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image41.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image42.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image43.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image44.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image45.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image46.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image47.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image48.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image49.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image50.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image51.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image52.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image53.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image54.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image55.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image56.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image57.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image58.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image59.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image60.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image61.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image01.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image02.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image03.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image04.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image05.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image07.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image08.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image09.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image10.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image11.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image12.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image13.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image14.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image15.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image16.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image17.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image18.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image19.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image20.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image21.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image22.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image23.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image24.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image25.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image26.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image27.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image28.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image29.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image30.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image31.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image32.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image33.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image34.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image35.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image36.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image37.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image38.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image39.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image40.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image41.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image42.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image43.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image44.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image45.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image46.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image47.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image48.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image49.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image50.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image51.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image52.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image53.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image54.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image55.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image56.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image57.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image58.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image59.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image60.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_TV_Image61.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image01.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image02.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image03.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image04.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image05.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image07.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image08.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image09.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image10.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image11.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image12.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image13.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image14.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image15.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image16.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image17.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image18.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image19.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image20.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image21.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image22.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image23.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image24.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image25.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image26.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image27.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image28.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image29.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image30.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image31.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image32.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image33.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image34.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image35.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image36.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image37.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image38.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image39.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image40.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image41.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image42.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image43.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image44.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image45.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image46.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image47.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image48.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image49.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image50.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image51.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image52.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image53.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image54.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image55.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image56.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image57.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image58.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image59.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image60.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Featured_Image61.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image01.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Custom_Movie_Image01.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image02.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image03.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image04.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image05.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image07.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image08.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image09.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image10.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image11.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image12.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image13.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image14.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image15.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image16.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image17.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image18.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image19.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image20.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image21.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image22.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image23.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image24.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image25.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image26.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image27.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image28.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image29.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image30.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image31.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image32.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image33.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image34.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image35.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image36.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image37.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image38.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image39.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image40.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image41.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image42.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image43.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image44.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image45.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image46.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image47.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image48.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image49.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image50.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image51.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image52.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image53.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image54.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image55.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image56.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image57.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image58.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image59.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image60.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Large_Image61.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image01.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image02.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image03.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image04.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image05.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image06.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image07.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image08.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image09.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image10.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image11.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image12.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image13.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image14.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image15.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image16.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image17.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image18.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image19.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image20.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image21.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image22.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image23.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image24.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image25.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image26.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image27.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image28.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image29.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image30.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image31.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image32.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image33.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image34.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image35.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image36.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image37.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image38.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image39.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image40.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image41.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image42.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image43.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image44.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image45.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image46.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image47.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image48.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image49.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image50.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image51.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image52.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image53.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image54.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image55.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image56.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image57.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image58.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image59.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image60.jpg" />
+    <Content Include="Data\SampleLocalData\Images\Thumb_Landscape_Small_Image61.jpg" />
+    <Content Include="Data\SampleLocalData\Videos\wildlife.mp4" />
+    <Content Include="Properties\MediaAppSample.Core.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.10586.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

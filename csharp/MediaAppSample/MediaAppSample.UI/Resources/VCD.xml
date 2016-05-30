@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  
+  <CommandSet xml:lang="en-us" Name="CommandSet_en-us">
+    <AppName> MediaAppSample </AppName>
+    <Example> Show me details of Movie 2 </Example>
+    <Command Name="showTitleDetails">
+      <Example> Show [me] details of Movie 2 </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [me] details of {Titles} </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified"> show [me] {builtin:AppName} details of {Titles} </ListenFor>
+      <Feedback> Showing details of {Titles} </Feedback>
+      <Navigate />
+    </Command>
+    <Command Name="playTitle">
+      <Example> Play Movie 4 </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> {PlayVernacular} [me] {Titles} </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified"> {PlayVernacular} [me] {Titles} [on] {builtin:AppName}</ListenFor>
+      <Feedback> Playing {Titles} </Feedback>
+      <Navigate />
+    </Command>
+    <PhraseList Label="Titles">
+    </PhraseList>
+    <PhraseList Label="PlayVernacular">
+      <Item>play</Item>
+      <Item>watch</Item>
+    </PhraseList>
+  </CommandSet>
+
+</VoiceCommands>
