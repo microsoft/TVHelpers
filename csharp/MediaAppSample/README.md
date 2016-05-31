@@ -11,7 +11,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-#Media App Sample
+#Media App Sample v0.9
 The Media App Sample is a Windows 10 UWP App cross-device sample that demonstrates responsive user experience techniques supporting Desktop, Laptop, Tablet, Phone, and Xbox One.  The sample includes many diferent features in addition to the responsive User Experience such as background tasks, authentication, app rating, and storage management, all integrated into a single Universal Windows App sample.
 
 While the domain of the sample is media, this applicaiton can be used as a basis for your application by simply removing the Views, ViewModels, and sample data to start a new application without losing the rest of the application sample functionality.
