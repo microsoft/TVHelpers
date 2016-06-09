@@ -269,6 +269,7 @@
                     refRect = document.activeElement ? _toIRect(document.activeElement.getBoundingClientRect()) : _defaultRect();
                 }
                 if (top === window && typeof window.departFocus === "function") {
+                    document.activeElement.blur();
                     departFocus(direction, WebViewHelper.refRectToNavigateFocusRect(refRect));
                 }
                 else {
