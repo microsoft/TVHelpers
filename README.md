@@ -8,6 +8,7 @@ ONLY THE SOURCE AND BINARY CODE IS LICENSED UNDER THE MIT LICENSE.  ANY INCLUDED
 TVHelpers is a set of JavaScript and XAML/C# samples and libraries to help you build great Xbox One and TV experiences in JavaScript and C#.  TVJS is a JavaScript library that helps you build premium UWP applications for Xbox One. TVJS includes support for automatic controller navigation, rich media playback, search and more. You can use TVJS with your Hosted Web App just as easily as with a packaged Web UWP App with full access to the Windows Runtime APIs.
 #
 #
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 #
 #The MIT License (MIT)
 #
