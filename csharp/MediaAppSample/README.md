@@ -18,7 +18,8 @@ While the domain of the sample is media, this applicaiton can be used as a basis
 
 #Known Issues
 1. The sample is updated to use Windows 10 Anniversary Edition Insider Preview (10.0; Build 14366).  You can download the latest preview SDK from https://insider.windows.com/ after you sign-in, under the "for developers" section.
-2. There are three known native exceptions that can occur if debugging natively and all C++, win32, and CLR exceptions are enabled:
+2. When you attempt playback, you will be prompted to login with MSA or an account.  Choose "Sign in" and enter anything for username and password.  Currently it kicks you back to the home page---a bug.  However if you navigate back to playback it will play the video.
+3. There are three known native exceptions that can occur if debugging natively and all C++, win32, and CLR exceptions are enabled:
     a. Obtaining user credentials for the first time upon launch, when searching the credential locker a System.Runtime.InteropServices.COMException (0x40080201) excetion is thrown.  (This is expected for the API when credentials are not found)
     b. When loading te Voice Command File, a EETypeLoadException exception is thrown.
     c. Upon app launch, an exception in KernelBase.dll (0x40080201) is thrown.
