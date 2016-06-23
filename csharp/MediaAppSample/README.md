@@ -16,6 +16,11 @@ The Media App Sample is a Windows 10 UWP App cross-device sample that demonstrat
 
 While the domain of the sample is media, this applicaiton can be used as a basis for your application by simply removing the Views, ViewModels, and sample data to start a new application without losing the rest of the application sample functionality.
 
+#Planned Updates
+1. Refine Xbox One support for the latest SDK.
+2. Update playback to take advantage of the new Media client improvments available in Windows 10 Anniversary edition.
+3. Address known issues.
+
 #Known Issues
 1. The sample is updated to use Windows 10 Anniversary Edition Insider Preview (10.0; Build 14366).  You can download the latest preview SDK from https://insider.windows.com/ after you sign-in, under the "for developers" section.
 2. When you attempt playback, you will be prompted to login with MSA or an account.  Choose "Sign in" and enter anything for username and password.  Currently it kicks you back to the home page---a bug.  However if you navigate back to playback it will play the video.
