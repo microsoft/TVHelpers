@@ -17,7 +17,7 @@ The Media App Sample is a Windows 10 UWP App cross-device sample that demonstrat
 While the domain of the sample is media, this applicaiton can be used as a basis for your application by simply removing the Views, ViewModels, and sample data to start a new application without losing the rest of the application sample functionality.
 
 #Known Issues
-1. The sample is still in development for the Xbox One platform.  The preview SDK released at //build does not provide full UWP support.  Plan is to fully support Xbox One once a new SDK with full Xbox One support is available.
+1. The sample is updated to use Windows 10 Anniversary Edition Insider Preview (10.0; Build 14366).  You can download the latest preview SDK from https://insider.windows.com/ after you sign-in, under the "for developers" section.
 2. There are three known native exceptions that can occur if debugging natively and all C++, win32, and CLR exceptions are enabled:
     a. Obtaining user credentials for the first time upon launch, when searching the credential locker a System.Runtime.InteropServices.COMException (0x40080201) excetion is thrown.  (This is expected for the API when credentials are not found)
     b. When loading te Voice Command File, a EETypeLoadException exception is thrown.
