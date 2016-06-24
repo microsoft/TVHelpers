@@ -20,6 +20,8 @@ While the domain of the sample is media, this applicaiton can be used as a basis
 1. Refine Xbox One support for the latest SDK.
 2. Update playback to take advantage of the new Media client improvments available in Windows 10 Anniversary edition.
 3. Address known issues.
+4. Implement multi-user support
+5. Implement protocol activiation
 
 #Known Issues
 1. The sample is updated to use Windows 10 Anniversary Edition Insider Preview (10.0; Build 14366).  You can download the latest preview SDK from https://insider.windows.com/ after you sign-in, under the "for developers" section.
