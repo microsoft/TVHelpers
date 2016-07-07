@@ -58,15 +58,7 @@ namespace WebViewTVjs
         {
             WebViewControl.Navigate(new Uri("ms-appx-web:///html/BasicDirectionalNavigation.html"));
 
-            WebViewControl.Focus(FocusState.Programmatic);
-            
-        }
-
-        public static async Task<string> LoadStringFromPackageFileAsync(string name)
-        {
-            // Using the storage classes to read the content from a file as a string.
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///html/{name}"));
-            return await FileIO.ReadTextAsync(file);
+            WebViewControl.Focus(FocusState.Programmatic);            
         }
     }
 }

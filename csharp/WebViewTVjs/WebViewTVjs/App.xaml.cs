@@ -53,6 +53,11 @@ namespace WebViewTVjs
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
+
+            // Enable Controler.  Make mouse mode optional to when requested on a specific page.
+            // A page with a map control or some other UI that is not controller freindly woud use mouse mode.
+            this.RequiresPointerMode = Windows.UI.Xaml.ApplicationRequiresPointerMode.WhenRequested;
+
             this.Suspending += OnSuspending;
         }
 
