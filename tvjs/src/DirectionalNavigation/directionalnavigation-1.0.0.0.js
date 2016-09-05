@@ -820,7 +820,7 @@
     });
 
     var _initRun = false;
-    var init = function () {
+    var _init = function () {
         if (_initRun) {
             return;
         }
@@ -840,7 +840,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-        init();
+        _init();
     });
 
     var EventMixinEvent = (function () {
@@ -966,7 +966,7 @@
     };
     // Publish to WinJS namespace
     var toPublish = {
-        init: init,
+        init: _init,
         findNextFocusElement: _findNextFocusElement,
         keyCodeMap: _keyCodeMap,
         focusableSelectors: FocusableSelectors,
