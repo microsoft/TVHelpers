@@ -819,7 +819,7 @@
         }
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
+    var init = function () {
         // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
         document.addEventListener("keydown", _handleKeyDownEvent);
         document.addEventListener("keyup", _handleKeyUpEvent);
@@ -832,6 +832,10 @@
             };
             window.parent.postMessage(message, "*");
         }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        init();
     });
 
     var EventMixinEvent = (function () {
@@ -957,6 +961,7 @@
     };
     // Publish to WinJS namespace
     var toPublish = {
+        init: init,
         findNextFocusElement: _findNextFocusElement,
         keyCodeMap: _keyCodeMap,
         focusableSelectors: FocusableSelectors,
