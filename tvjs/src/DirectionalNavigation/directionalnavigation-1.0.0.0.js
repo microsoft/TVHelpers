@@ -819,7 +819,12 @@
         }
     });
 
+    var _initRun = false;
     var init = function () {
+        if (_initRun) {
+            return;
+        }
+        _initRun = true;
         // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
         document.addEventListener("keydown", _handleKeyDownEvent);
         document.addEventListener("keyup", _handleKeyUpEvent);
