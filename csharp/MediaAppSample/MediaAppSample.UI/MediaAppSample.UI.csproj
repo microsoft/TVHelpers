@@ -181,8 +181,8 @@
     <Compile Include="Views\GalleryView.xaml.cs">
       <DependentUpon>GalleryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MediaView.xaml.cs">
-      <DependentUpon>MediaView.xaml</DependentUpon>
+    <Compile Include="Views\MediaViewRs1.xaml.cs">
+      <DependentUpon>MediaViewRs1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QueueView.xaml.cs">
       <DependentUpon>QueueView.xaml</DependentUpon>
@@ -318,9 +318,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MediaView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\MediaViewRs1.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\QueueView.xaml">
       <Generator>MSBuild:Compile</Generator>

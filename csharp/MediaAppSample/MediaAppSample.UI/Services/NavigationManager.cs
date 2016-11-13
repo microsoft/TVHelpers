@@ -272,9 +272,9 @@ namespace MediaAppSample.UI.Services
                 parameter = (parameter as ContentItemBase).ID;
 
             if (this.IsChildFramePresent)
-                this.Frame.Navigate(typeof(MediaView), this.SerializeParameter(parameter));
+                this.Frame.Navigate(typeof(MediaViewRs1), this.SerializeParameter(parameter));
             else
-                this.Home(new NavigationRequest(typeof(MediaView), parameter));
+                this.Home(new NavigationRequest(typeof(MediaViewRs1), parameter));
         }
 
         #endregion

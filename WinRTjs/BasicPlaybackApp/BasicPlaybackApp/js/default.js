@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 #      The MIT License (MIT)
 #
 #      Copyright (c) 2016 Microsoft. All rights reserved.
@@ -32,9 +33,18 @@
             //Try to disable app scaling (150% for a JS app, 200% for a XAML app)
             Windows.UI.ViewManagement.ApplicationViewScaling.trySetDisableLayoutScaling(true);
         }
+        
+        // Create the MediaPlayer
+        var mediaPlayer = new TVJS.MediaPlayer(document.getElementById("mediaPlayer"));
+        mediaPlayer.element.focus();
+
+        // Add a Marker
+        mediaPlayer.addMarker(3, TVJS.MarkerType.chapter, "scene 1", "customMarkerClass");
+        mediaPlayer.addEventListener("markerreached", function (ev) {
+            var markerData = ev.detail.data;
+        });
 
         // Additional setup code here...
     });
 
 })();
-
