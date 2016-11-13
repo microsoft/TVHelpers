@@ -559,7 +559,7 @@
             // Skip disabled WinJS controls
             return false;
         }
-        
+
         var style = window.getComputedStyle(element);
         if (style && tabIndex === -1 || style.display === "none" || style.visibility === "hidden" || element.disabled) {
             // Skip elements that are hidden
@@ -791,7 +791,7 @@
 
     // Receiving departingFocus event in the app as a result of any child webview calling
     // window.departFocus from within the webview. Indicates focus transitioning into the app
-    // from the webview. The navigatingfocus event handles transforming the 
+    // from the webview. The navigatingfocus event handles transforming the
     // coordinate space so we just pass the values along.
     document.addEventListener("departingfocus", function(eventArg) {
         var focusChanged = _xyFocus(
@@ -806,7 +806,7 @@
 
     // Receiving a navigatingfocus event in the webview as a result of the host app calling
     // webview.navigateFocus on our containing webview element indicating focus transitioning
-    // into the webview from the app. The navigatingfocus event handles transforming the 
+    // into the webview from the app. The navigatingfocus event handles transforming the
     // coordinate space so we just pass the values along.
     window.addEventListener("navigatingfocus", function(eventArg) {
         var focusChanged = _xyFocus(
@@ -819,7 +819,12 @@
         }
     });
 
-    document.addEventListener("DOMContentLoaded", function () {
+    var _initRun = false;
+    var _init = function () {
+        if (_initRun) {
+            return;
+        }
+        _initRun = true;
         // Subscribe on bubble phase to allow developers to override XYFocus behaviors for directional keys.
         document.addEventListener("keydown", _handleKeyDownEvent);
         document.addEventListener("keyup", _handleKeyUpEvent);
@@ -832,6 +837,10 @@
             };
             window.parent.postMessage(message, "*");
         }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        _init();
     });
 
     var EventMixinEvent = (function () {
@@ -957,6 +966,7 @@
     };
     // Publish to WinJS namespace
     var toPublish = {
+        init: _init,
         findNextFocusElement: _findNextFocusElement,
         keyCodeMap: _keyCodeMap,
         focusableSelectors: FocusableSelectors,
