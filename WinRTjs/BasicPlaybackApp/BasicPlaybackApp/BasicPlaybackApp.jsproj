@@ -39,6 +39,7 @@
   </ItemGroup>
     <ItemGroup>
     <Content Include="..\..\..\tvjs\src\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>scriptlibrary\tvjs\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Content>
   </ItemGroup>

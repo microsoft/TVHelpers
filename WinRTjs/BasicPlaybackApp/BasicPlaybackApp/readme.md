@@ -27,7 +27,9 @@ THE SOFTWARE.
 This sample uses linked folders to pull in tv.js.  You must download the entire repo to run this sample or edit the project to include tv.js directly.
 #
 #Sample Notes
-This project does not include any third party script libraries.  
+This project does not include any third party script libraries.
+
+When you run the project, select the 'A' button on the Xbox One Controller to view the MediaPlayer Controls.  
 
 
 
