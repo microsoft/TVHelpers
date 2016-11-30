@@ -225,7 +225,7 @@
     <Compile Include="ViewModels\AccountSignInViewModel.cs" />
     <Compile Include="ViewModels\AccountSignUpViewModel.cs" />
     <Compile Include="ViewModels\GalleryViewModel.cs" />
-    <Compile Include="ViewModels\MediaRs1ViewModel.cs" />
+    <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\QueueViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\_NewViewModel.cs" />

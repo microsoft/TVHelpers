@@ -28,13 +28,13 @@ using Windows.UI.Xaml.Navigation;
 namespace MediaAppSample.UI.Views
 {
 
-    public abstract class MediaViewRs1Base : ViewBase<MediaRs1ViewModel>
+    public abstract class MediaViewUpdateBase : ViewBase<MediaRs1ViewModel>
     {
     }
 
-    public sealed partial class MediaViewRs1 : MediaViewRs1Base
+    public sealed partial class MediaViewUpdate : MediaViewUpdateBase
     {
-        public MediaViewRs1()
+        public MediaViewUpdate()
         {
             this.InitializeComponent();
         }

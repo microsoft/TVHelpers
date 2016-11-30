@@ -257,7 +257,7 @@ namespace MediaAppSample.UI
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             e.Handled = Platform.Current.AppUnhandledException(e.Exception);
-        }
+         }
 
         /// <summary>
         /// Invoked when the task schedule sees an exception occur

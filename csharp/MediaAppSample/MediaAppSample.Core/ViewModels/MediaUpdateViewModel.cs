@@ -30,7 +30,7 @@ using System.Linq;
 
 namespace MediaAppSample.Core.ViewModels
 {
-    public partial class MediaRs1ViewModel : ViewModelBase
+    public partial class MediaUpdateViewModel : ViewModelBase
     {
         #region Properties
 
@@ -45,7 +45,7 @@ namespace MediaAppSample.Core.ViewModels
 
         #region Constructors
 
-        public MediaRs1ViewModel()
+        public MediaUpdateViewModel()
         {
             this.Title = "Media";
 
@@ -99,20 +99,20 @@ namespace MediaAppSample.Core.ViewModels
         #endregion Methods
     }
 
-    public partial class MediaRs1ViewModel
+    public partial class MediaUpdateViewModel
     {
         /// <summary>
         /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
         /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
         [Newtonsoft.Json.JsonIgnore()]
         [System.Runtime.Serialization.IgnoreDataMember()]
-        public MediaRs1ViewModel ViewModel { get { return this; } }
+        public MediaUpdateViewModel ViewModel { get { return this; } }
     }
 }
 
 namespace MediaAppSample.Core.ViewModels.Designer
 {
-    public sealed class MediaRs1ViewModel : MediaAppSample.Core.ViewModels.MediaRs1ViewModel
+    public sealed class MediaRs1ViewModel : MediaAppSample.Core.ViewModels.MediaUpdateViewModel
     {
         public MediaRs1ViewModel()
         {

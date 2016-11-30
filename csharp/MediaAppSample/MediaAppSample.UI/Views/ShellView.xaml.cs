@@ -110,7 +110,7 @@ namespace MediaAppSample.UI.Views
             {
                 //btnMovies.IsChecked = true;
             }
-            else if (view is MainView || view is DetailsView || view is MediaViewRs1)
+            else if (view is MainView || view is DetailsView || view is MediaView)
                 btnHome.IsChecked = true;
         }
 
