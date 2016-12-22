@@ -11466,6 +11466,17 @@ define('base',[
 
         require(['TVJS/Core/_TVJS', 'base'], function (_TVJS) {
             // TVJS always publishes itself to global
+            if (window.TVJS) {
+                if (!_TVJS.DirectionalNavigation && window.TVJS.DirectionalNavigation) {
+                    _TVJS.DirectionalNavigation = window.TVJS.DirectionalNavigation;
+                }
+                if (!_TVJS.SearchBox && window.TVJS.SearchBox) {
+                    _TVJS.SearchBox = window.TVJS.SearchBox;
+                }
+                if (!_TVJS.ScrollViewer && window.TVJS.ScrollViewer) {
+                    _TVJS.ScrollViewer = window.TVJS.ScrollViewer;
+                }
+            }
             globalObject.TVJS = _TVJS;
             if (typeof module !== 'undefined') {
                 // This is a CommonJS context so publish to exports
@@ -15077,6 +15088,17 @@ define('ui',[
 
         require(['TVJS/Core/_TVJS', 'ui'], function (_TVJS) {
             // TVJS always publishes itself to global
+            if (window.TVJS) {
+                if (!_TVJS.DirectionalNavigation && window.TVJS.DirectionalNavigation) {
+                    _TVJS.DirectionalNavigation = window.TVJS.DirectionalNavigation;
+                }
+                if (!_TVJS.SearchBox && window.TVJS.SearchBox) {
+                    _TVJS.SearchBox = window.TVJS.SearchBox;
+                }
+                if (!_TVJS.ScrollViewer && window.TVJS.ScrollViewer) {
+                    _TVJS.ScrollViewer = window.TVJS.ScrollViewer;
+                }
+            }
             globalObject.TVJS = _TVJS;
             if (typeof module !== 'undefined') {
                 // This is a CommonJS context so publish to exports
