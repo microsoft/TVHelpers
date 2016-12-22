@@ -21250,7 +21250,7 @@ define('TVJS/Controls/MediaPlayer', [
                     if (this._errorFlyout) {
                         this._errorFlyout.removeEventListener("beforeshow", this._handleFlyoutOpenCallbackBind);
                         this._errorFlyout.removeEventListener("afterhide", this._handleFlyoutCloseCallbackBind);
-                        _Global.document.body.removeChild(this._errorFlyout);
+                        _Global.document.body.removeChild(this._errorFlyout.element);
                         this._errorFlyout.dispose();
                     }
                     if (this._playbackRateFlyout) {
