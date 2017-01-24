@@ -142,7 +142,7 @@
         assert.notOk(scrollViewer._isActive());
         scrollViewer.element.parentNode.removeChild(scrollViewer.element);
     });
-    QUnit.test("When ScrollViewer is in active mode and move left to focusable left element, then ScrollViewer is not in active mode", function (assert) {
+    QUnit.test("When ScrollViewer is in active mode and move left to focusable left element, then ScrollViewer is in active mode", function (assert) {
         var rootContainer = document.createElement("div");
         var scrollViewerElement = document.createElement("div");
         var rightFocus = document.createElement("button");
@@ -158,10 +158,10 @@
         scrollViewer._handleKeyDown({
             keyCode: _KEY_GAMEPAD_DPAD_LEFT
         });
-        assert.notOk(scrollViewer._isActive());
+        assert.ok(scrollViewer._isActive());
         rootContainer.parentNode.removeChild(rootContainer);
     });
-    QUnit.test("When ScrollViewer is in active mode and move right to focusable left element, then ScrollViewer is not in active mode", function (assert) {
+    QUnit.test("When ScrollViewer is in active mode and move right to focusable left element, then ScrollViewer is in active mode", function (assert) {
         var rootContainer = document.createElement("div");
         var scrollViewerElement = document.createElement("div");
         var rightFocus = document.createElement("button");
@@ -177,7 +177,7 @@
         scrollViewer._handleKeyDown({
             keyCode: _KEY_GAMEPAD_DPAD_RIGHT
         });
-        assert.notOk(scrollViewer._isActive());
+        assert.ok(scrollViewer._isActive());
         rootContainer.parentNode.removeChild(rootContainer);
     });
 })();
