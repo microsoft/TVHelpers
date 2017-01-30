@@ -1,4 +1,4 @@
-﻿// #      The MIT License (MIT)
+// #      The MIT License (MIT)
 // #
 // #      Copyright (c) 2016 Microsoft. All rights reserved.
 // #
@@ -28,6 +28,8 @@
     _GAMEPAD_DPAD_DOWN_BUTTON_INDEX = 13,
     _GAMEPAD_DPAD_LEFT_BUTTON_INDEX = 14,
     _GAMEPAD_DPAD_RIGHT_BUTTON_INDEX = 15,
+    _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX = 4,
+    _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX = 5,
     _GAMEPAD_A_KEY = "GamepadA",
     _GAMEPAD_B_KEY = "GamepadB",
     _GAMEPAD_DPAD_UP_KEY = "GamepadDPadUp",
@@ -38,12 +40,16 @@
     _GAMEPAD_LEFT_THUMBSTICK_DOWN_KEY = "GamepadLeftThumbStickDown",
     _GAMEPAD_LEFT_THUMBSTICK_LEFT_KEY = "GamepadLeftThumbStickLeft",
     _GAMEPAD_LEFT_THUMBSTICK_RIGHT_KEY = "GamepadLeftThumbStickRight",
+    _GAMEPAD_LEFT_SHOULDER_KEY = "GamepadLeftShoulder",
+    _GAMEPAD_RIGHT_SHOULDER_KEY = "GamepadRightShoulder",
     _GAMEPAD_A_KEYCODE = 195,
     _GAMEPAD_B_KEYCODE = 196,
     _GAMEPAD_DPAD_UP_KEYCODE = 203,
     _GAMEPAD_DPAD_DOWN_KEYCODE = 204,
     _GAMEPAD_DPAD_LEFT_KEYCODE = 205,
     _GAMEPAD_DPAD_RIGHT_KEYCODE = 206,
+    _GAMEPAD_SHOULDER_LEFT_KEYCODE = 207,
+    _GAMEPAD_SHOULDER_RIGHT_KEYCODE = 208,
     _GAMEPAD_LEFT_THUMBSTICK_UP_KEYCODE = 211,
     _GAMEPAD_LEFT_THUMBSTICK_DOWN_KEYCODE = 212,
     _GAMEPAD_LEFT_THUMBSTICK_LEFT_KEYCODE = 214,
@@ -59,7 +65,9 @@
     _dPadLeftPressed = false,
     _dPadRightPressed = false,
     _gamepadAPressed = false,
-    _gamepadBPressed = false;
+    _gamepadBPressed = false,
+    _shoulderLeftPressed = false,
+    _shoulderRightPressed = false;
 
     // The set of buttons on the gamepad we listen for.
     var ProcessedButtons = [
@@ -68,7 +76,9 @@
         _GAMEPAD_DPAD_LEFT_BUTTON_INDEX,
         _GAMEPAD_DPAD_RIGHT_BUTTON_INDEX,
         _GAMEPAD_A_BUTTON_INDEX,
-        _GAMEPAD_B_BUTTON_INDEX
+        _GAMEPAD_B_BUTTON_INDEX,
+        _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX,
+        _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX
     ];
 
     var _ButtonPressedState = {};
@@ -182,6 +192,28 @@
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(_ButtonPressedState, "shoulderLeft", {
+        get: function () {
+            return _shoulderLeftPressed;
+        },
+        set: function (newPressedState) {
+            raiseKeyEvent(_shoulderLeftPressed, newPressedState, _GAMEPAD_LEFT_SHOULDER_KEY, _GAMEPAD_SHOULDER_LEFT_KEYCODE);
+            _shoulderLeftPressed = newPressedState;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ButtonPressedState, "shoulderRight", {
+        get: function () {
+            return _shoulderRightPressed;
+        },
+        set: function (newPressedState) {
+            raiseKeyEvent(_shoulderRightPressed, newPressedState, _GAMEPAD_RIGHT_SHOULDER_KEY, _GAMEPAD_SHOULDER_RIGHT_KEYCODE);
+            _shoulderRightPressed = newPressedState;
+        },
+        enumerable: true,
+        configurable: true
+    });
 
     function raiseEvent(name, key, keyCode) {
         var event = document.createEvent('Event');
@@ -195,6 +227,7 @@
         // No-op if oldPressedState === newPressedState
         if (newPressedState === true &&
             oldPressedState === false) { // button down
+                console.log(key, keyCode)
             raiseEvent("keydown", key, keyCode);
         } else if (newPressedState === false &&
             oldPressedState === true) { // button up
@@ -251,6 +284,12 @@
                                 case _GAMEPAD_B_BUTTON_INDEX:
                                     _ButtonPressedState.gamepadB = true;
                                     break;
+                                case _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX:
+                                    _ButtonPressedState.shoulderLeft = true;
+                                    break;
+                                case _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX:
+                                    _ButtonPressedState.shoulderRight = true;
+                                    break;
                                 default:
                                     // No-op
                                     break;
@@ -285,6 +324,16 @@
                                 case _GAMEPAD_B_BUTTON_INDEX:
                                     if (_ButtonPressedState.gamepadB) {
                                         _ButtonPressedState.gamepadB = false;
+                                    }
+                                    break;
+                                case _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX:
+                                    if (_ButtonPressedState.shoulderLeft) {
+                                        _ButtonPressedState.shoulderLeft = false;
+                                    }
+                                    break;
+                                case _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX:
+                                    if (_ButtonPressedState.shoulderRight) {
+                                        _ButtonPressedState.shoulderRight = false;
                                     }
                                     break;
                                 default:
