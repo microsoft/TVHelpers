@@ -28,8 +28,8 @@
     _GAMEPAD_DPAD_DOWN_BUTTON_INDEX = 13,
     _GAMEPAD_DPAD_LEFT_BUTTON_INDEX = 14,
     _GAMEPAD_DPAD_RIGHT_BUTTON_INDEX = 15,
-    _GAMEPAD_SHOULDER_LEFT_BUTTON_INDEX = 4,
-    _GAMEPAD_SHOULDER_RIGHT_BUTTON_INDEX = 5,
+    _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX = 4,
+    _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX = 5,
     _GAMEPAD_A_KEY = "GamepadA",
     _GAMEPAD_B_KEY = "GamepadB",
     _GAMEPAD_DPAD_UP_KEY = "GamepadDPadUp",
@@ -40,8 +40,8 @@
     _GAMEPAD_LEFT_THUMBSTICK_DOWN_KEY = "GamepadLeftThumbStickDown",
     _GAMEPAD_LEFT_THUMBSTICK_LEFT_KEY = "GamepadLeftThumbStickLeft",
     _GAMEPAD_LEFT_THUMBSTICK_RIGHT_KEY = "GamepadLeftThumbStickRight",
-    _GAMEPAD_SHOULDER_LEFT_KEY = "GamepadShoulderLeft",
-    _GAMEPAD_SHOULDER_RIGHT_KEY = "GamepadShoulderRight",
+    _GAMEPAD_LEFT_SHOULDER_KEY = "GamepadLeftShoulder",
+    _GAMEPAD_RIGHT_SHOULDER_KEY = "GamepadRightShoulder",
     _GAMEPAD_A_KEYCODE = 195,
     _GAMEPAD_B_KEYCODE = 196,
     _GAMEPAD_DPAD_UP_KEYCODE = 203,
@@ -77,8 +77,8 @@
         _GAMEPAD_DPAD_RIGHT_BUTTON_INDEX,
         _GAMEPAD_A_BUTTON_INDEX,
         _GAMEPAD_B_BUTTON_INDEX,
-        _GAMEPAD_SHOULDER_LEFT_BUTTON_INDEX,
-        _GAMEPAD_SHOULDER_RIGHT_BUTTON_INDEX
+        _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX,
+        _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX
     ];
 
     var _ButtonPressedState = {};
@@ -197,7 +197,7 @@
             return _shoulderLeftPressed;
         },
         set: function (newPressedState) {
-            raiseKeyEvent(_shoulderLeftPressed, newPressedState, _GAMEPAD_SHOULDER_LEFT_KEY, _GAMEPAD_SHOULDER_LEFT_KEYCODE);
+            raiseKeyEvent(_shoulderLeftPressed, newPressedState, _GAMEPAD_LEFT_SHOULDER_KEY, _GAMEPAD_SHOULDER_LEFT_KEYCODE);
             _shoulderLeftPressed = newPressedState;
         },
         enumerable: true,
@@ -208,7 +208,7 @@
             return _shoulderRightPressed;
         },
         set: function (newPressedState) {
-            raiseKeyEvent(_shoulderRightPressed, newPressedState, _GAMEPAD_SHOULDER_RIGHT_KEY, _GAMEPAD_SHOULDER_RIGHT_KEYCODE);
+            raiseKeyEvent(_shoulderRightPressed, newPressedState, _GAMEPAD_RIGHT_SHOULDER_KEY, _GAMEPAD_SHOULDER_RIGHT_KEYCODE);
             _shoulderRightPressed = newPressedState;
         },
         enumerable: true,
@@ -284,10 +284,10 @@
                                 case _GAMEPAD_B_BUTTON_INDEX:
                                     _ButtonPressedState.gamepadB = true;
                                     break;
-                                case _GAMEPAD_SHOULDER_LEFT_BUTTON_INDEX:
+                                case _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX:
                                     _ButtonPressedState.shoulderLeft = true;
                                     break;
-                                case _GAMEPAD_SHOULDER_RIGHT_BUTTON_INDEX:
+                                case _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX:
                                     _ButtonPressedState.shoulderRight = true;
                                     break;
                                 default:
@@ -326,12 +326,12 @@
                                         _ButtonPressedState.gamepadB = false;
                                     }
                                     break;
-                                case _GAMEPAD_SHOULDER_LEFT_BUTTON_INDEX:
+                                case _GAMEPAD_LEFT_SHOULDER_BUTTON_INDEX:
                                     if (_ButtonPressedState.shoulderLeft) {
                                         _ButtonPressedState.shoulderLeft = false;
                                     }
                                     break;
-                                case _GAMEPAD_SHOULDER_RIGHT_BUTTON_INDEX:
+                                case _GAMEPAD_RIGHT_SHOULDER_BUTTON_INDEX:
                                     if (_ButtonPressedState.shoulderRight) {
                                         _ButtonPressedState.shoulderRight = false;
                                     }
