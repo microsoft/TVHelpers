@@ -434,8 +434,8 @@
             }
             // Note: We remove the classes in order so we can avoid labels flashing  
             if (!this._canScrollUp && !this._canScrollDown) {
-                _this._scrollingIndicatorElement.classList.remove("tv-scrollable-down");
-                _this._scrollingIndicatorElement.classList.remove("tv-scrollable-up");
+                this._scrollingIndicatorElement.classList.remove("tv-scrollable-down");
+                this._scrollingIndicatorElement.classList.remove("tv-scrollable-up");
             } else if (!this._canScrollUp && this._canScrollDown) {
                 this._scrollingIndicatorElement.classList.remove("tv-scrollable-up");
                 this._scrollingIndicatorElement.classList.add("tv-scrollable-down");
