@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -11,9 +11,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -301,20 +301,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.native.System.IO.Compression/4.1.0": {
@@ -2078,7 +2078,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -2086,9 +2086,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -2324,20 +2324,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.any.System.Collections/4.0.11": {
@@ -4233,7 +4233,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -4241,9 +4241,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -4480,20 +4480,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -6427,7 +6427,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -6435,9 +6435,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -6677,20 +6677,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.any.System.Collections/4.0.11": {
@@ -8591,7 +8591,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -8599,9 +8599,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -8842,20 +8842,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -10794,7 +10794,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -10802,9 +10802,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -11044,20 +11044,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.any.System.Collections/4.0.11": {
@@ -12958,7 +12958,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "HockeySDK.Core/4.1.5": {
+      "HockeySDK.Core/4.1.6": {
         "compile": {
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         },
@@ -12966,9 +12966,9 @@
           "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll": {}
         }
       },
-      "HockeySDK.UWP/4.1.5": {
+      "HockeySDK.UWP/4.1.6": {
         "dependencies": {
-          "HockeySDK.Core": "4.1.5"
+          "HockeySDK.Core": "4.1.6"
         },
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -13209,20 +13209,20 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "Newtonsoft.Json/8.0.3": {
+      "Newtonsoft.Json/9.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "NotificationsExtensions.Win10/14332.0.0": {
+      "NotificationsExtensions.Win10/14332.0.2": {
         "compile": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         },
         "runtime": {
-          "lib/uap10.0/NotificationsExtensions.winmd": {}
+          "lib/uap10.0/NotificationsExtensions.Win10.dll": {}
         }
       },
       "runtime.aot.System.Collections/4.0.10": {
@@ -15162,12 +15162,12 @@
     }
   },
   "libraries": {
-    "HockeySDK.Core/4.1.5": {
-      "sha512": "jwoz5oEmPuje2cBaylsP1aZhE82/y6F1sOGBH2uaPeK9DsqAaFrb7UrB6WtuQ0QTpALPDsJesThlRh1G0cAcYQ==",
+    "HockeySDK.Core/4.1.6": {
+      "sha512": "zpK17DihA+mUBYjoKX8gotGQaMQP7LkWdKp9c0J6qUD7AKlJWRMe/AYuuOqDSKDbmbP+a2tmMBrEdB/kN7rgtw==",
       "type": "package",
-      "path": "HockeySDK.Core/4.1.5",
+      "path": "HockeySDK.Core/4.1.6",
       "files": [
-        "HockeySDK.Core.4.1.5.nupkg.sha512",
+        "HockeySDK.Core.4.1.6.nupkg.sha512",
         "HockeySDK.Core.nuspec",
         "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll",
         "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.Core45.dll.CodeAnalysisLog.xml",
@@ -15175,12 +15175,12 @@
         "lib/portable-net45+win8+wp8+wpa81+win81+uap10.0/Microsoft.HockeyApp.XML"
       ]
     },
-    "HockeySDK.UWP/4.1.5": {
-      "sha512": "Vd5gNxe2LeMuwQcObzXhdY09bDpKESqI7Ewr5w4Z9GoPDg4WCK2fQW/zViTCtPtp1ndP3RoMPxRmkOZIIHm+fg==",
+    "HockeySDK.UWP/4.1.6": {
+      "sha512": "tpJIPvbfHIYETysg+XJq+TZxnBuphk/ObrJGLwYkJxhiSO/8C3iH2pWiPkNQYT8sjEKCsq0uyAJ85UZsKof0yQ==",
       "type": "package",
-      "path": "HockeySDK.UWP/4.1.5",
+      "path": "HockeySDK.UWP/4.1.6",
       "files": [
-        "HockeySDK.UWP.4.1.5.nupkg.sha512",
+        "HockeySDK.UWP.4.1.6.nupkg.sha512",
         "HockeySDK.UWP.nuspec",
         "lib/uap10.0/Microsoft.HockeyApp.Kit.dll",
         "lib/uap10.0/Microsoft.HockeyApp.Kit.dll.CodeAnalysisLog.xml",
@@ -15509,12 +15509,12 @@
         "lib/uap10.0/Microsoft.Xaml.Interactivity.xml"
       ]
     },
-    "Newtonsoft.Json/8.0.3": {
-      "sha512": "KGsYQdS2zLH+H8x2cZaSI7e+YZ4SFIbyy1YJQYl6GYBWjf5o4H1A68nxyq+WTyVSOJQ4GqS/DiPE+UseUizgMg==",
+    "Newtonsoft.Json/9.0.1": {
+      "sha512": "U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
       "type": "package",
-      "path": "Newtonsoft.Json/8.0.3",
+      "path": "Newtonsoft.Json/9.0.1",
       "files": [
-        "Newtonsoft.Json.8.0.3.nupkg.sha512",
+        "Newtonsoft.Json.9.0.1.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -15524,31 +15524,37 @@
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
         "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
-        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
       ]
     },
-    "NotificationsExtensions.Win10/14332.0.0": {
-      "sha512": "CIzo4poYFVeHmF+O1RSwytqUgU49DOq8QIWcaTWyDgmrEkw2qRyXR7k2LzxybicrCaNlTQuCNMJ+mjNbACrWnA==",
+    "NotificationsExtensions.Win10/14332.0.2": {
+      "sha512": "UN5yNMpYIs06ULFSGkNYINN/ZtqK19wt3IbotUvH7rlGPVOcbvNvM2Jzxs9wZAolX97L5/Y4u+6twFP0oeXk2A==",
       "type": "package",
-      "path": "NotificationsExtensions.Win10/14332.0.0",
+      "path": "NotificationsExtensions.Win10/14332.0.2",
       "files": [
-        "NotificationsExtensions.Win10.14332.0.0.nupkg.sha512",
+        "NotificationsExtensions.Win10.14332.0.2.nupkg.sha512",
         "NotificationsExtensions.Win10.nuspec",
-        "lib/dotnet/NotificationsExtensions.Win10.NETCore.XML",
-        "lib/dotnet/NotificationsExtensions.Win10.NETCore.dll",
-        "lib/dotnet/NotificationsExtensions.Win10.NETCore.pdb",
-        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.Portable.XML",
-        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.Portable.dll",
-        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.Portable.pdb",
-        "lib/uap10.0/NotificationsExtensions.pdb",
-        "lib/uap10.0/NotificationsExtensions.pri",
-        "lib/uap10.0/NotificationsExtensions.winmd",
-        "lib/uap10.0/NotificationsExtensions.winmd.xml",
-        "lib/uap10.0/NotificationsExtensions.xml"
+        "build/native/NotificationsExtensions.Win10.targets",
+        "lib/dotnet/NotificationsExtensions.Win10.dll",
+        "lib/dotnet/NotificationsExtensions.Win10.pdb",
+        "lib/dotnet/NotificationsExtensions.Win10.xml",
+        "lib/native/NotificationsExtensions.pdb",
+        "lib/native/NotificationsExtensions.pri",
+        "lib/native/NotificationsExtensions.winmd",
+        "lib/native/NotificationsExtensions.winmd.xml",
+        "lib/native/NotificationsExtensions.xml",
+        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.dll",
+        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.pdb",
+        "lib/portable-net45+sl50+win+wpa81+wp80/NotificationsExtensions.Win10.xml",
+        "lib/uap10.0/NotificationsExtensions.Win10.XML",
+        "lib/uap10.0/NotificationsExtensions.Win10.dll",
+        "lib/uap10.0/NotificationsExtensions.Win10.pdb"
       ]
     },
     "runtime.any.System.Collections/4.0.11": {
@@ -21418,7 +21424,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "HockeySDK.UWP >= 4.1.5",
+      "HockeySDK.UWP >= 4.1.6",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.2.2",
       "Microsoft.Xaml.Behaviors.Uwp.Managed >= 2.0.0"
     ],
