@@ -60,5 +60,11 @@ namespace WebViewTVjs
 
             WebViewControl.Focus(FocusState.Programmatic);            
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame?.Navigate(typeof(WebViewNav), e);
+        }
     }
 }
