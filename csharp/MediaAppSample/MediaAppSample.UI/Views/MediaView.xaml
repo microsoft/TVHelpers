@@ -34,7 +34,6 @@
     xmlns:resources="using:MediaAppSample.UI.Resources"
     xmlns:designTime="using:MediaAppSample.Core.ViewModels.Designer"
     
-    
     d:DataContext="{d:DesignInstance designTime:MediaViewModel , IsDesignTimeCreatable=True}"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -54,7 +53,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <MediaPlayerElement x:Name="MediaElement" 
-                Source="{x:Bind mediacore:MediaSource.CreateFromUri(ViewModel.Item.MediaUrl)}" 
+                Source="{x:Bind mediacore:MediaSource.CreateFromUri(ViewModel.Item.MediaUrl)}"
                 AreTransportControlsEnabled="True" 
                 AutoPlay="True">
             <interactivity:Interaction.Behaviors>
