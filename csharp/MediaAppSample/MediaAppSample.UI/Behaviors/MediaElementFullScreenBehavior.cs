@@ -29,7 +29,7 @@ namespace MediaAppSample.UI.Behaviors
     /// <summary>
     /// Enables a control to execute its associated command when an enter key press is detected within the control.
     /// </summary>
-    public class MediaElementFullScreenBehavior : Behavior<MediaElement>
+    public class MediaElementFullScreenBehavior : Behavior<MediaPlayerElement>
     {
         protected override void OnAttached()
         {
