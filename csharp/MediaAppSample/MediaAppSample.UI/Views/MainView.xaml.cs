@@ -38,6 +38,20 @@ namespace MediaAppSample.UI.Views
         public MainView()
         {
             this.InitializeComponent();
+
+            //Turn off Title Safe Area overscan adjustment
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationViewBoundsMode") && Platform.DeviceFamily == DeviceFamily.Xbox)
+            {
+                var AppView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+                AppView.SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
+            }
+
+            //Turn of scaling, if app is not designed at 540p (Xbox One default scaling is 200% for XAML, 150% for Web Programming model apps)
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                    "Windows.UI.ViewManagement.ApplicationViewScaling"))
+            {
+                Windows.UI.ViewManagement.ApplicationViewScaling.TrySetDisableLayoutScaling(true);
+            }
         }
 
         protected override Task OnLoadStateAsync(LoadStateEventArgs e)
