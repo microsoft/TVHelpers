@@ -51,8 +51,8 @@ namespace MediaAppSample.Core.Models
             private set { this.SetProperty(ref _Subtitle, value); }
         }
 
-        private string _MediaUrl;
-        public string MediaUrl
+        private Uri _MediaUrl;
+        public Uri MediaUrl
         {
             get { return _MediaUrl; }
             set { this.SetProperty(ref _MediaUrl, value); }

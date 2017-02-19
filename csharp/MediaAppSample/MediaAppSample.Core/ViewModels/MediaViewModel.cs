@@ -99,14 +99,14 @@ namespace MediaAppSample.Core.ViewModels
         #endregion Methods
     }
 
-    public partial class MediaViewModel
+    public partial class MediaUpdateViewModel
     {
         /// <summary>
         /// Self-reference back to this ViewModel. Used for designtime datacontext on pages to reference itself with the same "ViewModel" accessor used 
         /// by x:Bind and it's ViewModel property accessor on the View class. This allows you to do find-replace on views for 'Binding' to 'x:Bind'.
         [Newtonsoft.Json.JsonIgnore()]
         [System.Runtime.Serialization.IgnoreDataMember()]
-        public MediaViewModel ViewModel { get { return this; } }
+        public MediaUpdateViewModel ViewModel { get { return this; } }
     }
 }
 
