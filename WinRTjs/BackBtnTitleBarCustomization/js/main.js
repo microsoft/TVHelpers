@@ -41,18 +41,18 @@
 
         if (applicationView !== null) {
             var customColors = {
-                backgroundColor: { a: 255, r: 54, g: 60, b: 116 },
-                foregroundColor: { a: 255, r: 232, g: 211, b: 162 },
-                buttonBackgroundColor: { a: 255, r: 54, g: 60, b: 116 },
-                buttonForegroundColor: { a: 255, r: 232, g: 211, b: 162 },
+                backgroundColor: { a: 255, r: 24, g: 60, b: 216 },
+                foregroundColor: { a: 255, r: 132, g: 211, b: 162 },
+                buttonBackgroundColor: { a: 255, r: 24, g: 60, b: 216 },
+                buttonForegroundColor: { a: 255, r: 132, g: 211, b: 162 },
                 buttonHoverBackgroundColor: { a: 255, r: 19, g: 21, b: 40 },
                 buttonHoverForegroundColor: { a: 255, r: 255, g: 255, b: 255 },
-                buttonPressedBackgroundColor: { a: 255, r: 232, g: 211, b: 162 },
-                buttonPressedForegroundColor: { a: 255, r: 54, g: 60, b: 116 },
+                buttonPressedBackgroundColor: { a: 255, r: 132, g: 211, b: 162 },
+                buttonPressedForegroundColor: { a: 255, r: 24, g: 60, b: 216 },
                 inactiveBackgroundColor: { a: 255, r: 135, g: 141, b: 199 },
-                inactiveForegroundColor: { a: 255, r: 232, g: 211, b: 162 },
+                inactiveForegroundColor: { a: 255, r: 132, g: 211, b: 162 },
                 buttonInactiveBackgroundColor: { a: 255, r: 135, g: 141, b: 199 },
-                buttonInactiveForegroundColor: { a: 255, r: 232, g: 211, b: 162 },
+                buttonInactiveForegroundColor: { a: 255, r: 132, g: 211, b: 162 },
             };
 
             var titleBar = applicationView.getForCurrentView().titleBar;
