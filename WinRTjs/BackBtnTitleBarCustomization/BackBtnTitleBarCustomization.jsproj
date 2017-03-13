@@ -69,6 +69,7 @@
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\main.js" />
     <Content Include="css\default.css" />
+    <Content Include="readme.md" />
     <None Include="BackBtnTitleBarCustomization_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
